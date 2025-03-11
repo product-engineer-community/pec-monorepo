@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pec/shared": "workspace:*",
+    "@pec/supabase": "workspace:*",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.1",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.1",
     "@tanstack/react-query": "^5.66.0",
     "@tosspayments/tosspayments-sdk": "^2.2.4",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "geist": "^1.2.1",
     "lucide-react": "^0.471.0",
@@ -31,8 +33,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@pec/supabase": "workspace:*",
-    "@pec/shared": "workspace:*",
     "@types/node": "20.11.5",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",

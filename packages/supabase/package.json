@@ -9,6 +9,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@pec/shared": "workspace:*",
     "@supabase/supabase-js": "^2.39.8",
     "@supabase/ssr": "^0.0.10"
   },

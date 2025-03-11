@@ -27,6 +27,7 @@
       "@/entities/*": ["./src/entities/*"],
       "@/features/*": ["./src/features/*"],
       "@/widgets/*": ["./src/widgets/*"],
+      "@/lib/*": ["./src/lib/*"],
       "@/shared/*": ["./src/shared/*"]
     }
   },
