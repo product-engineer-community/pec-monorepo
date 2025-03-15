@@ -10,7 +10,6 @@ import {
 import { ChevronDown, Menu } from "lucide-react";
 
 const MENU_ITEMS = [
-  { label: "Explore", href: "/explore" },
   {
     label: "Community",
     href: "/community",
