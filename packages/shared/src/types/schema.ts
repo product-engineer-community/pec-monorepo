@@ -35,6 +35,7 @@ const basePostSchema = {
   updated_at: z.string().datetime(),
   likes_count: z.number().default(0),
   comments_count: z.number().default(0),
+  views_count: z.number().default(0),
 };
 
 // Post Schema
