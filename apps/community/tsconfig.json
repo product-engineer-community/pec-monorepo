@@ -28,7 +28,8 @@
       "@/features/*": ["./src/features/*"],
       "@/widgets/*": ["./src/widgets/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/shared/*": ["./src/shared/*"]
+      "@/shared/*": ["./src/shared/*"],
+      "@ui/*": ["../../packages/ui/src/*"]
     }
   },
   "include": [

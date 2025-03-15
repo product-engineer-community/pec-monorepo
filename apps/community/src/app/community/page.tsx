@@ -1,4 +1,4 @@
-import { Text } from "@/shared/ui/text";
+import { Text } from "@pec/shared";
 
 export default function CommunityPage() {
   return (

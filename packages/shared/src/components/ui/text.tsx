@@ -1,6 +1,6 @@
 import { HTMLAttributes, forwardRef } from "react";
 import { VariantProps, cva } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const textVariants = cva("text-foreground", {
   variants: {
@@ -48,7 +48,9 @@ const Text = forwardRef<HTMLParagraphElement, TextProps>(
   ({ className, variant, size, weight, align, ...props }, ref) => {
     return (
       <p
-        className={cn(textVariants({ variant, size, weight, align, className }))}
+        className={cn(
+          textVariants({ variant, size, weight, align, className })
+        )}
         ref={ref}
         {...props}
       />

@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { Button } from "@/shared/ui/button";
-import { Text } from "@/shared/ui/text";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+  DropdownMenuSeparator,
+  Button, Text
+} from "@pec/shared";
+import { ChevronDown, Menu } from "lucide-react";
 
 const MENU_ITEMS = [
   { label: "Explore", href: "/explore" },
@@ -63,32 +63,61 @@ export function Header() {
           )}
         </nav>
 
-        {/* 모바일 메뉴 버튼 */}
-        <button className="mr-2 inline-flex items-center justify-center rounded-md p-2.5 text-muted-foreground hover:bg-accent hover:text-foreground md:hidden">
-          <span className="sr-only">메뉴 열기</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
-
         {/* 로그인 버튼 */}
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" className="hidden md:inline-flex">
-            로그인
+        <div className="hidden items-center gap-2 md:flex">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/auth/signin">로그인</Link>
           </Button>
-          <Button size="sm">회원가입</Button>
+          <Button size="sm" asChild>
+            <Link href="/auth/signup">회원가입</Link>
+          </Button>
         </div>
+
+        {/* 모바일 메뉴 */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="ml-auto md:hidden"
+              aria-label="메뉴 열기"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-[200px]">
+            {MENU_ITEMS.map((item) =>
+              "items" in item ? (
+                <DropdownMenu key={item.href}>
+                  <DropdownMenuTrigger className="w-full px-2 py-1.5 text-sm">
+                    <span className="flex items-center justify-between">
+                      {item.label}
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent side="right">
+                    {item.items.map((subItem) => (
+                      <DropdownMenuItem key={subItem.href} asChild>
+                        <Link href={subItem.href}>{subItem.label}</Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <DropdownMenuItem key={item.href} asChild>
+                  <Link href={item.href}>{item.label}</Link>
+                </DropdownMenuItem>
+              )
+            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/auth/signin">로그인</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/auth/signup">회원가입</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

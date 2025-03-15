@@ -1,4 +1,6 @@
-// Add your shared utility functions here
-export const formatDate = (date: Date): string => {
-  return date.toLocaleDateString('ko-KR')
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

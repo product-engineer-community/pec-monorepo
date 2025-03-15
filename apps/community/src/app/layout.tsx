@@ -1,5 +1,5 @@
-import { GeistSans } from "geist/font/sans";
 import "@/app/globals.css";
+import { GeistSans } from "geist/font/sans";
 import { Providers } from "./providers";
 import { BaseLayout } from "../shared/layouts/base-layout";
 

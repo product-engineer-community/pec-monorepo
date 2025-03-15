@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
+import { Card, CardContent, CardHeader } from "@ui/card";
+import { Skeleton } from "@ui/skeleton";
 import { CursorRuleItemResponse } from "../model/types";
 import Link from "next/link";
 
