@@ -1,24 +1,22 @@
 import { createClient } from "@supabase/supabase-js";
+import type { Database } from "./types";
+import type { Env } from "@pec/env";
 
-export type SupabaseConfig = {
-  supabaseUrl: string;
-  supabaseKey: string;
-};
+let supabaseClient: ReturnType<typeof createClient<Database>> | null = null;
 
-let supabaseInstance: ReturnType<typeof createClient> | null = null;
+export function getSupabaseClient(env?: Env) {
+  if (!env && !supabaseClient) {
+    throw new Error(
+      "Environment variables are required for initial client creation"
+    );
+  }
 
-export function getSupabaseClient(config?: SupabaseConfig) {
-  if (supabaseInstance) return supabaseInstance;
+  if (!supabaseClient && env) {
+    supabaseClient = createClient<Database>(
+      env.NEXT_PUBLIC_SUPABASE_URL,
+      env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+  }
 
-  const supabaseUrl =
-    config?.supabaseUrl ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    config?.supabaseKey ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  console.log("??", supabaseUrl, supabaseKey);
-  if (!supabaseUrl) throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL");
-  if (!supabaseKey) throw new Error("Missing NEXT_PUBLIC_SUPABASE_ANON_KEY");
-
-  supabaseInstance = createClient(supabaseUrl, supabaseKey);
-  return supabaseInstance;
+  return supabaseClient!;
 }

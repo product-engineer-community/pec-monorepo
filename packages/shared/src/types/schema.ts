@@ -6,6 +6,7 @@ export const userSchema = z.object({
   email: z.string().email(),
   username: z.string().min(3).max(50),
   avatar_url: z.string().url().nullish(),
+  role: z.enum(["subscriber", "participant", "manager"]).default("participant"),
   created_at: z.string().datetime(),
   updated_at: z.string().datetime(),
 });

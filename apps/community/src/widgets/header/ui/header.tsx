@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -8,6 +10,7 @@ import {
   Button, Text
 } from "@pec/shared";
 import { ChevronDown, Menu } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 const MENU_ITEMS = [
   {
@@ -23,17 +26,17 @@ const MENU_ITEMS = [
 ] as const;
 
 export function Header() {
+  const { session, isAuthenticated, signOut } = useAuth();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        {/* 로고 */}
         <Link href="/" className="mr-8">
           <Text size="xl" weight="bold" className="text-primary">
             PEC
           </Text>
         </Link>
 
-        {/* 메인 네비게이션 */}
         <nav className="hidden flex-1 items-center gap-6 md:flex">
           {MENU_ITEMS.map((item) =>
             "items" in item ? (
@@ -62,17 +65,28 @@ export function Header() {
           )}
         </nav>
 
-        {/* 로그인 버튼 */}
         <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/auth/signin">로그인</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <Link href="/auth/signup">회원가입</Link>
-          </Button>
+          {isAuthenticated ? (
+            <>
+              <span className="text-sm text-muted-foreground">
+                {session?.user.email}
+              </span>
+              <Button variant="ghost" onClick={signOut}>
+                로그아웃
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/auth/signin">로그인</Link>
+              </Button>
+              <Button size="sm" asChild>
+                <Link href="/auth/signup">회원가입</Link>
+              </Button>
+            </>
+          )}
         </div>
 
-        {/* 모바일 메뉴 */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -109,12 +123,29 @@ export function Header() {
               )
             )}
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href="/auth/signin">로그인</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/auth/signup">회원가입</Link>
-            </DropdownMenuItem>
+            {isAuthenticated ? (
+              <>
+                <DropdownMenuItem asChild>
+                  <span className="text-sm text-muted-foreground">
+                    {session?.user.email}
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Button variant="ghost" onClick={signOut}>
+                    로그아웃
+                  </Button>
+                </DropdownMenuItem>
+              </>
+            ) : (
+              <>
+                <DropdownMenuItem asChild>
+                  <Link href="/auth/signin">로그인</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/auth/signup">회원가입</Link>
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

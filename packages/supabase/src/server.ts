@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
-import { type Database } from "./types";
+import type { Database } from "./types";
+import type { Env } from "@pec/env";
 
 export interface CookieOptions {
   get(name: string): string | undefined;
@@ -7,10 +8,10 @@ export interface CookieOptions {
   remove(name: string, options: any): void;
 }
 
-export function createServerSupabase(cookies: CookieOptions) {
+export function createServerSupabase(env: Env, cookies: CookieOptions) {
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get(name: string) {

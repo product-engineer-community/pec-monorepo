@@ -1,5 +1,5 @@
 {
-  "name": "@pec/supabase",
+  "name": "@pec/env",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -8,15 +8,9 @@
     "lint": "eslint . --max-warnings 0",
     "type-check": "tsc --noEmit"
   },
-  "dependencies": {
-    "@pec/shared": "workspace:*",
-    "@pec/env": "workspace:*",
-    "@supabase/supabase-js": "^2.39.0",
-    "@supabase/ssr": "^0.0.10"
-  },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "eslint": "^8.57.0",
     "typescript": "^5.3.3"
   }
