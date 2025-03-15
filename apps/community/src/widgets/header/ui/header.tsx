@@ -1,10 +1,24 @@
 import Link from "next/link";
 import { Button } from "@/shared/ui/button";
 import { Text } from "@/shared/ui/text";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/shared/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 const MENU_ITEMS = [
   { label: "Explore", href: "/explore" },
-  { label: "Community", href: "/community" },
+  {
+    label: "Community",
+    href: "/community",
+    items: [
+      { label: "Questions", href: "/community/questions" },
+      { label: "Discussions", href: "/community/discussions" },
+    ],
+  },
   { label: "Blog", href: "/blog" },
   { label: "Event", href: "/event" },
 ] as const;
@@ -12,7 +26,7 @@ const MENU_ITEMS = [
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center">
+      <div className="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         {/* 로고 */}
         <Link href="/" className="mr-8">
           <Text size="xl" weight="bold" className="text-primary">
@@ -22,15 +36,31 @@ export function Header() {
 
         {/* 메인 네비게이션 */}
         <nav className="hidden flex-1 items-center gap-6 md:flex">
-          {MENU_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {MENU_ITEMS.map((item) =>
+            "items" in item ? (
+              <DropdownMenu key={item.href}>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                  {item.label}
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  {item.items.map((subItem) => (
+                    <DropdownMenuItem key={subItem.href} asChild>
+                      <Link href={subItem.href}>{subItem.label}</Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* 모바일 메뉴 버튼 */}
