@@ -7,10 +7,11 @@ import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePostType } from "@/hooks/use-post-type";
 import { useAuth } from "@/hooks/use-auth";
 import { getSupabaseClient } from "@pec/supabase";
+import { toast } from "sonner";
 
 const createBaseSchema = z.object({
   title: z.string().min(5).max(200),
@@ -29,6 +30,13 @@ export default function CreatePostPage() {
   const { session } = useAuth();
   const supabase = getSupabaseClient();
 
+  useEffect(() => {
+    if (!session) {
+      toast.error("로그인이 필요합니다.");
+      router.replace("/auth/signin");
+    }
+  }, [session, router]);
+
   const { register, handleSubmit, watch, setValue, control } = useForm<FormData>({
     resolver: zodResolver(createBaseSchema),
     defaultValues: {
@@ -44,7 +52,8 @@ export default function CreatePostPage() {
 
   const onSubmit = async (data: FormData) => {
     if (!session) {
-      router.push("/auth/signin");
+      toast.error("로그인이 필요합니다.");
+      router.replace("/auth/signin");
       return;
     }
 
@@ -86,6 +95,7 @@ export default function CreatePostPage() {
 
       if (error) throw error;
 
+      toast.success("Post created successfully!");
       router.push("/community");
     } catch (error) {
       console.error("Error creating post:", error);

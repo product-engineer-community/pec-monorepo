@@ -6,7 +6,6 @@ export const createEventSchema = z.object({
   description: eventSchema.shape.description,
   startDate: eventSchema.shape.start_date,
   endDate: eventSchema.shape.end_date,
-  communityId: eventSchema.shape.community_id,
 }).refine((data) => {
   const start = new Date(data.startDate)
   const end = new Date(data.endDate)

@@ -2,6 +2,7 @@ import "@/app/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { Providers } from "./providers";
 import { BaseLayout } from "../shared/layouts/base-layout";
+import { Toaster } from "sonner";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -9,8 +10,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "P.E.Community",
-  description: "P.E. Community",
+  title: "PEC Community",
+  description: "Product Engineer Camp Community",
 };
 
 export default function RootLayout({
@@ -19,10 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="ko" className={GeistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
         <Providers>
           <BaseLayout>{children}</BaseLayout>
+          <Toaster />
         </Providers>
       </body>
     </html>

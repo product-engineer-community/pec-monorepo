@@ -4,7 +4,6 @@ import { postSchema } from '@pec/shared'
 export const createPostSchema = z.object({
   title: postSchema.shape.title,
   content: postSchema.shape.content,
-  communityId: postSchema.shape.community_id,
 })
 
 export const updatePostSchema = z.object({

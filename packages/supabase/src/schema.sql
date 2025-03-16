@@ -112,7 +112,7 @@ CREATE TABLE public.posts (
   type text NOT NULL,
   title text NOT NULL,
   content text NOT NULL,
-  author_id uuid REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  author_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   likes_count integer DEFAULT 0 NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE public.comments (
   id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
   content text NOT NULL,
   post_id uuid REFERENCES public.posts ON DELETE CASCADE NOT NULL,
-  author_id uuid REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  author_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
   parent_id uuid REFERENCES public.comments ON DELETE CASCADE,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE public.comments (
 -- Create likes table
 CREATE TABLE public.likes (
   id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  user_id uuid REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
   post_id uuid REFERENCES public.posts ON DELETE CASCADE,
   comment_id uuid REFERENCES public.comments ON DELETE CASCADE,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -185,18 +185,18 @@ CREATE POLICY "Posts are viewable by everyone"
 CREATE POLICY "Users can insert their own posts"
   ON public.posts FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = author_id);
+  WITH CHECK (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id));
 
 CREATE POLICY "Users can update their own posts"
   ON public.posts FOR UPDATE
   TO authenticated
-  USING (auth.uid() = author_id)
-  WITH CHECK (auth.uid() = author_id);
+  USING (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id))
+  WITH CHECK (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id));
 
 CREATE POLICY "Users can delete their own posts"
   ON public.posts FOR DELETE
   TO authenticated
-  USING (auth.uid() = author_id);
+  USING (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id));
 
 CREATE POLICY "Comments are viewable by everyone"
   ON public.comments FOR SELECT
@@ -206,18 +206,18 @@ CREATE POLICY "Comments are viewable by everyone"
 CREATE POLICY "Users can insert their own comments"
   ON public.comments FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = author_id);
+  WITH CHECK (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id));
 
 CREATE POLICY "Users can update their own comments"
   ON public.comments FOR UPDATE
   TO authenticated
-  USING (auth.uid() = author_id)
-  WITH CHECK (auth.uid() = author_id);
+  USING (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id))
+  WITH CHECK (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id));
 
 CREATE POLICY "Users can delete their own comments"
   ON public.comments FOR DELETE
   TO authenticated
-  USING (auth.uid() = author_id);
+  USING (auth.uid() = (SELECT id FROM public.profiles WHERE id = author_id));
 
 CREATE POLICY "Likes are viewable by everyone"
   ON public.likes FOR SELECT
@@ -227,12 +227,12 @@ CREATE POLICY "Likes are viewable by everyone"
 CREATE POLICY "Users can insert their own likes"
   ON public.likes FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK (auth.uid() = (SELECT id FROM public.profiles WHERE id = user_id));
 
 CREATE POLICY "Users can delete their own likes"
   ON public.likes FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING (auth.uid() = (SELECT id FROM public.profiles WHERE id = user_id));
 
 CREATE POLICY "Events are viewable by everyone"
   ON public.events FOR SELECT

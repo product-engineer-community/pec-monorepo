@@ -17,7 +17,7 @@ interface EditorProps {
 
 export function Editor({ content, onChange }: EditorProps) {
   return (
-    <div data-color-mode="light" className="[&_*]:!bg-background [&_.w-md-editor-text-pre]:!bg-secondary [&_.w-md-editor-text-input]:!bg-secondary [&_.w-md-editor-preview]:!bg-background">
+    <div data-color-mode="dark">
       <MDEditor
         value={content}
         onChange={(value) => onChange(value || "")}
