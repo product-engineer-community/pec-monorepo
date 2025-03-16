@@ -10,25 +10,53 @@ import { PostCardSkeleton } from "@pec/shared";
 
 async function getDiscussions() {
   const supabase = getSupabaseClient();
-  const { data, error } = await supabase
+  
+  const { data: discussions, error: postsError } = await supabase
     .from("posts")
-    .select(`
-      *,
+    .select(
+      `
+      id,
+      title,
+      content,
+      created_at,
+      updated_at,
+      views_count,
+      category,
+      tags,
+      type,
+      author_id,
       author:profiles!posts_author_id_fkey(
         id,
         username,
         avatar_url,
         role
-      )
-    `)
+      ),
+      comments:comments(count),
+      likes:likes(count)
+    `
+    )
     .eq("type", "discussion")
     .order("created_at", { ascending: false });
 
-  if (error) {
-    console.error("Error fetching discussions:", error);
-    throw error;
+  if (postsError) {
+    console.error("Error fetching discussions:", postsError);
+    throw postsError;
   }
-  return data as (Discussion & { author: { id: string; username: string; avatar_url: string | null; role: string } })[];
+
+  return (discussions || []).map(discussion => ({
+    ...discussion,
+    author: Array.isArray(discussion.author) ? discussion.author[0] : discussion.author,
+    comments_count: discussion.comments?.[0]?.count || 0,
+    likes_count: discussion.likes?.[0]?.count || 0,
+    content: discussion.content.length > 300 ? discussion.content.slice(0, 300) + '...' : discussion.content
+  })) as (Discussion & {
+    author: {
+      id: string;
+      username: string;
+      avatar_url: string | null;
+      role: "subscriber" | "participant" | "manager";
+    };
+  })[];
 }
 
 export default function DiscussionsPage() {
