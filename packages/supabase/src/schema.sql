@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS public.events CASCADE;
 DROP TABLE IF EXISTS public.likes CASCADE;
 DROP TABLE IF EXISTS public.comments CASCADE;
 DROP TABLE IF EXISTS public.posts CASCADE;
-DROP TABLE IF EXISTS public.communities CASCADE;
 DROP TABLE IF EXISTS public.profiles CASCADE;
 DROP TABLE IF EXISTS public.users CASCADE;
 
@@ -107,17 +106,6 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
 
--- Create communities table
-CREATE TABLE public.communities (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  name text NOT NULL,
-  description text NOT NULL,
-  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
-  updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
-  CONSTRAINT communities_name_length CHECK ((char_length(name) >= 3) AND (char_length(name) <= 100)),
-  CONSTRAINT communities_description_length CHECK ((char_length(description) >= 10) AND (char_length(description) <= 500))
-);
-
 -- Create posts table
 CREATE TABLE public.posts (
   id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -125,7 +113,6 @@ CREATE TABLE public.posts (
   title text NOT NULL,
   content text NOT NULL,
   author_id uuid REFERENCES auth.users ON DELETE CASCADE NOT NULL,
-  community_id uuid REFERENCES public.communities ON DELETE CASCADE NOT NULL,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   likes_count integer DEFAULT 0 NOT NULL,
@@ -175,7 +162,6 @@ CREATE TABLE public.events (
   description text NOT NULL,
   start_date timestamp with time zone NOT NULL,
   end_date timestamp with time zone NOT NULL,
-  community_id uuid REFERENCES public.communities ON DELETE CASCADE NOT NULL,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   attendees_count integer DEFAULT 0 NOT NULL,
@@ -185,79 +171,21 @@ CREATE TABLE public.events (
 );
 
 -- Enable Row Level Security (RLS)
-ALTER TABLE public.communities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.likes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.events ENABLE ROW LEVEL SECURITY;
 
 -- Create RLS policies
-CREATE POLICY "Communities are viewable by everyone"
-  ON public.communities FOR SELECT
-  TO public
-  USING (true);
-
 CREATE POLICY "Posts are viewable by everyone"
   ON public.posts FOR SELECT
   TO public
   USING (true);
 
-CREATE POLICY "Comments are viewable by everyone"
-  ON public.comments FOR SELECT
-  TO public
-  USING (true);
-
-CREATE POLICY "Likes are viewable by everyone"
-  ON public.likes FOR SELECT
-  TO public
-  USING (true);
-
-CREATE POLICY "Events are viewable by everyone"
-  ON public.events FOR SELECT
-  TO public
-  USING (true);
-
--- Create policies for authenticated users
-CREATE POLICY "Authenticated users can create communities"
-  ON public.communities FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.role() = 'authenticated');
-
-CREATE POLICY "Authenticated users can create posts"
+CREATE POLICY "Users can insert their own posts"
   ON public.posts FOR INSERT
   TO authenticated
-  WITH CHECK (auth.role() = 'authenticated')
-  AND check_rate_limit();
-
-CREATE POLICY "Authenticated users can create comments"
-  ON public.comments FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.role() = 'authenticated');
-
-CREATE POLICY "Authenticated users can create likes"
-  ON public.likes FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.role() = 'authenticated');
-
-CREATE POLICY "Authenticated users can create events"
-  ON public.events FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.role() = 'authenticated');
-
--- Create policies for content owners
-CREATE POLICY "Users can update their own communities"
-  ON public.communities FOR UPDATE
-  TO authenticated
-  USING (auth.uid() IN (
-    SELECT author_id FROM public.posts WHERE community_id = public.communities.id LIMIT 1
-  ));
-
-CREATE POLICY "Users can delete their own communities"
-  ON public.communities FOR DELETE
-  TO authenticated
-  USING (auth.uid() IN (
-    SELECT author_id FROM public.posts WHERE community_id = public.communities.id LIMIT 1
-  ));
+  WITH CHECK (auth.uid() = author_id);
 
 CREATE POLICY "Users can update their own posts"
   ON public.posts FOR UPDATE
@@ -270,77 +198,56 @@ CREATE POLICY "Users can delete their own posts"
   TO authenticated
   USING (auth.uid() = author_id);
 
+CREATE POLICY "Comments are viewable by everyone"
+  ON public.comments FOR SELECT
+  TO public
+  USING (true);
+
+CREATE POLICY "Users can insert their own comments"
+  ON public.comments FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = author_id);
+
 CREATE POLICY "Users can update their own comments"
   ON public.comments FOR UPDATE
   TO authenticated
-  USING (auth.uid() = author_id);
+  USING (auth.uid() = author_id)
+  WITH CHECK (auth.uid() = author_id);
 
 CREATE POLICY "Users can delete their own comments"
   ON public.comments FOR DELETE
   TO authenticated
   USING (auth.uid() = author_id);
 
+CREATE POLICY "Likes are viewable by everyone"
+  ON public.likes FOR SELECT
+  TO public
+  USING (true);
+
+CREATE POLICY "Users can insert their own likes"
+  ON public.likes FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = user_id);
+
 CREATE POLICY "Users can delete their own likes"
   ON public.likes FOR DELETE
   TO authenticated
   USING (auth.uid() = user_id);
 
-CREATE POLICY "Users can update their own events"
-  ON public.events FOR UPDATE
-  TO authenticated
-  USING (auth.uid() IN (
-    SELECT author_id FROM public.posts WHERE community_id = public.events.community_id LIMIT 1
-  ));
+CREATE POLICY "Events are viewable by everyone"
+  ON public.events FOR SELECT
+  TO public
+  USING (true);
 
-CREATE POLICY "Users can delete their own events"
-  ON public.events FOR DELETE
-  TO authenticated
-  USING (auth.uid() IN (
-    SELECT author_id FROM public.posts WHERE community_id = public.events.community_id LIMIT 1
-  ));
+-- Create updated_at triggers
+CREATE TRIGGER handle_updated_at BEFORE UPDATE ON public.posts
+  FOR EACH ROW EXECUTE PROCEDURE moddatetime (updated_at);
 
--- Create triggers for updated_at
-CREATE TRIGGER handle_updated_at_communities
-  BEFORE UPDATE ON public.communities
-  FOR EACH ROW
-  EXECUTE PROCEDURE moddatetime (updated_at);
+CREATE TRIGGER handle_updated_at BEFORE UPDATE ON public.comments
+  FOR EACH ROW EXECUTE PROCEDURE moddatetime (updated_at);
 
-CREATE TRIGGER handle_updated_at_posts
-  BEFORE UPDATE ON public.posts
-  FOR EACH ROW
-  EXECUTE PROCEDURE moddatetime (updated_at);
+CREATE TRIGGER handle_updated_at BEFORE UPDATE ON public.likes
+  FOR EACH ROW EXECUTE PROCEDURE moddatetime (updated_at);
 
-CREATE TRIGGER handle_updated_at_comments
-  BEFORE UPDATE ON public.comments
-  FOR EACH ROW
-  EXECUTE PROCEDURE moddatetime (updated_at);
-
-CREATE TRIGGER handle_updated_at_likes
-  BEFORE UPDATE ON public.likes
-  FOR EACH ROW
-  EXECUTE PROCEDURE moddatetime (updated_at);
-
-CREATE TRIGGER handle_updated_at_events
-  BEFORE UPDATE ON public.events
-  FOR EACH ROW
-  EXECUTE PROCEDURE moddatetime (updated_at);
-
--- Rate limiting function
-CREATE OR REPLACE FUNCTION check_rate_limit()
-RETURNS BOOLEAN AS $$
-DECLARE
-  time_window INTERVAL = INTERVAL '1 hour';
-  max_requests INTEGER = 100;
-  current_count INTEGER;
-BEGIN
-  -- Get the count of requests in the last hour for the current user
-  SELECT COUNT(*)
-  INTO current_count
-  FROM posts
-  WHERE author_id = auth.uid()
-    AND created_at > NOW() - time_window;
-
-  -- Return true if under limit, false if exceeded
-  RETURN current_count < max_requests;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+CREATE TRIGGER handle_updated_at BEFORE UPDATE ON public.events
+  FOR EACH ROW EXECUTE PROCEDURE moddatetime (updated_at);

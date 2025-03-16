@@ -6,13 +6,14 @@ import Link from "next/link";
 import { type DiscussionWithAuthor } from "@/lib/types/community";
 import { Avatar } from "@/shared/components/avatar";
 import { getRelativeTimeString } from "@pec/shared";
+import { MarkdownViewer } from "@/shared/components/editor";
 
 const MOCK_DISCUSSIONS: DiscussionWithAuthor[] = [
   {
     id: "1",
     type: "discussion",
     title: "What Would You Like to See Here?",
-    content: "Let's brainstorm together! If you could add any new feature to our forum, what would it be? Looking for ideas that would make your experience here even better.",
+    content: "# What Would You Like to See Here?\n\nLet's brainstorm together! If you could add any new feature to our forum, what would it be? Looking for ideas that would make your experience here even better.",
     author_id: "1",
     author: {
       id: "1",
@@ -23,7 +24,6 @@ const MOCK_DISCUSSIONS: DiscussionWithAuthor[] = [
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     },
-    community_id: "1",
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
     likes_count: 0,
@@ -39,7 +39,11 @@ export default function DiscussionsPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Discussions</h1>
-        <Button>New Discussion</Button>
+        <div className="flex justify-end">
+          <Link href="/community/create?type=discussion">
+            <Button>New Discussion</Button>
+          </Link>
+        </div>
       </div>
       <div className="space-y-4">
         {MOCK_DISCUSSIONS.map((discussion) => (
@@ -64,10 +68,8 @@ export default function DiscussionsPage() {
               className="block hover:text-primary"
             >
               <h2 className="text-lg font-medium mb-2">{discussion.title}</h2>
-              <p className="text-muted-foreground line-clamp-2">
-                {discussion.content}
-              </p>
             </Link>
+            <MarkdownViewer content={discussion.content} />
             <div className="flex gap-4 mt-4">
               <Button variant="ghost" size="sm" className="gap-2">
                 <HeartIcon className="h-4 w-4" />

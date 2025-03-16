@@ -67,9 +67,61 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': { content: '""' },
+            'code::after': { content: '""' },
+            code: {
+              backgroundColor: 'hsl(var(--background))',
+              padding: '0.25rem 0.375rem',
+              borderRadius: '0.375rem',
+              fontWeight: '400',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              padding: '0',
+            },
+            pre: {
+              backgroundColor: 'hsl(var(--background))',
+              color: 'hsl(var(--foreground))',
+            },
+            a: {
+              color: 'hsl(var(--primary))',
+              '&:hover': {
+                color: 'hsl(var(--primary))',
+              },
+            },
+            p: {
+              color: 'hsl(var(--foreground))',
+            },
+            h1: {
+              color: 'hsl(var(--foreground))',
+            },
+            h2: {
+              color: 'hsl(var(--foreground))',
+            },
+            h3: {
+              color: 'hsl(var(--foreground))',
+            },
+            h4: {
+              color: 'hsl(var(--foreground))',
+            },
+            blockquote: {
+              color: 'hsl(var(--muted-foreground))',
+              borderLeftColor: 'hsl(var(--border))',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
 
 export default config;
