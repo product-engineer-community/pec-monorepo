@@ -1,12 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label } from "@pec/shared";
-import { signUp } from "../actions";
+import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { SignUpInput, signUpSchema } from "@/lib/validations/auth";
+
+import { signUp } from "../actions";
 
 export default function SignUpPage() {
   const [error, setError] = useState<string>();
@@ -25,7 +27,7 @@ export default function SignUpPage() {
         setSuccess(true);
         setMessage(result.message);
       }
-    } catch (error) {
+    } catch {
       setError("회원가입 중 오류가 발생했습니다");
     }
   };

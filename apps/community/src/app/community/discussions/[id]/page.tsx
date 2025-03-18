@@ -1,15 +1,17 @@
 "use client";
 
-import { useAuth } from "@/hooks/use-auth";
-import { getSupabaseClient } from "@pec/supabase";
 import { type Discussion, getRelativeTimeString } from "@pec/shared";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { MarkdownViewer } from "@/shared/components/editor";
 import { Button } from "@pec/shared";
+import { getSupabaseClient } from "@pec/supabase";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
-import { Comments } from "./comments";
 import { useEffect } from "react";
 import { toast } from "sonner";
+
+import { useAuth } from "@/hooks/use-auth";
+import { MarkdownViewer } from "@/shared/components/editor";
+
+import { Comments } from "./comments";
 
 async function getDiscussion(id: string, userId?: string) {
   const supabase = getSupabaseClient();
@@ -27,7 +29,7 @@ async function getDiscussion(id: string, userId?: string) {
       comments:comments(count),
       likes:likes(count),
       user_like:likes(id)
-    `
+    `,
     )
     .eq("id", id);
 
@@ -51,10 +53,12 @@ async function getDiscussion(id: string, userId?: string) {
 
   return {
     ...discussion,
-    author: Array.isArray(discussion.author) ? discussion.author[0] : discussion.author,
+    author: Array.isArray(discussion.author)
+      ? discussion.author[0]
+      : discussion.author,
     comments_count: discussion.comments?.[0]?.count || 0,
     likes_count: discussion.likes?.[0]?.count || 0,
-    is_liked: discussion.user_like?.length > 0
+    is_liked: discussion.user_like?.length > 0,
   } as Discussion & {
     author: {
       id: string;
@@ -69,7 +73,7 @@ async function getDiscussion(id: string, userId?: string) {
 async function incrementViewCount(id: string) {
   const supabase = getSupabaseClient();
   const { error } = await supabase
-    .rpc('increment_view_count', { post_id: id })
+    .rpc("increment_view_count", { post_id: id })
     .select();
 
   if (error) {
@@ -120,18 +124,12 @@ export default function DiscussionDetailPage({
         .maybeSingle();
 
       if (existingLike) {
-        await supabase
-          .from("likes")
-          .delete()
-          .eq("id", existingLike.id);
-
+        await supabase.from("likes").delete().eq("id", existingLike.id);
       } else {
-        await supabase
-          .from("likes")
-          .insert({
-            user_id: session.user.id,
-            post_id: params.id,
-          });
+        await supabase.from("likes").insert({
+          user_id: session.user.id,
+          post_id: params.id,
+        });
       }
     },
     onSuccess: () => {
@@ -153,11 +151,11 @@ export default function DiscussionDetailPage({
 
   return (
     <div className="container py-6">
-      <div className="border rounded-lg p-6">
-        <div className="flex justify-between items-start mb-6">
+      <div className="rounded-lg border p-6">
+        <div className="mb-6 flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-4">{discussion.title}</h1>
-            <div className="flex gap-2 text-sm text-muted-foreground mb-4">
+            <h1 className="mb-4 text-3xl font-bold">{discussion.title}</h1>
+            <div className="mb-4 flex gap-2 text-sm text-muted-foreground">
               <span>{discussion.author.username}</span>
               <span>•</span>
               <span>{getRelativeTimeString(discussion.created_at)}</span>
@@ -168,14 +166,14 @@ export default function DiscussionDetailPage({
               {discussion.tags?.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 bg-secondary text-sm rounded-md"
+                  className="rounded-md bg-secondary px-2 py-1 text-sm"
                 >
                   {tag}
                 </span>
               ))}
             </div>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-4">
             <div className="text-sm text-muted-foreground">
               조회수 {discussion.views_count}
             </div>
@@ -199,7 +197,7 @@ export default function DiscussionDetailPage({
       </div>
 
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">
+        <h2 className="mb-4 text-xl font-bold">
           댓글 {discussion.comments_count}개
         </h2>
         <Comments postId={params.id} />

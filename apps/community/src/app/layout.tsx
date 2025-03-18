@@ -1,8 +1,10 @@
 import "@/app/globals.css";
+
 import { GeistSans } from "geist/font/sans";
-import { Providers } from "./providers";
-import { BaseLayout } from "../shared/layouts/base-layout";
 import { Toaster } from "sonner";
+
+import { BaseLayout } from "../shared/layouts/base-layout";
+import { Providers } from "./providers";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`

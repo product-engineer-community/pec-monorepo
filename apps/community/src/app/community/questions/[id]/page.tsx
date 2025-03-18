@@ -1,14 +1,15 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Button, getRelativeTimeString } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
-import { useAuth } from "@/hooks/use-auth";
-import { Button, Question } from "@pec/shared";
-import { getRelativeTimeString } from "@pec/shared";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
-import { Comments } from "./comments";
-import { MarkdownViewer } from "@/src/shared/components/editor";
 import { useEffect } from "react";
+
+import { useAuth } from "@/hooks/use-auth";
+import { MarkdownViewer } from "@/src/shared/components/editor";
+
+import { Comments } from "./comments";
 
 async function getQuestion(id: string, userId?: string) {
   const supabase = getSupabaseClient();
@@ -26,7 +27,7 @@ async function getQuestion(id: string, userId?: string) {
       comments:comments(count),
       likes:likes(count),
       user_like:likes(id)
-    `
+    `,
     )
     .eq("id", id);
 
@@ -50,17 +51,19 @@ async function getQuestion(id: string, userId?: string) {
 
   return {
     ...question,
-    author: Array.isArray(question.author) ? question.author[0] : question.author,
+    author: Array.isArray(question.author)
+      ? question.author[0]
+      : question.author,
     comments_count: question.comments?.[0]?.count || 0,
     likes_count: question.likes?.[0]?.count || 0,
-    is_liked: question.user_like?.length > 0
+    is_liked: question.user_like?.length > 0,
   };
 }
 
 async function incrementViewCount(id: string) {
   const supabase = getSupabaseClient();
   const { error } = await supabase
-    .rpc('increment_view_count', { post_id: id })
+    .rpc("increment_view_count", { post_id: id })
     .select();
 
   if (error) {
@@ -107,17 +110,12 @@ export default function QuestionDetailPage({
         .maybeSingle();
 
       if (existingLike) {
-        await supabase
-          .from("likes")
-          .delete()
-          .eq("id", existingLike.id);
+        await supabase.from("likes").delete().eq("id", existingLike.id);
       } else {
-        await supabase
-          .from("likes")
-          .insert({
-            user_id: session.user.id,
-            post_id: params.id,
-          });
+        await supabase.from("likes").insert({
+          user_id: session.user.id,
+          post_id: params.id,
+        });
       }
     },
     onSuccess: () => {
@@ -134,11 +132,11 @@ export default function QuestionDetailPage({
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 space-y-8">
+    <div className="mx-auto max-w-4xl space-y-8 py-8">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
               {question.author.username?.[0]?.toUpperCase()}
             </div>
             <div className="flex flex-col">
@@ -156,19 +154,17 @@ export default function QuestionDetailPage({
             onClick={() => toggleLike()}
             className="flex items-center gap-2"
           >
-            <HeartIcon
-              className={question.is_liked ? "fill-current" : ""}
-            />
+            <HeartIcon className={question.is_liked ? "fill-current" : ""} />
             <span>{question.likes_count}</span>
           </Button>
         </div>
         <div>
-          <h1 className="text-2xl font-bold mb-4">{question.title}</h1>
+          <h1 className="mb-4 text-2xl font-bold">{question.title}</h1>
           <MarkdownViewer content={question.content} />
         </div>
       </div>
 
-      <div className="pt-8 border-t">
+      <div className="border-t pt-8">
         <Comments postId={params.id} />
       </div>
     </div>

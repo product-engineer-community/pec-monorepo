@@ -1,14 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@pec/shared";
 import {
+  COMMUNITY_DISCUSSIONS_PATHNAME,
+  COMMUNITY_EVENTS_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_BLOG_PATHNAME,
+  MAIN_PATHNAME,
+} from "@/src/shared/config/pathname";
+import {
+  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@pec/shared";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type SidebarSection = {
@@ -28,11 +35,7 @@ const SIDEBAR_SECTIONS: SidebarSection[] = [
     items: [
       {
         label: "Home",
-        href: "/",
-      },
-      {
-        label: "Explore",
-        href: "/explore",
+        href: MAIN_PATHNAME,
       },
     ],
   },
@@ -41,12 +44,12 @@ const SIDEBAR_SECTIONS: SidebarSection[] = [
     collapsible: true,
     items: [
       {
-        label: "Posts",
-        href: "/community/posts",
+        label: "Blog",
+        href: COMMUNITY_BLOG_PATHNAME,
       },
       {
         label: "Events",
-        href: "/community/events",
+        href: COMMUNITY_EVENTS_PATHNAME,
       },
     ],
   },
@@ -56,11 +59,11 @@ const SIDEBAR_SECTIONS: SidebarSection[] = [
     items: [
       {
         label: "Questions",
-        href: "/community/questions",
+        href: COMMUNITY_QUESTIONS_PATHNAME,
       },
       {
         label: "Discussions",
-        href: "/community/discussions",
+        href: COMMUNITY_DISCUSSIONS_PATHNAME,
       },
     ],
   },

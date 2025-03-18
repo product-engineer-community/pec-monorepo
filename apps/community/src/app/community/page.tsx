@@ -1,26 +1,29 @@
 "use client";
 
-import { Text, Button } from "@pec/shared";
+import { Button, Text } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CommunityPage() {
   const handleCreateTestPost = async () => {
     const supabase = getSupabaseClient();
-    
+
     // 먼저 현재 로그인한 사용자 정보를 가져옵니다
-    const { data: { user } } = await supabase.auth.getUser();
-    
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     if (!user) {
       alert("Please login first");
       return;
     }
-    
+
     const testPost = {
       id: uuidv4(),
       type: "post",
       title: "Test Post " + new Date().toLocaleString(),
-      content: "This is a test post content created at " + new Date().toLocaleString(),
+      content:
+        "This is a test post content created at " + new Date().toLocaleString(),
       author_id: user?.id, // 실제 로그인한 사용자의 ID 사용
       community_id: uuidv4(), // 실제로는 존재하는 커뮤니티 ID를 사용해야 합니다
       created_at: new Date().toISOString(),
@@ -29,7 +32,7 @@ export default function CommunityPage() {
       comments_count: 0,
       views_count: 0,
       thumbnail_url: null,
-      category: "test"
+      category: "test",
     };
 
     const { data, error } = await supabase
@@ -60,9 +63,7 @@ export default function CommunityPage() {
       <div className="rounded-lg border bg-card p-4">
         <Text>Community content will go here</Text>
       </div>
-      <Button onClick={handleCreateTestPost}>
-        Create Test Post
-      </Button>
+      <Button onClick={handleCreateTestPost}>Create Test Post</Button>
     </div>
   );
 }

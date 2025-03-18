@@ -1,5 +1,5 @@
-import * as z from 'zod'
 import { postSchema } from '@pec/shared'
+import * as z from 'zod'
 
 export const createPostSchema = z.object({
   title: postSchema.shape.title,

@@ -1,12 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label } from "@pec/shared";
+import Link from "next/link";
 import { useState } from "react";
-import { SignInInput, signInSchema } from "@/lib/validations/auth";
+import { useForm } from "react-hook-form";
+
 import { useAuth } from "@/hooks/use-auth";
+import { SignInInput, signInSchema } from "@/lib/validations/auth";
 
 export default function SignInPage() {
   const [error, setError] = useState<string>();
@@ -21,7 +22,7 @@ export default function SignInPage() {
       if (result?.error) {
         setError(result.error);
       }
-    } catch (error) {
+    } catch {
       setError("로그인 중 오류가 발생했습니다");
     }
   };
