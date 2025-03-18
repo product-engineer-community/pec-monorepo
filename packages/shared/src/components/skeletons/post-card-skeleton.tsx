@@ -3,7 +3,10 @@ interface PostCardSkeletonProps {
   variant?: "discussion" | "question";
 }
 
-export function PostCardSkeleton({ count = 3, variant = "discussion" }: PostCardSkeletonProps) {
+export function PostCardSkeleton({
+  count = 3,
+  variant = "discussion",
+}: PostCardSkeletonProps) {
   if (variant === "discussion") {
     return (
       <div className="space-y-6">
