@@ -7,3 +7,10 @@ export const LOGIN_PATHNAME = "/login";
 export const SIGN_UP_PATHNAME = "/sign-up";
 
 export const MAIN_PATHNAME = "/";
+
+export const COMMUNITY_PATHNAME = "/community";
+export const COMMUNITY_QUESTIONS_PATHNAME = "/community/questions";
+export const COMMUNITY_DISCUSSIONS_PATHNAME = "/community/discussions";
+
+export const COMMUNITY_BLOG_PATHNAME = "/blog";
+export const COMMUNITY_EVENTS_PATHNAME = "/community/events";

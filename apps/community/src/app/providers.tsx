@@ -1,10 +1,10 @@
 "use client";
 
-import { PropsWithChildren, useState } from "react";
-import { getSupabaseClient } from "@pec/supabase";
 import { validateEnv } from "@pec/env";
+import { getSupabaseClient } from "@pec/supabase";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { PropsWithChildren, useState } from "react";
 
 // 클라이언트 초기화
 const env = {
@@ -34,5 +34,5 @@ export function Providers({ children }: PropsWithChildren) {
       {children}
       <ReactQueryDevtools />
     </QueryClientProvider>
-  )
+  );
 }

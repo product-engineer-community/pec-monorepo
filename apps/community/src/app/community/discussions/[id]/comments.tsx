@@ -1,11 +1,12 @@
-import { useAuth } from "@/hooks/use-auth";
-import { getSupabaseClient } from "@pec/supabase";
 import { type Comment, getRelativeTimeString } from "@pec/shared";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@pec/shared";
+import { getSupabaseClient } from "@pec/supabase";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { HeartIcon, ReplyIcon, TrashIcon } from "lucide-react";
-import { toast } from "sonner";
 import { useState } from "react";
+import { toast } from "sonner";
+
+import { useAuth } from "@/hooks/use-auth";
 import { Editor } from "@/shared/components/editor";
 
 interface CommentsProps {
@@ -45,7 +46,7 @@ async function getComments(postId: string, userId?: string) {
       ),
       likes:likes(count),
       user_like:likes(id)
-    `
+    `,
     )
     .eq("post_id", postId)
     .order("created_at", { ascending: true });
@@ -62,11 +63,11 @@ async function getComments(postId: string, userId?: string) {
     throw error;
   }
 
-  return (comments || []).map(comment => ({
+  return (comments || []).map((comment) => ({
     ...comment,
     author: Array.isArray(comment.author) ? comment.author[0] : comment.author,
     likes_count: comment.likes?.[0]?.count || 0,
-    is_liked: comment.user_like?.length > 0
+    is_liked: comment.user_like?.length > 0,
   })) as (Comment & {
     author: {
       id: string;
@@ -166,19 +167,12 @@ export function Comments({ postId }: CommentsProps) {
         .maybeSingle();
 
       if (existingLike) {
-        await supabase
-          .from("likes")
-          .delete()
-          .eq("id", existingLike.id);
-
+        await supabase.from("likes").delete().eq("id", existingLike.id);
       } else {
-        await supabase
-          .from("likes")
-          .insert({
-            user_id: session.user.id,
-            comment_id: commentId,
-          });
-
+        await supabase.from("likes").insert({
+          user_id: session.user.id,
+          comment_id: commentId,
+        });
       }
     },
     onSuccess: () => {
@@ -190,15 +184,21 @@ export function Comments({ postId }: CommentsProps) {
     },
   });
 
-  const groupedComments = comments.reduce((acc, comment) => {
-    if (!comment.parent_id) {
-      acc[comment.id] = {
-        comment,
-        replies: comments.filter((c) => c.parent_id === comment.id),
-      };
-    }
-    return acc;
-  }, {} as Record<string, { comment: CommentWithAuthor; replies: CommentWithAuthor[] }>);
+  const groupedComments = comments.reduce(
+    (acc, comment) => {
+      if (!comment.parent_id) {
+        acc[comment.id] = {
+          comment,
+          replies: comments.filter((c) => c.parent_id === comment.id),
+        };
+      }
+      return acc;
+    },
+    {} as Record<
+      string,
+      { comment: CommentWithAuthor; replies: CommentWithAuthor[] }
+    >,
+  );
 
   if (isLoading) {
     return <div>Loading comments...</div>;
@@ -207,17 +207,11 @@ export function Comments({ postId }: CommentsProps) {
   return (
     <div className="space-y-6">
       {/* Comment Editor */}
-      <div className="border rounded-lg p-4">
-        <Editor
-          content={content}
-          onChange={setContent}
-        />
-        <div className="flex justify-between items-center mt-4">
+      <div className="rounded-lg border p-4">
+        <Editor content={content} onChange={setContent} />
+        <div className="mt-4 flex items-center justify-between">
           {replyTo && (
-            <Button
-              variant="ghost"
-              onClick={() => setReplyTo(null)}
-            >
+            <Button variant="ghost" onClick={() => setReplyTo(null)}>
               답글 취소
             </Button>
           )}
@@ -235,10 +229,12 @@ export function Comments({ postId }: CommentsProps) {
         {Object.values(groupedComments).map(({ comment, replies }) => (
           <div key={comment.id} className="space-y-4">
             {/* Parent Comment */}
-            <div className="border rounded-lg p-4">
-              <div className="flex justify-between items-start mb-2">
+            <div className="rounded-lg border p-4">
+              <div className="mb-2 flex items-start justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold">{comment.author.username}</span>
+                  <span className="font-semibold">
+                    {comment.author.username}
+                  </span>
                   <span className="text-sm text-muted-foreground">
                     {getRelativeTimeString(comment.created_at)}
                   </span>
@@ -272,17 +268,15 @@ export function Comments({ postId }: CommentsProps) {
                   )}
                 </div>
               </div>
-              <div className="prose dark:prose-invert">
-                {comment.content}
-              </div>
+              <div className="prose dark:prose-invert">{comment.content}</div>
             </div>
 
             {/* Replies */}
             {replies.length > 0 && (
               <div className="ml-8 space-y-4">
                 {replies.map((reply) => (
-                  <div key={reply.id} className="border rounded-lg p-4">
-                    <div className="flex justify-between items-start mb-2">
+                  <div key={reply.id} className="rounded-lg border p-4">
+                    <div className="mb-2 flex items-start justify-between">
                       <div className="flex items-center gap-2">
                         <span className="font-semibold">
                           {reply.author.username}

@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@pec/shared";
-import Link from "next/link";
-import { MarkdownViewer } from "@/shared/components/editor";
+import { Button , PostCardSkeleton } from "@pec/shared";
+import { type Question } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery } from "@tanstack/react-query";
-import { type Question } from "@pec/shared";
-import { PostCardSkeleton } from "@pec/shared";
+import Link from "next/link";
+
+import { MarkdownViewer } from "@/shared/components/editor";
 
 async function getQuestions() {
   const supabase = getSupabaseClient();
@@ -72,7 +72,10 @@ export default function QuestionsPage() {
     <div className="container py-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Questions</h1>
-        <Link href="/community/create?type=question">
+        <Link href={{
+          pathname: "/community/create",
+          query: { type: "question" },
+        }}>
           <Button>Ask Question</Button>
         </Link>
       </div>

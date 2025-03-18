@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { getSupabaseClient } from "@pec/supabase";
-import { useAuth } from "@/hooks/use-auth";
-import { type Comment, Button, Input } from "@pec/shared";
+import { Button, type Comment, Input } from "@pec/shared";
 import { getRelativeTimeString } from "@pec/shared";
+import { getSupabaseClient } from "@pec/supabase";
+import { useMutation,useQuery } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
+import { useState } from "react";
+
+import { useAuth } from "@/hooks/use-auth";
 
 interface CommentsProps {
   postId: string;

@@ -13,11 +13,22 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 212.7 82.9% 28.8%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --primary-50: 213 100% 96%;
+    --primary-100: 213 96% 91%;
+    --primary-200: 213 94% 81%;
+    --primary-300: 213 90% 69%;
+    --primary-400: 213 87% 56%;
+    --primary-500: 212.7 82.9% 28.8%;
+    --primary-600: 213 83% 26%;
+    --primary-700: 213 84% 22%;
+    --primary-800: 213 84% 19%;
+    --primary-900: 214 85% 15%;
+
+    --secondary: 42 89% 71%;
+    --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -25,14 +36,23 @@
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
+    --success: 142.1 76.2% 36.3%;
+    --warning: 38 92% 50%;
+    --danger: 0 84.2% 60.2%;
+    --info: 212.7 82.9% 75%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 212.7 82.9% 28.8%;
 
     --radius: 0.5rem;
+
+    --dark-primary: 213 70% 40%;
+    --dark-background: 222.2 47.4% 11.2%;
+    --dark-foreground: 210 40% 98%;
   }
 
   .dark {
@@ -101,7 +121,7 @@
 
 /* Toolbar styling */
 .w-md-editor-toolbar {
-  @apply bg-background border-border !important;
+  @apply border-border bg-background !important;
 }
 
 .w-md-editor-toolbar ul > li > button {

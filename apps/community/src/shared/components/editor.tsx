@@ -1,16 +1,14 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
-import ReactMarkdown from "react-markdown";
-import { Code } from "lucide-react";
-import { Button } from "@pec/shared";
 
-const MDEditor = dynamic(
-  () => import("@uiw/react-md-editor"),
-  { ssr: false }
-);
+import { Button } from "@pec/shared";
+import { Code } from "lucide-react";
+import dynamic from "next/dynamic";
+import ReactMarkdown from "react-markdown";
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface EditorProps {
   content: string;
@@ -26,7 +24,7 @@ export function Editor({ content, onChange }: EditorProps) {
         type="button"
         onClick={() => {
           const textarea = document.querySelector(
-            "textarea.w-md-editor-text-input"
+            "textarea.w-md-editor-text-input",
           ) as HTMLTextAreaElement;
           if (!textarea) return;
 
@@ -48,7 +46,7 @@ export function Editor({ content, onChange }: EditorProps) {
           }, 0);
         }}
       >
-        <Code className="w-4 h-4 mr-2" />
+        <Code className="mr-2 h-4 w-4" />
         코드블럭 추가
       </Button>
       <MDEditor
@@ -74,7 +72,7 @@ interface MarkdownViewerProps {
 
 export function MarkdownViewer({ content }: MarkdownViewerProps) {
   return (
-    <div className="prose prose-sm max-w-none [&>p]:text-[14px] [&>pre>code]:text-[14px] [&>p]:my-2">
+    <div className="prose prose-sm max-w-none [&>p]:my-2 [&>p]:text-[14px] [&>pre>code]:text-[14px]">
       <ReactMarkdown>{content}</ReactMarkdown>
     </div>
   );

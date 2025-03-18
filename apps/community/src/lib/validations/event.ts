@@ -1,5 +1,5 @@
-import * as z from 'zod'
 import { eventSchema } from '@pec/shared'
+import * as z from 'zod'
 
 export const createEventSchema = z.object({
   title: eventSchema.shape.title,

@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@pec/shared";
-import Image from "next/image";
 import { UserIcon } from "lucide-react";
+import Image from "next/image";
 
 interface AvatarProps {
   src?: string | null;

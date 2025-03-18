@@ -1,28 +1,37 @@
 "use client";
 
-import Link from "next/link";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
-  Button, Text
+  DropdownMenuTrigger,
+  Text,
 } from "@pec/shared";
 import { ChevronDown, Menu } from "lucide-react";
+import Link from "next/link";
+
 import { useAuth } from "@/hooks/use-auth";
+import {
+  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
+  COMMUNITY_PATHNAME,
+  COMMUNITY_BLOG_PATHNAME,
+  COMMUNITY_EVENTS_PATHNAME,
+} from "@/src/shared/config/pathname";
 
 const MENU_ITEMS = [
   {
     label: "Community",
-    href: "/community",
+    href: COMMUNITY_PATHNAME,
     items: [
-      { label: "Questions", href: "/community/questions" },
-      { label: "Discussions", href: "/community/discussions" },
+      { label: "Questions", href: COMMUNITY_QUESTIONS_PATHNAME },
+      { label: "Discussions", href: COMMUNITY_DISCUSSIONS_PATHNAME },
     ],
   },
-  { label: "Blog", href: "/blog" },
-  { label: "Event", href: "/event" },
+  { label: "Blog", href: COMMUNITY_BLOG_PATHNAME },
+  { label: "Event", href: COMMUNITY_EVENTS_PATHNAME },
 ] as const;
 
 export function Header() {
@@ -61,7 +70,7 @@ export function Header() {
               >
                 {item.label}
               </Link>
-            )
+            ),
           )}
         </nav>
 
@@ -120,7 +129,7 @@ export function Header() {
                 <DropdownMenuItem key={item.href} asChild>
                   <Link href={item.href}>{item.label}</Link>
                 </DropdownMenuItem>
-              )
+              ),
             )}
             <DropdownMenuSeparator />
             {isAuthenticated ? (
