@@ -1,7 +1,7 @@
 "use client";
 
-import { Button , PostCardSkeleton } from "@pec/shared";
-import { type Question } from "@pec/shared";
+import type { Question } from "@pec/shared";
+import { Button, PostCardSkeleton } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { MarkdownViewer } from "@/shared/components/editor";
 
 async function getQuestions() {
   const supabase = getSupabaseClient();
-  
+
   const { data: questions, error: postsError } = await supabase
     .from("posts")
     .select(
@@ -35,7 +35,7 @@ async function getQuestions() {
       ),
       comments:comments(count),
       likes:likes(count)
-    `
+    `,
     )
     .eq("type", "question")
     .order("created_at", { ascending: false });
@@ -45,13 +45,18 @@ async function getQuestions() {
     throw postsError;
   }
 
-  return (questions || []).map(question => ({
+  return (questions || []).map((question) => ({
     ...question,
-    author: Array.isArray(question.author) ? question.author[0] : question.author,
+    author: Array.isArray(question.author)
+      ? question.author[0]
+      : question.author,
     comments_count: question.comments?.[0]?.count || 0,
     likes_count: question.likes?.[0]?.count || 0,
     solved: question.solved || false,
-    content: question.content.length > 300 ? question.content.slice(0, 300) + '...' : question.content
+    content:
+      question.content.length > 300
+        ? question.content.slice(0, 300) + "..."
+        : question.content,
   })) as (Question & {
     author: {
       id: string;
@@ -70,12 +75,14 @@ export default function QuestionsPage() {
 
   return (
     <div className="container py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Questions</h1>
-        <Link href={{
-          pathname: "/community/create",
-          query: { type: "question" },
-        }}>
+        <Link
+          href={{
+            pathname: "/community/create",
+            query: { type: "question" },
+          }}
+        >
           <Button>Ask Question</Button>
         </Link>
       </div>
@@ -90,16 +97,24 @@ export default function QuestionsPage() {
               href={`/community/questions/${question.id}`}
               className="block"
             >
-              <div className="border rounded-lg p-6 hover:border-primary transition-colors">
-                <div className="flex justify-between items-start mb-4">
+              <div className="rounded-lg border p-6 transition-colors hover:border-primary">
+                <div className="mb-4 flex items-start justify-between">
                   <div>
-                    <h2 className="text-xl font-semibold mb-2">{question.title}</h2>
-                    <div className="flex gap-2 text-sm text-muted-foreground mb-4">
+                    <h2 className="mb-2 text-xl font-semibold">
+                      {question.title}
+                    </h2>
+                    <div className="mb-4 flex gap-2 text-sm text-muted-foreground">
                       <span>{question.author.username}</span>
                       <span>•</span>
-                      <span>{new Date(question.created_at).toLocaleDateString()}</span>
+                      <span>
+                        {new Date(question.created_at).toLocaleDateString()}
+                      </span>
                       <span>•</span>
-                      <span className={question.solved ? "text-green-600" : "text-yellow-600"}>
+                      <span
+                        className={
+                          question.solved ? "text-green-600" : "text-yellow-600"
+                        }
+                      >
                         {question.solved ? "Solved" : "Unsolved"}
                       </span>
                     </div>

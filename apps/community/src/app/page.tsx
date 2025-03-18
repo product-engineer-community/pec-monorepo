@@ -314,7 +314,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-2 text-lg font-semibold">
             <Image
               src="/logo.webp"
-              className="rounded-md"
+              className="rounded-full"
               alt="logo"
               width={32}
               height={32}

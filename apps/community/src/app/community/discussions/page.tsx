@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@pec/shared";
-import { type Discussion,PostCardSkeleton } from "@pec/shared";
+import type { Discussion } from "@pec/shared";
+import { Button, PostCardSkeleton } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -82,10 +82,12 @@ export default function DiscussionsPage() {
     <div className="container py-6">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Discussions</h1>
-        <Link href={{
-          pathname: "/community/create",
-          query: { type: "discussion" },
-        }}>
+        <Link
+          href={{
+            pathname: "/community/create",
+            query: { type: "discussion" },
+          }}
+        >
           <Button>New Discussion</Button>
         </Link>
       </div>
