@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Text } from "@pec/shared";
+import { Text } from "@pec/shared";
 import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

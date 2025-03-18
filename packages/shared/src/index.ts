@@ -5,11 +5,10 @@ export * from "./components/ui/card";
 export * from "./components/ui/collapsible";
 export * from "./components/ui/dropdown-menu";
 export * from "./components/ui/form";
+export * from "./components/ui/gradient-text";
 export * from "./components/ui/input";
 export * from "./components/ui/label";
 export * from "./components/ui/rotating-text";
 export * from "./components/ui/shiny-text";
 export * from "./components/ui/text";
-export * from "./components/ui/gradient-text";
-
 export * from "./components/skeletons/post-card-skeleton";

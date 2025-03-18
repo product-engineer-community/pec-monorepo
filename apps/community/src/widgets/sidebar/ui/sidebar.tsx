@@ -1,13 +1,6 @@
 "use client";
 
 import {
-  COMMUNITY_DISCUSSIONS_PATHNAME,
-  COMMUNITY_EVENTS_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
-  COMMUNITY_BLOG_PATHNAME,
-  MAIN_PATHNAME,
-} from "@/src/shared/config/pathname";
-import {
   cn,
   Collapsible,
   CollapsibleContent,
@@ -17,6 +10,14 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+
+import {
+  COMMUNITY_BLOG_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
+  COMMUNITY_EVENTS_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
+  MAIN_PATHNAME,
+} from "@/src/shared/config/pathname";
 
 type SidebarSection = {
   title: string;

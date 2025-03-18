@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@pec/shared";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface ContentItemProps {

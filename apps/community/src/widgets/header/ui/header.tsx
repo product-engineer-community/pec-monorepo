@@ -14,11 +14,11 @@ import Link from "next/link";
 
 import { useAuth } from "@/hooks/use-auth";
 import {
-  COMMUNITY_QUESTIONS_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
-  COMMUNITY_PATHNAME,
   COMMUNITY_BLOG_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
+  COMMUNITY_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
 } from "@/src/shared/config/pathname";
 
 const MENU_ITEMS = [

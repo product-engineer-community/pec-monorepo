@@ -7,9 +7,7 @@ import {
   Text,
 } from "@pec/shared";
 import {
-  ArrowRight,
   CheckCircle,
-  Code2,
   Github,
   Lightbulb,
   Linkedin,
@@ -19,6 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
 import ContentItem from "../entities/landing/contentItem";
 
 export default function LandingPage() {

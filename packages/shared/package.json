@@ -9,7 +9,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "update-exports": "tsx scripts/update-exports.ts",

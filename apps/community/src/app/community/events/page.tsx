@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Text } from "@pec/shared";
-import { CalendarDays, MapPin, Clock, Users } from "lucide-react";
+import { CalendarDays, Clock, MapPin, Users } from "lucide-react";
 
 // Fake events data
 const EVENTS = [
