@@ -12,6 +12,3 @@ export * from "./components/ui/rotating-text";
 export * from "./components/ui/shiny-text";
 export * from "./components/ui/text";
 export * from "./components/skeletons/post-card-skeleton";
-
-// Export the skeleton component and its type
-export { PostCardSkeleton } from "./components/skeletons/post-card-skeleton";

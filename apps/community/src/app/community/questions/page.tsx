@@ -1,7 +1,6 @@
 "use client";
 
-import type { Question } from "@pec/shared";
-import { Button, PostCardSkeleton } from "@pec/shared";
+import { Button, PostCardSkeleton, type Question } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
