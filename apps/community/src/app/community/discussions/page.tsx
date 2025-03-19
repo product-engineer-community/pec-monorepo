@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, type Discussion, PostCardSkeleton } from "@pec/shared";
+import { Button, type Discussion, getRelativeTimeString, PostCardSkeleton } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -110,9 +110,7 @@ export default function DiscussionsPage() {
                     <div className="mb-4 flex gap-2 text-sm text-muted-foreground">
                       <span>{discussion.author.username}</span>
                       <span>•</span>
-                      <span>
-                        {new Date(discussion.created_at).toLocaleDateString()}
-                      </span>
+                      <span>{getRelativeTimeString(discussion.created_at)}</span>
                       <span>•</span>
                       <span>{discussion.category}</span>
                     </div>

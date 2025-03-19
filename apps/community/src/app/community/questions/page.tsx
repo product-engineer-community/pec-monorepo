@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, PostCardSkeleton, type Question } from "@pec/shared";
+import { Button, getRelativeTimeString, PostCardSkeleton, type Question } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -105,9 +105,7 @@ export default function QuestionsPage() {
                     <div className="mb-4 flex gap-2 text-sm text-muted-foreground">
                       <span>{question.author.username}</span>
                       <span>•</span>
-                      <span>
-                        {new Date(question.created_at).toLocaleDateString()}
-                      </span>
+                      <span>{getRelativeTimeString(question.created_at)}</span>
                       <span>•</span>
                       <span
                         className={
