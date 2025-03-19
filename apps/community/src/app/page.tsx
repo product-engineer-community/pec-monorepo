@@ -44,17 +44,17 @@ export default function LandingPage() {
               하세요
             </div>
           </div>
-          <div className="mb-8 flex flex-col items-center justify-center gap-2 text-center text-base text-slate-600 sm:flex-row sm:gap-0 sm:text-left sm:text-lg md:text-xl">
-            <div className="whitespace-normal">
-              기술의 본질을 이해하고, 사용자의 문제를 해결하는
+          <div className="mb-8 gap-2 text-base text-slate-600 sm:text-left sm:text-lg md:text-xl">
+            기술의 본질을 이해하고, 사용자의 문제를 해결하는
+            <div className="inline-flex items-center">
+              <GradientText
+                className="sm:pl-2"
+                colors={["#0d4c86", "#6cb8ff", "#0d4c86", "#6cb8ff", "#0d4c86"]}
+              >
+                Product Engineer
+              </GradientText>
             </div>
-            <GradientText
-              className="sm:pl-2"
-              colors={["#0d4c86", "#6cb8ff", "#0d4c86", "#6cb8ff", "#0d4c86"]}
-            >
-              Product Engineer
-            </GradientText>
-            <div className="whitespace-normal">들의 커뮤니티</div>
+            들의 커뮤니티
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button size="xl">지금 가입하기</Button>
@@ -164,50 +164,48 @@ export default function LandingPage() {
         </section>
 
         <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-10 px-10 md:gap-16 lg:grid-cols-2">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-                  70명+ 의 Product Engineer 와 함께하세요
-                </h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                  P.E Community 에는 70명 이상의 열정 있는 Product Engineer 들이
-                  함께하고 있어요. 모두들 최고의 제품을 향해 나아가는
-                  개발자들이며, 함께 성장하여 더 나은 개발자가 되고 싶은
-                  사람들입니다.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                    <span className="text-sm">70+ 활동 멤버</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-blue-500"></div>
-                    <span className="text-sm">60+ 회사</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                    <span className="text-sm">30+ 새로운 포스팅</span>
-                  </div>
+          <div className="grid gap-10 px-6 md:gap-16 lg:grid-cols-2 lg:px-10">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+                70명+ 의 Product Engineer 와 함께하세요
+              </h2>
+              <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
+                P.E Community 에는 70명 이상의 열정 있는 Product Engineer 들이
+                함께하고 있어요. 모두들 최고의 제품을 향해 나아가는
+                개발자들이며, 함께 성장하여 더 나은 개발자가 되고 싶은
+                사람들입니다.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                  <span className="text-sm">70+ 활동 멤버</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                  <span className="text-sm">60+ 회사</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                  <span className="text-sm">30+ 새로운 포스팅</span>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-lg bg-muted p-6">
-                  <div className="text-4xl font-bold">8+</div>
-                  <p className="text-muted-foreground">월별 이벤트</p>
-                </div>
-                <div className="rounded-lg bg-muted p-6">
-                  <div className="text-4xl font-bold">120+</div>
-                  <p className="text-muted-foreground">새로운 답변 댓글</p>
-                </div>
-                <div className="rounded-lg bg-muted p-6">
-                  <div className="text-4xl font-bold">30+</div>
-                  <p className="text-muted-foreground">공유된 경험</p>
-                </div>
-                <div className="rounded-lg bg-muted p-6">
-                  <div className="text-4xl font-bold">98%</div>
-                  <p className="text-muted-foreground">구성원 만족도</p>
-                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-lg bg-muted p-6">
+                <div className="text-4xl font-bold">8+</div>
+                <p className="text-muted-foreground">월별 이벤트</p>
+              </div>
+              <div className="rounded-lg bg-muted p-6">
+                <div className="text-4xl font-bold">120+</div>
+                <p className="text-muted-foreground">새로운 답변 댓글</p>
+              </div>
+              <div className="rounded-lg bg-muted p-6">
+                <div className="text-4xl font-bold">30+</div>
+                <p className="text-muted-foreground">공유된 경험</p>
+              </div>
+              <div className="rounded-lg bg-muted p-6">
+                <div className="text-4xl font-bold">98%</div>
+                <p className="text-muted-foreground">구성원 만족도</p>
               </div>
             </div>
           </div>
@@ -266,28 +264,26 @@ export default function LandingPage() {
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                오늘부터 함께 성장하세요.
+                오늘부터 함께 성장하세요
               </h2>
 
-              <div className="mb-8 items-center text-slate-600 sm:flex-row sm:text-left sm:text-lg md:text-xl lg:flex lg:items-center">
-                <span className="whitespace-normal">
-                  사용자의 문제를 기술로 해결하여, 비즈니스 가치를 전달하는
-                </span>
-                <GradientText
-                  className="pl-2"
-                  colors={[
-                    "#0d4c86",
-                    "#6cb8ff",
-                    "#0d4c86",
-                    "#6cb8ff",
-                    "#0d4c86",
-                  ]}
-                >
-                  Product Engineer
-                </GradientText>
-                <span className="whitespace-normal">
-                  들의 모임에 초대합니다.
-                </span>
+              <div className="mb-8 text-slate-600 sm:text-left sm:text-lg md:text-xl">
+                사용자의 문제를 기술로 해결하여, 비즈니스 가치를 전달하는
+                <div className="inline-flex items-center">
+                  <GradientText
+                    className="pl-2"
+                    colors={[
+                      "#0d4c86",
+                      "#6cb8ff",
+                      "#0d4c86",
+                      "#6cb8ff",
+                      "#0d4c86",
+                    ]}
+                  >
+                    Product Engineer
+                  </GradientText>
+                </div>
+                들의 모임에 초대합니다.
               </div>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
