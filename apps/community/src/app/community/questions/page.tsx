@@ -97,16 +97,16 @@ export default function QuestionsPage() {
               className="block"
             >
               <div className="rounded-lg border p-6 transition-colors hover:border-primary">
-                <div className="mb-4 flex items-start justify-between">
+                <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <h2 className="mb-2 text-xl font-semibold">
                       {question.title}
                     </h2>
-                    <div className="mb-4 flex gap-2 text-sm text-muted-foreground">
+                    <div className="mb-4 flex flex-wrap gap-2 text-sm text-muted-foreground">
                       <span>{question.author.username}</span>
-                      <span>•</span>
+                      <span className="hidden sm:inline">•</span>
                       <span>{getRelativeTimeString(question.created_at)}</span>
-                      <span>•</span>
+                      <span className="hidden sm:inline">•</span>
                       <span
                         className={
                           question.solved ? "text-green-600" : "text-yellow-600"

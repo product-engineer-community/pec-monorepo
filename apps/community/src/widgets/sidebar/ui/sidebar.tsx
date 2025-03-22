@@ -128,8 +128,8 @@ function SidebarSection({ section }: { section: SidebarSection }) {
 
 export function Sidebar() {
   return (
-    <aside className="w-[240px] shrink-0">
-      <div className="sticky top-[73px] flex h-[calc(100vh-73px)] flex-col gap-2 overflow-auto px-2 py-6">
+    <aside className="hidden md:w-[240px] md:shrink-0 md:flex md:flex-col">
+      <div className="md:sticky md:top-[73px] md:h-[calc(100vh-73px)] md:flex md:flex-col md:gap-2 md:overflow-auto md:px-2 md:py-6">
         {SIDEBAR_SECTIONS.map((section) => (
           <SidebarSection key={section.title} section={section} />
         ))}

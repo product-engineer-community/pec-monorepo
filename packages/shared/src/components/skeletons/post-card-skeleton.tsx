@@ -11,29 +11,29 @@ export function PostCardSkeleton({
     return (
       <div className="space-y-6">
         {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className="border rounded-lg p-6">
-            <div className="flex justify-between items-start mb-4">
+          <div key={i} className="rounded-lg border p-6">
+            <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h2 className="text-xl font-semibold mb-2 w-48 h-6 bg-gray-200 rounded animate-pulse" />
-                <div className="flex gap-2 text-sm text-muted-foreground mb-4">
-                  <span className="w-20 h-4 bg-gray-200 rounded animate-pulse" />
-                  <span>•</span>
-                  <span className="w-20 h-4 bg-gray-200 rounded animate-pulse" />
-                  <span>•</span>
-                  <span className="w-20 h-4 bg-gray-200 rounded animate-pulse" />
+                <h2 className="mb-2 h-6 w-48 animate-pulse rounded bg-gray-200" />
+                <div className="mb-4 flex flex-wrap gap-2 text-sm text-muted-foreground">
+                  <span className="h-4 w-20 animate-pulse rounded bg-gray-200" />
+                  <span className="hidden sm:inline">•</span>
+                  <span className="h-4 w-20 animate-pulse rounded bg-gray-200" />
+                  <span className="hidden sm:inline">•</span>
+                  <span className="h-4 w-20 animate-pulse rounded bg-gray-200" />
                 </div>
-                <div className="flex gap-2 mb-4">
-                  <span className="px-2 py-1 bg-gray-200 rounded-md w-16 h-6 animate-pulse" />
-                  <span className="px-2 py-1 bg-gray-200 rounded-md w-16 h-6 animate-pulse" />
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <span className="h-6 w-16 animate-pulse rounded-md bg-gray-200 px-2 py-1" />
+                  <span className="h-6 w-16 animate-pulse rounded-md bg-gray-200 px-2 py-1" />
                 </div>
               </div>
-              <div className="flex gap-4 text-sm text-muted-foreground">
-                <span className="w-16 h-4 bg-gray-200 rounded animate-pulse" />
-                <span className="w-16 h-4 bg-gray-200 rounded animate-pulse" />
-                <span className="w-16 h-4 bg-gray-200 rounded animate-pulse" />
+              <div className="flex flex-row gap-4 text-sm text-muted-foreground sm:flex-col">
+                <span className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+                <span className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+                <span className="h-4 w-16 animate-pulse rounded bg-gray-200" />
               </div>
             </div>
-            <div className="h-24 bg-gray-200 rounded animate-pulse" />
+            <div className="h-24 animate-pulse rounded bg-gray-200" />
           </div>
         ))}
       </div>
@@ -43,24 +43,24 @@ export function PostCardSkeleton({
   return (
     <div className="space-y-6">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="border rounded-lg p-6">
-          <div className="flex justify-between items-start mb-4">
+        <div key={i} className="rounded-lg border p-6">
+          <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <h2 className="text-xl font-semibold mb-2 w-48 h-6 bg-gray-200 rounded animate-pulse" />
-              <div className="flex gap-2 text-sm text-muted-foreground mb-4">
-                <span className="w-20 h-4 bg-gray-200 rounded animate-pulse" />
-                <span>•</span>
-                <span className="w-20 h-4 bg-gray-200 rounded animate-pulse" />
-                <span>•</span>
-                <span className="w-20 h-4 bg-gray-200 rounded animate-pulse" />
+              <h2 className="mb-2 h-6 w-48 animate-pulse rounded bg-gray-200" />
+              <div className="mb-4 flex flex-wrap gap-2 text-sm text-muted-foreground">
+                <span className="h-4 w-20 animate-pulse rounded bg-gray-200" />
+                <span className="hidden sm:inline">•</span>
+                <span className="h-4 w-20 animate-pulse rounded bg-gray-200" />
+                <span className="hidden sm:inline">•</span>
+                <span className="h-4 w-20 animate-pulse rounded bg-gray-200" />
               </div>
             </div>
-            <div className="flex gap-4 text-sm text-muted-foreground">
-              <span className="w-16 h-4 bg-gray-200 rounded animate-pulse" />
-              <span className="w-16 h-4 bg-gray-200 rounded animate-pulse" />
+            <div className="flex flex-row gap-4 text-sm text-muted-foreground sm:flex-col">
+              <span className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+              <span className="h-4 w-16 animate-pulse rounded bg-gray-200" />
             </div>
           </div>
-          <div className="h-32 bg-gray-200 rounded animate-pulse" />
+          <div className="h-32 animate-pulse rounded bg-gray-200" />
         </div>
       ))}
     </div>
