@@ -1,0 +1,91 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 🧑‍🏭 Coding Preferences – "Write Code Like This"
+
+## Code Quality Principles
+
+- **Simplicity**: Prioritize the simplest solution over complex ones.
+- **Avoid Redundancy**: Prevent code duplication and reuse existing functionality (**DRY principle**).
+- **Guardrails**: Do not use mock data in development or production environments, except in tests.
+- **Efficiency**: Optimize output to minimize token usage while maintaining clarity.
+
+## FSD Structure
+
+- ✅ **Respect FSD Structure** – Do not create folders outside `features`, `entities`, `shared`, `widgets`, `app`.
+- ✅ **Public API Only via `index.ts`** – All external access must go through `index.ts`.
+- ✅ **Separation of Concerns** – Place UI in `ui/`, logic in `model/`, server action in `action/` and external api call in `api/`.
+
+### 1. Layer Structure Principles
+
+- **Upward Dependencies**: Upper layers can only depend on lower layers (app → widgets → features → entities → shared)
+- **Lower Layer Independence**: Lower layers don't know about upper layers
+- **No Horizontal Dependencies**: Different slices within the same layer cannot depend on each other
+- app: This layer integrates both the traditional app layer and pages layer into a single structure. When using the Next.js App Router, it helps avoid folder name conflicts by containing both the app and pages layers (as defined in F.S.D) within the app directory.
+- widgets: A layer that composes reusable UI blocks by combining features, entities, and shared components, focusing on layout and presentation rather than logic.
+- features: Reusable implementations of product-level features that deliver business value through user actions.Includes domain-specific logic such as Create, Update, and Delete (CUD) operations.
+- entities: Represents core business entities (e.g. user, product). Includes domain-level read (R) logic and stable data models, along with UI components for displaying them. Typically read-only and does not handle user interaction.
+
+### 2. Feature Implementation Guidelines
+
+1. **Public API Design**
+
+   - Internal implementations remain private
+   - Each slice is exposed only through `index.ts`(only needed)
+
+2. **Business Logic Separation**
+
+   - Concentrate business logic in models(model/)
+   - UI components contain minimal logic
+
+3. **Naming Conventions**
+   - File names clearly express functionality
+   - Components: PascalCase
+   - hooks: lowerCamelCase
+   - Utilities: kebab-case
+   - Types/interfaces: PascalCase + `.types.ts`
+
+### 3. Adding New Features Procedure
+
+1. **Layer Decision**
+
+   - Choose appropriate layer based on feature characteristics
+   - Consider reusability potential
+
+2. **Slice Creation**
+
+   - Follow domain structure based on planning framework
+
+3. **Dependency Management**
+   - Adhere to layer structure principles
+   - Prevent circular dependencies
+
+### Server and Client Component Guidelines
+
+#### 1. Server Component First Principle
+
+- ✅ **Default to Server Components** - Implement as server component unless there are explicit client requirements
+- ✅ **Data Fetching Server-Only** - All API calls and data loading should be implemented via server components or server actions
+- ✅ **Mark Client Components** - Add `'use client'` directive at the top of client component files
+- ✅ **Heavy Computation on Server** - Perform computation-intensive tasks like data transformation, filtering, sorting on the server
+
+#### 2. Limited Use of Client Components
+
+- ✅ **Clearly Defined Role** - Use only for UI rendering or browser API, and user event handling
+- ✅ **Minimal State Management** - Manage only ephemeral states like form inputs and UI toggle states
+- ✅ **Isolate Within Server Components** - Place client components deep inside server components to minimize bundle size
+- ❌ **Avoid Unnecessary Global State** - Utilize server state when possible and minimize client-side state
+
+#### 3. Component Composition Patterns
+
+- ✅ **Server-Client Separation** - Separate server and client logic into different files
+- ✅ **Props Passing Pattern** - Fetch data on the server and pass to client components as props
+- ✅ **Event Handler Centralization** - Define only event handlers in client components and call server actions
+
+### Supabase Development Guidelines
+
+- ✅ **Use `createClient()`** - Always initialize Supabase client using `createClient()` function
+- ✅ **Type Safety** - Use type definitions from `@/supabase/types.ts` for all Supabase operations
+- ✅ **Single Instance** - Create and export a single Supabase client instance for reuse
