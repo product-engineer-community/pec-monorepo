@@ -16,6 +16,7 @@ import {
   COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
+  LECTURE_PATHNAME,
   MAIN_PATHNAME,
 } from "@/src/shared/config/pathname";
 
@@ -41,6 +42,20 @@ const SIDEBAR_SECTIONS: SidebarSection[] = [
     ],
   },
   {
+    title: "Community",
+    collapsible: true,
+    items: [
+      {
+        label: "Questions",
+        href: COMMUNITY_QUESTIONS_PATHNAME,
+      },
+      {
+        label: "Discussions",
+        href: COMMUNITY_DISCUSSIONS_PATHNAME,
+      },
+    ],
+  },
+  {
     title: "Dev",
     collapsible: true,
     items: [
@@ -55,16 +70,12 @@ const SIDEBAR_SECTIONS: SidebarSection[] = [
     ],
   },
   {
-    title: "Community",
-    collapsible: true,
+    title: "Lectures",
+    collapsible: false,
     items: [
       {
-        label: "Questions",
-        href: COMMUNITY_QUESTIONS_PATHNAME,
-      },
-      {
-        label: "Discussions",
-        href: COMMUNITY_DISCUSSIONS_PATHNAME,
+        label: "Lectures",
+        href: LECTURE_PATHNAME,
       },
     ],
   },
@@ -128,8 +139,8 @@ function SidebarSection({ section }: { section: SidebarSection }) {
 
 export function Sidebar() {
   return (
-    <aside className="hidden md:w-[240px] md:shrink-0 md:flex md:flex-col">
-      <div className="md:sticky md:top-[73px] md:h-[calc(100vh-73px)] md:flex md:flex-col md:gap-2 md:overflow-auto md:px-2 md:py-6">
+    <aside className="hidden md:flex md:w-[240px] md:shrink-0 md:flex-col">
+      <div className="md:sticky md:top-[73px] md:flex md:h-[calc(100vh-73px)] md:flex-col md:gap-2 md:overflow-auto md:px-2 md:py-6">
         {SIDEBAR_SECTIONS.map((section) => (
           <SidebarSection key={section.title} section={section} />
         ))}

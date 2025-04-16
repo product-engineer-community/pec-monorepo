@@ -14,3 +14,5 @@ export const COMMUNITY_DISCUSSIONS_PATHNAME = "/community/discussions";
 
 export const COMMUNITY_BLOG_PATHNAME = "/blog";
 export const COMMUNITY_EVENTS_PATHNAME = "/community/events";
+
+export const LECTURE_PATHNAME = "/lecture";
