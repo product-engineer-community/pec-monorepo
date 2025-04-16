@@ -20,7 +20,7 @@ import {
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
-  LECTURE_PATHNAME,
+  LECTURES_PATHNAME,
 } from "@/src/shared/config/pathname";
 
 const MENU_ITEMS = [
@@ -34,7 +34,7 @@ const MENU_ITEMS = [
   },
   { label: "Articles", href: COMMUNITY_ARTICLES_PATHNAME },
   { label: "Events", href: COMMUNITY_EVENTS_PATHNAME },
-  { label: "Lectures", href: LECTURE_PATHNAME },
+  { label: "Lectures", href: LECTURES_PATHNAME },
 ] as const;
 
 export function Header() {
