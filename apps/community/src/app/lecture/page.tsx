@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, CardFooter, CardHeader } from "@pec/shared";
-import { Bookmark, Clock, User } from "lucide-react";
+import { Clock, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,45 +22,44 @@ interface Lecture {
 const LECTURE_MOCK_DATA: Lecture[] = [
   {
     id: "lecture-1",
-    title: "Next.js로 확장 가능한 웹 애플리케이션 구축하기",
-    description:
-      "Next.js의 기본부터 고급 기능까지 배우며 확장 가능한 웹 애플리케이션을 구축하는 방법을 학습합니다. 실제 프로젝트 개발 과정을 통해 성능 최적화, SSR, SSG 등의 개념을 실습해봅니다.",
-    instructor: "김프론트",
-    price: 149000,
-    salePrice: 99000,
-    duration: "8주",
+    title: `Next.js 까보기: "쓸 줄 아는 개발자"에서 "알고 쓰는 개발자"로`,
+    description: `함께 소스코드를 까보며 기술면접부터 실무 설계까지, AI 시대에 필요한 깊은 이해와 자신만의 관점을 갖출 수 있도록 도와드릴게요. Next.js를 단순히 "써본" 개발자에서, 왜 그렇게 쓰는지 "이해하는" 전문가로 성장하세요.`,
+    instructor: "Boaz",
+    price: 154000,
+    salePrice: 132000,
+    duration: "12주",
     level: "중급",
-    students: 240,
-    image: "/FSD.webp",
-    tags: ["Next.js", "React", "성능최적화", "SSR"],
+    students: 63,
+    image: "/NextjsIcon.webp",
+    tags: ["Next.js", "TypeScript", "면접", "실무"],
   },
   {
     id: "lecture-2",
-    title: "TypeScript와 함께하는 견고한 백엔드 설계",
+    title: "Product Engineer를 위한 Algorithm",
     description:
-      "TypeScript를 활용한 백엔드 개발에 초점을 맞춰, 타입 안정성이 보장된 견고한 API를 설계하고 구현하는 방법을 배웁니다. NestJS와 TypeORM을 중심으로 실전 프로젝트를 완성합니다.",
-    instructor: "박백엔드",
+      "실무에서 마주치는 다양한.알고리즘 문제를 해결하는 접근법을 배웁니다. 복잡한 비즈니스 로직을 효율적으로 구현하기 위한 알고리즘적 사고와 최적화 기법을 습득하세요.",
+    instructor: "Boaz",
     price: 179000,
-    salePrice: 129000,
-    duration: "10주",
-    level: "고급",
-    students: 186,
+    salePrice: 149000,
+    duration: "8주",
+    level: "중급",
+    students: 45,
     image: "/OAuth.webp",
-    tags: ["TypeScript", "NestJS", "TypeORM", "API"],
+    tags: ["알고리즘", "자료구조", "최적화", "코딩테스트"],
   },
   {
     id: "lecture-3",
-    title: "AWS 클라우드 기반 인프라 구축과 운영",
+    title: "Product Engineer를 위한 시스템 디자인",
     description:
-      "AWS 클라우드 서비스를 활용한 확장 가능한 인프라 구축 방법을 배웁니다. EC2, S3, Lambda, CloudFront 등의 서비스를 활용하여 안정적이고 확장 가능한 애플리케이션 인프라를 구성하는 방법을 학습합니다.",
-    instructor: "이클라우드",
+      "확장 가능하고 안정적인 시스템을 설계하는 방법을 배웁니다. 대규모 트래픽, 데이터 처리, 분산 시스템 등 실제 서비스 개발에 필요한 아키텍처 설계 원칙과 패턴을 학습합니다.",
+    instructor: "Boaz",
     price: 199000,
-    salePrice: 159000,
-    duration: "6주",
-    level: "중급",
-    students: 210,
-    image: "/GithubActions.webp",
-    tags: ["AWS", "클라우드", "인프라", "DevOps"],
+    salePrice: 169000,
+    duration: "12주",
+    level: "고급",
+    students: 36,
+    image: "/NextjsIcon.webp",
+    tags: ["시스템디자인", "아키텍처", "확장성", "분산시스템"],
   },
 ];
 
@@ -83,12 +82,13 @@ function LectureItem({
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover transition-transform duration-300 hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover object-center transition-transform duration-300 hover:scale-105"
         />
         {discountRate > 0 && (
           <div className="absolute right-0 top-0 bg-red-500 px-2 py-1 text-xs font-bold text-white">
@@ -125,12 +125,9 @@ function LectureItem({
               {duration}
             </span>
           </div>
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Bookmark className="h-4 w-4" />
-          </Button>
         </div>
         <h3 className="line-clamp-2 text-xl font-bold">{title}</h3>
-        <p className="text-sm text-muted-foreground">{instructor} 강사</p>
+        <p className="text-sm text-muted-foreground">{instructor}</p>
       </CardHeader>
       <CardContent>
         <p className="line-clamp-3 text-sm text-muted-foreground">
@@ -181,44 +178,12 @@ export default function LecturePage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter text-white md:text-4xl">
-                  프로덕트 엔지니어를 위한 프리미엄 강의
+                  Product Engineer 를 위한 프리미엄 강의
                 </h1>
                 <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl">
-                  현업 개발자들이 직접 알려주는 실무 중심 강의로 여러분의 성장을
+                  기술의 등장 배경과 동작 원리를 이해하며 여러분의 성장을
                   가속화하세요.
                 </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 강의 설명 섹션 */}
-        <section className="py-12 md:py-16">
-          <div className="container px-4 md:px-6">
-            <div className="mx-auto max-w-[800px] text-center">
-              <h2 className="mb-4 text-2xl font-bold">
-                성장하는 개발자의 선택
-              </h2>
-              <p className="mb-8 text-muted-foreground">
-                Product Engineer로 성장하기 위해 필요한 핵심 기술과 실무
-                노하우를 담은 프리미엄 강의를 만나보세요. 현업에서 직접 사용되는
-                기술과 방법론을 체계적으로 배울 수 있습니다.
-              </p>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-lg bg-muted p-4">
-                  <div className="text-2xl font-bold text-primary">12개+</div>
-                  <p className="text-sm text-muted-foreground">프리미엄 강의</p>
-                </div>
-                <div className="rounded-lg bg-muted p-4">
-                  <div className="text-2xl font-bold text-primary">
-                    1,500명+
-                  </div>
-                  <p className="text-sm text-muted-foreground">수강생</p>
-                </div>
-                <div className="rounded-lg bg-muted p-4">
-                  <div className="text-2xl font-bold text-primary">98%</div>
-                  <p className="text-sm text-muted-foreground">만족도</p>
-                </div>
               </div>
             </div>
           </div>
@@ -229,17 +194,6 @@ export default function LecturePage() {
           <div className="container px-4 md:px-6">
             <div className="mb-8 flex items-center justify-between">
               <h2 className="text-2xl font-bold">인기 강의</h2>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  최신순
-                </Button>
-                <Button variant="outline" size="sm">
-                  인기순
-                </Button>
-                <Button variant="outline" size="sm">
-                  가격순
-                </Button>
-              </div>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {LECTURE_MOCK_DATA.map((lecture) => (

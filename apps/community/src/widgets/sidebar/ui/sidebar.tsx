@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import {
-  COMMUNITY_BLOG_PATHNAME,
+  COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
@@ -47,7 +47,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   },
   {
     label: "Articles",
-    href: COMMUNITY_BLOG_PATHNAME,
+    href: COMMUNITY_ARTICLES_PATHNAME,
   },
   {
     label: "Events",

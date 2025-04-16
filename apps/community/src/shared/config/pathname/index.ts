@@ -12,7 +12,7 @@ export const COMMUNITY_PATHNAME = "/community";
 export const COMMUNITY_QUESTIONS_PATHNAME = "/community/questions";
 export const COMMUNITY_DISCUSSIONS_PATHNAME = "/community/discussions";
 
-export const COMMUNITY_BLOG_PATHNAME = "/blog";
+export const COMMUNITY_ARTICLES_PATHNAME = "/community/articles";
 export const COMMUNITY_EVENTS_PATHNAME = "/community/events";
 
 export const LECTURE_PATHNAME = "/lecture";

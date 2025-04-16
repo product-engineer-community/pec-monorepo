@@ -15,7 +15,7 @@ import Link from "next/link";
 
 import { useAuth } from "@/hooks/use-auth";
 import {
-  COMMUNITY_BLOG_PATHNAME,
+  COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_PATHNAME,
@@ -32,8 +32,8 @@ const MENU_ITEMS = [
       { label: "Discussions", href: COMMUNITY_DISCUSSIONS_PATHNAME },
     ],
   },
-  { label: "Articles", href: COMMUNITY_BLOG_PATHNAME },
-  { label: "Event", href: COMMUNITY_EVENTS_PATHNAME },
+  { label: "Articles", href: COMMUNITY_ARTICLES_PATHNAME },
+  { label: "Events", href: COMMUNITY_EVENTS_PATHNAME },
   { label: "Lectures", href: LECTURE_PATHNAME },
 ] as const;
 

@@ -100,8 +100,8 @@ export default function ArticlesPage() {
         <Text size="3xl" weight="bold" className="mb-4">
           Product Engineer Articles
         </Text>
-        <Text className="mx-auto max-w-2xl text-muted-foreground">
-          기술의 본질을 이해하고 사용자의 문제를 해결하는 프로덕트 엔지니어들의
+        <Text className="max-w-2xl">
+          기술의 본질을 이해하고 사용자의 문제를 해결하는 Product Engineer들의
           인사이트와 경험을 공유합니다.
         </Text>
       </div>
