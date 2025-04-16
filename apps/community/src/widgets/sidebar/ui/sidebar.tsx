@@ -20,30 +20,20 @@ import {
   MAIN_PATHNAME,
 } from "@/src/shared/config/pathname";
 
-type SidebarSection = {
-  title: string;
-  collapsible?: boolean;
-  items: {
-    label: string;
-    href: string;
-    icon?: React.ReactNode;
-  }[];
+type SidebarItem = {
+  label: string;
+  href?: string;
+  icon?: React.ReactNode;
+  items?: SidebarItem[]; // 재귀적 정의
 };
 
-const SIDEBAR_SECTIONS: SidebarSection[] = [
+const SIDEBAR_ITEMS: SidebarItem[] = [
   {
-    title: "Home",
-    collapsible: false,
-    items: [
-      {
-        label: "Home",
-        href: MAIN_PATHNAME,
-      },
-    ],
+    label: "Home",
+    href: MAIN_PATHNAME,
   },
   {
-    title: "Community",
-    collapsible: true,
+    label: "Community",
     items: [
       {
         label: "Questions",
@@ -56,32 +46,28 @@ const SIDEBAR_SECTIONS: SidebarSection[] = [
     ],
   },
   {
-    title: "Dev",
-    collapsible: true,
-    items: [
-      {
-        label: "Blog",
-        href: COMMUNITY_BLOG_PATHNAME,
-      },
-      {
-        label: "Events",
-        href: COMMUNITY_EVENTS_PATHNAME,
-      },
-    ],
+    label: "Articles",
+    href: COMMUNITY_BLOG_PATHNAME,
   },
   {
-    title: "Lectures",
-    collapsible: false,
-    items: [
-      {
-        label: "Lectures",
-        href: LECTURE_PATHNAME,
-      },
-    ],
+    label: "Events",
+    href: COMMUNITY_EVENTS_PATHNAME,
+  },
+  {
+    label: "Lectures",
+    href: LECTURE_PATHNAME,
   },
 ];
 
-function SidebarItem({ href, label }: { href: string; label: string }) {
+function SidebarLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string;
+  label: string;
+  icon?: React.ReactNode;
+}) {
   const pathname = usePathname();
   const isActive = pathname === href;
 
@@ -95,22 +81,39 @@ function SidebarItem({ href, label }: { href: string; label: string }) {
           : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground",
       )}
     >
+      {icon && <span className="mr-2">{icon}</span>}
       {label}
     </Link>
   );
 }
 
-function SidebarSection({ section }: { section: SidebarSection }) {
+function SidebarItemComponent({ item }: { item: SidebarItem }) {
   const [isOpen, setIsOpen] = useState(true);
   const pathname = usePathname();
-  const isActive = section.items.some((item) => pathname === item.href);
+  const hasItems = item.items && item.items.length > 0;
+  const isActive = hasItems
+    ? item.items?.some(
+        (childItem) =>
+          pathname === childItem.href ||
+          childItem.items?.some((subItem) => pathname === subItem.href),
+      )
+    : item.href
+      ? pathname === item.href
+      : false;
 
-  if (!section.collapsible) {
+  if (item.href) {
+    return <SidebarLink href={item.href} label={item.label} icon={item.icon} />;
+  }
+
+  if (!hasItems) {
     return (
-      <div className="space-y-1">
-        {section.items.map((item) => (
-          <SidebarItem key={item.href} {...item} />
-        ))}
+      <div
+        className={cn(
+          "flex w-full items-center rounded-md px-3 py-2 text-sm",
+          "text-muted-foreground",
+        )}
+      >
+        {item.label}
       </div>
     );
   }
@@ -123,14 +126,17 @@ function SidebarSection({ section }: { section: SidebarSection }) {
           isActive ? "font-medium text-foreground" : "text-muted-foreground",
         )}
       >
-        {section.title}
+        {item.label}
         <ChevronDown
           className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")}
         />
       </CollapsibleTrigger>
       <CollapsibleContent className="space-y-1 px-2 py-2">
-        {section.items.map((item) => (
-          <SidebarItem key={item.href} {...item} />
+        {item.items!.map((subItem) => (
+          <SidebarItemComponent
+            key={subItem.label + (subItem.href || "")}
+            item={subItem}
+          />
         ))}
       </CollapsibleContent>
     </Collapsible>
@@ -141,8 +147,11 @@ export function Sidebar() {
   return (
     <aside className="hidden md:flex md:w-[240px] md:shrink-0 md:flex-col">
       <div className="md:sticky md:top-[73px] md:flex md:h-[calc(100vh-73px)] md:flex-col md:gap-2 md:overflow-auto md:px-2 md:py-6">
-        {SIDEBAR_SECTIONS.map((section) => (
-          <SidebarSection key={section.title} section={section} />
+        {SIDEBAR_ITEMS.map((item) => (
+          <SidebarItemComponent
+            key={item.label + (item.href || "")}
+            item={item}
+          />
         ))}
       </div>
     </aside>

@@ -32,7 +32,7 @@ const MENU_ITEMS = [
       { label: "Discussions", href: COMMUNITY_DISCUSSIONS_PATHNAME },
     ],
   },
-  { label: "Blog", href: COMMUNITY_BLOG_PATHNAME },
+  { label: "Articles", href: COMMUNITY_BLOG_PATHNAME },
   { label: "Event", href: COMMUNITY_EVENTS_PATHNAME },
   { label: "Lectures", href: LECTURE_PATHNAME },
 ] as const;
