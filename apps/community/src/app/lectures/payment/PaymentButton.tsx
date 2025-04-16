@@ -3,6 +3,7 @@
 import { Button } from "@pec/shared";
 import * as PortOne from "@portone/browser-sdk/v2";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface PaymentButtonProps {
   price: number;
@@ -20,23 +21,16 @@ interface PaymentButtonProps {
   currency?: "CURRENCY_KRW" | "CURRENCY_USD" | "CURRENCY_EUR" | "CURRENCY_JPY";
 }
 
-interface PaymentStatus {
-  status: "IDLE" | "PENDING" | "PAID" | "FAILED";
-  message?: string;
-}
-
 export default function PaymentButton({
   price,
   orderName,
   payMethod,
   currency = "CURRENCY_KRW",
 }: PaymentButtonProps) {
-  const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>({
-    status: "IDLE",
-  });
+  const [isPaymentLoading, setIsPaymentLoading] = useState(false);
 
   const handleClick = async () => {
-    setPaymentStatus({ status: "PENDING" });
+    setIsPaymentLoading(true);
     const paymentId = crypto.randomUUID();
 
     try {
@@ -52,14 +46,9 @@ export default function PaymentButton({
       });
 
       if (payment?.code !== undefined) {
-        setPaymentStatus({
-          status: "FAILED",
-          message: payment.message,
-        });
+        toast.error(payment.message);
         return;
       }
-
-      console.log("🚀 ~ handleClick ~ payment:", payment);
 
       const completeResponse = await fetch(`/lectures/payment/complete`, {
         method: "POST",
@@ -71,67 +60,31 @@ export default function PaymentButton({
 
       if (completeResponse.ok) {
         const paymentComplete = await completeResponse.json();
-        setPaymentStatus({
-          status: paymentComplete.status || "PAID",
-        });
+
+        if (paymentComplete.status === "PAID") {
+          toast.success("결제가 완료되었습니다.");
+        }
       } else {
-        setPaymentStatus({
-          status: "FAILED",
-          message: await completeResponse.text(),
-        });
+        toast.error(await completeResponse.text());
       }
     } catch (error) {
-      setPaymentStatus({
-        status: "FAILED",
-        message:
-          error instanceof Error
-            ? error.message
-            : "결제 처리 중 오류가 발생했습니다.",
-      });
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "결제 처리 중 오류가 발생했습니다.",
+      );
     }
   };
-
-  const handleClose = () => {
-    setPaymentStatus({
-      status: "IDLE",
-    });
-  };
-
-  const isWaitingPayment = paymentStatus.status !== "IDLE";
 
   return (
     <>
       <Button
         onClick={handleClick}
-        disabled={isWaitingPayment}
-        aria-busy={isWaitingPayment}
+        disabled={isPaymentLoading}
+        aria-busy={isPaymentLoading}
       >
         결제하기
       </Button>
-
-      {paymentStatus.status === "FAILED" && (
-        <dialog open>
-          <header>
-            <h1>결제 실패</h1>
-          </header>
-          <p>{paymentStatus.message}</p>
-          <button type="button" onClick={handleClose}>
-            닫기
-          </button>
-        </dialog>
-      )}
-
-      {paymentStatus.status === "PAID" && (
-        <dialog open>
-          <header>
-            <h1>결제 성공</h1>
-          </header>
-          <p>결제에 성공했습니다.</p>
-          <button type="button" onClick={handleClose}>
-            닫기
-          </button>
-        </dialog>
-      )}
     </>
   );
 }
