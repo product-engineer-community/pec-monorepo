@@ -35,7 +35,7 @@ declare global {
   }
 }
 
-const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
+export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
   videoId,
   width = 640,
   height = 360,
@@ -85,5 +85,3 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
 
   return <div ref={playerRef} />;
 };
-
-export default YoutubePlayer;

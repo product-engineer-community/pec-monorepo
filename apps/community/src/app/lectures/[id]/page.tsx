@@ -12,9 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { getLectures } from "@/entities/lecture/action/getLectures";
-
-import { LECTURE_MOCK_DATA } from "../page";
+import { getLectureItems, getLectures } from "@/entities/lecture/action";
 
 interface LecturePageProps {
   params: Promise<{
@@ -26,16 +24,15 @@ export default async function LecturePage({ params }: LecturePageProps) {
   //TODO: id 활용하여 supabase 에서 lecture 정보 불러오기
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
-  // 모든 강의 가져오기
   const lectures = await getLectures();
+  const lecture = lectures[0];
+
+  const lectureItems = await getLectureItems();
 
   // 강의를 찾지 못한 경우 404 페이지 표시
-  if (!lectures || lectures.length === 0) {
+  if (!lectures || lectures.length === 0 || lectureItems.length === 0) {
     notFound();
   }
-
-  // 모의 데이터에서 첫 번째 강의(Next.js) 정보 사용
-  const lecture = LECTURE_MOCK_DATA[0];
 
   // 할인율 계산
   const discountRate = Math.floor(

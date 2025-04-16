@@ -9,9 +9,8 @@ import {
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { getLectures } from "@/entities/lecture/action/getLectures";
+import { getLectureItems, getLectures } from "@/entities/lecture/action";
 
-import { LECTURE_MOCK_DATA } from "../../page";
 import PaymentButton from "../PaymentButton";
 
 interface PaymentPageProps {
@@ -24,18 +23,12 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
 
-  // 모든 강의 가져오기
   const lectures = await getLectures();
+  const lecture = lectures[0];
+  const lectureItems = await getLectureItems();
 
   // 강의를 찾지 못한 경우 404 페이지 표시
-  if (!lectures || lectures.length === 0) {
-    notFound();
-  }
-
-  // 해당 ID에 맞는 강의 찾기
-  const lecture = LECTURE_MOCK_DATA[0];
-
-  if (!lecture) {
+  if (!lectures || lectures.length === 0 || lectureItems.length === 0) {
     notFound();
   }
 
