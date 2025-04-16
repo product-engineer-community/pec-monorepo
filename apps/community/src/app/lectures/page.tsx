@@ -19,9 +19,9 @@ interface Lecture {
 }
 
 // 강의 목록 Mock 데이터
-const LECTURE_MOCK_DATA: Lecture[] = [
+export const LECTURE_MOCK_DATA: Lecture[] = [
   {
-    id: "lecture-1",
+    id: "nextjs",
     title: `Next.js 까보기: "쓸 줄 아는 개발자"에서 "알고 쓰는 개발자"로`,
     description: `함께 소스코드를 까보며 기술면접부터 실무 설계까지, AI 시대에 필요한 깊은 이해와 자신만의 관점을 갖출 수 있도록 도와드릴게요. Next.js를 단순히 "써본" 개발자에서, 왜 그렇게 쓰는지 "이해하는" 전문가로 성장하세요.`,
     instructor: "Boaz",
@@ -35,21 +35,21 @@ const LECTURE_MOCK_DATA: Lecture[] = [
   },
   {
     id: "lecture-2",
-    title: "Product Engineer를 위한 Algorithm",
+    title: "Product Engineer를 위한 알고리즘 & 자료구조(5월 예정)",
     description:
-      "실무에서 마주치는 다양한.알고리즘 문제를 해결하는 접근법을 배웁니다. 복잡한 비즈니스 로직을 효율적으로 구현하기 위한 알고리즘적 사고와 최적화 기법을 습득하세요.",
+      "실무에서 마주치는 다양한 알고리즘 문제를 소개합니다. 복잡한 비즈니스 로직을 효율적으로 구현하기 위한 알고리즘적 사고와 최적화 기법을 습득하세요.",
     instructor: "Boaz",
     price: 179000,
     salePrice: 149000,
     duration: "8주",
     level: "중급",
     students: 45,
-    image: "/OAuth.webp",
+    image: "/Algorithm.webp",
     tags: ["알고리즘", "자료구조", "최적화", "코딩테스트"],
   },
   {
     id: "lecture-3",
-    title: "Product Engineer를 위한 시스템 디자인",
+    title: "Product Engineer를 위한 시스템 디자인(6월 예정)",
     description:
       "확장 가능하고 안정적인 시스템을 설계하는 방법을 배웁니다. 대규모 트래픽, 데이터 처리, 분산 시스템 등 실제 서비스 개발에 필요한 아키텍처 설계 원칙과 패턴을 학습합니다.",
     instructor: "Boaz",
@@ -58,7 +58,7 @@ const LECTURE_MOCK_DATA: Lecture[] = [
     duration: "12주",
     level: "고급",
     students: 36,
-    image: "/NextjsIcon.webp",
+    image: "/SystemDesign.webp",
     tags: ["시스템디자인", "아키텍처", "확장성", "분산시스템"],
   },
 ];
@@ -157,7 +157,7 @@ function LectureItem({
         </div>
         <div className="flex w-full gap-2">
           <Button variant="outline" size="sm" className="flex-1" asChild>
-            <Link href={`/lecture/${id}`}>상세보기</Link>
+            <Link href={`/lectures/${id}`}>상세보기</Link>
           </Button>
           <Button size="sm" className="flex-1">
             수강신청
@@ -201,29 +201,8 @@ export default function LecturePage() {
               ))}
             </div>
             <div className="mt-10 flex justify-center">
-              <Button variant="outline" size="lg">
-                더 많은 강의 보기
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA 섹션 */}
-        <section className="w-full border-t bg-muted py-12 md:py-16">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-2xl font-bold">
-                  지금 바로 성장을 시작하세요
-                </h2>
-                <p className="mx-auto max-w-[600px] text-muted-foreground">
-                  Product Engineer로서의 여정을 함께할 준비가 되셨나요? 지금
-                  바로 강의를 수강하고 실무에 바로 적용 가능한 기술을
-                  습득하세요.
-                </p>
-              </div>
-              <Button size="lg" className="mt-4">
-                모든 강의 둘러보기
+              <Button variant="outline" size="lg" disabled>
+                더 많은 강의 보기(준비중)
               </Button>
             </div>
           </div>
