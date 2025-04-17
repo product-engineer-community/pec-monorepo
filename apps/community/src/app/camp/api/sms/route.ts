@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   // from webhook, get data
   const data = await req.json();
   const { to, email } = data;
-  console.log("🚀 ~ POST ~ data:", to);
+  console.log("🚀 ~ POST ~ data:", data);
   const messageService = new SolapiMessageService(
     process.env.SMS_API_KEY || "",
     process.env.SMS_API_SECRET || "",
