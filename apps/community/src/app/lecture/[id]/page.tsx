@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getLectureItems, getLectures } from "@/entities/lecture/action";
+import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 interface LecturePageProps {
   params: Promise<{
@@ -24,11 +25,11 @@ export default async function LecturePage({ params }: LecturePageProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
   const lectures = await getLectures();
-  console.log("🚀 ~ LecturePage ~ lectures:", lectures)
+  console.log("🚀 ~ LecturePage ~ lectures:", lectures);
   const lecture = lectures[0];
 
   const lectureItems = await getLectureItems();
-  console.log("🚀 ~ LecturePage ~ lectureItems:", lectureItems)
+  console.log("🚀 ~ LecturePage ~ lectureItems:", lectureItems);
 
   // 할인율 계산
   const discountRate = Math.floor(
@@ -109,7 +110,7 @@ export default async function LecturePage({ params }: LecturePageProps) {
                 </div>
 
                 {/* 버튼 영역 */}
-                <Link href={`/lectures/payment/${id}`}>
+                <Link href={`${LECTURE_PATHNAME}/payment/${id}`}>
                   <Button className="w-full">수강 신청하기</Button>
                 </Link>
               </Card>

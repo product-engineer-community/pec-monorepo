@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Lecture } from "@/src/entities/lecture/model";
+import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 // 강의 아이템 컴포넌트
 export function LectureItem({
@@ -93,11 +94,17 @@ export function LectureItem({
           </span>
         </div>
         <div className="flex w-full gap-2">
-          <Button variant="outline" size="sm" className="flex-1" asChild>
-            <Link href={`/lectures/${id}`}>상세보기</Link>
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1"
+            asChild
+            disabled={salePrice !== 132000}
+          >
+            <Link href={`${LECTURE_PATHNAME}/${id}`}>상세보기</Link>
           </Button>
-          <Button size="sm" className="flex-1">
-            <Link href={`/lectures/${id}`}>수강신청</Link>
+          <Button size="sm" className="flex-1" disabled={salePrice !== 132000}>
+            <Link href={`${LECTURE_PATHNAME}/payment/${id}`}>수강신청</Link>
           </Button>
         </div>
       </CardFooter>

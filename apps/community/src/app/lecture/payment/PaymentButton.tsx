@@ -5,6 +5,8 @@ import * as PortOne from "@portone/browser-sdk/v2";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
+
 interface PaymentButtonProps {
   price: number;
   orderName: string;
@@ -50,13 +52,16 @@ export default function PaymentButton({
         return;
       }
 
-      const completeResponse = await fetch(`/lectures/payment/complete`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          paymentId: payment?.paymentId,
-        }),
-      });
+      const completeResponse = await fetch(
+        `${LECTURE_PATHNAME}/payment/complete`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            paymentId: payment?.paymentId,
+          }),
+        },
+      );
 
       if (completeResponse.ok) {
         const paymentComplete = await completeResponse.json();
