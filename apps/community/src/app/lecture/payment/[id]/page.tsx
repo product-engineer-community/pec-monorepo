@@ -62,28 +62,6 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
                   </div>
                 </div>
 
-                {/* 약관 동의 */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium">약관 동의</h3>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="refund-policy"
-                        className="h-4 w-4 rounded border-gray-300"
-                        required
-                      />
-                      <Label
-                        htmlFor="refund-policy"
-                        className="text-sm font-normal"
-                      >
-                        (필수) 환불 정책에 동의합니다
-                      </Label>
-                    </div>
-                  </div>
-                </div>
-
                 <PaymentButton
                   price={lecture.salePrice}
                   orderName={lecture.title}
@@ -136,17 +114,7 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
               </div>
 
               <div className="mt-6 rounded-md bg-blue-50 p-3 text-sm text-blue-800">
-                <p>
-                  강의 구매 후 바로 수강하실 수 있습니다. 구매 완료 후 이메일로
-                  상세 수강 방법이 안내됩니다.
-                </p>
-              </div>
-
-              <div className="mt-4 text-xs text-gray-500">
-                <p>
-                  * 환불 정책: 강의 시작 후 7일 이내 또는 강의 진도율 25% 이내에
-                  환불 요청 시 전액 환불됩니다.
-                </p>
+                <p>강의 구매 후 바로 수강하실 수 있습니다.</p>
               </div>
             </CardContent>
           </Card>

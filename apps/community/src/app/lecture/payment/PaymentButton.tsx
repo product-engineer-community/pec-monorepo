@@ -103,8 +103,8 @@ export default function PaymentButton({
         />
         <label htmlFor="refund-policy-checkbox" className="text-sm">
           <RefundPolicyDialog>
-            <span className="cursor-pointer text-blue-600 underline">
-              환불정책
+            <span className="cursor-pointer text-blue-500 underline">
+              (필수) 환불정책
             </span>
           </RefundPolicyDialog>
           에 동의합니다.
