@@ -2,7 +2,6 @@ import { Button } from "@pec/shared";
 
 import { getLectures } from "@/src/entities/lecture/action";
 import { LectureItem } from "@/src/entities/lecture/ui";
-import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 export default async function LecturePage() {
   const lectures = await getLectures();

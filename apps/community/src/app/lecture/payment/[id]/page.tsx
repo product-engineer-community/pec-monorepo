@@ -9,7 +9,6 @@ import {
 import Image from "next/image";
 
 import { getLectureItems, getLectures } from "@/entities/lecture/action";
-import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 import PaymentButton from "../PaymentButton";
 
