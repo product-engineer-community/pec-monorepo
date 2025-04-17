@@ -4,7 +4,7 @@
   "rsc": false,
   "tsx": true,
   "tailwind": {
-    "config": "",
+    "config": "tailwind.config.js",
     "css": "src/styles/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
@@ -12,8 +12,9 @@
   },
   "aliases": {
     "components": "@/components",
-    "utils": "../../lib/utils",
+    "utils": "@/utils",
     "ui": "@/components/ui",
+    "lib/utils": "@/utils",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },

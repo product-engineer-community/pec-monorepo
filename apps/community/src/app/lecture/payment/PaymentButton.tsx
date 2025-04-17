@@ -7,6 +7,8 @@ import { toast } from "sonner";
 
 import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
+import RefundPolicyDialog from "./RefundPolicyDialog";
+
 interface PaymentButtonProps {
   price: number;
   orderName: string;
@@ -30,8 +32,14 @@ export default function PaymentButton({
   currency = "CURRENCY_KRW",
 }: PaymentButtonProps) {
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
+  const [isRefundPolicyAgreed, setIsRefundPolicyAgreed] = useState(false);
 
   const handleClick = async () => {
+    if (!isRefundPolicyAgreed) {
+      toast.error("환불정책에 동의해주세요.");
+      return;
+    }
+
     setIsPaymentLoading(true);
     const paymentId = crypto.randomUUID();
 
@@ -78,18 +86,39 @@ export default function PaymentButton({
           ? error.message
           : "결제 처리 중 오류가 발생했습니다.",
       );
+    } finally {
+      setIsPaymentLoading(false);
     }
   };
 
   return (
-    <>
+    <div className="space-y-4">
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="refund-policy-checkbox"
+          checked={isRefundPolicyAgreed}
+          onChange={(e) => setIsRefundPolicyAgreed(e.target.checked)}
+          className="h-4 w-4 rounded border-gray-300"
+        />
+        <label htmlFor="refund-policy-checkbox" className="text-sm">
+          <RefundPolicyDialog>
+            <span className="cursor-pointer text-blue-600 underline">
+              환불정책
+            </span>
+          </RefundPolicyDialog>
+          에 동의합니다.
+        </label>
+      </div>
+
       <Button
         onClick={handleClick}
         disabled={isPaymentLoading}
         aria-busy={isPaymentLoading}
+        className="w-full"
       >
         결제하기
       </Button>
-    </>
+    </div>
   );
 }

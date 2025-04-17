@@ -9,7 +9,7 @@ if (!component) {
 
 try {
   console.log(`📦 ${component} 컴포넌트 추가중...`);
-  execSync(`pnpm dlx shadcn@canary add ${component}`, { stdio: "inherit" });
+  execSync(`pnpm dlx shadcn@latest add ${component}`, { stdio: "inherit" });
 
   console.log("\n🔄 exports 업데이트中...");
   execSync("pnpm update-exports", { stdio: "inherit" });
