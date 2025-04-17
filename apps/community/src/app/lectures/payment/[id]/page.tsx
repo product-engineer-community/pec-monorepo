@@ -7,7 +7,6 @@ import {
   Label,
 } from "@pec/shared";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 
 import { getLectureItems, getLectures } from "@/entities/lecture/action";
 
@@ -26,7 +25,7 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
   const lectures = await getLectures();
   const lecture = lectures[0];
   const lectureItems = await getLectureItems();
-  console.log("🚀 ~ PaymentPage ~ lectureItems:", lectureItems)
+  console.log("🚀 ~ PaymentPage ~ lectureItems:", lectureItems);
 
   // 할인율 계산
   const discountRate = Math.floor(
