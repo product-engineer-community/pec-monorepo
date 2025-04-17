@@ -47,11 +47,6 @@ export function LectureItem({
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {level === "초급" && (
-              <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                {level}
-              </span>
-            )}
             {level === "중급" && (
               <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
                 {level}
@@ -102,7 +97,7 @@ export function LectureItem({
             <Link href={`/lectures/${id}`}>상세보기</Link>
           </Button>
           <Button size="sm" className="flex-1">
-            수강신청
+            <Link href={`/lectures/${id}`}>수강신청</Link>
           </Button>
         </div>
       </CardFooter>

@@ -26,11 +26,7 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
   const lectures = await getLectures();
   const lecture = lectures[0];
   const lectureItems = await getLectureItems();
-
-  // 강의를 찾지 못한 경우 404 페이지 표시
-  if (!lectures || lectures.length === 0 || lectureItems.length === 0) {
-    notFound();
-  }
+  console.log("🚀 ~ PaymentPage ~ lectureItems:", lectureItems)
 
   // 할인율 계산
   const discountRate = Math.floor(

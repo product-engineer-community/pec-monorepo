@@ -10,7 +10,6 @@ import {
 import { BookOpen, Code, Compass, Lightbulb } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 import { getLectureItems, getLectures } from "@/entities/lecture/action";
 
@@ -25,14 +24,11 @@ export default async function LecturePage({ params }: LecturePageProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
   const lectures = await getLectures();
+  console.log("🚀 ~ LecturePage ~ lectures:", lectures)
   const lecture = lectures[0];
 
   const lectureItems = await getLectureItems();
-
-  // 강의를 찾지 못한 경우 404 페이지 표시
-  if (!lectures || lectures.length === 0 || lectureItems.length === 0) {
-    notFound();
-  }
+  console.log("🚀 ~ LecturePage ~ lectureItems:", lectureItems)
 
   // 할인율 계산
   const discountRate = Math.floor(
