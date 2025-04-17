@@ -69,6 +69,8 @@ export default async function LecturePage({ params }: LecturePageProps) {
                 <span className="mr-3">강사: {lecture.instructor}</span>
                 <span className="mr-3">|</span>
                 <span>★ 4.9 (82+)</span>
+                <span className="mr-3">|</span>
+                <span>수강 기간: {lecture.duration}</span>
               </div>
             </div>
 

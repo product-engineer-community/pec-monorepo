@@ -91,7 +91,7 @@ export default async function PaymentPage({ params }: PaymentPageProps) {
                 <div>
                   <h3 className="font-medium">{lecture.title}</h3>
                   <p className="text-sm text-gray-500">
-                    강사: {lecture.instructor}
+                    강사: {lecture.instructor} 수강 기간: {lecture.duration}
                   </p>
                 </div>
               </div>
