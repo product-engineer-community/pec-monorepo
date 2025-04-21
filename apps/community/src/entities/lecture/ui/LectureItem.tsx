@@ -103,7 +103,12 @@ export function LectureItem({
           >
             <Link href={`${LECTURE_PATHNAME}/${id}`}>상세보기</Link>
           </Button>
-          <Button size="sm" className="flex-1" disabled={salePrice !== 132000}>
+          <Button
+            asChild
+            size="sm"
+            className="flex-1"
+            disabled={salePrice !== 132000}
+          >
             <Link href={`${LECTURE_PATHNAME}/payment/${id}`}>수강신청</Link>
           </Button>
         </div>
