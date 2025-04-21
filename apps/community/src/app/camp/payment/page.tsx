@@ -1,6 +1,7 @@
-import { SubTitle } from "@/features/camp/ui";
-import PayButton from "@/features/payment/ui/PayButton";
+import { Button } from "@pec/shared";
 import Image from "next/image";
+
+import { SubTitle } from "@/features/camp/ui";
 
 export default async function Payment() {
   return (
@@ -15,8 +16,8 @@ export default async function Payment() {
               <SubTitle>Product Engineer Camp</SubTitle>
               <div>
                 Product Engineer Camp 에서는 내 주변에 실제 문제를 기술로
-                해결하는 과정을 통해, ​좋은 설계에 대한 기준을 세우며 진짜
-                성장을 경험합니다.
+                해결하는 과정을 통해, 좋은 설계에 대한 기준을 세우며 진짜 성장을
+                경험합니다.
               </div>
             </div>
             <div>
@@ -33,7 +34,7 @@ export default async function Payment() {
         </section>
       </section>
       <section className="my-8 h-[700px] w-full">
-        <PayButton />
+        <Button>결제하기</Button>
       </section>
     </main>
   );
