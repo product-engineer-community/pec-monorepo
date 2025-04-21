@@ -1,7 +1,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "./types";
 
-export async function readUserSession(supabase: SupabaseClient<Database>) {
+export async function getAuthSession(supabase: SupabaseClient<Database>) {
   try {
     const {
       data: { session },

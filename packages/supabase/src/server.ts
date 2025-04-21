@@ -1,28 +1,26 @@
 import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
-
 import type { Database } from "./types";
+import type { Env } from "@pec/env";
 
-export async function createServerSupabase() {
-  const cookieStore = await cookies();
+export interface CookieOptions {
+  get(name: string): any | undefined;
+  set(name: string, value: string, options: any): void;
+}
 
+export function createServerSupabase(env: Env, cookies: CookieOptions) {
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
-        getAll() {
-          return cookieStore.getAll();
+        get(name: string) {
+          return cookies.get(name);
         },
-        setAll(cookiesToSet) {
+        set(name: string, value: string, options: any) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+            cookies.set(name, value, options);
+          } catch (error) {
+            // Handle cookie error
           }
         },
       },
