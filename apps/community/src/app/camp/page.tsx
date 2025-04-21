@@ -18,27 +18,27 @@ import { ExternalLink } from "@/shared/components/ExternalLink";
 
 export default async function Index() {
   return (
-    <div className="flex w-full max-w-5xl flex-1 flex-col items-center px-36">
-      <h1 className="mt-24 flex flex-col gap-4 text-center text-5xl font-semibold">
+    <div className="flex w-full flex-1 flex-col items-center px-4 sm:px-8 md:px-16 lg:px-36">
+      <h1 className="mt-12 flex flex-col gap-2 text-center text-3xl font-semibold md:mt-24 md:gap-4 md:text-4xl lg:text-5xl">
         <div>Real Problems, Tech Solutions,</div>
         <div>Your Growth</div>
       </h1>
 
-      <div className="mt-16 flex flex-col items-center text-2xl font-semibold">
+      <div className="mt-8 flex flex-col items-center px-4 text-center text-lg font-semibold md:mt-16 md:text-xl lg:text-2xl">
         <div>8주 동안 Product Engineer Camp 를 통해</div>
         <div>내 주변의 실제 문제를 기술로 해결하며</div>
         <div>진짜 성장을 경험하세요</div>
       </div>
 
-      <div className="mt-16">
+      <div className="mt-8 md:mt-16">
         <Intro />
       </div>
 
-      <div className="mt-24 flex flex-col gap-24">
-        <section className="mt-16">
+      <div className="mt-12 flex w-full flex-col gap-12 md:mt-24 md:gap-24">
+        <section className="mt-8 w-full md:mt-16">
           <Title>이런 분들에게 추천해요</Title>
 
-          <div className="mt-8 flex gap-10">
+          <div className="mt-6 flex flex-col gap-4 md:mt-8 md:flex-row md:gap-10">
             <div className="flex flex-1 gap-2 rounded-lg bg-stone-200 p-4">
               <div>🤔</div>
               <div>
@@ -62,9 +62,9 @@ export default async function Index() {
           </div>
         </section>
 
-        <section>
+        <section className="w-full">
           <Title>어떤 것들을 경험할 수 있나요?</Title>
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-6 flex flex-col gap-4 md:mt-8">
             <div className="rounded-lg bg-stone-200 p-4">
               👥 User UX 에 대한 깊이 있는 이해를 토대로, 좋은 설계를 하는
               방법을 배웁니다.
@@ -80,46 +80,53 @@ export default async function Index() {
           </div>
 
           <SubTitle className="mt-8 text-center">함께 다룰 기술들</SubTitle>
-          <div className="mt-8 flex gap-4">
+          <div className="mt-6 flex flex-wrap justify-center gap-4 md:mt-8">
             <Image
-              width={180}
-              height={180}
+              width={120}
+              height={120}
+              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
               src={"/camp/tech/reactlogo.png"}
               alt="react"
             />
             <Image
-              width={180}
-              height={180}
+              width={120}
+              height={120}
+              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
               src={"/camp/tech/nextjs.png"}
               alt="nextjs"
             />
             <Image
-              width={180}
-              height={180}
+              width={120}
+              height={120}
+              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
               src={"/camp/tech/zustand.png"}
               alt="zustand"
             />
             <Image
-              width={180}
-              height={180}
+              width={120}
+              height={120}
+              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
               src={"/camp/tech/fsd.png"}
               alt="fsd"
             />
           </div>
         </section>
 
-        <section>
+        <section className="w-full">
           <Title>어떻게 진행하나요?</Title>
-          <SubTitle className="mb-6 mt-8 text-center">P.E.C 주간 일정</SubTitle>
+          <SubTitle className="mb-4 mt-6 text-center md:mb-6 md:mt-8">
+            P.E.C 주간 일정
+          </SubTitle>
           <Image
             width={1000}
             height={300}
+            className="h-auto w-full"
             src={"/camp/schedule.webp"}
             alt="schedule"
           />
 
-          <div className="mt-8 flex flex-col gap-8">
-            <div className="flex gap-12">
+          <div className="mt-6 flex flex-col gap-6 md:mt-8 md:gap-8">
+            <div className="flex flex-col gap-6 md:flex-row md:gap-12">
               <ProcessItem
                 title="정규 세션"
                 titleBgColor="#feeab3"
@@ -138,7 +145,7 @@ export default async function Index() {
                 imageDescription="2주차 세션 가이드 파일"
               />
             </div>
-            <div className="flex gap-12">
+            <div className="flex flex-col gap-6 md:flex-row md:gap-12">
               <ProcessItem
                 title="개인 과제"
                 titleBgColor="#fed3dd"
@@ -154,7 +161,7 @@ export default async function Index() {
                 imageDescription="과제에 대해 피드백을 제공하는 모습"
               />
             </div>
-            <div className="flex gap-12">
+            <div className="flex flex-col gap-6 md:flex-row md:gap-12">
               <ProcessItem
                 title="실시간 질문"
                 titleBgColor="#cdf5ce"
@@ -173,9 +180,9 @@ export default async function Index() {
           </div>
         </section>
 
-        <section>
+        <section className="w-full">
           <Title>P.E.C 커리큘럼</Title>
-          <div className="mt-8 flex gap-8">
+          <div className="mt-6 flex flex-col gap-4 md:mt-8 md:flex-row md:gap-8">
             <CurriculumItem
               emoji="💬"
               week={"1"}
@@ -196,7 +203,7 @@ export default async function Index() {
             />
           </div>
 
-          <div className="mt-12 flex gap-8">
+          <div className="mt-6 flex flex-col gap-4 md:mt-12 md:flex-row md:gap-8">
             <CurriculumItem
               emoji="✍️"
               week={"4"}
@@ -217,8 +224,8 @@ export default async function Index() {
             />
           </div>
 
-          <SubTitle className="mt-16">주차별 과제</SubTitle>
-          <div className="relative -mx-36 mt-8">
+          <SubTitle className="mt-8 md:mt-16">주차별 과제</SubTitle>
+          <div className="relative mx-0 mt-6 w-full overflow-hidden md:mt-8">
             <Image
               className="h-auto w-full"
               width={1000}
@@ -229,10 +236,10 @@ export default async function Index() {
           </div>
         </section>
 
-        <section>
+        <section className="w-full">
           <Title>P.E.C 멘토 소개</Title>
-          <div className="mt-8 flex">
-            <div className="flex-1">
+          <div className="mt-6 flex flex-col md:mt-8 md:flex-row">
+            <div className="mb-4 flex justify-center md:mb-0 md:flex-1 md:justify-start">
               <Image
                 width={200}
                 height={200}
@@ -241,7 +248,7 @@ export default async function Index() {
               />
             </div>
             <div className="flex flex-1 flex-col justify-between">
-              <div className="leading-8">
+              <div className="text-center leading-7 md:text-left md:leading-8">
                 안녕하세요. <br />
                 <b>Product Engineer Camp</b> 멘토 <b>Boaz</b> 입니다.
                 <br />
@@ -254,7 +261,7 @@ export default async function Index() {
                 인터넷에서 도움 받은 은혜를 갚기 위해,
                 <br /> <b>유튜브</b>와 <b>블로그</b>를 운영하고 있습니다.
               </div>
-              <div>
+              <div className="mt-4 text-center md:text-left">
                 <div>
                   <ExternalLink href="https://www.youtube.com/@withBoaz">
                     🎥YOUTUBE
@@ -264,7 +271,9 @@ export default async function Index() {
             </div>
           </div>
 
-          <ApplyButton />
+          <div className="mt-8 flex justify-center">
+            <ApplyButton />
+          </div>
         </section>
       </div>
     </div>
