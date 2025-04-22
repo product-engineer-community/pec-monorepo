@@ -1,8 +1,8 @@
 "use client";
 
 import { Button, Input } from "@pec/shared";
-import { useState, useTransition } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useState } from "react";
+import { useFormStatus } from "react-dom";
 
 import { addComment } from "../action";
 
@@ -28,8 +28,11 @@ const initialState = {
 
 export function CommentForm({ postId }: CommentFormProps) {
   const [content, setContent] = useState("");
-  const [isPending, startTransition] = useTransition();
-  const [state, formAction] = useFormState(addComment, initialState);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [state, formAction] = useActionState<any, FormData>(
+    addComment,
+    initialState,
+  );
 
   const handleReset = () => {
     if (state.success) {

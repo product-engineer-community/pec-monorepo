@@ -1,4 +1,4 @@
-import type { Question, Comment } from "@pec/shared";
+import type { Comment, Question } from "@pec/shared";
 
 export type QuestionWithAuthor = Question & {
   author: {

@@ -4,19 +4,25 @@ import { Button } from "@pec/shared";
 import { HeartIcon } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 
-import { toggleQuestionLike } from "../action";
+import { togglePostLike } from "../action";
 
-interface QuestionLikeButtonProps {
+interface PostLikeButtonProps {
   postId: string;
   initialLikes: number;
   initialIsLiked: boolean;
+  size?: "sm" | "icon";
 }
 
-export function QuestionLikeButton({
+/**
+ * 게시물 좋아요 버튼 컴포넌트
+ * 질문, 토론 등 모든 종류의 게시물에 사용 가능
+ */
+export function PostLikeButton({
   postId,
   initialLikes,
   initialIsLiked,
-}: QuestionLikeButtonProps) {
+  size = "icon",
+}: PostLikeButtonProps) {
   const [likesCount, setLikesCount] = useState(initialLikes);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const [isPending, startTransition] = useTransition();
@@ -34,7 +40,7 @@ export function QuestionLikeButton({
 
     startTransition(async () => {
       try {
-        const result = await toggleQuestionLike(postId);
+        const result = await togglePostLike(postId);
 
         if (result.error) {
           // 에러 발생 시 원래 상태로 롤백
@@ -61,7 +67,7 @@ export function QuestionLikeButton({
   return (
     <Button
       variant="ghost"
-      size="sm"
+      size={size}
       onClick={handleToggleLike}
       disabled={isPending}
       className="flex items-center gap-2"

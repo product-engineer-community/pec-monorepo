@@ -1,0 +1,22 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 🔧 Technical Stack – "Use These Tools"
+
+- **Package Manger**: pnpm(please use pnpm to install new library)
+- **Frontend**: Next.js (App Router)
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks, fetch(server state)
+- **Database & Auth**: Supabase
+- **No** additional backend frameworks (e.g., no Express.js, Firebase)
+- **No** CSS-in-JS(e.g. styled-components)
+
+### Core Specification
+
+- Web App using **Next.js App Router**
+- **Authentication & User Management** via **Supabase Auth**
+- Architecture: **Feature Sliced Design (FSD)**
+- Primary Goal: Build a scalable authentication system using Supabase and FSD principles.
+- Can add new ui component with shadcn - Move packages/shared, then pnpm add-component button

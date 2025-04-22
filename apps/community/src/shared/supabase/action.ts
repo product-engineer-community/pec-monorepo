@@ -1,7 +1,7 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "./types";
+import { getSupabaseServerClient } from "./server";
 
-export async function getAuthSession(supabase: SupabaseClient<Database>) {
+export async function getAuthSession() {
+  const supabase = await getSupabaseServerClient();
   try {
     const {
       data: { session },
@@ -15,7 +15,8 @@ export async function getAuthSession(supabase: SupabaseClient<Database>) {
   }
 }
 
-export async function signOut(supabase: SupabaseClient<Database>) {
+export async function signOut() {
+  const supabase = await getSupabaseServerClient();
   try {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;

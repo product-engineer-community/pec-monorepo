@@ -1,11 +1,11 @@
 "use server";
 import type { Question } from "@pec/shared";
-import { createServerSupabase } from "@pec/supabase";
-import { cookies } from "next/headers";
+
+import { togglePostLike } from "@/features/post";
+import { getSupabaseServerClient } from "@/shared/supabase";
 
 export async function getQuestions() {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
 
   const { data: questions, error: postsError } = await supabase
     .from("posts")
@@ -64,8 +64,7 @@ export async function getQuestions() {
 }
 
 export async function getQuestion(id: string, userId?: string) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
 
   let query = supabase
     .from("posts")
@@ -115,8 +114,7 @@ export async function getQuestion(id: string, userId?: string) {
 }
 
 export async function incrementViewCount(id: string) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
 
   const { error } = await supabase
     .rpc("increment_view_count", { post_id: id })
@@ -129,8 +127,7 @@ export async function incrementViewCount(id: string) {
 }
 
 export async function getComments(postId: string, userId?: string) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
 
   let query = supabase
     .from("comments")
@@ -175,49 +172,10 @@ export async function getComments(postId: string, userId?: string) {
   }));
 }
 
-export async function toggleQuestionLike(postId: string) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session?.user) {
-    return { error: "로그인이 필요합니다." };
-  }
-
-  const userId = session.user.id;
-
-  // 기존 좋아요 확인
-  const { data: existingLike } = await supabase
-    .from("likes")
-    .select()
-    .eq("user_id", userId)
-    .eq("post_id", postId)
-    .maybeSingle();
-
-  try {
-    if (existingLike) {
-      // 좋아요 취소
-      await supabase.from("likes").delete().eq("id", existingLike.id);
-      return { isLiked: false };
-    } else {
-      // 좋아요 추가
-      await supabase.from("likes").insert({
-        user_id: userId,
-        post_id: postId,
-      });
-      return { isLiked: true };
-    }
-  } catch (error) {
-    console.error("Error toggling question like:", error);
-    return { error: "좋아요 처리 중 오류가 발생했습니다." };
-  }
-}
+export { togglePostLike };
 
 export async function toggleCommentLike(commentId: string) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -256,8 +214,7 @@ export async function toggleCommentLike(commentId: string) {
 }
 
 export async function addComment(formData: FormData) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -296,8 +253,7 @@ export async function addComment(formData: FormData) {
 }
 
 export async function deleteComment(commentId: string) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -333,8 +289,7 @@ export async function deleteComment(commentId: string) {
 }
 
 export async function updateComment(formData: FormData) {
-  const cookieStore = await cookies();
-  const supabase = createServerSupabase(process.env, cookieStore);
+  const supabase = await getSupabaseServerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();

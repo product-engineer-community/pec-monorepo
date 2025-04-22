@@ -1,20 +1,22 @@
 import { getRelativeTimeString } from "@pec/shared";
 
+import { PostLikeButton } from "@/features/post";
 import { getQuestion, incrementViewCount } from "@/features/question/action";
-import { QuestionLikeButton } from "@/features/question/ui/QuestionLikeButton";
 import { MarkdownViewer } from "@/shared/components/editor";
-import { Comments } from "@/widgets/Question/Comments";
+import { Comments } from "@/widgets/comments";
 
 export default async function QuestionDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
+
   // 질문 데이터 가져오기
-  const question = await getQuestion(params.id);
+  const question = await getQuestion(id);
 
   // 조회수 증가
-  await incrementViewCount(params.id);
+  await incrementViewCount(id);
 
   if (!question) {
     return <div>Question not found</div>;
@@ -37,10 +39,11 @@ export default async function QuestionDetailPage({
               </span>
             </div>
           </div>
-          <QuestionLikeButton
-            postId={params.id}
+          <PostLikeButton
+            postId={id}
             initialLikes={question.likes_count}
             initialIsLiked={question.is_liked}
+            size="sm"
           />
         </div>
         <div>
@@ -50,7 +53,7 @@ export default async function QuestionDetailPage({
       </div>
 
       <div className="border-t pt-8">
-        <Comments postId={params.id} />
+        <Comments postId={id} />
       </div>
     </div>
   );

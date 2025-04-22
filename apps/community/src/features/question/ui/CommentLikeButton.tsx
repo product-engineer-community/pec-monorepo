@@ -2,20 +2,18 @@
 
 import { Button } from "@pec/shared";
 import { HeartIcon } from "lucide-react";
-import { useTransition, useState, useEffect } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { toggleCommentLike } from "../action";
 
 interface CommentLikeButtonProps {
   commentId: string;
-  postId: string;
   initialLikes: number;
   initialIsLiked: boolean;
 }
 
 export function CommentLikeButton({
   commentId,
-  postId,
   initialLikes,
   initialIsLiked,
 }: CommentLikeButtonProps) {

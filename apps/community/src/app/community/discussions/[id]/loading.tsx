@@ -8,7 +8,7 @@ export default function Loading() {
         <div className="h-10 w-32 animate-pulse rounded bg-gray-200"></div>
       </div>
       <div className="space-y-6">
-        <PostCardSkeleton count={3} variant="question" />
+        <PostCardSkeleton count={3} variant="discussion" />
       </div>
     </div>
   );

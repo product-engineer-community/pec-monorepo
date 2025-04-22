@@ -1,24 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import type { Database } from "./types";
-import type { Env } from "@pec/env";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
-export interface CookieOptions {
-  get(name: string): any | undefined;
-  set(name: string, value: string, options: any): void;
-}
-
-export function createServerSupabase(env: Env, cookies: CookieOptions) {
+export async function getSupabaseServer(cookieStore: ReadonlyRequestCookies) {
   return createServerClient<Database>(
-    env.NEXT_PUBLIC_SUPABASE_URL,
-    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get(name: string) {
-          return cookies.get(name);
+          return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: any) {
           try {
-            cookies.set(name, value, options);
+            cookieStore.set(name, value, options);
           } catch (error) {
             // Handle cookie error
           }
