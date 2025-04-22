@@ -15,21 +15,50 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useFormState } from "react-dom";
 
-type DeleteQuestionButtonProps = {
-  deleteQuestion: () => Promise<{ success?: boolean; error?: string }>;
+type PostType = "question" | "discussion";
+
+type DeletePostButtonProps = {
+  postType: PostType;
+  deletePost: () => Promise<{ success?: boolean; error?: string }>;
 };
 
-export function DeleteQuestionButton({
-  deleteQuestion,
-}: DeleteQuestionButtonProps) {
+export function DeletePostButton({
+  postType,
+  deletePost,
+}: DeletePostButtonProps) {
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [state, formAction] = useFormState(deleteQuestion, { success: false });
+  const [state, formAction] = useFormState(deletePost, {
+    success: false,
+  });
 
   const handleDelete = async () => {
     setIsDeleting(true);
     await formAction();
     setIsDeleting(false);
+  };
+
+  // 타입에 따른 제목 및 설명 텍스트 설정
+  const getTitle = () => {
+    switch (postType) {
+      case "question":
+        return "질문 삭제";
+      case "discussion":
+        return "토론 삭제";
+      default:
+        return "게시글 삭제";
+    }
+  };
+
+  const getDescription = () => {
+    switch (postType) {
+      case "question":
+        return "정말로 이 질문을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+      case "discussion":
+        return "정말로 이 토론을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+      default:
+        return "정말로 이 게시글을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+    }
   };
 
   return (
@@ -41,10 +70,8 @@ export function DeleteQuestionButton({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>질문 삭제</DialogTitle>
-          <DialogDescription>
-            정말로 이 질문을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
-          </DialogDescription>
+          <DialogTitle>{getTitle()}</DialogTitle>
+          <DialogDescription>{getDescription()}</DialogDescription>
         </DialogHeader>
 
         {state.error && (

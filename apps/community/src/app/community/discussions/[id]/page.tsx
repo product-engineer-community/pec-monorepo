@@ -6,12 +6,10 @@ import {
   getDiscussion,
   incrementViewCount,
 } from "@/features/discussion/action";
-import { PostLikeButton } from "@/features/post";
+import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
 import { Comments } from "@/widgets/comments";
-
-import { DeleteDiscussionButton } from "./components/DeleteDiscussionButton";
 
 export default async function DiscussionDetailPage({
   params,
@@ -69,8 +67,9 @@ export default async function DiscussionDetailPage({
           </div>
           <div className="flex items-center gap-2">
             {isAuthor && (
-              <DeleteDiscussionButton
-                deleteDiscussion={handleDeleteDiscussion}
+              <DeletePostButton
+                postType="discussion"
+                deletePost={handleDeleteDiscussion}
               />
             )}
             <PostLikeButton

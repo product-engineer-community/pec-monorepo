@@ -1,7 +1,7 @@
 import { getRelativeTimeString } from "@pec/shared";
 import { redirect } from "next/navigation";
 
-import { PostLikeButton } from "@/features/post";
+import { DeletePostButton, PostLikeButton } from "@/features/post";
 import {
   deleteQuestion,
   getQuestion,
@@ -10,8 +10,6 @@ import {
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
 import { Comments } from "@/widgets/comments";
-
-import { DeleteQuestionButton } from "./components/DeleteQuestionButton";
 
 export default async function QuestionDetailPage({
   params,
@@ -69,7 +67,10 @@ export default async function QuestionDetailPage({
           </div>
           <div className="flex items-center gap-2">
             {isAuthor && (
-              <DeleteQuestionButton deleteQuestion={handleDeleteQuestion} />
+              <DeletePostButton
+                postType="question"
+                deletePost={handleDeleteQuestion}
+              />
             )}
             <PostLikeButton
               postId={id}
