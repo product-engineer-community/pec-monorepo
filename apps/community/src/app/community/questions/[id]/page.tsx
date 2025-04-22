@@ -1,9 +1,17 @@
 import { getRelativeTimeString } from "@pec/shared";
+import { redirect } from "next/navigation";
 
 import { PostLikeButton } from "@/features/post";
-import { getQuestion, incrementViewCount } from "@/features/question/action";
+import {
+  deleteQuestion,
+  getQuestion,
+  incrementViewCount,
+} from "@/features/question/action";
 import { MarkdownViewer } from "@/shared/components/editor";
+import { getAuthSession } from "@/shared/supabase";
 import { Comments } from "@/widgets/comments";
+
+import { DeleteQuestionButton } from "./components/DeleteQuestionButton";
 
 export default async function QuestionDetailPage({
   params,
@@ -15,12 +23,32 @@ export default async function QuestionDetailPage({
   // 질문 데이터 가져오기
   const question = await getQuestion(id);
 
+  // 현재 사용자 세션 가져오기
+  const session = await getAuthSession();
+  const currentUserId = session?.user?.id;
+
   // 조회수 증가
   await incrementViewCount(id);
 
   if (!question) {
     return <div>Question not found</div>;
   }
+
+  // 삭제 기능 정의
+  async function handleDeleteQuestion() {
+    "use server";
+
+    const result = await deleteQuestion(id);
+
+    if (result.success) {
+      redirect("/community/questions");
+    }
+
+    return result;
+  }
+
+  // 사용자가 질문 작성자인지 확인
+  const isAuthor = currentUserId === question.author.id;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
@@ -39,12 +67,17 @@ export default async function QuestionDetailPage({
               </span>
             </div>
           </div>
-          <PostLikeButton
-            postId={id}
-            initialLikes={question.likes_count}
-            initialIsLiked={question.is_liked}
-            size="sm"
-          />
+          <div className="flex items-center gap-2">
+            {isAuthor && (
+              <DeleteQuestionButton deleteQuestion={handleDeleteQuestion} />
+            )}
+            <PostLikeButton
+              postId={id}
+              initialLikes={question.likes_count}
+              initialIsLiked={question.is_liked}
+              size="sm"
+            />
+          </div>
         </div>
         <div>
           <h1 className="mb-4 text-2xl font-bold">{question.title}</h1>

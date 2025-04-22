@@ -332,3 +332,39 @@ export async function updateComment(formData: FormData) {
     return { error: "댓글 수정 중 오류가 발생했습니다." };
   }
 }
+
+export async function deleteQuestion(questionId: string) {
+  const supabase = await getSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) {
+    return { error: "로그인이 필요합니다." };
+  }
+
+  try {
+    // 작성자 확인
+    const { data: question } = await supabase
+      .from("posts")
+      .select("author_id")
+      .eq("id", questionId)
+      .single();
+
+    if (!question || question.author_id !== session.user.id) {
+      return { error: "삭제 권한이 없습니다." };
+    }
+
+    const { error } = await supabase
+      .from("posts")
+      .delete()
+      .eq("id", questionId);
+
+    if (error) throw error;
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting question:", error);
+    return { error: "질문 삭제 중 오류가 발생했습니다." };
+  }
+}
