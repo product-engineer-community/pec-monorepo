@@ -1,10 +1,11 @@
 "use server";
 
 import type { Discussion } from "@pec/shared";
-import { getSupabaseClient } from "@pec/supabase";
+
+import { getSupabaseServerClient } from "@/src/shared/supabase";
 
 export async function getDiscussions() {
-  const supabase = await getSupabaseClient();
+  const supabase = await getSupabaseServerClient();
 
   const { data: discussions, error: postsError } = await supabase
     .from("posts")
@@ -60,7 +61,7 @@ export async function getDiscussions() {
 }
 
 export async function getDiscussion(id: string, userId?: string) {
-  const supabase = getSupabaseClient();
+  const supabase = await getSupabaseServerClient();
   let query = supabase
     .from("posts")
     .select(
@@ -117,7 +118,7 @@ export async function getDiscussion(id: string, userId?: string) {
 }
 
 export async function incrementViewCount(id: string) {
-  const supabase = getSupabaseClient();
+  const supabase = await getSupabaseServerClient();
   const { error } = await supabase
     .rpc("increment_view_count", { post_id: id })
     .select();
