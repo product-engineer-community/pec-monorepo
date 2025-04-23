@@ -8,7 +8,7 @@ import {
 } from "@/features/discussion/action";
 import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
-import { getAuthSession } from "@/shared/supabase";
+import { getUserFromSupabase } from "@/shared/supabase";
 import { Comments } from "@/widgets/comments";
 
 export default async function DiscussionDetailPage({
@@ -22,8 +22,7 @@ export default async function DiscussionDetailPage({
   const discussion = await getDiscussion(id);
 
   // 현재 사용자 세션 가져오기
-  const session = await getAuthSession();
-  const currentUserId = session?.user?.id;
+  const user = await getUserFromSupabase();
 
   // 조회수 증가
   await incrementViewCount(id);
@@ -46,7 +45,7 @@ export default async function DiscussionDetailPage({
   }
 
   // 사용자가 토론 작성자인지 확인
-  const isAuthor = currentUserId === discussion.author.id;
+  const isAuthor = user?.id === discussion.author.id;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">

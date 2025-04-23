@@ -2,7 +2,7 @@
 
 import { Button } from "@pec/shared";
 
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@/src/features/auth/model/use-auth";
 
 export function SignOutButton() {
   const { signOut } = useAuth();

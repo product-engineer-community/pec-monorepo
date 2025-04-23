@@ -1,116 +1,98 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+"use client";
+
 import { Button, Input } from "@pec/shared";
 import { type PostType } from "@pec/shared";
-import { getSupabaseClient } from "@pec/supabase";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
-import { z } from "zod";
 
-import { useAuth } from "@/hooks/use-auth";
-import { usePostType } from "@/hooks/use-post-type";
 import { Editor } from "@/shared/components/editor";
+import { createPost } from "@/src/features/post/action";
+import { usePostType } from "@/src/features/post/model/use-post-type";
 
-const createBaseSchema = z.object({
-  title: z.string().min(5).max(200),
-  content: z.string().min(10),
-  category: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  thumbnail_url: z.string().nullish(),
-});
+// 초기 상태 정의
+type FormState = {
+  error?: string;
+  success?: boolean;
+  postId?: string;
+};
 
-type FormData = z.infer<typeof createBaseSchema>;
+const initialState: FormState = {
+  error: undefined,
+  success: false,
+  postId: undefined,
+};
+
+// 제출 버튼 컴포넌트
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? "생성 중..." : "생성하기"}
+    </Button>
+  );
+}
 
 export default function QuestionAndDiscussionForm() {
   const router = useRouter();
   const initialType = usePostType();
   const [postType, setPostType] = useState<PostType>(initialType);
-  const { session } = useAuth();
-  const supabase = getSupabaseClient();
 
-  const { register, handleSubmit, watch, setValue, control } =
-    useForm<FormData>({
-      resolver: zodResolver(createBaseSchema),
-      defaultValues: {
-        title: "",
-        content: "",
-        category: "",
-        tags: [],
-        thumbnail_url: null,
-      },
-    });
+  // 폼 상태 및 ref
+  const titleRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const tags = watch("tags") || [];
+  // 컨트롤된 상태 (content, tags만)
+  const [content, setContent] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
 
-  const onSubmit = async (data: FormData) => {
-    if (!session) {
-      toast.error("로그인이 필요합니다.");
-      router.replace("/auth/signin");
-      return;
-    }
+  // 서버 액션을 폼에 맞게 수정하는 래퍼 함수
+  const createPostWithData = async (
+    prevState: FormState,
+    formData: FormData,
+  ) => {
+    formData.set("content", content);
+    formData.set("tags", JSON.stringify(tags));
+    formData.set("postType", postType);
 
-    const basePost = {
-      ...data,
-      type: postType,
-      author_id: session.user.id,
-    };
-
-    let finalPost;
-    switch (postType) {
-      case "discussion":
-        finalPost = {
-          ...basePost,
-          category: data.category || "",
-          tags: tags,
-        };
-        break;
-      case "question":
-        finalPost = {
-          ...basePost,
-          category: data.category || "",
-          solved: false,
-          answer_id: null,
-        };
-        break;
-      case "post":
-        finalPost = {
-          ...basePost,
-          thumbnail_url: data.thumbnail_url || null,
-        };
-        break;
-    }
-
-    try {
-      const { error } = await supabase.from("posts").insert(finalPost);
-
-      if (error) throw error;
-
-      toast.success("Post created successfully!");
-      router.push("/community");
-    } catch (error) {
-      console.error("Error creating post:", error);
-    }
+    return createPost(formData);
   };
+
+  // 서버 액션과 폼 상태 연결
+  const [state, formAction] = useActionState<FormState, FormData>(
+    createPostWithData,
+    initialState,
+  );
+
+  // 서버 응답 처리
+  useEffect(() => {
+    if (state.success && state.postId) {
+      toast.success("포스트가 성공적으로 생성되었습니다!");
+      router.push(`/community/${postType}s/${state.postId}`);
+    }
+
+    if (state.error) {
+      toast.error(state.error);
+    }
+  }, [state, router, postType, state.postId]);
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && e.currentTarget.value.trim()) {
       e.preventDefault();
       const newTag = e.currentTarget.value.trim();
-      setValue("tags", Array.from(new Set([...tags, newTag])));
+      setTags((prevTags) => Array.from(new Set([...prevTags, newTag])));
       e.currentTarget.value = "";
     }
   };
 
   const removeTag = (tag: string) => {
-    setValue(
-      "tags",
-      tags.filter((t) => t !== tag),
-    );
+    setTags((prevTags) => prevTags.filter((t) => t !== tag));
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form ref={formRef} action={formAction} className="space-y-6">
       <div className="flex gap-4">
         <Button
           type="button"
@@ -140,26 +122,25 @@ export default function QuestionAndDiscussionForm() {
 
       <div className="space-y-2">
         <label className="text-sm font-medium">Title</label>
-        <Input {...register("title")} placeholder="Enter title" />
+        <Input
+          ref={titleRef}
+          name="title"
+          placeholder="Enter title"
+          defaultValue=""
+        />
       </div>
 
       <div className="space-y-2">
         <label className="text-sm font-medium">Content</label>
         <div className="min-h-[400px] rounded-md border p-4">
-          <Controller
-            name="content"
-            control={control}
-            render={({ field }) => (
-              <Editor content={field.value} onChange={field.onChange} />
-            )}
-          />
+          <Editor content={content} onChange={setContent} />
         </div>
       </div>
 
       {postType !== "post" && (
         <div className="space-y-2">
           <label className="text-sm font-medium">Category</label>
-          <Input {...register("category")} placeholder="Enter category" />
+          <Input name="category" placeholder="Enter category" defaultValue="" />
         </div>
       )}
 
@@ -184,6 +165,7 @@ export default function QuestionAndDiscussionForm() {
             ))}
           </div>
           <Input
+            name="tag-input"
             onKeyDown={handleAddTag}
             placeholder="Add tags (press Enter)"
           />
@@ -194,17 +176,18 @@ export default function QuestionAndDiscussionForm() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Thumbnail URL</label>
           <Input
-            {...register("thumbnail_url")}
+            name="thumbnail_url"
             placeholder="Enter thumbnail URL"
+            defaultValue=""
           />
         </div>
       )}
 
       <div className="flex justify-end gap-4">
         <Button type="button" variant="outline" onClick={() => router.back()}>
-          Cancel
+          취소
         </Button>
-        <Button type="submit">Create</Button>
+        <SubmitButton />
       </div>
     </form>
   );

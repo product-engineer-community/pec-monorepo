@@ -8,7 +8,7 @@ import {
   incrementViewCount,
 } from "@/features/question/action";
 import { MarkdownViewer } from "@/shared/components/editor";
-import { getAuthSession } from "@/shared/supabase";
+import { getUserFromSupabase } from "@/shared/supabase";
 import { Comments } from "@/widgets/comments";
 
 export default async function QuestionDetailPage({
@@ -22,9 +22,7 @@ export default async function QuestionDetailPage({
   const question = await getQuestion(id);
 
   // 현재 사용자 세션 가져오기
-  const session = await getAuthSession();
-
-  const currentUserId = session?.user?.id;
+  const user = await getUserFromSupabase();
 
   // 조회수 증가
   await incrementViewCount(id);
@@ -45,7 +43,7 @@ export default async function QuestionDetailPage({
   }
 
   // 사용자가 질문 작성자인지 확인
-  const isAuthor = currentUserId === question.author.id;
+  const isAuthor = user?.id === question.author.id;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">

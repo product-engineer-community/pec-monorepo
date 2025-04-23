@@ -30,10 +30,6 @@ export function DeletePostButton({
     success: false,
   });
 
-  const handleDelete = async () => {
-    formAction();
-  };
-
   // 타입에 따른 제목 및 설명 텍스트 설정
   const getTitle = () => {
     switch (postType) {
@@ -80,20 +76,18 @@ export function DeletePostButton({
               취소
             </Button>
           </DialogClose>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={isPending}
-          >
-            {isPending ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                삭제 중...
-              </>
-            ) : (
-              "삭제"
-            )}
-          </Button>
+          <form action={formAction}>
+            <Button variant="destructive" type="submit" disabled={isPending}>
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  삭제 중...
+                </>
+              ) : (
+                "삭제"
+              )}
+            </Button>
+          </form>
         </DialogFooter>
       </DialogContent>
     </Dialog>

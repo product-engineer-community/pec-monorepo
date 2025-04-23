@@ -89,7 +89,7 @@ export async function signIn(
       };
     }
 
-    // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
+    // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
     await supabaseClient.auth.getUser();
   } catch (error) {
     console.error("로그인 오류:", error);

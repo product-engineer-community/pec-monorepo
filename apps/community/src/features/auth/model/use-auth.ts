@@ -1,7 +1,7 @@
 import { getSupabaseClient } from "@pec/supabase";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { SIGN_IN_PATHNAME } from "../shared/config/pathname";
+import { SIGN_IN_PATHNAME } from "@/shared/config/pathname";
 
 export function useAuth() {
   const queryClient = useQueryClient();

@@ -4,14 +4,14 @@ import {
   getComments,
   groupComments,
 } from "@/features/comment";
-import { getAuthSession } from "@/shared/supabase/action";
+import { getUserFromSupabase } from "@/shared/supabase/action";
 
 interface CommentsProps {
   postId: string;
 }
 
 export async function Comments({ postId }: CommentsProps) {
-  const session = await getAuthSession();
+  const user = await getUserFromSupabase();
   const comments = await getComments(postId);
   const groupedComments = groupComments(comments);
 
@@ -28,7 +28,7 @@ export async function Comments({ postId }: CommentsProps) {
       <CommentList
         groupedComments={groupedComments}
         postId={postId}
-        currentUserId={session?.user?.id}
+        currentUserId={user?.id}
       />
     </div>
   );
