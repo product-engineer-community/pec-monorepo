@@ -1,6 +1,9 @@
 "use server";
 
-import { getSupabaseServerClient } from "@/shared/supabase";
+import {
+  getSupabaseServerClient,
+  getUserFromSupabase,
+} from "@/shared/supabase";
 
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
@@ -11,15 +14,13 @@ import { getSupabaseServerClient } from "@/shared/supabase";
 export async function togglePostLike(postId: string) {
   const supabase = await getSupabaseServerClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getUserFromSupabase();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
-  const userId = session.user.id;
+  const userId = user.id;
 
   // 기존 좋아요 확인
   const { data: existingLike } = await supabase

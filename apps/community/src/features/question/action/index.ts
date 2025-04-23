@@ -2,7 +2,10 @@
 import type { Question } from "@pec/shared";
 
 import { togglePostLike } from "@/features/post";
-import { getSupabaseServerClient } from "@/shared/supabase";
+import {
+  getSupabaseServerClient,
+  getUserFromSupabase,
+} from "@/shared/supabase";
 
 export async function getQuestions() {
   const supabase = await getSupabaseServerClient();
@@ -177,14 +180,14 @@ export { togglePostLike };
 export async function toggleCommentLike(commentId: string) {
   const supabase = await getSupabaseServerClient();
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
-  const userId = session.user.id;
+  const userId = user.id;
 
   // 기존 좋아요 확인
   const { data: existingLike } = await supabase
@@ -215,11 +218,9 @@ export async function toggleCommentLike(commentId: string) {
 
 export async function addComment(formData: FormData) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getUserFromSupabase();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
@@ -237,7 +238,7 @@ export async function addComment(formData: FormData) {
       .insert({
         content,
         post_id: postId,
-        author_id: session.user.id,
+        author_id: user.id,
         parent_id: parentId || null,
       })
       .select()
@@ -254,11 +255,9 @@ export async function addComment(formData: FormData) {
 
 export async function deleteComment(commentId: string) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getUserFromSupabase();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
@@ -270,7 +269,7 @@ export async function deleteComment(commentId: string) {
       .eq("id", commentId)
       .single();
 
-    if (!comment || comment.author_id !== session.user.id) {
+    if (!comment || comment.author_id !== user.id) {
       return { error: "삭제 권한이 없습니다." };
     }
 
@@ -290,11 +289,9 @@ export async function deleteComment(commentId: string) {
 
 export async function updateComment(formData: FormData) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getUserFromSupabase();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
@@ -313,7 +310,7 @@ export async function updateComment(formData: FormData) {
       .eq("id", commentId)
       .single();
 
-    if (!comment || comment.author_id !== session.user.id) {
+    if (!comment || comment.author_id !== user.id) {
       return { error: "수정 권한이 없습니다." };
     }
 
@@ -335,11 +332,9 @@ export async function updateComment(formData: FormData) {
 
 export async function deleteQuestion(questionId: string) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getUserFromSupabase();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
@@ -351,7 +346,7 @@ export async function deleteQuestion(questionId: string) {
       .eq("id", questionId)
       .single();
 
-    if (!question || question.author_id !== session.user.id) {
+    if (!question || question.author_id !== user.id) {
       return { error: "삭제 권한이 없습니다." };
     }
 

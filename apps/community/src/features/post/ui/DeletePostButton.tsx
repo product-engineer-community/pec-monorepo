@@ -12,8 +12,7 @@ import {
   DialogTrigger,
 } from "@pec/shared";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useState } from "react";
 
 type PostType = "question" | "discussion";
 
@@ -27,15 +26,12 @@ export function DeletePostButton({
   deletePost,
 }: DeletePostButtonProps) {
   const [open, setOpen] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [state, formAction] = useFormState(deletePost, {
+  const [state, formAction, isPending] = useActionState(deletePost, {
     success: false,
   });
 
   const handleDelete = async () => {
-    setIsDeleting(true);
-    await formAction();
-    setIsDeleting(false);
+    formAction();
   };
 
   // 타입에 따른 제목 및 설명 텍스트 설정
@@ -80,16 +76,16 @@ export function DeletePostButton({
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" disabled={isDeleting}>
+            <Button variant="outline" disabled={isPending}>
               취소
             </Button>
           </DialogClose>
           <Button
             variant="destructive"
             onClick={handleDelete}
-            disabled={isDeleting}
+            disabled={isPending}
           >
-            {isDeleting ? (
+            {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 삭제 중...

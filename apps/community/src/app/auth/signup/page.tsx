@@ -1,20 +1,34 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label } from "@pec/shared";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+} from "@pec/shared";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { SignUpInput, signUpSchema } from "@/lib/validations/auth";
 
-import { signUp } from "../actions";
+import { signUp } from "../../../features/auth/action";
 
 export default function SignUpPage() {
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState<string>();
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignUpInput>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpInput>({
     resolver: zodResolver(signUpSchema),
   });
 
@@ -38,9 +52,7 @@ export default function SignUpPage() {
         <Card className="w-full sm:w-[350px]">
           <CardHeader>
             <CardTitle>회원가입 완료</CardTitle>
-            <CardDescription>
-              {message}
-            </CardDescription>
+            <CardDescription>{message}</CardDescription>
           </CardHeader>
           <CardFooter>
             <Link href="/auth/signin" className="w-full">
@@ -72,7 +84,9 @@ export default function SignUpPage() {
                 placeholder="name@example.com"
               />
               {errors.email && (
-                <p className="text-sm text-destructive">{errors.email.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.email.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
@@ -83,28 +97,36 @@ export default function SignUpPage() {
                 placeholder="username"
               />
               {errors.username && (
-                <p className="text-sm text-destructive">{errors.username.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.username.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">비밀번호</Label>
               <Input {...register("password")} id="password" type="password" />
               {errors.password && (
-                <p className="text-sm text-destructive">{errors.password.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.password.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-              <Input {...register("confirmPassword")} id="confirmPassword" type="password" />
+              <Input
+                {...register("confirmPassword")}
+                id="confirmPassword"
+                type="password"
+              />
               {errors.confirmPassword && (
-                <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.confirmPassword.message}
+                </p>
               )}
             </div>
-            {error && (
-              <p className="text-sm text-destructive">{error}</p>
-            )}
+            {error && <p className="text-sm text-destructive">{error}</p>}
           </CardContent>
-          <CardFooter className="flex flex-col space-y-2 mt-4">
+          <CardFooter className="mt-4 flex flex-col space-y-2">
             <Button className="w-full" type="submit" disabled={isSubmitting}>
               {isSubmitting ? "회원가입 중..." : "회원가입"}
             </Button>

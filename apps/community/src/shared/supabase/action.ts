@@ -1,5 +1,19 @@
 import { getSupabaseServerClient } from "./server";
 
+export async function getUserFromSupabase() {
+  const supabase = await getSupabaseServerClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    return null;
+  }
+
+  return user;
+}
+
 export async function getAuthSession() {
   const supabase = await getSupabaseServerClient();
   try {

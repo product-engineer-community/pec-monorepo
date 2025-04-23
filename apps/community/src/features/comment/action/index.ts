@@ -2,7 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 
-import { getAuthSession, getSupabaseServerClient } from "@/shared/supabase";
+import {
+  getSupabaseServerClient,
+  getUserFromSupabase,
+} from "@/shared/supabase";
 
 import { CommentWithAuthor } from "../model/types";
 
@@ -13,8 +16,8 @@ export async function getComments(
   postId: string,
 ): Promise<CommentWithAuthor[]> {
   const supabase = await getSupabaseServerClient();
-  const session = await getAuthSession();
-  const userId = session?.user?.id;
+  const user = await getUserFromSupabase();
+  const userId = user?.id;
 
   let query = supabase
     .from("comments")
@@ -69,9 +72,9 @@ export async function createComment(
   content: string,
   parentId: string | null = null,
 ) {
-  const session = await getAuthSession();
+  const user = await getUserFromSupabase();
 
-  if (!session) {
+  if (!user) {
     throw new Error("로그인이 필요합니다.");
   }
 
@@ -83,7 +86,7 @@ export async function createComment(
   const { error } = await supabase.from("comments").insert({
     content,
     post_id: postId,
-    author_id: session.user.id,
+    author_id: user.id,
     parent_id: parentId,
   });
 
@@ -97,9 +100,9 @@ export async function createComment(
  * 댓글 삭제 함수
  */
 export async function deleteComment(commentId: string, postId: string) {
-  const session = await getAuthSession();
+  const user = await getUserFromSupabase();
 
-  if (!session) {
+  if (!user) {
     throw new Error("로그인이 필요합니다.");
   }
 
@@ -108,7 +111,7 @@ export async function deleteComment(commentId: string, postId: string) {
     .from("comments")
     .delete()
     .eq("id", commentId)
-    .eq("author_id", session.user.id);
+    .eq("author_id", user.id);
 
   if (error) throw error;
 
@@ -120,9 +123,9 @@ export async function deleteComment(commentId: string, postId: string) {
  * 댓글 좋아요 토글 함수
  */
 export async function toggleCommentLike(commentId: string, postId: string) {
-  const session = await getAuthSession();
+  const user = await getUserFromSupabase();
 
-  if (!session) {
+  if (!user) {
     throw new Error("로그인이 필요합니다.");
   }
 
@@ -130,7 +133,7 @@ export async function toggleCommentLike(commentId: string, postId: string) {
   const { data: existingLike } = await supabase
     .from("likes")
     .select()
-    .eq("user_id", session.user.id)
+    .eq("user_id", user.id)
     .eq("comment_id", commentId)
     .maybeSingle();
 
@@ -138,7 +141,7 @@ export async function toggleCommentLike(commentId: string, postId: string) {
     await supabase.from("likes").delete().eq("id", existingLike.id);
   } else {
     await supabase.from("likes").insert({
-      user_id: session.user.id,
+      user_id: user.id,
       comment_id: commentId,
     });
   }

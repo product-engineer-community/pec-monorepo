@@ -3,7 +3,7 @@ import { Button, Input } from "@pec/shared";
 import { type PostType } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -28,13 +28,6 @@ export default function QuestionAndDiscussionForm() {
   const [postType, setPostType] = useState<PostType>(initialType);
   const { session } = useAuth();
   const supabase = getSupabaseClient();
-
-  useEffect(() => {
-    if (!session) {
-      toast.error("로그인이 필요합니다.");
-      router.replace("/auth/signin");
-    }
-  }, [session, router]);
 
   const { register, handleSubmit, watch, setValue, control } =
     useForm<FormData>({

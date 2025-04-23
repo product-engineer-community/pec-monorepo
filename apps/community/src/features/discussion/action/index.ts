@@ -2,7 +2,10 @@
 
 import type { Discussion } from "@pec/shared";
 
-import { getSupabaseServerClient } from "@/src/shared/supabase";
+import {
+  getSupabaseServerClient,
+  getUserFromSupabase,
+} from "@/src/shared/supabase";
 
 export async function getDiscussions() {
   const supabase = await getSupabaseServerClient();
@@ -131,11 +134,9 @@ export async function incrementViewCount(id: string) {
 
 export async function deleteDiscussion(discussionId: string) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getUserFromSupabase();
 
-  if (!session?.user) {
+  if (!user) {
     return { error: "로그인이 필요합니다." };
   }
 
@@ -147,7 +148,7 @@ export async function deleteDiscussion(discussionId: string) {
       .eq("id", discussionId)
       .single();
 
-    if (!discussion || discussion.author_id !== session.user.id) {
+    if (!discussion || discussion.author_id !== user.id) {
       return { error: "삭제 권한이 없습니다." };
     }
 

@@ -20,12 +20,11 @@ export default async function QuestionDetailPage({
 
   // 질문 데이터 가져오기
   const question = await getQuestion(id);
-  console.log("🚀 ~ question:", question);
 
   // 현재 사용자 세션 가져오기
   const session = await getAuthSession();
+
   const currentUserId = session?.user?.id;
-  console.log("🚀 ~ currentUserId:", currentUserId);
 
   // 조회수 증가
   await incrementViewCount(id);
@@ -34,10 +33,8 @@ export default async function QuestionDetailPage({
     return <div>Question not found</div>;
   }
 
-  // 삭제 기능 정의
   async function handleDeleteQuestion() {
     "use server";
-
     const result = await deleteQuestion(id);
 
     if (result.success) {

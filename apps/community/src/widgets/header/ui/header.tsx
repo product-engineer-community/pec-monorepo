@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Button,
   DropdownMenu,
@@ -13,7 +11,7 @@ import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useAuth } from "@/hooks/use-auth";
+import { SignOutButton } from "@/features/auth/ui/SignOutButton";
 import {
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_DISCUSSIONS_PATHNAME,
@@ -21,7 +19,8 @@ import {
   COMMUNITY_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
   LECTURE_PATHNAME,
-} from "@/src/shared/config/pathname";
+} from "@/shared/config/pathname";
+import { getUserFromSupabase } from "@/shared/supabase/action";
 
 const MENU_ITEMS = [
   {
@@ -37,8 +36,9 @@ const MENU_ITEMS = [
   { label: "Lectures", href: LECTURE_PATHNAME },
 ] as const;
 
-export function Header() {
-  const { session, isAuthenticated, signOut } = useAuth();
+export async function Header() {
+  const user = await getUserFromSupabase();
+  const isAuthenticated = !!user;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -88,11 +88,9 @@ export function Header() {
           {isAuthenticated ? (
             <>
               <span className="text-sm text-muted-foreground">
-                {session?.user.email}
+                {user?.email}
               </span>
-              <Button variant="ghost" onClick={signOut}>
-                로그아웃
-              </Button>
+              <SignOutButton />
             </>
           ) : (
             <>
@@ -146,13 +144,11 @@ export function Header() {
               <>
                 <DropdownMenuItem asChild>
                   <span className="text-sm text-muted-foreground">
-                    {session?.user.email}
+                    {user?.email}
                   </span>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Button variant="ghost" onClick={signOut}>
-                    로그아웃
-                  </Button>
+                  <SignOutButton />
                 </DropdownMenuItem>
               </>
             ) : (

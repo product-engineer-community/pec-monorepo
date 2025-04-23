@@ -1,70 +1,72 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label } from "@pec/shared";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+} from "@pec/shared";
 import Link from "next/link";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 
-import { useAuth } from "@/hooks/use-auth";
-import { SignInInput, signInSchema } from "@/lib/validations/auth";
+import { signIn, SignInState } from "../../../features/auth/action";
+
+// 폼 제출 버튼 컴포넌트
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button className="w-full" type="submit" disabled={pending}>
+      {pending ? "로그인 중..." : "로그인"}
+    </Button>
+  );
+}
+
+// 초기 상태 정의
+const initialState: SignInState = {
+  error: null,
+  success: false,
+};
 
 export default function SignInPage() {
-  const [error, setError] = useState<string>();
-  const { signIn } = useAuth();
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignInInput>({
-    resolver: zodResolver(signInSchema),
-  });
-
-  const onSubmit = async (data: SignInInput) => {
-    try {
-      const result = await signIn(data.email, data.password);
-      if (result?.error) {
-        setError(result.error);
-      }
-    } catch {
-      setError("로그인 중 오류가 발생했습니다");
-    }
-  };
+  // Server Action과 폼 상태 관리
+  const [state, formAction] = useActionState(signIn, initialState);
 
   return (
     <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-4 sm:w-auto">
       <Card className="w-full sm:w-[350px]">
         <CardHeader>
           <CardTitle>로그인</CardTitle>
-          <CardDescription>
-            PEC에 오신 것을 환영합니다.
-          </CardDescription>
+          <CardDescription>PEC에 오신 것을 환영합니다.</CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form action={formAction}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">이메일</Label>
               <Input
-                {...register("email")}
+                name="email"
                 id="email"
                 type="email"
                 placeholder="name@example.com"
+                required
               />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email.message}</p>
-              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">비밀번호</Label>
-              <Input {...register("password")} id="password" type="password" />
-              {errors.password && (
-                <p className="text-sm text-destructive">{errors.password.message}</p>
-              )}
+              <Input name="password" id="password" type="password" required />
             </div>
-            {error && (
-              <p className="text-sm text-destructive">{error}</p>
+            {state?.error && (
+              <p className="text-sm text-destructive">{state.error}</p>
             )}
           </CardContent>
-          <CardFooter className="flex flex-col space-y-2 mt-4">
-            <Button className="w-full" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "로그인 중..." : "로그인"}
-            </Button>
+          <CardFooter className="mt-4 flex flex-col space-y-2">
+            <SubmitButton />
             <div className="text-sm text-muted-foreground">
               계정이 없으신가요?{" "}
               <Link
