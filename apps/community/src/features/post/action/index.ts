@@ -1,9 +1,13 @@
 "use server";
 
-import { type PostType } from "@pec/shared";
+import { PostType } from "@pec/shared";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-import { getSupabaseServerClient, getUserFromSupabase } from "@/shared/supabase";
+import {
+  getSupabaseServerClient,
+  getUserFromSupabase,
+} from "@/shared/supabase";
 
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
@@ -62,26 +66,29 @@ export async function createPost(formData: FormData) {
     return { error: "로그인이 필요합니다." };
   }
 
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+  const postType = formData.get("postType") as PostType;
+  const category = formData.get("category") as string;
+  const tagsString = formData.get("tags") as string;
+  const thumbnailUrl = formData.get("thumbnail_url") as string;
+
+  // 태그 처리
+  const tags = tagsString ? JSON.parse(tagsString) : [];
+
+  // 유효성 검사
+  if (!title || title.length < 5 || title.length > 200) {
+    return { error: "제목은 5자 이상 200자 이하여야 합니다." };
+  }
+  if (!content || content.length < 10) {
+    return { error: "내용은 10자 이상이어야 합니다." };
+  }
+
+  // 생성 후 페이지로 이동을 위한 id 저장 목적
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let createdPost: any;
+
   try {
-    const title = formData.get("title") as string;
-    const content = formData.get("content") as string;
-    const postType = formData.get("postType") as PostType;
-    const category = formData.get("category") as string;
-    const tagsString = formData.get("tags") as string;
-    const thumbnailUrl = formData.get("thumbnail_url") as string;
-
-    // 유효성 검사
-    if (!title || title.length < 5 || title.length > 200) {
-      return { error: "제목은 5자 이상 200자 이하여야 합니다." };
-    }
-
-    if (!content || content.length < 10) {
-      return { error: "내용은 10자 이상이어야 합니다." };
-    }
-
-    // 태그 처리
-    const tags = tagsString ? JSON.parse(tagsString) : [];
-
     const supabase = await getSupabaseServerClient();
 
     // 게시물 기본 데이터
@@ -128,12 +135,13 @@ export async function createPost(formData: FormData) {
 
     if (error) throw error;
 
+    createdPost = data;
+
     // 캐시 무효화
     revalidatePath("/community");
-
-    return { postId: data.id, success: true };
   } catch (error) {
     console.error("Error creating post:", error);
     return { error: "포스트 생성 중 오류가 발생했습니다." };
   }
+  redirect(`/community/${postType}s/${createdPost.id}`);
 }

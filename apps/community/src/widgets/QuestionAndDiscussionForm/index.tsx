@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, Input } from "@pec/shared";
 import { type PostType } from "@pec/shared";
 import { useRouter } from "next/navigation";
@@ -68,15 +66,10 @@ export default function QuestionAndDiscussionForm() {
 
   // 서버 응답 처리
   useEffect(() => {
-    if (state.success && state.postId) {
-      toast.success("포스트가 성공적으로 생성되었습니다!");
-      router.push(`/community/${postType}s/${state.postId}`);
-    }
-
     if (state.error) {
       toast.error(state.error);
     }
-  }, [state, router, postType, state.postId]);
+  }, [state]);
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && e.currentTarget.value.trim()) {

@@ -1,17 +1,17 @@
-import { getRelativeTimeString } from "@pec/shared";
+import { getRelativeTimeString, PostCardSkeleton } from "@pec/shared";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { MarkdownViewer } from "@/shared/components/editor";
 
 import { getQuestions } from "../action";
-import type { QuestionWithAuthor } from "../model/types";
 
-export async function QuestionsList() {
+export async function QuestionsListContent() {
   const questions = await getQuestions();
 
   return (
-    <div className="space-y-6">
-      {questions.map((question: QuestionWithAuthor) => (
+    <>
+      {questions.map((question) => (
         <Link
           key={question.id}
           href={`/community/questions/${question.id}`}
@@ -45,6 +45,16 @@ export async function QuestionsList() {
           </div>
         </Link>
       ))}
+    </>
+  );
+}
+
+export function QuestionsList() {
+  return (
+    <div className="space-y-6">
+      <Suspense fallback={<PostCardSkeleton count={3} variant="question" />}>
+        <QuestionsListContent />
+      </Suspense>
     </div>
   );
 }

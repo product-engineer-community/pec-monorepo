@@ -58,7 +58,7 @@ async function DiscussionsListContent() {
 export function DiscussionsList() {
   return (
     <div className="space-y-6">
-      <Suspense fallback={<PostCardSkeleton variant="discussion" />}>
+      <Suspense fallback={<PostCardSkeleton count={3} variant="discussion" />}>
         <DiscussionsListContent />
       </Suspense>
     </div>
