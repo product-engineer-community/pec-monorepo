@@ -1,15 +1,13 @@
-import { getRelativeTimeString } from "@pec/shared";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
-import { DeletePostButton, PostLikeButton } from "@/features/post";
 import {
-  deleteQuestion,
-  getQuestion,
   incrementViewCount,
-} from "@/features/question/action";
-import { MarkdownViewer } from "@/shared/components/editor";
-import { getUserFromSupabase } from "@/shared/supabase";
-import { Comments } from "@/widgets/comments";
+  QuestionDetail,
+  QuestionDetailSkeleton,
+} from "@/entities/question";
+import { deleteQuestion } from "@/features/question/action";
+import { Comments, CommentsSkeleton } from "@/widgets/comments";
 
 export default async function QuestionDetailPage({
   params,
@@ -18,18 +16,10 @@ export default async function QuestionDetailPage({
 }) {
   const { id } = await params;
 
-  // 질문 데이터 가져오기
-  const question = await getQuestion(id);
-
   // 현재 사용자 세션 가져오기
-  const user = await getUserFromSupabase();
 
   // 조회수 증가
   await incrementViewCount(id);
-
-  if (!question) {
-    return <div>Question not found</div>;
-  }
 
   async function handleDeleteQuestion() {
     "use server";
@@ -43,48 +33,17 @@ export default async function QuestionDetailPage({
   }
 
   // 사용자가 질문 작성자인지 확인
-  const isAuthor = user?.id === question.author.id;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-              {question.author.username?.[0]?.toUpperCase()}
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">
-                {question.author.username}
-              </span>
-              <span className="text-xs text-gray-500">
-                {getRelativeTimeString(question.created_at)}
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {isAuthor && (
-              <DeletePostButton
-                postType="question"
-                deletePost={handleDeleteQuestion}
-              />
-            )}
-            <PostLikeButton
-              postId={id}
-              initialLikes={question.likes_count}
-              initialIsLiked={question.is_liked}
-              size="sm"
-            />
-          </div>
-        </div>
-        <div>
-          <h1 className="mb-4 text-2xl font-bold">{question.title}</h1>
-          <MarkdownViewer content={question.content} />
-        </div>
-      </div>
+      <Suspense fallback={<QuestionDetailSkeleton />}>
+        <QuestionDetail id={id} onDelete={handleDeleteQuestion} />
+      </Suspense>
 
       <div className="border-t pt-8">
-        <Comments postId={id} />
+        <Suspense fallback={<CommentsSkeleton />}>
+          <Comments postId={id} />
+        </Suspense>
       </div>
     </div>
   );
