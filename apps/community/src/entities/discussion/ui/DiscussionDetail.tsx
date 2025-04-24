@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { deleteDiscussion, getDiscussion } from "@/features/discussion/action";
 import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
-import { getUserFromSupabase } from "@/shared/supabase";
+import { getAuthSession } from "@/shared/supabase";
 
 interface DiscussionDetailProps {
   id: string;
@@ -20,10 +20,10 @@ export async function DiscussionDetail({ id }: DiscussionDetailProps) {
   }
 
   // 현재 사용자 세션 가져오기
-  const user = await getUserFromSupabase();
+  const session = await getAuthSession();
 
   // 사용자가 토론 작성자인지 확인
-  const isAuthor = user?.id === discussion.author.id;
+  const isAuthor = session?.user?.id === discussion.author.id;
 
   // 삭제 기능 정의
   async function handleDeleteDiscussion() {
