@@ -1,6 +1,7 @@
 "use server";
 
 import { getSupabaseServerClient } from "@/shared/supabase";
+
 import { QuestionWithAuthor } from "../model/types";
 
 export async function getQuestion(id: string, userId?: string) {
