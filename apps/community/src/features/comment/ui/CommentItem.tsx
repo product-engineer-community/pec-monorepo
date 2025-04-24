@@ -4,6 +4,8 @@ import { getRelativeTimeString } from "@pec/shared";
 import Image from "next/image";
 import { useState } from "react";
 
+import { MarkdownViewer } from "@/src/shared/components/editor";
+
 import { CommentWithAuthor } from "../model/types";
 import { CommentDeleteButton } from "./CommentDeleteButton";
 import { CommentForm } from "./CommentForm";
@@ -75,7 +77,9 @@ export function CommentItem({
           />
         </div>
       </div>
-      <div className="prose dark:prose-invert">{comment.content}</div>
+      <div className="prose dark:prose-invert">
+        <MarkdownViewer content={comment.content} />
+      </div>
 
       {/* 답글 폼 */}
       {isReplying && !isReply && (

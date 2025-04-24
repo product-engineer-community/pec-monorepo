@@ -13,6 +13,7 @@ export function CommentList({
   currentUserId,
 }: CommentListProps) {
   const commentsArray = Object.values(groupedComments);
+  console.log("🚀 ~ commentsArray:", commentsArray);
 
   if (commentsArray.length === 0) {
     return (

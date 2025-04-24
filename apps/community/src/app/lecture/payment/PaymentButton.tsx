@@ -5,6 +5,7 @@ import * as PortOne from "@portone/browser-sdk/v2";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useAuth } from "@/src/features/auth/model/use-auth";
 import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 import RefundPolicyDialog from "./RefundPolicyDialog";
@@ -31,6 +32,8 @@ export default function PaymentButton({
   payMethod,
   currency = "CURRENCY_KRW",
 }: PaymentButtonProps) {
+  const { session } = useAuth();
+
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
   const [isRefundPolicyAgreed, setIsRefundPolicyAgreed] = useState(false);
 
@@ -52,6 +55,10 @@ export default function PaymentButton({
         totalAmount: price,
         currency,
         payMethod,
+        customer: {
+          customerId: session?.user?.id,
+          email: session?.user?.email,
+        },
         customData: { id: "nextjs", price, currency },
       });
 
