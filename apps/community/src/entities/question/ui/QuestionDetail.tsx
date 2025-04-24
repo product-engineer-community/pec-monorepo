@@ -1,28 +1,40 @@
 import { getRelativeTimeString } from "@pec/shared";
+import { notFound, redirect } from "next/navigation";
 
 import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
-import { getUserFromSupabase } from "@/shared/supabase";
+import { getAuthSession } from "@/shared/supabase";
+import { deleteQuestion } from "@/src/features/question/action";
 
 import { getQuestion } from "../action";
 
 interface QuestionDetailProps {
   id: string;
-  onDelete: () => Promise<{ success?: boolean; error?: string }>;
 }
 
-export async function QuestionDetail({ id, onDelete }: QuestionDetailProps) {
+export async function QuestionDetail({ id }: QuestionDetailProps) {
   // 질문 데이터 가져오기
   const question = await getQuestion(id);
 
   // 질문이 존재하지 않는 경우
   if (!question) {
-    return <div>Question not found</div>;
+    notFound();
   }
 
-  const user = await getUserFromSupabase();
+  const session = await getAuthSession();
 
-  const isAuthor = user?.id === question.author.id;
+  const isAuthor = session?.user?.id === question.author.id;
+
+  async function handleDeleteQuestion() {
+    "use server";
+    const result = await deleteQuestion(id);
+
+    if (result.success) {
+      redirect("/community/questions");
+    }
+
+    return result;
+  }
 
   return (
     <div className="space-y-4">
@@ -42,7 +54,10 @@ export async function QuestionDetail({ id, onDelete }: QuestionDetailProps) {
         </div>
         <div className="flex items-center gap-2">
           {isAuthor && (
-            <DeletePostButton postType="question" deletePost={onDelete} />
+            <DeletePostButton
+              postType="question"
+              deletePost={handleDeleteQuestion}
+            />
           )}
           <PostLikeButton
             postId={id}
