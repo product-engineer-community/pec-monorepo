@@ -1,9 +1,9 @@
-"use client";
-
 import { Text } from "@pec/shared";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+
+import { getAllArticles } from "@/entities/articles";
 
 // Badge 컴포넌트 직접 구현
 interface BadgeProps {
@@ -31,7 +31,7 @@ const Badge = ({
   );
 };
 
-// Fake blog data
+// Fake featured post data (실제 구현 시 마크다운에서 추출 가능)
 const FEATURED_POST = {
   id: "featured-1",
   title: "AI와 함께하는 프로덕트 디자인: 더 나은 사용자 경험을 위한 접근",
@@ -45,55 +45,36 @@ const FEATURED_POST = {
   tags: ["AI", "UX Design", "Product Development"],
 };
 
-const ARTICLES_POSTS = [
-  {
-    id: 2,
-    title: "Product Engineer가 알아야 할 비즈니스 메트릭",
-    excerpt:
-      "기술적 지표를 넘어 비즈니스 성과를 측정하고 개선하는 방법에 대해 알아봅니다.",
-    author: {
-      name: "이비즈",
-      avatar: "/placeholder.svg",
-    },
-    publishedAt: "2024-03-28",
-    readingTime: "10 min read",
-    tags: ["비즈니스", "메트릭", "프로덕트"],
-    coverImage: "/placeholder.svg",
-    category: "비즈니스",
-  },
-  {
-    id: 3,
-    title: "Next.js 서버 컴포넌트로 성능 최적화하기",
-    excerpt:
-      "서버 컴포넌트를 활용한 실제 성능 최적화 사례와 구현 패턴을 공유합니다.",
-    author: {
-      name: "박엔지니어",
-      avatar: "/placeholder.svg",
-    },
-    publishedAt: "2024-03-25",
-    readingTime: "12 min read",
-    tags: ["Next.js", "성능최적화", "React"],
-    coverImage: "/placeholder.svg",
-    category: "개발",
-  },
-  {
-    id: 4,
-    title: "AI 시대의 코드 리뷰 방법론",
-    excerpt:
-      "ChatGPT와 GitHub Copilot을 활용한 효율적인 코드 리뷰 프로세스를 소개합니다.",
-    author: {
-      name: "정AI",
-      avatar: "/placeholder.svg",
-    },
-    publishedAt: "2024-03-22",
-    readingTime: "8 min read",
-    tags: ["AI", "코드리뷰", "생산성"],
-    coverImage: "/placeholder.svg",
-    category: "개발",
-  },
-];
+// 가상의 카테고리 정보 (실제로는 마크다운 파일에서 추출할 수 있음)
+const CATEGORIES: Record<string, string> = {
+  "1": "비즈니스",
+  "2": "개발",
+};
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
+  // 모든 아티클 가져오기
+  const articles = await getAllArticles();
+
+  // 가공된 아티클 데이터 생성
+  const articlesData = articles.map((article) => {
+    const id = article.slug;
+    return {
+      id,
+      title: article.title || `아티클 ${id}`,
+      excerpt: article.excerpt || "아티클 요약이 없습니다.",
+      author: {
+        name: article.author || "익명",
+        avatar: "/placeholder.svg",
+      },
+      publishedAt:
+        article.publishedDate || new Date().toLocaleDateString("ko-KR"),
+      readingTime: "8 min read",
+      tags: ["Product Engineer"],
+      coverImage: "/placeholder.svg",
+      category: CATEGORIES[id] || "기타",
+    };
+  });
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-10 text-center">
@@ -178,7 +159,7 @@ export default function ArticlesPage() {
           </div>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {ARTICLES_POSTS.map((post) => (
+          {articlesData.map((post) => (
             <Link key={post.id} href={`/community/articles/${post.id}`}>
               <div className="h-full overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
                 <div className="aspect-w-16 aspect-h-9 overflow-hidden">
