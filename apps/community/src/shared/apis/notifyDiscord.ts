@@ -1,5 +1,8 @@
 import { PostType } from "@pec/shared";
 
+/**
+ * "community-새글알림" 채널의 웹훅 URL입니다.
+ */
 const NEW_POST_NOTIFICATION_WEBHOOK_URL =
   "https://discord.com/api/webhooks/1367286496545214605/1GTDr6I60h1pKHwa_7_ly_qhh--JeTQa8aR1zi42HV_B0uzYX_NIgIkqyokOTPG-6B5F";
 
@@ -40,7 +43,7 @@ const toNotifyNewPostDto = (options: NotifyNewPostOptions) => {
 };
 
 /**
- * 서비스 내에서 사용하는 필드에 비해서 실제 필드가 너무 많아서 타입을 느슨하게 정의합니다.
+ * 서비스 내에서 사용하는 필드에 비해서 실제 필드가 너무 많아서 타입의 일부만 느슨하게 정의합니다.
  * @see https://discord.com/developers/docs/resources/message#create-message
  */
 interface Option {
@@ -49,13 +52,16 @@ interface Option {
    */
   content?: string;
   /**
-   * 정확한 타입은 https://discord.com/developers/docs/resources/message#attachment-object 를 참고해주세요
-   */
-  attachments?: any;
-  /**
    * 정확한 타입은 https://discord.com/developers/docs/resources/message#embed-object 를 참고해주세요
    */
-  embeds?: any;
+  embeds?: Array<{
+    title: string;
+    description: string;
+    url: string;
+    footer: {
+      text: string;
+    };
+  }>;
 }
 
 async function notifyDiscord(webhookUrl: string, options: Option) {
