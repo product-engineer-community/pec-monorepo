@@ -54,14 +54,6 @@ export async function togglePostLike(postId: string) {
   }
 }
 
-interface OnAfterCreateContents {
-  authorId: string;
-  postId: string;
-  title: string;
-  content: string;
-  type: PostType;
-}
-
 /**
  * 게시물 생성 함수
  *
