@@ -1,6 +1,6 @@
 "use server";
 
-import { PostType } from "@pec/shared";
+import { noop, PostType } from "@pec/shared";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -8,6 +8,7 @@ import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@/shared/supabase";
+import { notifyNewPostChannel } from "@/shared/apis/notifyDiscord";
 
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
@@ -136,6 +137,14 @@ export async function createPost(formData: FormData) {
     if (error) throw error;
 
     createdPost = data;
+
+    // 알림이 가지 않더라도 무시합니다.
+    notifyNewPostChannel({
+      postId: createdPost.id,
+      title,
+      description: content,
+      postType,
+    }).catch(noop);
 
     // 캐시 무효화
     revalidatePath("/community");
