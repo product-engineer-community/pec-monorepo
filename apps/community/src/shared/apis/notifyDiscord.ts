@@ -16,7 +16,7 @@ interface NotifyNewPostOptions {
 /**
  * PEC 디스코드 채널의 "community-새글알림" 채널로 메시지를 전송하는 함수입니다.
  */
-export async function notifyNewPostChannel(options: NotifyNewPostOptions) {
+export function notifyNewPostChannel(options: NotifyNewPostOptions) {
   return notifyDiscord(
     NEW_POST_NOTIFICATION_WEBHOOK_URL,
     toNotifyNewPostDto(options),
