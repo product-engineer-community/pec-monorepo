@@ -55,7 +55,7 @@ export default function QuestionAndDiscussionForm() {
     formData.set("tags", JSON.stringify(tags));
     formData.set("postType", postType);
 
-    return createPost(formData);
+    return createPost(formData, { notify: true });
   };
 
   // 서버 액션과 폼 상태 연결

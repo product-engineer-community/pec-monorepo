@@ -58,14 +58,14 @@ export async function togglePostLike(postId: string) {
  * 게시물 생성 함수
  *
  * @param formData 폼 데이터
- * @param options 게시물 생성시 사용할 수 있는 옵션을 정의합니다.
+ * @param option 게시물 생성시 사용할 수 있는 옵션을 정의합니다.
  * @returns 생성된 게시물의 ID나 에러 메시지
  */
 export async function createPost(
   formData: FormData,
-  options: {
+  option: {
     notify?: boolean;
-  } = { notify: true },
+  } = { notify: false },
 ) {
   const user = await getUserFromSupabase();
 
@@ -144,7 +144,7 @@ export async function createPost(
 
     createdPost = data;
 
-    if (options?.notify) {
+    if (option?.notify) {
       notifyNewPostChannel({
         postId: createdPost.id,
         type: postType,
