@@ -5,15 +5,15 @@ const NEW_POST_NOTIFICATION_WEBHOOK_URL =
 
 interface NotifyNewPostOptions {
   postId: string;
+  type: PostType;
   title: string;
-  description: string;
-  postType: PostType;
+  content: string;
 }
 
 /**
  * PEC 디스코드 채널의 "community-새글알림" 채널로 메시지를 전송하는 함수입니다.
  */
-export function notifyNewPostChannel(options: NotifyNewPostOptions) {
+export async function notifyNewPostChannel(options: NotifyNewPostOptions) {
   return notifyDiscord(
     NEW_POST_NOTIFICATION_WEBHOOK_URL,
     toNotifyNewPostDto(options),
@@ -21,18 +21,16 @@ export function notifyNewPostChannel(options: NotifyNewPostOptions) {
 }
 
 const toNotifyNewPostDto = (options: NotifyNewPostOptions) => {
-  const { postId, title, description, postType } = options;
+  const { postId, title, content, type } = options;
 
   return {
-    content: `${postType}에 새 게시물이 작성되었어요!`,
+    content: `${type}에 새 게시물이 작성되었어요!`,
     embeds: [
       {
         title: title.length > 20 ? title.slice(0, 20) + "..." : title,
         description:
-          description.length > 50
-            ? description.slice(0, 50) + "..."
-            : description,
-        url: `https://www.productengineer.info/community/${postType}s/${postId}`,
+          content.length > 50 ? content.slice(0, 50) + "..." : content,
+        url: `https://www.productengineer.info/community/${type}s/${postId}`,
         footer: {
           text: "Product Engineer Community",
         },
