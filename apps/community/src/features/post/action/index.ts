@@ -64,8 +64,8 @@ export async function togglePostLike(postId: string) {
 export async function createPost(
   formData: FormData,
   option: {
-    notify?: boolean;
-  } = { notify: false },
+    discordNotify?: boolean;
+  } = { discordNotify: false },
 ) {
   const user = await getUserFromSupabase();
 
@@ -144,7 +144,7 @@ export async function createPost(
 
     createdPost = data;
 
-    if (option?.notify) {
+    if (option?.discordNotify) {
       notifyNewPostChannel({
         postId: createdPost.id,
         type: postType,
