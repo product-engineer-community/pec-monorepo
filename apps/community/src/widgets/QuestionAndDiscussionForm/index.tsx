@@ -89,19 +89,19 @@ export default function QuestionAndDiscussionForm() {
       <div className="flex gap-4">
         <Button
           type="button"
-          variant={postType === "discussion" ? "default" : "outline"}
-          onClick={() => setPostType("discussion")}
-          className="capitalize"
-        >
-          discussion
-        </Button>
-        <Button
-          type="button"
           variant={postType === "question" ? "default" : "outline"}
           onClick={() => setPostType("question")}
           className="capitalize"
         >
           question
+        </Button>
+        <Button
+          type="button"
+          variant={postType === "discussion" ? "default" : "outline"}
+          onClick={() => setPostType("discussion")}
+          className="capitalize"
+        >
+          discussion
         </Button>
         <Button
           type="button"
