@@ -7,7 +7,9 @@ import { toast } from "sonner";
 import { Editor } from "@/shared/components/editor";
 
 import { createComment } from "../action";
-import { sendEmail } from "@/src/shared/api";
+import { sendEmail } from "@/shared/api";
+import { getAuthUser } from "../../auth/action";
+import { getPostType } from "../../post/action";
 
 interface CommentFormProps {
   postId: string;
@@ -34,13 +36,15 @@ export function CommentForm({
       await createComment(postId, content, parentId);
       setContent("");
 
-      // TODO: postId를 이용해서 게시글 타입(questions, discussions)을 가져오고,
-      // 게시글과 엮인 유저 정보를 이용해 email과 username을 가져온다.
-      sendEmail({
-        recipientEmail: "tmddhks0104@gmail.com",
-        recipientName: "seungwan",
-        link: `https://www.productengineer.info/community/questions/${postId}`,
-      }).catch(() => {});
+      const { authorId, type } = await getPostType(postId);
+      const authorInfo = await getAuthUser(authorId);
+      if (authorInfo.email) {
+        sendEmail({
+          recipientEmail: authorInfo.email,
+          recipientName: authorInfo.username,
+          link: `https://www.productengineer.info/community/${type}s/${postId}`,
+        }).catch();
+      }
 
       if (onCancel) onCancel();
       toast.success(
@@ -55,15 +59,19 @@ export function CommentForm({
   };
 
   return (
-    <div className="rounded-lg border p-4">
+    <div className="space-y-4 rounded-lg border p-4">
       <Editor content={content} onChange={setContent} />
-      <div className="mt-4 flex items-center justify-between">
-        {parentId && onCancel && (
-          <Button variant="ghost" onClick={onCancel}>
-            답글 취소
+      <div className="flex justify-end gap-2">
+        {onCancel && (
+          <Button variant="outline" onClick={onCancel} disabled={isLoading}>
+            취소
           </Button>
         )}
-        <Button className="ml-auto" onClick={handleSubmit} disabled={isLoading}>
+        <Button
+          onClick={handleSubmit}
+          disabled={isLoading}
+          aria-busy={isLoading}
+        >
           {parentId ? "답글 작성" : "댓글 작성"}
         </Button>
       </div>
