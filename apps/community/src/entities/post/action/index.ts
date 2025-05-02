@@ -1,15 +1,17 @@
 "use server";
 
-import { getSupabaseServerClient } from "@/src/shared/supabase";
+import { getSupabaseServerClient } from "@/shared/supabase";
+
+import { Post } from "../model";
 
 /**
  * ID를 기반으로 게시물을 가져오는 함수
  * question, discussion, article 타입의 게시물을 모두 처리합니다
  */
-export async function getPost(id: string, userId?: string) {
+export async function getPost(id: string): Promise<Post | null> {
   const supabase = await getSupabaseServerClient();
 
-  let query = supabase
+  const query = supabase
     .from("posts")
     .select(
       `
@@ -26,10 +28,6 @@ export async function getPost(id: string, userId?: string) {
       `,
     )
     .eq("id", id);
-
-  if (userId) {
-    query = query.eq("user_like.user_id", userId);
-  }
 
   const { data: post, error } = await query.single();
 
@@ -56,9 +54,9 @@ export async function getPost(id: string, userId?: string) {
 
 /**
  * 타입을 기반으로 게시물 목록을 가져오는 함수
- * 'question'과 'discussion' 타입의 게시물을 구분하여 처리합니다
+ * 'question', 'discussion', 'article' 타입의 게시물을 구분하여 처리합니다
  */
-export async function getPosts(type: "question" | "discussion") {
+export async function getPosts(type: "question" | "discussion" | "article") {
   const supabase = await getSupabaseServerClient();
 
   const query = supabase
@@ -73,6 +71,7 @@ export async function getPosts(type: "question" | "discussion") {
       views_count,
       category,
       tags,
+      thumbnail_url,
       type,
       author_id,
       solved,

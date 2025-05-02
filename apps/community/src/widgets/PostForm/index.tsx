@@ -1,7 +1,7 @@
 import { Button, Input } from "@pec/shared";
 import { type PostType } from "@pec/shared";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
@@ -33,14 +33,12 @@ function SubmitButton() {
   );
 }
 
-export default function QuestionAndDiscussionForm() {
+export default function PostForm() {
   const router = useRouter();
   const initialType = usePostType();
   const [postType, setPostType] = useState<PostType>(initialType);
 
   // 폼 상태 및 ref
-  const titleRef = useRef<HTMLInputElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
 
   // 컨트롤된 상태 (content, tags만)
   const [content, setContent] = useState("");
@@ -55,7 +53,7 @@ export default function QuestionAndDiscussionForm() {
     formData.set("tags", JSON.stringify(tags));
     formData.set("postType", postType);
 
-    return createPost(formData);
+    return createPost(formData, { notifyChannels: ["discord"] });
   };
 
   // 서버 액션과 폼 상태 연결
@@ -85,7 +83,7 @@ export default function QuestionAndDiscussionForm() {
   };
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-6">
+    <form action={formAction} className="space-y-6">
       <div className="flex gap-4">
         <Button
           type="button"
@@ -105,22 +103,17 @@ export default function QuestionAndDiscussionForm() {
         </Button>
         <Button
           type="button"
-          variant={postType === "post" ? "default" : "outline"}
-          onClick={() => setPostType("post")}
+          variant={postType === "article" ? "default" : "outline"}
+          onClick={() => setPostType("article")}
           className="capitalize"
         >
-          post
+          article
         </Button>
       </div>
 
       <div className="space-y-2">
         <label className="text-sm font-medium">Title</label>
-        <Input
-          ref={titleRef}
-          name="title"
-          placeholder="Enter title"
-          defaultValue=""
-        />
+        <Input name="title" placeholder="Enter title" defaultValue="" />
       </div>
 
       <div className="space-y-2">
@@ -130,7 +123,7 @@ export default function QuestionAndDiscussionForm() {
         </div>
       </div>
 
-      {postType !== "post" && (
+      {postType !== "article" && (
         <div className="space-y-2">
           <label className="text-sm font-medium">Category</label>
           <Input name="category" placeholder="Enter category" defaultValue="" />
@@ -165,7 +158,7 @@ export default function QuestionAndDiscussionForm() {
         </div>
       )}
 
-      {postType === "post" && (
+      {postType === "article" && (
         <div className="space-y-2">
           <label className="text-sm font-medium">Thumbnail URL</label>
           <Input

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-import { getAllArticles } from "@/entities/articles";
+import { getPosts } from "@/entities/post";
 
 // Badge 컴포넌트 직접 구현
 interface BadgeProps {
@@ -31,49 +31,32 @@ const Badge = ({
   );
 };
 
-// Fake featured post data (실제 구현 시 마크다운에서 추출 가능)
-const FEATURED_POST = {
-  id: "featured-1",
-  title: "AI와 함께하는 프로덕트 디자인: 더 나은 사용자 경험을 위한 접근",
-  description:
-    "AI가 어떻게 프로덕트 디자인 프로세스를 혁신하고 있는지 알아보세요. 이 글에서는 AI 기술을 활용하여 사용자 경험을 향상시키는 방법과 실제 사례를 소개합니다.",
-  author: "Jane Smith",
-  date: "2023-02-15",
-  category: "Product Design",
-  readTime: "8 min read",
-  coverImage: "/featured-post-cover.jpg",
-  tags: ["AI", "UX Design", "Product Development"],
-};
-
-// 가상의 카테고리 정보 (실제로는 마크다운 파일에서 추출할 수 있음)
-const CATEGORIES: Record<string, string> = {
-  "1": "비즈니스",
-  "2": "개발",
-};
-
 export default async function ArticlesPage() {
-  // 모든 아티클 가져오기
-  const articles = await getAllArticles();
+  // getPosts 함수를 사용하여 'article' 타입의 게시물을 가져옵니다
+  const articles = await getPosts("article");
 
   // 가공된 아티클 데이터 생성
   const articlesData = articles.map((article) => {
-    const id = article.slug;
     return {
-      id,
-      title: article.title || `아티클 ${id}`,
-      excerpt: article.excerpt || "아티클 요약이 없습니다.",
+      id: article.id,
+      title: article.title || `아티클`,
+      excerpt: article.content || "아티클 요약이 없습니다.",
       author: {
-        name: article.author || "익명",
-        avatar: "/placeholder.svg",
+        name: article.author?.username || "익명",
+        avatar: article.author?.avatar_url || "/placeholder.svg",
       },
-      publishedAt:
-        article.publishedDate || new Date().toLocaleDateString("ko-KR"),
+      publishedAt: new Date(article.created_at).toLocaleDateString("ko-KR"),
       readingTime: "8 min read",
-      tags: ["Product Engineer"],
-      coverImage: "/placeholder.svg",
-      category: CATEGORIES[id] || "기타",
+      tags: article.tags || ["Product Engineer"],
+      coverImage: article.thumbnail_url || "/placeholder.svg",
+      category: article.category || "기타",
     };
   });
+
+  // 첫 번째 아티클을 featured 아티클로 사용
+  const featuredArticle = articlesData[0];
+  // 나머지 아티클은 목록에 표시
+  const remainingArticles = articlesData.slice(1);
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -87,65 +70,67 @@ export default async function ArticlesPage() {
         </Text>
       </div>
 
-      <div className="mb-16 overflow-hidden rounded-lg bg-muted shadow-lg">
-        <div className="md:flex">
-          <div className="md:w-2/3">
-            <Link href={`/community/articles/${FEATURED_POST.id}`}>
-              <div className="h-full w-full p-4 md:p-8">
-                <div className="mb-2 flex flex-wrap gap-2">
-                  <Badge>{FEATURED_POST.category}</Badge>
-                  {FEATURED_POST.tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                <h2 className="mb-4 text-2xl font-bold md:text-3xl">
-                  {FEATURED_POST.title}
-                </h2>
-                <p className="mb-4 text-muted-foreground">
-                  {FEATURED_POST.description}
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
-                      <Image
-                        src="/avatar-placeholder.png"
-                        alt={FEATURED_POST.author}
-                        width={40}
-                        height={40}
-                        className="h-full w-full object-cover"
-                      />
+      {featuredArticle && (
+        <div className="mb-16 overflow-hidden rounded-lg bg-muted shadow-lg">
+          <div className="md:flex">
+            <div className="md:w-2/3">
+              <Link href={`/community/articles/${featuredArticle.id}`}>
+                <div className="h-full w-full p-4 md:p-8">
+                  <div className="mb-2 flex flex-wrap gap-2">
+                    <Badge>{featuredArticle.category}</Badge>
+                    {featuredArticle.tags.map((tag) => (
+                      <Badge key={tag} variant="outline">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+                    {featuredArticle.title}
+                  </h2>
+                  <p className="mb-4 text-muted-foreground">
+                    {featuredArticle.excerpt}
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
+                        <Image
+                          src={featuredArticle.author.avatar}
+                          alt={featuredArticle.author.name}
+                          width={40}
+                          height={40}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium">
+                          {featuredArticle.author.name}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {featuredArticle.publishedAt}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm font-medium">
-                        {FEATURED_POST.author}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {FEATURED_POST.date}
-                      </div>
+                    <div className="text-sm text-muted-foreground">
+                      {featuredArticle.readingTime}
                     </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {FEATURED_POST.readTime}
-                  </div>
                 </div>
+              </Link>
+            </div>
+            <div className="hidden overflow-hidden bg-gray-100 md:block md:w-1/3">
+              <div className="h-full w-full">
+                <Image
+                  src={featuredArticle.coverImage}
+                  alt={featuredArticle.title}
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover"
+                />
               </div>
-            </Link>
-          </div>
-          <div className="hidden overflow-hidden bg-gray-100 md:block md:w-1/3">
-            <div className="h-full w-full">
-              <Image
-                src={FEATURED_POST.coverImage}
-                alt={FEATURED_POST.title}
-                width={400}
-                height={300}
-                className="h-full w-full object-cover"
-              />
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="mb-10">
         <div className="mb-6 flex items-center justify-between">
@@ -159,7 +144,7 @@ export default async function ArticlesPage() {
           </div>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {articlesData.map((post) => (
+          {remainingArticles.map((post) => (
             <Link key={post.id} href={`/community/articles/${post.id}`}>
               <div className="h-full overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
                 <div className="aspect-w-16 aspect-h-9 overflow-hidden">
