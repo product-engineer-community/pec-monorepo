@@ -1,10 +1,12 @@
 import { getRelativeTimeString } from "@pec/shared";
 import { notFound, redirect } from "next/navigation";
 
-import { deleteDiscussion, getDiscussion } from "@/features/discussion/action";
+import { deleteDiscussion } from "@/features/discussion/action";
 import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
+
+import { getDiscussion } from "../action";
 
 interface DiscussionDetailProps {
   id: string;

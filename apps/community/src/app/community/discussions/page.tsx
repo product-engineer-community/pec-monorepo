@@ -1,4 +1,4 @@
-import { DiscussionsHeader, DiscussionsList } from "@/features/discussion";
+import { DiscussionsHeader, DiscussionsList } from "@/entities/discussion";
 
 export default function DiscussionsPage() {
   return (
