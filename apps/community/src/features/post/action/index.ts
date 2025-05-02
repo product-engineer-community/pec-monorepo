@@ -1,6 +1,6 @@
 "use server";
 
-import { PostType } from "@pec/shared";
+import { noop, PostType } from "@pec/shared";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -8,6 +8,7 @@ import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@/shared/supabase";
+import { NotifyChannel, notifyPost } from "@/src/shared/api";
 
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
@@ -56,10 +57,17 @@ export async function togglePostLike(postId: string) {
 /**
  * 게시물 생성 함수
  *
- * @param formData 폼 데이터
+ * @param {FormData} formData - 폼 데이터
+ * @param {Object} option - 게시물 생성 시 사용할 수 있는 옵션
+ * @param {NotifyChannel[]} [option.notifyChannels=[]] - 알림을 전송할 채널 목록
  * @returns 생성된 게시물의 ID나 에러 메시지
  */
-export async function createPost(formData: FormData) {
+export async function createPost(
+  formData: FormData,
+  option: {
+    notifyChannels: NotifyChannel[];
+  } = { notifyChannels: [] },
+) {
   const user = await getUserFromSupabase();
 
   if (!user) {
@@ -136,6 +144,11 @@ export async function createPost(formData: FormData) {
     if (error) throw error;
 
     createdPost = data;
+
+    notifyPost(option.notifyChannels, {
+      ...basePost,
+      postId: createdPost.id,
+    }).catch(noop);
 
     // 캐시 무효화
     revalidatePath("/community");
