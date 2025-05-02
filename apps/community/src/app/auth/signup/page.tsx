@@ -17,8 +17,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { signUp } from "@/features/auth/action";
+import { PasswordInput } from "@/features/auth/ui";
 import { SignUpInput, signUpSchema } from "@/lib/validations/auth";
-import { PasswordInput } from "@/src/features/auth/ui/PasswordInput";
 
 export default function SignUpPage() {
   const [error, setError] = useState<string>();
