@@ -1,10 +1,7 @@
 import { Suspense } from "react";
 
-import {
-  incrementViewCount,
-  QuestionDetail,
-  QuestionDetailSkeleton,
-} from "@/entities/question";
+import { incrementViewCount } from "@/src/entities/post";
+import { QuestionDetail, QuestionDetailSkeleton } from "@/entities/question";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
 
 export default async function QuestionDetailPage({

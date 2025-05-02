@@ -1,7 +1,7 @@
 "use server";
 import type { Question } from "@pec/shared";
 
-import { getQuestion, incrementViewCount } from "@/entities/question";
+import { incrementViewCount } from "@/entities/question";
 import { togglePostLike } from "@/features/post";
 import {
   getSupabaseServerClient,
@@ -67,7 +67,7 @@ export async function getQuestions() {
   })[];
 }
 
-export { getQuestion, incrementViewCount, togglePostLike };
+export { incrementViewCount, togglePostLike };
 
 export async function toggleCommentLike(commentId: string) {
   const supabase = await getSupabaseServerClient();

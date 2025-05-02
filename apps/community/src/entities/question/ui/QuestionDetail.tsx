@@ -4,9 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
+import { getPost } from "@/src/entities/post";
 import { deleteQuestion } from "@/src/features/question/action";
-
-import { getQuestion } from "../action";
 
 interface QuestionDetailProps {
   id: string;
@@ -14,7 +13,7 @@ interface QuestionDetailProps {
 
 export async function QuestionDetail({ id }: QuestionDetailProps) {
   // 질문 데이터 가져오기
-  const question = await getQuestion(id);
+  const question = await getPost(id);
 
   // 질문이 존재하지 않는 경우
   if (!question) {

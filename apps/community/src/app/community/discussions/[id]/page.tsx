@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 
+import { incrementViewCount } from "@/src/entities/post";
 import {
   DiscussionDetail,
   DiscussionDetailSkeleton,
-  incrementViewCount,
 } from "@/entities/discussion";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
 

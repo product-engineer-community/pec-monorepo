@@ -1,12 +1,11 @@
 import { getRelativeTimeString } from "@pec/shared";
 import { notFound, redirect } from "next/navigation";
 
+import { getPost } from "@/entities/post";
 import { deleteDiscussion } from "@/features/discussion/action";
 import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
-
-import { getDiscussion } from "../action";
 
 interface DiscussionDetailProps {
   id: string;
@@ -14,7 +13,7 @@ interface DiscussionDetailProps {
 
 export async function DiscussionDetail({ id }: DiscussionDetailProps) {
   // 토론 데이터 가져오기
-  const discussion = await getDiscussion(id);
+  const discussion = await getPost(id);
 
   // 토론이 존재하지 않는 경우
   if (!discussion) {
