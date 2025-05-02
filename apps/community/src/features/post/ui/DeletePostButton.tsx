@@ -10,13 +10,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  PostType,
 } from "@pec/shared";
 import { Loader2 } from "lucide-react";
 import { useActionState, useState } from "react";
 
 import { deletePost } from "../action";
-
-type PostType = "question" | "discussion";
 
 type DeletePostButtonProps = {
   postType: PostType;

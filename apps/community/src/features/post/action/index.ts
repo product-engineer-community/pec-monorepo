@@ -117,7 +117,7 @@ export async function createPost(formData: FormData) {
           answer_id: null,
         };
         break;
-      case "post":
+      case "article":
         finalPost = {
           ...basePost,
           thumbnail_url: thumbnailUrl || null,
@@ -185,7 +185,7 @@ export async function deletePost(postId: string) {
           ? "questions"
           : post.type === "discussion"
             ? "discussions"
-            : "posts"
+            : "articles"
       }`;
       redirect(redirectPath);
     }
