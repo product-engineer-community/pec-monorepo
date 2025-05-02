@@ -11,6 +11,7 @@ import { sendEmail } from "@/shared/api";
 import { getUserEmail } from "../../auth/action";
 import { getPostType } from "../../post/action";
 import { getUsername } from "../../user/action";
+import { COMMENT_MAIL_TEMPLATE_ID } from "@/src/shared/api/email/template";
 
 interface CommentFormProps {
   postId: string;
@@ -42,9 +43,13 @@ export function CommentForm({
       const { username } = await getUsername(authorId);
       if (email) {
         sendEmail({
+          title: "작성하신 게시글에 댓글이 달렸어요!",
           recipientEmail: email,
           recipientName: username,
-          link: `https://www.productengineer.info/community/${type}s/${postId}`,
+          templateId: COMMENT_MAIL_TEMPLATE_ID,
+          data: {
+            link: `https://www.productengineer.info/community/${type}s/${postId}`,
+          },
         }).catch();
       }
 

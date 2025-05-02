@@ -2,19 +2,21 @@
 
 import { EmailParams, MailerSend, Recipient, Sender } from "mailersend";
 
-const COMMENT_MAIL_TEMPLATE_ID = "neqvygm1evdg0p7w";
-
 /**
- * 댓글 알림 이메일 전송 함수
+ * 이메일 전송 함수
  */
 export async function sendEmail({
+  title,
   recipientEmail,
   recipientName,
-  link,
+  templateId,
+  data,
 }: {
+  title: string;
   recipientEmail: string;
   recipientName: string;
-  link: string;
+  templateId: string;
+  data?: Record<string, string>;
 }) {
   const mailerSend = new MailerSend({
     apiKey: process.env.MAILERSEND_API_KEY!,
@@ -27,16 +29,14 @@ export async function sendEmail({
     .setFrom(sentFrom)
     .setTo(recipients)
     .setReplyTo(sentFrom)
-    .setTemplateId(COMMENT_MAIL_TEMPLATE_ID)
+    .setTemplateId(templateId)
     .setPersonalization([
       {
         email: recipientEmail,
-        data: {
-          link,
-        },
+        data: data ?? {},
       },
     ])
-    .setSubject("작성하신 게시글에 댓글이 달렸어요!");
+    .setSubject(title);
 
   await mailerSend.email.send(emailParams);
 }
