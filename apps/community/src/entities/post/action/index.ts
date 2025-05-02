@@ -71,6 +71,7 @@ export async function getPosts(type: "question" | "discussion" | "article") {
       views_count,
       category,
       tags,
+      thumbnail_url,
       type,
       author_id,
       solved,

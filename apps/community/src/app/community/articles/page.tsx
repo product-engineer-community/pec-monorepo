@@ -48,7 +48,7 @@ export default async function ArticlesPage() {
       publishedAt: new Date(article.created_at).toLocaleDateString("ko-KR"),
       readingTime: "8 min read",
       tags: article.tags || ["Product Engineer"],
-      coverImage: "/placeholder.svg",
+      coverImage: article.thumbnail_url || "/placeholder.svg",
       category: article.category || "기타",
     };
   });
