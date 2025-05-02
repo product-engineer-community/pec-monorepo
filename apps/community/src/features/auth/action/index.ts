@@ -111,29 +111,17 @@ export async function signOut() {
   redirect(SIGN_IN_PATHNAME);
 }
 
-export async function getAuthUser(authorId: string) {
-  const supabase = await getSupabaseServerClient();
+export async function getUserEmail(userId: string) {
   const supabaseAdmin = await getSupabaseAdminClient();
 
   const { data: user, error: userError } =
-    await supabaseAdmin.auth.admin.getUserById(authorId);
+    await supabaseAdmin.auth.admin.getUserById(userId);
 
   if (userError) {
     throw userError;
   }
 
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", authorId)
-    .single();
-
-  if (profileError) {
-    throw profileError;
-  }
-
   return {
-    username: profile?.username,
     email: user.user?.email,
   };
 }

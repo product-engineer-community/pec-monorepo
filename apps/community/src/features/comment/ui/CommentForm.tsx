@@ -8,8 +8,9 @@ import { Editor } from "@/shared/components/editor";
 
 import { createComment } from "../action";
 import { sendEmail } from "@/shared/api";
-import { getAuthUser } from "../../auth/action";
+import { getUserEmail } from "../../auth/action";
 import { getPostType } from "../../post/action";
+import { getUsername } from "../../user/action";
 
 interface CommentFormProps {
   postId: string;
@@ -37,11 +38,12 @@ export function CommentForm({
       setContent("");
 
       const { authorId, type } = await getPostType(postId);
-      const authorInfo = await getAuthUser(authorId);
-      if (authorInfo.email) {
+      const { email } = await getUserEmail(authorId);
+      const { username } = await getUsername(authorId);
+      if (email) {
         sendEmail({
-          recipientEmail: authorInfo.email,
-          recipientName: authorInfo.username,
+          recipientEmail: email,
+          recipientName: username,
           link: `https://www.productengineer.info/community/${type}s/${postId}`,
         }).catch();
       }
