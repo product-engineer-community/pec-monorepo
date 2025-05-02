@@ -16,9 +16,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { signUp } from "@/features/auth/action";
 import { SignUpInput, signUpSchema } from "@/lib/validations/auth";
-
-import { signUp } from "../../../features/auth/action";
+import { PasswordInput } from "@/src/features/auth/ui/PasswordInput";
 
 export default function SignUpPage() {
   const [error, setError] = useState<string>();
@@ -104,7 +104,7 @@ export default function SignUpPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">비밀번호</Label>
-              <Input {...register("password")} id="password" type="password" />
+              <PasswordInput {...register("password")} id="password" />
               {errors.password && (
                 <p className="text-sm text-destructive">
                   {errors.password.message}
@@ -113,10 +113,9 @@ export default function SignUpPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-              <Input
+              <PasswordInput
                 {...register("confirmPassword")}
                 id="confirmPassword"
-                type="password"
               />
               {errors.confirmPassword && (
                 <p className="text-sm text-destructive">
