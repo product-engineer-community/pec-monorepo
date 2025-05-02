@@ -1,4 +1,4 @@
-import { PostType } from "@pec/shared";
+import { NotifyNewPostOptions } from "./types";
 
 /**
  * "community-새글알림" 채널의 웹훅 URL입니다.
@@ -6,17 +6,10 @@ import { PostType } from "@pec/shared";
 const NEW_POST_NOTIFICATION_WEBHOOK_URL =
   "https://discord.com/api/webhooks/1367286496545214605/1GTDr6I60h1pKHwa_7_ly_qhh--JeTQa8aR1zi42HV_B0uzYX_NIgIkqyokOTPG-6B5F";
 
-interface NotifyNewPostOptions {
-  postId: string;
-  type: PostType;
-  title: string;
-  content: string;
-}
-
 /**
  * PEC 디스코드 채널의 "community-새글알림" 채널로 메시지를 전송하는 함수입니다.
  */
-export function notifyNewPostChannel(options: NotifyNewPostOptions) {
+export function notifyNewPostToDiscord(options: NotifyNewPostOptions) {
   return notifyDiscord(
     NEW_POST_NOTIFICATION_WEBHOOK_URL,
     toNotifyNewPostDto(options),
@@ -64,6 +57,9 @@ interface Option {
   }>;
 }
 
+/**
+ * 웹훅을 사용하여 디스코드 채널로 메시지를 전송하는 함수입니다.
+ */
 async function notifyDiscord(webhookUrl: string, options: Option) {
   const response = await fetch(webhookUrl, {
     method: "POST",

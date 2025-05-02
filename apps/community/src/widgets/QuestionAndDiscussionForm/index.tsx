@@ -55,7 +55,7 @@ export default function QuestionAndDiscussionForm() {
     formData.set("tags", JSON.stringify(tags));
     formData.set("postType", postType);
 
-    return createPost(formData, { discordNotify: true });
+    return createPost(formData, { notifyChannels: ["discord"] });
   };
 
   // 서버 액션과 폼 상태 연결

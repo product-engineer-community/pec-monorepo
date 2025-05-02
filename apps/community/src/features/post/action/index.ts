@@ -8,7 +8,7 @@ import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@/shared/supabase";
-import { notifyNewPostChannel } from "@/src/shared/apis";
+import { NotifyChannel, notifyPost } from "@/src/shared/api";
 
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
@@ -57,15 +57,16 @@ export async function togglePostLike(postId: string) {
 /**
  * 게시물 생성 함수
  *
- * @param formData 폼 데이터
- * @param option 게시물 생성시 사용할 수 있는 옵션을 정의합니다.
+ * @param {FormData} formData - 폼 데이터
+ * @param {Object} option - 게시물 생성 시 사용할 수 있는 옵션
+ * @param {NotifyChannel[]} [option.notifyChannels=[]] - 알림을 전송할 채널 목록
  * @returns 생성된 게시물의 ID나 에러 메시지
  */
 export async function createPost(
   formData: FormData,
   option: {
-    discordNotify?: boolean;
-  } = { discordNotify: false },
+    notifyChannels: NotifyChannel[];
+  } = { notifyChannels: [] },
 ) {
   const user = await getUserFromSupabase();
 
@@ -144,14 +145,10 @@ export async function createPost(
 
     createdPost = data;
 
-    if (option?.discordNotify) {
-      notifyNewPostChannel({
-        postId: createdPost.id,
-        type: postType,
-        title,
-        content,
-      }).catch(noop);
-    }
+    notifyPost(option.notifyChannels, {
+      ...basePost,
+      postId: createdPost.id,
+    }).catch(noop);
 
     // 캐시 무효화
     revalidatePath("/community");
