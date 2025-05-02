@@ -16,7 +16,7 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { signIn, SignInState } from "@/features/auth/action";
-import { PasswordInput } from "@/features/auth/ui/PasswordInput";
+import { PasswordInput } from "@/features/auth/ui";
 
 // 폼 제출 버튼 컴포넌트
 function SubmitButton() {
