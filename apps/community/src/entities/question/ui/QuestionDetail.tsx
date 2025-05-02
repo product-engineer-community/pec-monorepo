@@ -1,17 +1,21 @@
 import { getRelativeTimeString } from "@pec/shared";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
-import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
 import { getPost } from "@/src/entities/post";
-import { deleteQuestion } from "@/src/features/question/action";
 
 interface QuestionDetailProps {
   id: string;
+  deleteButton?: React.ReactNode;
+  postLikeButton?: React.ReactNode;
 }
 
-export async function QuestionDetail({ id }: QuestionDetailProps) {
+export async function QuestionDetail({
+  id,
+  deleteButton,
+  postLikeButton,
+}: QuestionDetailProps) {
   // 질문 데이터 가져오기
   const question = await getPost(id);
 
@@ -23,17 +27,6 @@ export async function QuestionDetail({ id }: QuestionDetailProps) {
   const session = await getAuthSession();
 
   const isAuthor = session?.user?.id === question.author.id;
-
-  async function handleDeleteQuestion() {
-    "use server";
-    const result = await deleteQuestion(id);
-
-    if (result.success) {
-      redirect("/community/questions");
-    }
-
-    return result;
-  }
 
   return (
     <div className="space-y-4">
@@ -52,18 +45,8 @@ export async function QuestionDetail({ id }: QuestionDetailProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {isAuthor && (
-            <DeletePostButton
-              postType="question"
-              deletePost={handleDeleteQuestion}
-            />
-          )}
-          <PostLikeButton
-            postId={id}
-            initialLikes={question.likes_count}
-            initialIsLiked={question.is_liked}
-            size="sm"
-          />
+          {isAuthor && deleteButton}
+          {postLikeButton}
         </div>
       </div>
       <div>

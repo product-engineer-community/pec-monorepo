@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { getArticles } from "@/entities/articles";
-import { ArticleDetailLayout } from "@/widgets/articleDetail";
+import { ArticleDetailLayout } from "@/src/widgets/articleDetail";
 
 interface ArticlePageProps {
   params: Promise<{

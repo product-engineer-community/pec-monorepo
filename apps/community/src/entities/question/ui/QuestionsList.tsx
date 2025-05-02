@@ -2,12 +2,11 @@ import { getRelativeTimeString, PostCardSkeleton } from "@pec/shared";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { getPosts } from "@/entities/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 
-import { getQuestions } from "../action";
-
 export async function QuestionsListContent() {
-  const questions = await getQuestions();
+  const questions = await getPosts("question");
 
   return (
     <>

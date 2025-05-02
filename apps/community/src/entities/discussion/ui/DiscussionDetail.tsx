@@ -1,17 +1,21 @@
 import { getRelativeTimeString } from "@pec/shared";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { getPost } from "@/entities/post";
-import { deleteDiscussion } from "@/features/discussion/action";
-import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
 
 interface DiscussionDetailProps {
   id: string;
+  deleteButton?: React.ReactNode;
+  postLikeButton?: React.ReactNode;
 }
 
-export async function DiscussionDetail({ id }: DiscussionDetailProps) {
+export async function DiscussionDetail({
+  id,
+  deleteButton,
+  postLikeButton,
+}: DiscussionDetailProps) {
   // 토론 데이터 가져오기
   const discussion = await getPost(id);
 
@@ -25,19 +29,6 @@ export async function DiscussionDetail({ id }: DiscussionDetailProps) {
 
   // 사용자가 토론 작성자인지 확인
   const isAuthor = session?.user?.id === discussion.author.id;
-
-  // 삭제 기능 정의
-  async function handleDeleteDiscussion() {
-    "use server";
-
-    const result = await deleteDiscussion(id);
-
-    if (result.success) {
-      redirect("/community/discussions");
-    }
-
-    return result;
-  }
 
   return (
     <div className="space-y-4">
@@ -56,18 +47,8 @@ export async function DiscussionDetail({ id }: DiscussionDetailProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {isAuthor && (
-            <DeletePostButton
-              postType="discussion"
-              deletePost={handleDeleteDiscussion}
-            />
-          )}
-          <PostLikeButton
-            postId={id}
-            initialLikes={discussion.likes_count}
-            initialIsLiked={discussion.is_liked}
-            size="sm"
-          />
+          {isAuthor && deleteButton}
+          {postLikeButton}
         </div>
       </div>
       <div>

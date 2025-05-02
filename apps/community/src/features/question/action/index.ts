@@ -1,73 +1,9 @@
 "use server";
-import type { Question } from "@pec/shared";
 
-import { incrementViewCount } from "@/entities/question";
-import { togglePostLike } from "@/features/post";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@/shared/supabase";
-
-export async function getQuestions() {
-  const supabase = await getSupabaseServerClient();
-
-  const { data: questions, error: postsError } = await supabase
-    .from("posts")
-    .select(
-      `
-      id,
-      title,
-      content,
-      created_at,
-      updated_at,
-      views_count,
-      category,
-      tags,
-      type,
-      author_id,
-      solved,
-      answer_id,
-      author:profiles!posts_author_id_fkey(
-        id,
-        username,
-        avatar_url,
-        role
-      ),
-      comments:comments(count),
-      likes:likes(count)
-    `,
-    )
-    .eq("type", "question")
-    .order("created_at", { ascending: false });
-
-  if (postsError) {
-    console.error("Error fetching questions:", postsError);
-    throw postsError;
-  }
-
-  return (questions || []).map((question) => ({
-    ...question,
-    author: Array.isArray(question.author)
-      ? question.author[0]
-      : question.author,
-    comments_count: question.comments?.[0]?.count || 0,
-    likes_count: question.likes?.[0]?.count || 0,
-    solved: question.solved || false,
-    content:
-      question.content.length > 300
-        ? question.content.slice(0, 300) + "..."
-        : question.content,
-  })) as (Question & {
-    author: {
-      id: string;
-      username: string;
-      avatar_url: string | null;
-      role: "subscriber" | "participant" | "manager";
-    };
-  })[];
-}
-
-export { incrementViewCount, togglePostLike };
 
 export async function toggleCommentLike(commentId: string) {
   const supabase = await getSupabaseServerClient();
@@ -160,28 +96,5 @@ export async function updateComment(formData: FormData) {
   } catch (error) {
     console.error("Error updating comment:", error);
     return { error: "댓글 수정 중 오류가 발생했습니다." };
-  }
-}
-
-export async function deleteQuestion(questionId: string) {
-  const supabase = await getSupabaseServerClient();
-  const user = await getUserFromSupabase();
-
-  if (!user) {
-    return { error: "로그인이 필요합니다." };
-  }
-
-  try {
-    const { error } = await supabase
-      .from("posts")
-      .delete()
-      .eq("id", questionId);
-
-    if (error) throw error;
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error deleting question:", error);
-    return { error: "질문 삭제 중 오류가 발생했습니다." };
   }
 }

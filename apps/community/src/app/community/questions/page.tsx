@@ -1,4 +1,4 @@
-import { QuestionsHeader, QuestionsList } from "@/features/question";
+import { QuestionsHeader, QuestionsList } from "@/entities/question";
 
 export default function QuestionsPage() {
   return (

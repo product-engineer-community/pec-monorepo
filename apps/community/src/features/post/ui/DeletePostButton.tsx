@@ -14,21 +14,23 @@ import {
 import { Loader2 } from "lucide-react";
 import { useActionState, useState } from "react";
 
+import { deletePost } from "../action";
+
 type PostType = "question" | "discussion";
 
 type DeletePostButtonProps = {
   postType: PostType;
-  deletePost: () => Promise<{ success?: boolean; error?: string }>;
+  postId: string;
 };
 
-export function DeletePostButton({
-  postType,
-  deletePost,
-}: DeletePostButtonProps) {
+export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
   const [open, setOpen] = useState(false);
-  const [state, formAction, isPending] = useActionState(deletePost, {
-    success: false,
-  });
+  const [state, formAction, isPending] = useActionState(
+    async () => await deletePost(postId),
+    {
+      success: false,
+    },
+  );
 
   // 타입에 따른 제목 및 설명 텍스트 설정
   const getTitle = () => {

@@ -145,3 +145,54 @@ export async function createPost(formData: FormData) {
   }
   redirect(`/community/${postType}s/${createdPost.id}`);
 }
+
+/**
+ * 게시물 삭제 함수
+ *
+ * @param postId 게시물 ID
+ * @returns 성공 여부와 오류 정보
+ */
+export async function deletePost(postId: string) {
+  const supabase = await getSupabaseServerClient();
+  const user = await getUserFromSupabase();
+
+  if (!user) {
+    return { error: "로그인이 필요합니다." };
+  }
+
+  try {
+    // 삭제 전에 게시물 타입 확인
+    const { data: post, error: fetchError } = await supabase
+      .from("posts")
+      .select("type")
+      .eq("id", postId)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    // 삭제 실행
+    const { error } = await supabase.from("posts").delete().eq("id", postId);
+
+    if (error) throw error;
+
+    // 캐시 무효화
+    revalidatePath("/community");
+
+    // 게시물 타입에 따라 리다이렉트 경로 설정
+    if (post?.type) {
+      const redirectPath = `/community/${
+        post.type === "question"
+          ? "questions"
+          : post.type === "discussion"
+            ? "discussions"
+            : "posts"
+      }`;
+      redirect(redirectPath);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    return { error: "게시물 삭제 중 오류가 발생했습니다." };
+  }
+}
