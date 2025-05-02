@@ -1,7 +1,8 @@
-import { notifyNewPostToDiscord } from "./discord";
-import { NotifyChannel } from "../types";
-import { NotifyNewPostOptions } from "./types";
 import { isProd } from "@/shared/utils";
+
+import { NotifyChannel } from "../types";
+import { notifyNewPostToDiscord } from "./discord";
+import { NotifyNewPostOptions } from "./types";
 
 export async function notifyPost(
   channels: NotifyChannel[],
