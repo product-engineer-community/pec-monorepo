@@ -6,10 +6,8 @@ import { redirect } from "next/navigation";
 
 import { signInSchema } from "@/lib/validations/auth";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
-import {
-  COMMUNITY_PATHNAME,
-  SIGN_IN_PATHNAME,
-} from "@/src/shared/config/pathname";
+import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
+import { getAuthErrorMessage } from "../lib/error-handler";
 
 export async function signUp(
   email: string,
@@ -84,7 +82,7 @@ export async function signIn(
 
     if (error) {
       return {
-        error: error.message,
+        error: getAuthErrorMessage(error),
         success: false,
       };
     }
@@ -100,7 +98,7 @@ export async function signIn(
   }
   revalidatePath("/", "layout");
   // 성공 시 try/catch 블록 외부에서 리다이렉트
-  redirect(COMMUNITY_PATHNAME);
+  redirect(MAIN_PATHNAME);
 }
 
 export async function signOut() {
