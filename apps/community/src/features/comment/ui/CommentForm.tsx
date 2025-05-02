@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Editor } from "@/shared/components/editor";
 
 import { createComment } from "../action";
+import { sendEmail } from "@/src/shared/api";
 
 interface CommentFormProps {
   postId: string;
@@ -32,6 +33,15 @@ export function CommentForm({
       setIsLoading(true);
       await createComment(postId, content, parentId);
       setContent("");
+
+      // TODO: postId를 이용해서 게시글 타입(questions, discussions)을 가져오고,
+      // 게시글과 엮인 유저 정보를 이용해 email과 username을 가져온다.
+      sendEmail({
+        recipientEmail: "tmddhks0104@gmail.com",
+        recipientName: "seungwan",
+        link: `https://www.productengineer.info/community/questions/${postId}`,
+      }).catch(() => {});
+
       if (onCancel) onCancel();
       toast.success(
         parentId ? "답글이 작성되었습니다." : "댓글이 작성되었습니다.",

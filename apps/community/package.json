@@ -26,6 +26,8 @@
     "@uiw/react-md-editor": "^4.0.5",
     "geist": "^1.2.1",
     "lucide-react": "^0.350.0",
+    "mailersend": "^2.5.0",
+    "net": "^1.0.2",
     "next": "^15.3.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -34,6 +36,7 @@
     "sharp": "^0.33.5",
     "sonner": "^2.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "tls": "^0.0.1",
     "typescript": "^5.3.3",
     "uuid": "^10.0.0",
     "zod": "^3.24.2"
