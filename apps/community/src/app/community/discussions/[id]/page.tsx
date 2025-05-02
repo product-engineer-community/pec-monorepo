@@ -1,10 +1,12 @@
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import {
   DiscussionDetail,
   DiscussionDetailSkeleton,
-  incrementViewCount,
 } from "@/entities/discussion";
+import { getPost, incrementViewCount } from "@/entities/post";
+import { DeletePostButton, PostLikeButton } from "@/features/post";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
 
 export default async function DiscussionDetailPage({
@@ -13,6 +15,11 @@ export default async function DiscussionDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const discussion = await getPost(id);
+
+  if (!discussion) {
+    notFound();
+  }
 
   // 조회수 증가
   incrementViewCount(id);
@@ -20,7 +27,17 @@ export default async function DiscussionDetailPage({
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
       <Suspense fallback={<DiscussionDetailSkeleton />}>
-        <DiscussionDetail id={id} />
+        <DiscussionDetail
+          id={id}
+          deleteButton={<DeletePostButton postType="discussion" postId={id} />}
+          postLikeButton={
+            <PostLikeButton
+              postId={id}
+              initialLikes={discussion.likes_count}
+              initialIsLiked={discussion.is_liked}
+            />
+          }
+        />
       </Suspense>
 
       <div className="border-t pt-8">
