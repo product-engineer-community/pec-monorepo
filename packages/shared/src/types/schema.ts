@@ -12,7 +12,7 @@ export const userSchema = z.object({
 });
 
 // Post Types
-export const postType = z.enum(["post", "question", "discussion"]);
+export const postType = z.enum(["article", "question", "discussion"]);
 export type PostType = z.infer<typeof postType>;
 
 // Base Post Schema (공통 필드)
@@ -32,7 +32,7 @@ const basePostSchema = {
 // Post Schema
 export const postSchema = z.object({
   ...basePostSchema,
-  type: z.literal("post"),
+  type: z.literal("article"),
   thumbnail_url: z.string().url().nullish(),
   category: z.string().optional(),
 });

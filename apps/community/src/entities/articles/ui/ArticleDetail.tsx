@@ -1,46 +1,43 @@
 import { getRelativeTimeString } from "@pec/shared";
 import { notFound } from "next/navigation";
 
+import { getPost } from "@/entities/post/action";
 import { MarkdownViewer } from "@/shared/components/editor";
 import { getAuthSession } from "@/shared/supabase";
-import { getPost } from "@/src/entities/post";
 
-interface QuestionDetailProps {
+interface ArticleDetailProps {
   id: string;
   deleteButton?: React.ReactNode;
   postLikeButton?: React.ReactNode;
 }
 
-export async function QuestionDetail({
+export async function ArticleDetail({
   id,
   deleteButton,
   postLikeButton,
-}: QuestionDetailProps) {
-  // 질문 데이터 가져오기
-  const question = await getPost(id);
+}: ArticleDetailProps) {
+  const article = await getPost(id);
 
-  // 질문이 존재하지 않는 경우
-  if (!question) {
-    notFound();
+  if (!article) {
+    return notFound();
   }
 
   const session = await getAuthSession();
-
-  const isAuthor = session?.user?.id === question.author.id;
+  const isAuthor = session?.user?.id === article.author.id;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-            {question.author.username?.[0]?.toUpperCase()}
+            {article.author.username?.[0]?.toUpperCase()}
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-medium">
-              {question.author.username}
+              {article.author.username}
             </span>
             <span className="text-xs text-gray-500">
-              {getRelativeTimeString(question.created_at)}
+              {getRelativeTimeString(article.created_at)}
             </span>
           </div>
         </div>
@@ -50,8 +47,8 @@ export async function QuestionDetail({
         </div>
       </div>
       <div>
-        <h1 className="mb-4 text-2xl font-bold">{question.title}</h1>
-        <MarkdownViewer content={question.content} />
+        <h1 className="mb-4 text-2xl font-bold">{article.title}</h1>
+        <MarkdownViewer content={article.content} />
       </div>
     </div>
   );
