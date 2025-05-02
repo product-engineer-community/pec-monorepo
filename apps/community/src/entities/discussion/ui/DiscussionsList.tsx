@@ -3,8 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { MarkdownViewer } from "@/shared/components/editor";
-
-import { getDiscussions } from "../action";
+import { getDiscussions } from "@/src/entities/discussion/action";
 
 async function DiscussionsListContent() {
   const discussions = await getDiscussions();
@@ -31,7 +30,7 @@ async function DiscussionsListContent() {
                   <span>{discussion.category}</span>
                 </div>
                 <div className="mb-4 flex flex-wrap gap-2">
-                  {discussion.tags?.map((tag) => (
+                  {discussion.tags?.map((tag: string) => (
                     <span
                       key={tag}
                       className="rounded-md bg-secondary px-2 py-1 text-sm"
