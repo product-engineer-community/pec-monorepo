@@ -159,6 +159,23 @@ export async function createPost(
   redirect(`/community/${postType}s/${createdPost.id}`);
 }
 
+export async function getPostType(postId: string) {
+  const supabase = await getSupabaseServerClient();
+
+  const { data: post, error } = await supabase
+    .from("posts")
+    .select("type, author_id")
+    .eq("id", postId)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return {
+    type: post.type,
+    authorId: post.author_id,
+  };
 /**
  * 게시물 삭제 함수
  *

@@ -7,6 +7,11 @@ import { toast } from "sonner";
 import { Editor } from "@/shared/components/editor";
 
 import { createComment } from "../action";
+import { sendEmail } from "@/shared/api";
+import { getUserEmail } from "../../auth/action";
+import { getPostType } from "../../post/action";
+import { getUsername } from "../../user/action";
+import { MAIL_TEMPLATE } from "@/src/shared/api/consts";
 
 interface CommentFormProps {
   postId: string;
@@ -32,6 +37,22 @@ export function CommentForm({
       setIsLoading(true);
       await createComment(postId, content, parentId);
       setContent("");
+
+      const { authorId, type } = await getPostType(postId);
+      const { email } = await getUserEmail(authorId);
+      const { username } = await getUsername(authorId);
+      if (email) {
+        sendEmail({
+          title: "작성하신 게시글에 댓글이 달렸어요!",
+          recipientEmail: email,
+          recipientName: username,
+          templateId: MAIL_TEMPLATE.COMMENT,
+          data: {
+            link: `https://www.productengineer.info/community/${type}s/${postId}`,
+          },
+        }).catch();
+      }
+
       if (onCancel) onCancel();
       toast.success(
         parentId ? "답글이 작성되었습니다." : "댓글이 작성되었습니다.",
@@ -45,15 +66,19 @@ export function CommentForm({
   };
 
   return (
-    <div className="rounded-lg border p-4">
+    <div className="space-y-4 rounded-lg border p-4">
       <Editor content={content} onChange={setContent} />
-      <div className="mt-4 flex items-center justify-between">
-        {parentId && onCancel && (
-          <Button variant="ghost" onClick={onCancel}>
-            답글 취소
+      <div className="flex justify-end gap-2">
+        {onCancel && (
+          <Button variant="outline" onClick={onCancel} disabled={isLoading}>
+            취소
           </Button>
         )}
-        <Button className="ml-auto" onClick={handleSubmit} disabled={isLoading}>
+        <Button
+          onClick={handleSubmit}
+          disabled={isLoading}
+          aria-busy={isLoading}
+        >
           {parentId ? "답글 작성" : "댓글 작성"}
         </Button>
       </div>
