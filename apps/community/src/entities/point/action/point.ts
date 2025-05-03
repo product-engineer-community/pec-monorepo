@@ -11,7 +11,7 @@ export const getUserPoint = async (authorId: string) => {
   if (error) {
     throw new Error(error.message);
   }
-  const points = data?.point;
+  const point = data?.point;
 
-  return points ?? 0;
+  return point ?? 0;
 };
