@@ -70,10 +70,20 @@ export default function PostForm() {
   }, [state]);
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && e.currentTarget.value.trim()) {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
+    const trimmedTag = e.currentTarget.value.trim();
+
+    if (e.key === "Enter" && trimmedTag) {
       e.preventDefault();
-      const newTag = e.currentTarget.value.trim();
-      setTags((prevTags) => Array.from(new Set([...prevTags, newTag])));
+      if (tags.includes(trimmedTag)) {
+        toast.error("이미 추가된 태그입니다.");
+        return;
+      }
+
+      setTags((prevTags) => [...prevTags, trimmedTag]);
       e.currentTarget.value = "";
     }
   };
