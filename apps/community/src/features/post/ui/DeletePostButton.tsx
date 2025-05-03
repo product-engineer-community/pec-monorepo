@@ -25,9 +25,9 @@ type DeletePostButtonProps = {
 export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
   const [open, setOpen] = useState(false);
   const [state, formAction, isPending] = useActionState(
-    async () => await deletePost(postId),
+    async () => await deletePost(postId, postType),
     {
-      success: false,
+      error: "",
     },
   );
 
@@ -44,14 +44,19 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
   };
 
   const getDescription = () => {
+    let postTypeText = "";
     switch (postType) {
       case "question":
-        return "정말로 이 질문을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+        postTypeText = "질문";
+        break;
       case "discussion":
-        return "정말로 이 토론을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+        postTypeText = "토론";
+        break;
       default:
-        return "정말로 이 게시글을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+        postTypeText = "게시글";
     }
+
+    return `정말로 이 ${postTypeText}을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`;
   };
 
   return (
@@ -67,7 +72,7 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
           <DialogDescription>{getDescription()}</DialogDescription>
         </DialogHeader>
 
-        {state.error && (
+        {state?.error && (
           <div className="text-sm text-red-500">{state.error}</div>
         )}
 
