@@ -11,8 +11,6 @@ import {
   SIGN_IN_PATHNAME,
 } from "@/src/shared/config/pathname";
 
-import { grantPointAction } from "../../track-activity/action/grantPoint";
-
 export async function signUp(
   email: string,
   password: string,
@@ -23,7 +21,7 @@ export async function signUp(
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   });
 
-  const { error: signUpError, data } = await supabase.auth.signUp({
+  const { error: signUpError } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -37,8 +35,6 @@ export async function signUp(
   if (signUpError) {
     return { error: signUpError.message };
   }
-
-  if (data.user) await grantPointAction(data.user.id, "signup");
 
   return {
     success: true,
@@ -94,11 +90,9 @@ export async function signIn(
     }
 
     // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
-    const { data } = await supabaseClient.auth.getUser();
-    if (!data.user) {
-      throw new Error("User not found");
-    }
+    await supabaseClient.auth.getUser();
   } catch (error) {
+    console.error("로그인 중 오류가 발생했습니다", error);
     return {
       error: "로그인 중 오류가 발생했습니다",
       success: false,
