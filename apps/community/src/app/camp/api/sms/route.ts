@@ -17,12 +17,13 @@ export async function POST(req: Request) {
 
   try {
     console.log("🚀 ~ POST ~ to:", to);
-    await messageService.send({
-      to,
-      from: "01050562412",
-      text,
-    });
-    console.log("🚀 ~ POST ~ text:", text);
+    if (to && email) {
+      await messageService.send({
+        to,
+        from: "01050562412",
+        text,
+      });
+    }
 
     return NextResponse.json({
       message: "success",
