@@ -10,6 +10,8 @@ import {
 } from "@/shared/supabase";
 import { NotifyChannel, notifyPost } from "@/src/shared/api";
 
+import { grantPointAction } from "../../track-activity/action/grantPoint";
+
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
  *
@@ -150,6 +152,9 @@ export async function createPost(
       postId: createdPost.id,
     }).catch(noop);
 
+    if (data.author_id) {
+      await grantPointAction(data.author_id, "post");
+    }
     // 캐시 무효화
     revalidatePath("/community");
   } catch (error) {
