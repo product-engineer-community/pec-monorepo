@@ -9,7 +9,7 @@ export const getUserPoint = async (authorId: string) => {
     .maybeSingle();
 
   if (error) {
-    throw new Error(error.message);
+    throw error;
   }
   const point = data?.point;
 
