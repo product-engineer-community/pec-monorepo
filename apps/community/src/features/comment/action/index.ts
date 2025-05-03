@@ -7,6 +7,7 @@ import {
   getUserFromSupabase,
 } from "@/shared/supabase";
 
+import { grantPointAction } from "../../track-activity/action";
 import { CommentWithAuthor } from "../model/types";
 
 /**
@@ -92,6 +93,8 @@ export async function createComment(
   });
 
   if (error) throw error;
+
+  await grantPointAction(userId, "comment");
 
   revalidatePath(`/community/discussions/${postId}`);
   revalidatePath(`/community/questions/${postId}`);
