@@ -15,7 +15,8 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
-import { signIn, SignInState } from "../../../features/auth/action";
+import { signIn, SignInState } from "@/features/auth/action";
+import { PasswordInput } from "@/features/auth/ui";
 
 // 폼 제출 버튼 컴포넌트
 function SubmitButton() {
@@ -59,7 +60,7 @@ export default function SignInPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">비밀번호</Label>
-              <Input name="password" id="password" type="password" required />
+              <PasswordInput name="password" id="password" required />
             </div>
             {state?.error && (
               <p className="text-sm text-destructive">{state.error}</p>

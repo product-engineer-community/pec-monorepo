@@ -11,7 +11,7 @@ import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { SignOutButton } from "@/features/auth/ui/SignOutButton";
+import { SignOutButton } from "@/features/auth/ui";
 import {
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_DISCUSSIONS_PATHNAME,
