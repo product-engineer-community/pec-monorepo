@@ -12,13 +12,13 @@ import { Comments } from "@/widgets/comments";
 import { CommentsSkeleton } from "@/widgets/comments/ui/CommentsSkeleton";
 
 interface QuestionPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function QuestionPage({ params }: QuestionPageProps) {
-  const { id } = params;
+  const { id } = await params;
   const session = await getAuthSession();
 
   // 조회수 증가

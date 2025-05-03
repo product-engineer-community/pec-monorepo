@@ -5,13 +5,13 @@ import { getPostById } from "@/src/features/post/api";
 import PostForm from "@/widgets/PostForm";
 
 interface EditPostPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditPostPage({ params }: EditPostPageProps) {
-  const { id } = params;
+  const { id } = await params;
   const post = await getPostById(id);
 
   // 게시물이 없는 경우 404 페이지
