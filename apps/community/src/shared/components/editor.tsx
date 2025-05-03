@@ -9,7 +9,6 @@ import { Code } from "lucide-react";
 import dynamic from "next/dynamic";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
-import remarkGfm from "remark-gfm";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -77,7 +76,6 @@ export function MarkdownViewer({ content }: MarkdownViewerProps) {
   return (
     <div className="prose prose-sm max-w-none [&>p]:my-2 [&>p]:text-[14px] [&>pre>code]:text-[14px]">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
         rehypePlugins={[[rehypeHighlight, { detect: true }]]} // <- sync 플러그인
       >
         {content}
