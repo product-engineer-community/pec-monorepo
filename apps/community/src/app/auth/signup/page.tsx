@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { signUp } from "@/features/auth/action";
 import { PasswordInput } from "@/features/auth/ui";
 import { SignUpInput, signUpSchema } from "@/lib/validations/auth";
-import { convertPointToToastMessage } from "@/src/entities/point/model";
+import { convertPointTypeToToastMessage } from "@/src/entities/point/model";
 
 export default function SignUpPage() {
   const [error, setError] = useState<string>();
@@ -43,7 +43,7 @@ export default function SignUpPage() {
       } else if (result?.success) {
         setSuccess(true);
         setMessage(result.message);
-        toast.success(convertPointToToastMessage("signup"));
+        toast.success(convertPointTypeToToastMessage("signup"));
       }
     } catch {
       setError("회원가입 중 오류가 발생했습니다");

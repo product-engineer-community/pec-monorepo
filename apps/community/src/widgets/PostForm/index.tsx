@@ -6,7 +6,7 @@ import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
 import { Editor } from "@/shared/components/editor";
-import { convertPointToToastMessage } from "@/src/entities/point/model";
+import { convertPointTypeToToastMessage } from "@/src/entities/point/model";
 import { createPost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
 
@@ -69,7 +69,7 @@ export default function PostForm() {
       toast.error(state.error);
     }
     if (state.success) {
-      toast.success(convertPointToToastMessage("post"));
+      toast.success(convertPointTypeToToastMessage("post"));
     }
   }, [state]);
 

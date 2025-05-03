@@ -18,8 +18,8 @@ const POINT_LEVEL = {
   3: { emoji: "🍀", point: 230 },
   4: { emoji: "🎄", point: 350 },
 };
-export const convertPointToToastMessage = (pointType: PointType) => {
-  return `🌟 ${POINT_POLICIES[pointType]} 포인트 적립 🌟${POINT_NOTICE_MESSAGE[pointType]}`;
+export const convertPointTypeToToastMessage = (pointType: PointType) => {
+  return `🌟 +${POINT_POLICIES[pointType]} 포인트 적립 🌟${POINT_NOTICE_MESSAGE[pointType]}`;
 };
 
 export const getPointForAction = (pointType: PointType) => {
@@ -34,11 +34,6 @@ const getPointLevel = (point: number) => {
 };
 
 export const convertPointToPercent = (point: number) => {
-  console.log(
-    point,
-    getPointLevel(point),
-    POINT_LEVEL[getPointLevel(point)].point,
-  );
   return Math.min(
     100,
     Math.round((point / POINT_LEVEL[getPointLevel(point)].point) * 100),

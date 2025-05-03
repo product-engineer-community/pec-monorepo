@@ -1,7 +1,7 @@
 export {
   convertPointToEmoji,
   convertPointToPercent,
-  convertPointToToastMessage,
+  convertPointTypeToToastMessage,
   getPointForAction,
 } from "./point";
 export type { PointType } from "./point.type";
