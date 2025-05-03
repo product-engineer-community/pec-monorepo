@@ -4,14 +4,14 @@ import { Button } from "@pec/shared";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { Editor } from "@/shared/components/editor";
-
-import { createComment } from "../action";
 import { sendEmail } from "@/shared/api";
+import { Editor } from "@/shared/components/editor";
+import { MAIL_TEMPLATE } from "@/src/shared/api/consts";
+
 import { getUserEmail } from "../../auth/action";
 import { getPostType } from "../../post/action";
 import { getUsername } from "../../user/action";
-import { MAIL_TEMPLATE } from "@/src/shared/api/consts";
+import { createComment } from "../action";
 
 interface CommentFormProps {
   postId: string;

@@ -7,6 +7,7 @@ export interface Post {
   created_at: string;
   solved: boolean | null;
   tags: string[] | null;
+  type: string;
   thumbnail_url: string | null;
   author: {
     id: string;

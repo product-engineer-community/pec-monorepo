@@ -5,8 +5,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { signInSchema } from "@/lib/validations/auth";
-import { getSupabaseServerClient } from "@/shared/supabase/server";
 import { getSupabaseAdminClient } from "@/shared/supabase/admin";
+import { getSupabaseServerClient } from "@/shared/supabase/server";
 import {
   COMMUNITY_PATHNAME,
   SIGN_IN_PATHNAME,

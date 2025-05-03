@@ -12,7 +12,7 @@ import {
   DialogTrigger,
   PostType,
 } from "@pec/shared";
-import { Loader2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useActionState, useState } from "react";
 
 import { deletePost } from "../action";
@@ -58,7 +58,7 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="destructive" size="sm">
-          삭제
+          <Trash2 className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -78,15 +78,13 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
             </Button>
           </DialogClose>
           <form action={formAction}>
-            <Button variant="destructive" type="submit" disabled={isPending}>
-              {isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  삭제 중...
-                </>
-              ) : (
-                "삭제"
-              )}
+            <Button
+              variant="destructive"
+              type="submit"
+              disabled={isPending}
+              isLoading={isPending}
+            >
+              삭제하기
             </Button>
           </form>
         </DialogFooter>

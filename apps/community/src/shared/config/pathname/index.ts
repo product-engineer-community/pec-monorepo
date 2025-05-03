@@ -4,6 +4,8 @@ export const SIGN_IN_PATHNAME = "/auth/signin";
 export const SIGN_UP_PATHNAME = "/auth/signup";
 
 export const COMMUNITY_PATHNAME = "/community";
+export const COMMUNITY_POST_WRITE_PATHNAME = "/community/post/write";
+export const COMMUNITY_POST_EDIT_PATHNAME = "/community/post/edit";
 export const COMMUNITY_QUESTIONS_PATHNAME = "/community/questions";
 export const COMMUNITY_DISCUSSIONS_PATHNAME = "/community/discussions";
 
