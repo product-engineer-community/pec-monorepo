@@ -176,6 +176,8 @@ export async function getPostType(postId: string) {
     type: post.type,
     authorId: post.author_id,
   };
+}
+
 /**
  * 게시물 삭제 함수
  *
