@@ -34,10 +34,7 @@ export function CommentForm({
       await createComment(postId, content, parentId);
       setContent("");
       if (onCancel) onCancel();
-      const message = parentId
-        ? "답글이 작성되었습니다."
-        : "댓글이 작성되었습니다.";
-      toast.success(message.concat(convertPointTypeToToastMessage("comment")));
+      toast.success(convertPointTypeToToastMessage("comment"));
     } catch (error) {
       toast.error("댓글 작성 중 오류가 발생했습니다.");
       console.error(error);

@@ -8,7 +8,7 @@ const POINT_POLICIES: Record<PointType, number> = {
 
 const POINT_NOTICE_MESSAGE: Record<PointType, string> = {
   post: "포스트 작성 완료",
-  comment: "",
+  comment: "댓글 작성 완료",
   signup: "회원가입 완료",
 };
 
