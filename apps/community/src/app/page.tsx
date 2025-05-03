@@ -12,7 +12,6 @@ import {
   Lightbulb,
   Linkedin,
   MessageSquare,
-  Twitter,
   Users,
 } from "lucide-react";
 import Image from "next/image";
@@ -319,21 +318,14 @@ export default function LandingPage() {
           </div>
           <div className="flex gap-4">
             <Link
-              href="#"
+              href="https://github.com/product-engineer-community"
               className="text-muted-foreground hover:text-foreground"
             >
               <Github className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
-            </Link>
-            <Link
-              href="#"
+              href="https://www.linkedin.com/groups/14622639"
               className="text-muted-foreground hover:text-foreground"
             >
               <Linkedin className="h-5 w-5" />
