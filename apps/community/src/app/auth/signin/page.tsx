@@ -15,8 +15,8 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { signIn, SignInState } from "@/features/auth/action";
-import { PasswordInput, SocialLoginDivider } from "@/features/auth/ui";
-import { SocialAuthForm } from "@/widgets/social-login";
+import { PasswordInput } from "@/features/auth/ui";
+import { SocialAuthForm, SocialLoginDivider } from "@/widgets/social-login";
 
 function SubmitButton() {
   const { pending } = useFormStatus();

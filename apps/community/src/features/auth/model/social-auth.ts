@@ -1,5 +1,3 @@
-"use client";
-
 export type SocialProvider = "google" | "github";
 
 export const PROVIDER_NAMES: Record<SocialProvider, string> = {
