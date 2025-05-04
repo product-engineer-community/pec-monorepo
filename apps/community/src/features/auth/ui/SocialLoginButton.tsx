@@ -2,17 +2,16 @@
 
 import { Button } from "@pec/shared";
 import Image from "next/image";
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps } from "react";
 
-import { 
-  PROVIDER_ICON_PATHS, 
-  PROVIDER_NAMES, 
-  type SocialProvider 
+import {
+  PROVIDER_ICON_PATHS,
+  PROVIDER_NAMES,
+  type SocialProvider,
 } from "../model/social-auth";
 
 type SocialLoginButtonProps = ComponentProps<typeof Button> & {
   provider: SocialProvider;
-  children?: ReactNode;
 };
 
 export function SocialLoginButton({
