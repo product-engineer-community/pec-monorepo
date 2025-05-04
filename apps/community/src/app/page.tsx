@@ -12,7 +12,6 @@ import {
   Lightbulb,
   Linkedin,
   MessageSquare,
-  Twitter,
   Users,
 } from "lucide-react";
 import Image from "next/image";
@@ -48,7 +47,7 @@ export default function LandingPage() {
             기술의 본질을 이해하고, 사용자의 문제를 해결하는
             <div className="inline-flex items-center">
               <GradientText
-                className="sm:pl-2"
+                className="cursor-auto sm:pl-2"
                 colors={["#0d4c86", "#6cb8ff", "#0d4c86", "#6cb8ff", "#0d4c86"]}
               >
                 Product Engineer
@@ -135,7 +134,7 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-xl font-bold">네트워킹</h3>
                 <p className="text-center text-muted-foreground">
-                  사용자들의 문제 해결에 진심인 현업 개발자들과의 깊이 있는
+                  사용자의 문제 해결에 진심인 현업 개발자들과의 깊이 있는
                   네트워킹을 제공합니다.
                 </p>
               </div>
@@ -170,10 +169,9 @@ export default function LandingPage() {
                 70명+ 의 Product Engineer 와 함께하세요
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                P.E Community 에는 70명 이상의 열정 있는 Product Engineer 들이
-                함께하고 있어요. 모두들 최고의 제품을 향해 나아가는
-                개발자들이며, 함께 성장하여 더 나은 개발자가 되고 싶은
-                사람들입니다.
+                P.E.C 에는 70명 이상의 열정 있는 Product Engineer 들이 함께하고
+                있어요. 모두들 최고의 제품을 향해 나아가는 개발자들이며, 함께
+                성장하여 더 나은 개발자가 되고 싶은 사람들입니다.
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2">
@@ -319,21 +317,14 @@ export default function LandingPage() {
           </div>
           <div className="flex gap-4">
             <Link
-              href="#"
+              href="https://github.com/product-engineer-community"
               className="text-muted-foreground hover:text-foreground"
             >
               <Github className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
-            </Link>
-            <Link
-              href="#"
+              href="https://www.linkedin.com/groups/14622639"
               className="text-muted-foreground hover:text-foreground"
             >
               <Linkedin className="h-5 w-5" />

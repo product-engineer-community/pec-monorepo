@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import { signInSchema } from "@/lib/validations/auth";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
+import { getSupabaseAdminClient } from "@/shared/supabase/admin";
 import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
 import { getAuthErrorMessage } from "../lib/error-handler";
 
@@ -106,4 +107,19 @@ export async function signOut() {
   await supabase.auth.signOut();
 
   redirect(SIGN_IN_PATHNAME);
+}
+
+export async function getUserEmail(userId: string) {
+  const supabaseAdmin = await getSupabaseAdminClient();
+
+  const { data: user, error: userError } =
+    await supabaseAdmin.auth.admin.getUserById(userId);
+
+  if (userError) {
+    throw userError;
+  }
+
+  return {
+    email: user.user?.email,
+  };
 }

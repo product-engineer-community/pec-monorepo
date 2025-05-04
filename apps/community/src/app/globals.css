@@ -149,7 +149,7 @@
 .prose code {
   background-color: hsl(var(--muted)) !important;
   color: hsl(var(--foreground)) !important;
-  font-family: monospace !important;
+  font-family: "Menlo", "Consolas", monospace !important;
 }
 
 .prose :not(pre) > code {
@@ -157,6 +157,4 @@
   border: 1px solid hsl(var(--border)) !important;
   border-radius: 0.25rem !important;
   padding: 0.2rem 0.4rem !important;
-  color: hsl(var(--foreground)) !important;
-  font-family: monospace !important;
 }
