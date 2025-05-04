@@ -27,7 +27,7 @@ export const DropdownMenuWithPoint = async () => {
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-1">
         <span className="rounded-md border-border p-3 text-sm font-medium transition-colors hover:bg-muted-foreground/10">
-          {user?.user_metadata.username}
+          {user?.user_metadata.username} 님
         </span>
         <Badge className="prl-2 pr-2">Level {emoji}</Badge>
       </DropdownMenuTrigger>
