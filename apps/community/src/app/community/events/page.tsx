@@ -10,7 +10,7 @@ const EVENTS = [
     name: "프론트엔드 아키텍처 워크샵",
     description:
       "확장 가능한 프론트엔드 아키텍처 설계와 실제 구현 사례를 다루는 실무 중심 워크샵입니다.",
-    date: "2025-04-15",
+    date: "2025-06-15",
     time: "20:00-21:00",
     location: "온라인 (Zoom)",
     type: "온라인",
@@ -23,7 +23,7 @@ const EVENTS = [
     name: "AI 시대의 프로덕트 엔지니어링",
     description:
       "ChatGPT와 같은 AI 도구를 활용한 효율적인 개발 프로세스와 프로덕트 개발 전략을 논의합니다.",
-    date: "2025-04-22",
+    date: "2025-06-22",
     time: "20:00-21:00",
     location: "온라인 (Zoom)",
     type: "온라인",
@@ -36,7 +36,7 @@ const EVENTS = [
     name: "코드 리뷰 네트워킹 데이",
     description:
       "실제 프로젝트 코드를 가지고 와서 함께 리뷰하고 개선하는 네트워킹 시간입니다.",
-    date: "2025-04-26",
+    date: "2025-06-26",
     time: "14:00-17:00",
     location: "판교 알파돔",
     type: "오프라인",
@@ -136,7 +136,7 @@ export default function EventsPage() {
               >
                 {event.currentParticipants >= event.maxParticipants
                   ? "신청마감"
-                  : "참여하기"}
+                  : "신청마감"}
               </Button>
             </div>
           </div>

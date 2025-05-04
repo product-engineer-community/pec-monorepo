@@ -16,7 +16,6 @@ import {
   COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
-  LECTURE_PATHNAME,
   MAIN_PATHNAME,
 } from "@/src/shared/config/pathname";
 
@@ -52,10 +51,6 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: "Events",
     href: COMMUNITY_EVENTS_PATHNAME,
-  },
-  {
-    label: "Lectures",
-    href: LECTURE_PATHNAME,
   },
 ];
 

@@ -18,7 +18,6 @@ import {
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
-  LECTURE_PATHNAME,
 } from "@/shared/config/pathname";
 import { getUserFromSupabase } from "@/shared/supabase/action";
 
@@ -35,7 +34,6 @@ const MENU_ITEMS = [
   },
   { label: "Articles", href: COMMUNITY_ARTICLES_PATHNAME },
   { label: "Events", href: COMMUNITY_EVENTS_PATHNAME },
-  { label: "Lectures", href: LECTURE_PATHNAME },
 ] as const;
 
 export async function Header() {
