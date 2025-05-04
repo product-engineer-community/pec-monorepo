@@ -1,6 +1,6 @@
 "use client";
 
-import { handleSocialSignIn } from "@/features/auth/action";
+import { socialSignIn } from "@/features/auth/action";
 import {
   DEFAULT_ENABLED_PROVIDERS,
   PROVIDER_NAMES,
@@ -30,7 +30,7 @@ export function SocialAuthForm({
       <div className={`grid ${gridClass} gap-4`}>
         {providers.map((provider) => (
           <div key={provider} className="w-full">
-            <form action={handleSocialSignIn}>
+            <form action={socialSignIn}>
               <input type="hidden" name="provider" value={provider} />
               <SocialLoginButton provider={provider} type="submit">
                 {PROVIDER_NAMES[provider]}
