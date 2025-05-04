@@ -87,7 +87,7 @@ export default function SignInPage() {
 
           <SocialLoginDivider />
 
-          <SocialAuthForm />
+          <SocialAuthForm error={state?.error} />
         </CardContent>
       </Card>
     </div>
