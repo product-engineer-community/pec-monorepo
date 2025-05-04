@@ -7,7 +7,6 @@ import {
   EditPostButton,
   PostLikeButton,
 } from "@/features/post";
-import { getAuthSession } from "@/shared/supabase";
 import { Comments } from "@/widgets/comments";
 import { CommentsSkeleton } from "@/widgets/comments/ui/CommentsSkeleton";
 
@@ -19,7 +18,6 @@ interface QuestionPageProps {
 
 export default async function QuestionPage({ params }: QuestionPageProps) {
   const { id } = await params;
-  const session = await getAuthSession();
 
   // 조회수 증가
   await incrementViewCount(id);
@@ -42,9 +40,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
                 initialIsLiked={false}
               />
             }
-            editButton={
-              <EditPostButton postId={id} isAuthor={!!session?.user} />
-            }
+            editButton={<EditPostButton postId={id} />}
           />
         </Suspense>
       </div>

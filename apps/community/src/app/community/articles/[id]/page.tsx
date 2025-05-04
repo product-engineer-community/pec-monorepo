@@ -9,7 +9,6 @@ import {
   EditPostButton,
   PostLikeButton,
 } from "@/features/post";
-import { getAuthSession } from "@/shared/supabase";
 import { Comments } from "@/src/widgets/comments";
 import { CommentsSkeleton } from "@/src/widgets/comments/ui/CommentsSkeleton";
 
@@ -41,7 +40,6 @@ export async function generateMetadata({
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { id } = await params;
-  const session = await getAuthSession();
 
   // 조회수 증가
   await incrementViewCount(id);
@@ -52,8 +50,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   if (!article) {
     return notFound();
   }
-
-  const isAuthor = session?.user?.id === article.author.id;
 
   return (
     <div className="container mx-auto py-8">
@@ -73,7 +69,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 initialIsLiked={article.is_liked}
               />
             }
-            editButton={<EditPostButton postId={id} isAuthor={isAuthor} />}
+            editButton={<EditPostButton postId={id} />}
           />
         </Suspense>
       </div>

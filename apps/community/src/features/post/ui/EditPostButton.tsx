@@ -12,14 +12,9 @@ import Link from "next/link";
 
 interface EditPostButtonProps {
   postId: string;
-  isAuthor: boolean;
 }
 
-export function EditPostButton({ postId, isAuthor }: EditPostButtonProps) {
-  if (!isAuthor) {
-    return null;
-  }
-
+export function EditPostButton({ postId }: EditPostButtonProps) {
   return (
     <Link href={`/community/post/edit/${postId}`}>
       {/* hover popup 수정하기 텍스트 */}
