@@ -18,8 +18,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ContentItem from "../entities/landing/contentItem";
+import { SIGN_UP_PATHNAME } from "../shared/config/pathname";
+import { getIsAuthenticated } from "../features/auth/lib/check-auth";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const isAuthenticated = await getIsAuthenticated();
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
@@ -55,9 +59,13 @@ export default function LandingPage() {
             </div>
             들의 커뮤니티
           </div>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Button size="xl">지금 가입하기</Button>
-          </div>
+          {!isAuthenticated && (
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button size="xl" asChild>
+                <Link href={SIGN_UP_PATHNAME}>지금 가입하기</Link>
+              </Button>
+            </div>
+          )}
         </section>
 
         <section className="flex w-full flex-col gap-8 bg-muted p-8 md:flex-row md:py-24">
