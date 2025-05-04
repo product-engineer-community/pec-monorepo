@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <Providers>
           <BaseLayout>{children}</BaseLayout>
-          <Toaster />
+          <Toaster position="top-center" />
         </Providers>
       </body>
     </html>
