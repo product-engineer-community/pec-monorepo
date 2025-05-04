@@ -14,14 +14,8 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
-import {
-  signIn,
-  SignInState,
-} from "@/features/auth/action";
-import {
-  PasswordInput,
-  SocialLoginDivider,
-} from "@/features/auth/ui";
+import { signIn, SignInState } from "@/features/auth/action";
+import { PasswordInput, SocialLoginDivider } from "@/features/auth/ui";
 import { SocialAuthForm } from "@/widgets/social-login";
 
 function SubmitButton() {
