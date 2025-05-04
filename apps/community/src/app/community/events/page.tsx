@@ -86,7 +86,6 @@ export default function EventsPage() {
                 </div>
               </div>
 
-              {/* Event Title & Description */}
               <Text size="xl" weight="semibold" className="mb-2">
                 {event.name}
               </Text>
