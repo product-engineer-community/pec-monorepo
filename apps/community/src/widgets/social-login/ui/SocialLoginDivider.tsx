@@ -1,5 +1,3 @@
-"use client";
-
 export function SocialLoginDivider() {
   return (
     <div className="relative !mt-[32px]">
