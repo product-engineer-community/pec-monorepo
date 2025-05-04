@@ -5,9 +5,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { signInSchema } from "@/lib/validations/auth";
+import {
+  AUTH_CALLBACK_PATHNAME,
+  MAIN_PATHNAME,
+  SIGN_IN_PATHNAME,
+} from "@/shared/config/pathname";
 import { getSupabaseAdminClient } from "@/shared/supabase/admin";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
-import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
 
 import { getAuthErrorMessage } from "../lib/error-handler";
 import type { SocialProvider } from "../model/social-auth";
@@ -29,7 +33,7 @@ export async function signUp(
       data: {
         username,
       },
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}${AUTH_CALLBACK_PATHNAME}`,
     },
   });
 
@@ -133,7 +137,7 @@ export async function socialSignIn(formData: FormData) {
   const supabase = await getSupabaseServerClient();
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const redirectTo = `${siteUrl.slice(0, -1)}/auth/callback`;
+  const redirectTo = `${siteUrl.replace(/\/$/, "")}${AUTH_CALLBACK_PATHNAME}`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
