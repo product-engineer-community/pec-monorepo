@@ -94,11 +94,8 @@ export async function Header() {
             </>
           ) : (
             <>
-              <Button variant="ghost" size="sm" asChild>
+              <Button variant="outline" size="sm" asChild>
                 <Link href="/auth/signin">로그인</Link>
-              </Button>
-              <Button size="sm" asChild>
-                <Link href="/auth/signup">회원가입</Link>
               </Button>
             </>
           )}
@@ -155,9 +152,6 @@ export async function Header() {
               <>
                 <DropdownMenuItem asChild>
                   <Link href="/auth/signin">로그인</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/auth/signup">회원가입</Link>
                 </DropdownMenuItem>
               </>
             )}
