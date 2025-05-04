@@ -6,7 +6,11 @@ import {
   DiscussionDetailSkeleton,
 } from "@/entities/discussion";
 import { getPost, incrementViewCount } from "@/entities/post";
-import { DeletePostButton, PostLikeButton } from "@/features/post";
+import {
+  DeletePostButton,
+  EditPostButton,
+  PostLikeButton,
+} from "@/features/post";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
 
 export default async function DiscussionDetailPage({
@@ -37,6 +41,7 @@ export default async function DiscussionDetailPage({
               initialIsLiked={discussion.is_liked}
             />
           }
+          editButton={<EditPostButton postId={id} />}
         />
       </Suspense>
 

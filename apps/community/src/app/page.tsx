@@ -18,8 +18,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ContentItem from "../entities/landing/contentItem";
-import { SIGN_UP_PATHNAME } from "../shared/config/pathname";
 import { getIsAuthenticated } from "../features/auth/lib/check-auth";
+import { SIGN_UP_PATHNAME } from "../shared/config/pathname";
 
 export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();
@@ -183,15 +183,15 @@ export default async function LandingPage() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                  <div className="h-2 w-2 rounded-full bg-green-500" />
                   <span className="text-sm">70+ 활동 멤버</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
                   <span className="text-sm">60+ 회사</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                  <div className="h-2 w-2 rounded-full bg-purple-500" />
                   <span className="text-sm">30+ 새로운 포스팅</span>
                 </div>
               </div>

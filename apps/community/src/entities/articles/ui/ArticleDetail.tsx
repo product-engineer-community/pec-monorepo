@@ -9,12 +9,14 @@ interface ArticleDetailProps {
   id: string;
   deleteButton?: React.ReactNode;
   postLikeButton?: React.ReactNode;
+  editButton?: React.ReactNode;
 }
 
 export async function ArticleDetail({
   id,
   deleteButton,
   postLikeButton,
+  editButton,
 }: ArticleDetailProps) {
   const article = await getPost(id);
 
@@ -42,6 +44,7 @@ export async function ArticleDetail({
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {isAuthor && editButton}
           {isAuthor && deleteButton}
           {postLikeButton}
         </div>

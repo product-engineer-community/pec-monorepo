@@ -23,8 +23,13 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="w-full" type="submit" disabled={pending}>
-      {pending ? "로그인 중..." : "로그인"}
+    <Button
+      className="w-full"
+      type="submit"
+      disabled={pending}
+      isLoading={pending}
+    >
+      로그인
     </Button>
   );
 }

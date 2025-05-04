@@ -4,15 +4,14 @@ import { Button } from "@pec/shared";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { Editor } from "@/shared/components/editor";
-import { convertPointTypeToToastMessage } from "@/src/entities/point/model";
-
-import { createComment } from "../action";
+import { convertPointTypeToToastMessage } from "@/entities/point/model";
+import { getUserEmail } from "@/features/auth/action";
+import { createComment } from "@/features/comment/action";
+import { getPostType } from "@/features/post/action";
+import { getUsername } from "@/features/user/action";
 import { sendEmail } from "@/shared/api";
-import { getUserEmail } from "../../auth/action";
-import { getPostType } from "../../post/action";
-import { getUsername } from "../../user/action";
-import { MAIL_TEMPLATE } from "@/src/shared/api/consts";
+import { MAIL_TEMPLATE } from "@/shared/api/consts";
+import { Editor } from "@/shared/components/editor";
 
 interface CommentFormProps {
   postId: string;

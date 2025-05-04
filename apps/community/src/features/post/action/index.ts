@@ -3,14 +3,14 @@
 import { noop, PostType } from "@pec/shared";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { match } from "ts-pattern";
 
+import { grantPointAction } from "@/features/track-activity/action/grantPoint";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@/shared/supabase";
 import { NotifyChannel, notifyPost } from "@/src/shared/api";
-
-import { grantPointAction } from "../../track-activity/action/grantPoint";
 
 /**
  * 게시물 좋아요/좋아요 취소 토글 함수
@@ -189,7 +189,7 @@ export async function getPostType(postId: string) {
  * @param postId 게시물 ID
  * @returns 성공 여부와 오류 정보
  */
-export async function deletePost(postId: string) {
+export async function deletePost(postId: string, postType: PostType) {
   const supabase = await getSupabaseServerClient();
   const user = await getUserFromSupabase();
 
@@ -198,38 +198,118 @@ export async function deletePost(postId: string) {
   }
 
   try {
-    // 삭제 전에 게시물 타입 확인
+    // 삭제 실행
+    const { error } = await supabase.from("posts").delete().eq("id", postId);
+    if (error) throw error;
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    return { error: "게시물 삭제 중 오류가 발생했습니다." };
+  }
+
+  // 일반적으로 쓰는 스타일
+  const newPath = match(postType)
+    .with("question", () => "/community/questions")
+    .with("discussion", () => "/community/discussions")
+    .with("article", () => "/community/articles")
+    .exhaustive();
+
+  revalidatePath(newPath);
+  redirect(newPath);
+}
+
+/**
+ * 게시물 수정 함수
+ *
+ * @param {string} postId 수정할 게시물 ID
+ * @param {FormData} formData 폼 데이터
+ * @returns 성공 여부와 오류 정보
+ */
+export async function updatePost(postId: string, formData: FormData) {
+  const user = await getUserFromSupabase();
+
+  if (!user) {
+    return { error: "로그인이 필요합니다." };
+  }
+
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+  const category = formData.get("category") as string;
+  const tagsString = formData.get("tags") as string;
+  const thumbnailUrl = formData.get("thumbnail_url") as string;
+
+  // 태그 처리
+  const tags = tagsString ? JSON.parse(tagsString) : [];
+
+  // 유효성 검사
+  if (!title || title.length < 5 || title.length > 200) {
+    return { error: "제목은 5자 이상 200자 이하여야 합니다." };
+  }
+  if (!content || content.length < 10) {
+    return { error: "내용은 10자 이상이어야 합니다." };
+  }
+
+  try {
+    const supabase = await getSupabaseServerClient();
+
+    // 게시물 권한 확인
     const { data: post, error: fetchError } = await supabase
       .from("posts")
-      .select("type")
+      .select("author_id, type")
       .eq("id", postId)
       .single();
 
     if (fetchError) throw fetchError;
 
-    // 삭제 실행
-    const { error } = await supabase.from("posts").delete().eq("id", postId);
+    if (!post || post.author_id !== user.id) {
+      return { error: "수정 권한이 없습니다." };
+    }
+
+    // 게시물 기본 데이터
+    const baseUpdate = {
+      title,
+      content,
+    };
+
+    // 게시물 유형별 추가 데이터
+    let finalUpdate;
+    switch (post.type) {
+      case "discussion":
+        finalUpdate = {
+          ...baseUpdate,
+          category: category || "",
+          tags,
+        };
+        break;
+      case "question":
+        finalUpdate = {
+          ...baseUpdate,
+          category: category || "",
+        };
+        break;
+      case "article":
+        finalUpdate = {
+          ...baseUpdate,
+          thumbnail_url: thumbnailUrl || null,
+        };
+        break;
+      default:
+        finalUpdate = baseUpdate;
+    }
+
+    const { error } = await supabase
+      .from("posts")
+      .update(finalUpdate)
+      .eq("id", postId);
 
     if (error) throw error;
 
     // 캐시 무효화
+    revalidatePath(`/community/${post.type}s/${postId}`);
     revalidatePath("/community");
 
-    // 게시물 타입에 따라 리다이렉트 경로 설정
-    if (post?.type) {
-      const redirectPath = `/community/${
-        post.type === "question"
-          ? "questions"
-          : post.type === "discussion"
-            ? "discussions"
-            : "articles"
-      }`;
-      redirect(redirectPath);
-    }
-
-    return { success: true };
+    return { success: true, postId, type: post.type };
   } catch (error) {
-    console.error("Error deleting post:", error);
-    return { error: "게시물 삭제 중 오류가 발생했습니다." };
+    console.error("Error updating post:", error);
+    return { error: "게시물 수정 중 오류가 발생했습니다." };
   }
 }

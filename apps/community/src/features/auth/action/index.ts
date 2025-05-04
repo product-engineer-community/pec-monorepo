@@ -5,9 +5,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { signInSchema } from "@/lib/validations/auth";
-import { getSupabaseServerClient } from "@/shared/supabase/server";
 import { getSupabaseAdminClient } from "@/shared/supabase/admin";
+import { getSupabaseServerClient } from "@/shared/supabase/server";
 import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
+
 import { getAuthErrorMessage } from "../lib/error-handler";
 
 export async function signUp(

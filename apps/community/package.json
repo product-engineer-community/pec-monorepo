@@ -39,6 +39,7 @@
     "sonner": "^2.0.1",
     "tailwindcss-animate": "^1.0.7",
     "tls": "^0.0.1",
+    "ts-pattern": "^5.7.0",
     "typescript": "^5.3.3",
     "uuid": "^10.0.0",
     "zod": "^3.24.2"

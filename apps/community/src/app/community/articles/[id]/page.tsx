@@ -4,7 +4,11 @@ import { Suspense } from "react";
 
 import { ArticleDetail } from "@/entities/articles";
 import { getPost, incrementViewCount } from "@/entities/post/action";
-import { DeletePostButton, PostLikeButton } from "@/features/post";
+import {
+  DeletePostButton,
+  EditPostButton,
+  PostLikeButton,
+} from "@/features/post";
 import { Comments } from "@/src/widgets/comments";
 import { CommentsSkeleton } from "@/src/widgets/comments/ui/CommentsSkeleton";
 
@@ -52,7 +56,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <div className="overflow-hidden rounded-lg bg-white p-6 shadow-md">
         <Suspense
           fallback={
-            <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200"></div>
+            <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />
           }
         >
           <ArticleDetail
@@ -65,6 +69,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 initialIsLiked={article.is_liked}
               />
             }
+            editButton={<EditPostButton postId={id} />}
           />
         </Suspense>
       </div>

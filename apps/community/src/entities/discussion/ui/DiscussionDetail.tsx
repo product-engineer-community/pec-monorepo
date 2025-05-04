@@ -9,12 +9,14 @@ interface DiscussionDetailProps {
   id: string;
   deleteButton?: React.ReactNode;
   postLikeButton?: React.ReactNode;
+  editButton?: React.ReactNode;
 }
 
 export async function DiscussionDetail({
   id,
   deleteButton,
   postLikeButton,
+  editButton,
 }: DiscussionDetailProps) {
   // 토론 데이터 가져오기
   const discussion = await getPost(id);
@@ -47,6 +49,7 @@ export async function DiscussionDetail({
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {isAuthor && editButton}
           {isAuthor && deleteButton}
           {postLikeButton}
         </div>

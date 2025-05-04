@@ -1,6 +1,8 @@
 import { Button } from "@pec/shared";
 import Link from "next/link";
 
+import { COMMUNITY_POST_WRITE_PATHNAME } from "@/src/shared/config/pathname";
+
 export function DiscussionsHeader() {
   return (
     <div>
@@ -8,7 +10,7 @@ export function DiscussionsHeader() {
         <h1 className="text-2xl font-bold">Discussions</h1>
         <Link
           href={{
-            pathname: "/community/create",
+            pathname: COMMUNITY_POST_WRITE_PATHNAME,
             query: { type: "discussion" },
           }}
         >

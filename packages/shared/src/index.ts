@@ -1,5 +1,6 @@
 export * from "./types";
 export * from "./utils";
+export * from "./components/ui/badge";
 export * from "./components/ui/button";
 export * from "./components/ui/card";
 export * from "./components/ui/collapsible";
@@ -13,5 +14,5 @@ export * from "./components/ui/progress";
 export * from "./components/ui/rotating-text";
 export * from "./components/ui/shiny-text";
 export * from "./components/ui/text";
+export * from "./components/ui/tooltip";
 export * from "./components/skeletons/post-card-skeleton";
-export * from "./components/ui/badge";
