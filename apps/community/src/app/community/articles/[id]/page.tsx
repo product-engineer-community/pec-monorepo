@@ -52,7 +52,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="mx-auto lg:container lg:py-8">
       <div className="overflow-hidden rounded-lg bg-white p-6 shadow-md">
         <Suspense
           fallback={
