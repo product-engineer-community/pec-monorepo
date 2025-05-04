@@ -2,11 +2,13 @@
 
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
+import "highlight.js/styles/atom-one-dark.css";
 
 import { Button } from "@pec/shared";
 import { Code } from "lucide-react";
 import dynamic from "next/dynamic";
 import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -59,7 +61,7 @@ export function Editor({ content, onChange }: EditorProps) {
           allowedElements: ["p", "code", "pre"],
         }}
         textareaProps={{
-          placeholder: "내용을 입력하세요...",
+          placeholder: "내용을 입력하세요",
         }}
       />
     </div>
@@ -73,7 +75,11 @@ interface MarkdownViewerProps {
 export function MarkdownViewer({ content }: MarkdownViewerProps) {
   return (
     <div className="prose prose-sm max-w-none [&>p]:my-2 [&>p]:text-[14px] [&>pre>code]:text-[14px]">
-      <ReactMarkdown>{content}</ReactMarkdown>
+      <ReactMarkdown
+        rehypePlugins={[[rehypeHighlight, { detect: true }]]} // <- sync 플러그인
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }

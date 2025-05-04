@@ -6,10 +6,9 @@ import { redirect } from "next/navigation";
 
 import { signInSchema } from "@/lib/validations/auth";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
-import {
-  COMMUNITY_PATHNAME,
-  SIGN_IN_PATHNAME,
-} from "@/src/shared/config/pathname";
+import { getSupabaseAdminClient } from "@/shared/supabase/admin";
+import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
+import { getAuthErrorMessage } from "../lib/error-handler";
 
 export async function signUp(
   email: string,
@@ -84,7 +83,7 @@ export async function signIn(
 
     if (error) {
       return {
-        error: error.message,
+        error: getAuthErrorMessage(error),
         success: false,
       };
     }
@@ -101,7 +100,7 @@ export async function signIn(
 
   revalidatePath("/", "layout");
   // 성공 시 try/catch 블록 외부에서 리다이렉트
-  redirect(COMMUNITY_PATHNAME);
+  redirect(MAIN_PATHNAME);
 }
 
 export async function signOut() {
@@ -109,4 +108,19 @@ export async function signOut() {
   await supabase.auth.signOut();
 
   redirect(SIGN_IN_PATHNAME);
+}
+
+export async function getUserEmail(userId: string) {
+  const supabaseAdmin = await getSupabaseAdminClient();
+
+  const { data: user, error: userError } =
+    await supabaseAdmin.auth.admin.getUserById(userId);
+
+  if (userError) {
+    throw userError;
+  }
+
+  return {
+    email: user.user?.email,
+  };
 }

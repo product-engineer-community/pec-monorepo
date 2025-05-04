@@ -4,9 +4,10 @@ import { SolapiMessageService } from "solapi";
 export async function POST(req: Request) {
   // from webhook, get data
   const data: FormbricksWebhookData = await req.json();
+  console.log("🚀 ~ POST ~ data:", data);
   //TODO: 9기 알림 신청에서의 값 즉, 10기 에는 바꿔줘야함
-  const { camyx1dh1a0zzkgq87qo0os8: to, g5m3b6gh9l5rpatm93p7s3pj: email } =
-    data.data.data;
+  const to = data?.data?.data?.camyx1dh1a0zzkgq87qo0os8;
+  const email = data?.data?.data?.g5m3b6gh9l5rpatm93p7s3pj;
   const messageService = new SolapiMessageService(
     process.env.SMS_API_KEY || "",
     process.env.SMS_API_SECRET || "",
@@ -16,12 +17,13 @@ export async function POST(req: Request) {
 
   try {
     console.log("🚀 ~ POST ~ to:", to);
-    await messageService.send({
-      to,
-      from: "01050562412",
-      text,
-    });
-    console.log("🚀 ~ POST ~ text:", text);
+    if (to && email) {
+      await messageService.send({
+        to,
+        from: "01050562412",
+        text,
+      });
+    }
 
     return NextResponse.json({
       message: "success",
