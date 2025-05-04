@@ -88,7 +88,7 @@ export async function Header() {
           {isAuthenticated ? (
             <>
               <span className="text-sm text-muted-foreground">
-                {user?.email}
+                {user?.user_metadata.username} 님
               </span>
               <SignOutButton />
             </>
