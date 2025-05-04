@@ -47,7 +47,7 @@ export default async function LandingPage() {
               />{" "}
               이
             </div>
-            <div className="mt-2 lg:mt-0">필요합니다</div>
+            <div className="mt-2 lg:mt-0"> 필요합니다</div>
           </div>
           <div className="mb-8 gap-2 text-base text-slate-600 sm:text-left sm:text-lg md:text-xl">
             기술을 넘어, 본질적인 문제를 파악하고 좋은 질문을 던지는
