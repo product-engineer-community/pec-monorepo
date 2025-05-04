@@ -1,7 +1,5 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
-
 import { handleSocialSignIn } from "@/features/auth/action";
 import {
   DEFAULT_ENABLED_PROVIDERS,
@@ -10,21 +8,11 @@ import {
 } from "@/features/auth/model";
 import { SocialLoginButton } from "@/features/auth/ui";
 
-function SocialButton({ provider }: { provider: SocialProvider }) {
-  const { pending } = useFormStatus();
-
-  return (
-    <SocialLoginButton provider={provider} disabled={pending} type="submit">
-      {PROVIDER_NAMES[provider]}
-    </SocialLoginButton>
-  );
-}
-
-interface SocialAuthFormProps {
+type SocialAuthFormProps = {
   providers?: SocialProvider[];
   error?: string | null;
   gridClass?: string;
-}
+};
 
 export function SocialAuthForm({
   providers = DEFAULT_ENABLED_PROVIDERS,
@@ -44,7 +32,9 @@ export function SocialAuthForm({
           <div key={provider} className="w-full">
             <form action={handleSocialSignIn}>
               <input type="hidden" name="provider" value={provider} />
-              <SocialButton provider={provider} />
+              <SocialLoginButton provider={provider} type="submit">
+                {PROVIDER_NAMES[provider]}
+              </SocialLoginButton>
             </form>
           </div>
         ))}
