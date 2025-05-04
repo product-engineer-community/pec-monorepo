@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { SIGN_IN_PATHNAME } from "@/shared/config/pathname";
 
 export async function middleware(request: NextRequest) {
   return await updateSession(request);
@@ -54,7 +53,6 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (error) {
-    console.log("🚀 ~ updateSession ~ error:", error);
     return supabaseResponse;
   }
 

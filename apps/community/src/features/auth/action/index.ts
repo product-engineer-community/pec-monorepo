@@ -10,6 +10,7 @@ import { getSupabaseServerClient } from "@/shared/supabase/server";
 import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
 
 import { getAuthErrorMessage } from "../lib/error-handler";
+import type { SocialProvider } from "../model/social-auth";
 
 export async function signUp(
   email: string,
@@ -124,4 +125,30 @@ export async function getUserEmail(userId: string) {
   return {
     email: user.user?.email,
   };
+}
+
+export async function handleSocialSignIn(formData: FormData) {
+  const provider = formData.get("provider") as SocialProvider;
+
+  const supabase = await getSupabaseServerClient();
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+  const redirectTo = `${siteUrl.replace(/\/$/, "")}/auth/callback`;
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo,
+    },
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data?.url) {
+    throw new Error("리다이렉트 URL이 생성되지 않았습니다.");
+  }
+
+  redirect(data.url);
 }
