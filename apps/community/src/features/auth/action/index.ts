@@ -91,12 +91,13 @@ export async function signIn(
     // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
     await supabaseClient.auth.getUser();
   } catch (error) {
-    console.error("로그인 오류:", error);
+    console.error("로그인 중 오류가 발생했습니다", error);
     return {
       error: "로그인 중 오류가 발생했습니다",
       success: false,
     };
   }
+
   revalidatePath("/", "layout");
   // 성공 시 try/catch 블록 외부에서 리다이렉트
   redirect(MAIN_PATHNAME);

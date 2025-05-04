@@ -1,0 +1,1 @@
+export { grantPointAction } from "./grantPoint";

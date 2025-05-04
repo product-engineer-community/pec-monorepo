@@ -22,6 +22,8 @@ import {
 } from "@/shared/config/pathname";
 import { getUserFromSupabase } from "@/shared/supabase/action";
 
+import { DropdownMenuWithPoint } from "./DropdownMenuWithPoint";
+
 const MENU_ITEMS = [
   {
     label: "Community",
@@ -87,9 +89,7 @@ export async function Header() {
         <div className="hidden items-center gap-2 md:flex">
           {isAuthenticated ? (
             <>
-              <span className="text-sm text-muted-foreground">
-                {user?.user_metadata.username} 님
-              </span>
+              <DropdownMenuWithPoint />
               <SignOutButton />
             </>
           ) : (

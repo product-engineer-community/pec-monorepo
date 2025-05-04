@@ -24,6 +24,7 @@ export default function SignUpPage() {
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState<string>();
+
   const {
     register,
     handleSubmit,

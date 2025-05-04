@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { Editor } from "@/shared/components/editor";
+import { convertPointTypeToToastMessage } from "@/src/entities/point/model";
 
 import { createComment } from "../action";
 import { sendEmail } from "@/shared/api";
@@ -54,9 +55,7 @@ export function CommentForm({
       }
 
       if (onCancel) onCancel();
-      toast.success(
-        parentId ? "답글이 작성되었습니다." : "댓글이 작성되었습니다.",
-      );
+      toast.success(convertPointTypeToToastMessage("comment"));
     } catch (error) {
       toast.error("댓글 작성 중 오류가 발생했습니다.");
       console.error(error);
