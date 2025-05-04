@@ -7,10 +7,9 @@ import { redirect } from "next/navigation";
 import { signInSchema } from "@/lib/validations/auth";
 import { getSupabaseAdminClient } from "@/shared/supabase/admin";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
-import {
-  COMMUNITY_PATHNAME,
-  SIGN_IN_PATHNAME,
-} from "@/src/shared/config/pathname";
+import { MAIN_PATHNAME, SIGN_IN_PATHNAME } from "@/src/shared/config/pathname";
+
+import { getAuthErrorMessage } from "../lib/error-handler";
 
 export async function signUp(
   email: string,
@@ -85,7 +84,7 @@ export async function signIn(
 
     if (error) {
       return {
-        error: error.message,
+        error: getAuthErrorMessage(error),
         success: false,
       };
     }
@@ -93,15 +92,16 @@ export async function signIn(
     // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
     await supabaseClient.auth.getUser();
   } catch (error) {
-    console.error("로그인 오류:", error);
+    console.error("로그인 중 오류가 발생했습니다", error);
     return {
       error: "로그인 중 오류가 발생했습니다",
       success: false,
     };
   }
+
   revalidatePath("/", "layout");
   // 성공 시 try/catch 블록 외부에서 리다이렉트
-  redirect(COMMUNITY_PATHNAME);
+  redirect(MAIN_PATHNAME);
 }
 
 export async function signOut() {

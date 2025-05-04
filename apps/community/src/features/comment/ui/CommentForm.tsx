@@ -4,14 +4,14 @@ import { Button } from "@pec/shared";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { convertPointTypeToToastMessage } from "@/entities/point/model";
+import { getUserEmail } from "@/features/auth/action";
+import { createComment } from "@/features/comment/action";
+import { getPostType } from "@/features/post/action";
+import { getUsername } from "@/features/user/action";
 import { sendEmail } from "@/shared/api";
+import { MAIL_TEMPLATE } from "@/shared/api/consts";
 import { Editor } from "@/shared/components/editor";
-import { MAIL_TEMPLATE } from "@/src/shared/api/consts";
-
-import { getUserEmail } from "../../auth/action";
-import { getPostType } from "../../post/action";
-import { getUsername } from "../../user/action";
-import { createComment } from "../action";
 
 interface CommentFormProps {
   postId: string;
@@ -54,9 +54,7 @@ export function CommentForm({
       }
 
       if (onCancel) onCancel();
-      toast.success(
-        parentId ? "답글이 작성되었습니다." : "댓글이 작성되었습니다.",
-      );
+      toast.success(convertPointTypeToToastMessage("comment"));
     } catch (error) {
       toast.error("댓글 작성 중 오류가 발생했습니다.");
       console.error(error);

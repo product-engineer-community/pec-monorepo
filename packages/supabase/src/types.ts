@@ -143,6 +143,29 @@ export type Database = {
           },
         ]
       }
+      points: {
+        Row: {
+          author_id: string
+          point: number
+        }
+        Insert: {
+          author_id: string
+          point?: number
+        }
+        Update: {
+          author_id?: string
+          point?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "points_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           answer_id: string | null

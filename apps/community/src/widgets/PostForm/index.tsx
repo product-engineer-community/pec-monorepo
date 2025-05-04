@@ -8,6 +8,7 @@ import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
 import { Editor } from "@/shared/components/editor";
+import { convertPointTypeToToastMessage } from "@/src/entities/point/model";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
 
@@ -102,13 +103,26 @@ export default function PostForm({
         router.refresh();
       }
     }
+    if (state.success) {
+      toast.success(convertPointTypeToToastMessage("post"));
+    }
   }, [state, router, isEdit]);
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && e.currentTarget.value.trim()) {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
+    const trimmedTag = e.currentTarget.value.trim();
+
+    if (e.key === "Enter" && trimmedTag) {
       e.preventDefault();
-      const newTag = e.currentTarget.value.trim();
-      setTags((prevTags) => Array.from(new Set([...prevTags, newTag])));
+      if (tags.includes(trimmedTag)) {
+        toast.error("이미 추가된 태그입니다.");
+        return;
+      }
+
+      setTags((prevTags) => [...prevTags, trimmedTag]);
       e.currentTarget.value = "";
     }
   };
@@ -149,16 +163,16 @@ export default function PostForm({
       )}
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Title</label>
+        <label className="text-sm font-medium">글 제목</label>
         <Input
           name="title"
-          placeholder="Enter title"
+          placeholder="제목을 입력하세요"
           defaultValue={defaultValues?.title || ""}
         />
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Content</label>
+        <label className="text-sm font-medium">내용</label>
         <div className="min-h-[400px] rounded-md border p-4">
           <Editor content={content} onChange={setContent} />
         </div>
@@ -166,10 +180,10 @@ export default function PostForm({
 
       {postType !== "article" && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Category</label>
+          <label className="text-sm font-medium">카테고리</label>
           <Input
             name="category"
-            placeholder="Enter category"
+            placeholder="카테고리를 입력하세요"
             defaultValue={defaultValues?.category || ""}
           />
         </div>
@@ -177,7 +191,7 @@ export default function PostForm({
 
       {postType === "discussion" && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Tags</label>
+          <label className="text-sm font-medium">태그</label>
           <div className="mb-2 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <div
@@ -198,17 +212,17 @@ export default function PostForm({
           <Input
             name="tag-input"
             onKeyDown={handleAddTag}
-            placeholder="Add tags (press Enter)"
+            placeholder="작성후 엔터를 입력해 추가하세요"
           />
         </div>
       )}
 
       {postType === "article" && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Thumbnail URL</label>
+          <label className="text-sm font-medium">썸네일 URL</label>
           <Input
             name="thumbnail_url"
-            placeholder="Enter thumbnail URL"
+            placeholder="썸네일 URL을 입력하세요"
             defaultValue={defaultValues?.thumbnail_url || ""}
           />
         </div>

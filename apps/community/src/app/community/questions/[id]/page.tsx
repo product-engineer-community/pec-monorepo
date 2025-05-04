@@ -27,7 +27,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
       <div className="overflow-hidden rounded-lg bg-white p-6 shadow-md">
         <Suspense
           fallback={
-            <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200"></div>
+            <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />
           }
         >
           <QuestionDetail

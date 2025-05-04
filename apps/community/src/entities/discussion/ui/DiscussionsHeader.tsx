@@ -14,7 +14,7 @@ export function DiscussionsHeader() {
             query: { type: "discussion" },
           }}
         >
-          <Button>New Discussion</Button>
+          <Button>글쓰기</Button>
         </Link>
       </div>
       <div className="mb-6 text-lg text-muted-foreground">

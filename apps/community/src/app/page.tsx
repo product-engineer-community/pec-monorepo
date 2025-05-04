@@ -18,8 +18,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ContentItem from "../entities/landing/contentItem";
+import { getIsAuthenticated } from "../features/auth/lib/check-auth";
+import { SIGN_UP_PATHNAME } from "../shared/config/pathname";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const isAuthenticated = await getIsAuthenticated();
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
@@ -47,7 +51,7 @@ export default function LandingPage() {
             기술의 본질을 이해하고, 사용자의 문제를 해결하는
             <div className="inline-flex items-center">
               <GradientText
-                className="sm:pl-2"
+                className="cursor-auto sm:pl-2"
                 colors={["#0d4c86", "#6cb8ff", "#0d4c86", "#6cb8ff", "#0d4c86"]}
               >
                 Product Engineer
@@ -55,9 +59,13 @@ export default function LandingPage() {
             </div>
             들의 커뮤니티
           </div>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Button size="xl">지금 가입하기</Button>
-          </div>
+          {!isAuthenticated && (
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button size="xl" asChild>
+                <Link href={SIGN_UP_PATHNAME}>지금 가입하기</Link>
+              </Button>
+            </div>
+          )}
         </section>
 
         <section className="flex w-full flex-col gap-8 bg-muted p-8 md:flex-row md:py-24">
@@ -134,7 +142,7 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-xl font-bold">네트워킹</h3>
                 <p className="text-center text-muted-foreground">
-                  사용자들의 문제 해결에 진심인 현업 개발자들과의 깊이 있는
+                  사용자의 문제 해결에 진심인 현업 개발자들과의 깊이 있는
                   네트워킹을 제공합니다.
                 </p>
               </div>
@@ -169,22 +177,21 @@ export default function LandingPage() {
                 70명+ 의 Product Engineer 와 함께하세요
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                P.E Community 에는 70명 이상의 열정 있는 Product Engineer 들이
-                함께하고 있어요. 모두들 최고의 제품을 향해 나아가는
-                개발자들이며, 함께 성장하여 더 나은 개발자가 되고 싶은
-                사람들입니다.
+                P.E.C 에는 70명 이상의 열정 있는 Product Engineer 들이 함께하고
+                있어요. 모두들 최고의 제품을 향해 나아가는 개발자들이며, 함께
+                성장하여 더 나은 개발자가 되고 싶은 사람들입니다.
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                  <div className="h-2 w-2 rounded-full bg-green-500" />
                   <span className="text-sm">70+ 활동 멤버</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
                   <span className="text-sm">60+ 회사</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                  <div className="h-2 w-2 rounded-full bg-purple-500" />
                   <span className="text-sm">30+ 새로운 포스팅</span>
                 </div>
               </div>

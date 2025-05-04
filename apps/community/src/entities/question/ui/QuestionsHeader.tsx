@@ -14,7 +14,7 @@ export function QuestionsHeader() {
             query: { type: "question" },
           }}
         >
-          <Button>Ask Question</Button>
+          <Button>글쓰기</Button>
         </Link>
       </div>
 

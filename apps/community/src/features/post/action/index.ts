@@ -3,7 +3,9 @@
 import { noop, PostType } from "@pec/shared";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { match } from "ts-pattern";
 
+import { grantPointAction } from "@/features/track-activity/action/grantPoint";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
@@ -150,6 +152,9 @@ export async function createPost(
       postId: createdPost.id,
     }).catch(noop);
 
+    if (data.author_id) {
+      await grantPointAction(data.author_id, "post");
+    }
     // 캐시 무효화
     revalidatePath("/community");
   } catch (error) {
@@ -192,14 +197,6 @@ export async function deletePost(postId: string, postType: PostType) {
     return { error: "로그인이 필요합니다." };
   }
 
-  const newPath = `/community/${
-    postType === "question"
-      ? "questions"
-      : postType === "discussion"
-        ? "discussions"
-        : "articles"
-  }`;
-
   try {
     // 삭제 실행
     const { error } = await supabase.from("posts").delete().eq("id", postId);
@@ -208,6 +205,14 @@ export async function deletePost(postId: string, postType: PostType) {
     console.error("Error deleting post:", error);
     return { error: "게시물 삭제 중 오류가 발생했습니다." };
   }
+
+  // 일반적으로 쓰는 스타일
+  const newPath = match(postType)
+    .with("question", () => "/community/questions")
+    .with("discussion", () => "/community/discussions")
+    .with("article", () => "/community/articles")
+    .exhaustive();
+
   revalidatePath(newPath);
   redirect(newPath);
 }

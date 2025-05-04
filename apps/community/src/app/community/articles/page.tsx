@@ -43,12 +43,12 @@ export default async function ArticlesPage() {
       excerpt: article.content || "아티클 요약이 없습니다.",
       author: {
         name: article.author?.username || "익명",
-        avatar: article.author?.avatar_url || "/placeholder.svg",
+        avatar: article.author?.avatar_url || "/default-avatar.svg",
       },
       publishedAt: new Date(article.created_at).toLocaleDateString("ko-KR"),
       readingTime: "8 min read",
       tags: article.tags || ["Product Engineer"],
-      coverImage: article.thumbnail_url || "/placeholder.svg",
+      coverImage: article.thumbnail_url || "/default-article-thumbnail.svg",
       category: article.category || "기타",
     };
   });

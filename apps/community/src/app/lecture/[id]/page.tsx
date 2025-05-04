@@ -211,7 +211,7 @@ export default async function LecturePage({ params }: LecturePageProps) {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <Card className="overflow-hidden border-0 shadow-md">
-              <div className="bg-gradient-to-r from-blue-400 to-green-500 p-1"></div>
+              <div className="bg-gradient-to-r from-blue-400 to-green-500 p-1" />
               <CardContent className="p-5">
                 <h4 className="text-lg font-medium">
                   👨‍💻 Next.js를 써봤지만, 제대로 이해하고 싶은 분
@@ -224,7 +224,7 @@ export default async function LecturePage({ params }: LecturePageProps) {
             </Card>
 
             <Card className="overflow-hidden border-0 shadow-md">
-              <div className="bg-gradient-to-r from-green-600 to-blue-600 p-1"></div>
+              <div className="bg-gradient-to-r from-green-600 to-blue-600 p-1" />
               <CardContent className="p-5">
                 <h4 className="text-lg font-medium">
                   🎙 기술 면접에서 항상 흐릿하게 설명하게 되는 분
@@ -237,7 +237,7 @@ export default async function LecturePage({ params }: LecturePageProps) {
             </Card>
 
             <Card className="overflow-hidden border-0 shadow-md">
-              <div className="bg-gradient-to-r from-blue-700 to-purple-500 p-1"></div>
+              <div className="bg-gradient-to-r from-blue-700 to-purple-500 p-1" />
               <CardContent className="p-5">
                 <h4 className="text-lg font-medium">
                   🧭 AI 시대, 기술 선택 기준이 불안한 실무자
