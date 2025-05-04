@@ -112,12 +112,12 @@ export default function PostForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Title</label>
-        <Input name="title" placeholder="Enter title" defaultValue="" />
+        <label className="text-sm font-medium">글 제목</label>
+        <Input name="title" placeholder="제목을 입력하세요" defaultValue="" />
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Content</label>
+        <label className="text-sm font-medium">내용</label>
         <div className="min-h-[400px] rounded-md border p-4">
           <Editor content={content} onChange={setContent} />
         </div>
@@ -125,14 +125,18 @@ export default function PostForm() {
 
       {postType !== "article" && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Category</label>
-          <Input name="category" placeholder="Enter category" defaultValue="" />
+          <label className="text-sm font-medium">카테고리</label>
+          <Input
+            name="category"
+            placeholder="카테고리를 입력하세요"
+            defaultValue=""
+          />
         </div>
       )}
 
       {postType === "discussion" && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Tags</label>
+          <label className="text-sm font-medium">태그</label>
           <div className="mb-2 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <div
@@ -153,17 +157,17 @@ export default function PostForm() {
           <Input
             name="tag-input"
             onKeyDown={handleAddTag}
-            placeholder="Add tags (press Enter)"
+            placeholder="작성후 엔터를 입력해 추가하세요"
           />
         </div>
       )}
 
       {postType === "article" && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Thumbnail URL</label>
+          <label className="text-sm font-medium">썸네일 URL</label>
           <Input
             name="thumbnail_url"
-            placeholder="Enter thumbnail URL"
+            placeholder="썸네일 URL을 입력하세요"
             defaultValue=""
           />
         </div>

@@ -54,16 +54,16 @@ export default function CommunityPage() {
     <div className="space-y-4">
       <div>
         <Text size="3xl" weight="bold">
-          Community
+          P.E.C
         </Text>
-        <Text size="lg" className="text-muted-foreground">
-          Share your thoughts and connect with others
+        <Text size="lg" className="mt-1 text-muted-foreground">
+          다른 동료들과 자유롭게 생각을 나누어보세요.
         </Text>
       </div>
       <div className="rounded-lg border bg-card p-4">
-        <Text>Community content will go here</Text>
+        <Text>커뮤니티 내용이 여기에 들어갈 예정입니다.</Text>
       </div>
-      <Button onClick={handleCreateTestPost}>Create Test Post</Button>
+      <Button onClick={handleCreateTestPost}>테스트 게시글 작성하기</Button>
     </div>
   );
 }
