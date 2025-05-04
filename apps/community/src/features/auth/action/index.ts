@@ -127,13 +127,13 @@ export async function getUserEmail(userId: string) {
   };
 }
 
-export async function handleSocialSignIn(formData: FormData) {
+export async function socialSignIn(formData: FormData) {
   const provider = formData.get("provider") as SocialProvider;
 
   const supabase = await getSupabaseServerClient();
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const redirectTo = `${siteUrl.replace(/\/$/, "")}/auth/callback`;
+  const redirectTo = `${siteUrl.slice(0, -1)}/auth/callback`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
