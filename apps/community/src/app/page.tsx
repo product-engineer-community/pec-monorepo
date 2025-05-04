@@ -19,12 +19,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ContentItem from "../entities/landing/contentItem";
-import { getUserFromSupabase } from "../shared/supabase/action";
 import { SIGN_UP_PATHNAME } from "../shared/config/pathname";
+import { getIsAuthenticated } from "../features/auth/lib/check-auth";
 
 export default async function LandingPage() {
-  const user = await getUserFromSupabase();
-  const isAuthenticated = !!user;
+  const isAuthenticated = await getIsAuthenticated();
 
   return (
     <div className="flex min-h-screen flex-col">
