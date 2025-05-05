@@ -6,6 +6,7 @@ import {
   Text,
 } from "@pec/shared";
 import {
+  ArrowRight,
   CheckCircle,
   Github,
   Lightbulb,
@@ -72,6 +73,7 @@ export default async function LandingPage() {
                   }
                 >
                   {isAuthenticated ? "함께 질문하며 성장하기" : "지금 가입하기"}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -313,6 +315,7 @@ export default async function LandingPage() {
                   }
                 >
                   {isAuthenticated ? "함께 성장하기" : "지금 가입하기"}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
