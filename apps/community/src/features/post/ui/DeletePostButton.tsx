@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
   PostType,
-} from "@pec/shared";
+} from "@pec/ui";
 import { Trash2 } from "lucide-react";
 import { useActionState, useState } from "react";
 

@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardFooter, CardHeader } from "@pec/shared";
+import { Button, Card, CardContent, CardFooter, CardHeader } from "@pec/ui";
 import { Clock, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

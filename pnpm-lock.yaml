@@ -32,12 +32,12 @@ importers:
       '@pec/env':
         specifier: workspace:*
         version: link:../../packages/env
-      '@pec/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       '@pec/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
+      '@pec/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@portone/browser-sdk':
         specifier: ^0.0.17
         version: 0.0.17
@@ -223,7 +223,37 @@ importers:
         specifier: ^8.26.0
         version: 8.26.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
 
-  packages/shared:
+  packages/supabase:
+    dependencies:
+      '@pec/env':
+        specifier: workspace:*
+        version: link:../env
+      '@pec/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@supabase/ssr':
+        specifier: ^0.4.0
+        version: 0.4.0(@supabase/supabase-js@2.45.1)
+      '@supabase/supabase-js':
+        specifier: ^2.45.1
+        version: 2.45.1
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      typescript:
+        specifier: ^5.3.3
+        version: 5.8.2
+
+  packages/typescript-config: {}
+
+  packages/ui:
     dependencies:
       '@radix-ui/react-collapsible':
         specifier: ^1.0.3
@@ -242,7 +272,7 @@ importers:
         version: 1.1.4(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot':
         specifier: ^1.1.2
-        version: 1.1.2(@types/react@18.3.18)(react@18.3.1)
+        version: 1.2.0(@types/react@18.3.18)(react@18.3.1)
       '@radix-ui/react-tooltip':
         specifier: ^1.2.4
         version: 1.2.4(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -322,36 +352,6 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.8.2
-
-  packages/supabase:
-    dependencies:
-      '@pec/env':
-        specifier: workspace:*
-        version: link:../env
-      '@pec/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@supabase/ssr':
-        specifier: ^0.4.0
-        version: 0.4.0(@supabase/supabase-js@2.45.1)
-      '@supabase/supabase-js':
-        specifier: ^2.45.1
-        version: 2.45.1
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.1
-      typescript:
-        specifier: ^5.3.3
-        version: 5.8.2
-
-  packages/typescript-config: {}
 
 packages:
 

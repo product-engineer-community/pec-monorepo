@@ -1,4 +1,4 @@
-import { Button } from "@pec/shared";
+import { Button } from "@pec/ui";
 import Image from "next/image";
 
 import { SubTitle } from "@/features/camp/ui";

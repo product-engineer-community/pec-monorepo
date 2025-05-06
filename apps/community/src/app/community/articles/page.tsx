@@ -1,4 +1,4 @@
-import { Text } from "@pec/shared";
+import { Text } from "@pec/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";

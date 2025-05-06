@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Text } from "@pec/shared";
+import { Button, Text } from "@pec/ui";
 import { CalendarDays, Clock, MapPin, Users } from "lucide-react";
 
 // Fake events data

@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@pec/shared";
+} from "@pec/ui";
 import { PropsWithChildren } from "react";
 
 interface RefundPolicyDialogProps {

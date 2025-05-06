@@ -4,7 +4,7 @@ import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import "highlight.js/styles/atom-one-dark.css";
 
-import { Button } from "@pec/shared";
+import { Button } from "@pec/ui";
 import { Code } from "lucide-react";
 import dynamic from "next/dynamic";
 import ReactMarkdown from "react-markdown";

@@ -1,4 +1,4 @@
-import { getRelativeTimeString, PostCardSkeleton } from "@pec/shared";
+import { getRelativeTimeString, PostCardSkeleton } from "@pec/ui";
 import Link from "next/link";
 import { Suspense } from "react";
 
