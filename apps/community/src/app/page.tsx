@@ -4,7 +4,7 @@ import {
   RotatingText,
   ShinyText,
   Text,
-} from "@pec/shared";
+} from "@pec/ui";
 import {
   ArrowRight,
   CheckCircle,

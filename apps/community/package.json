@@ -11,7 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
     "@pec/env": "workspace:*",
-    "@pec/shared": "workspace:*",
+    "@pec/ui": "workspace:*",
     "@pec/supabase": "workspace:*",
     "@portone/browser-sdk": "^0.0.17",
     "@portone/server-sdk": "^0.14.0",

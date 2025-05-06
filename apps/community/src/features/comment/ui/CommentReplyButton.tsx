@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@pec/shared";
+import { Button } from "@pec/ui";
 import { ReplyIcon } from "lucide-react";
 
 interface CommentReplyButtonProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@pec/shared";
+import { Button } from "@pec/ui";
 
 import { useAuth } from "@/src/features/auth/model/use-auth";
 import { MAIN_PATHNAME } from "@/src/shared/config/pathname";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, cn, Input } from "@pec/shared";
+import { Button, cn, Input } from "@pec/ui";
 import { Eye, EyeOff } from "lucide-react";
 import { forwardRef, useState } from "react";
 

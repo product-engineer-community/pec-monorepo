@@ -1,6 +1,6 @@
 "use client";
 
-import { getRelativeTimeString } from "@pec/shared";
+import { getRelativeTimeString } from "@pec/ui";
 import Image from "next/image";
 import { useState } from "react";
 

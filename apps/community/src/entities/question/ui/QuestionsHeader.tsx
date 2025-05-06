@@ -1,4 +1,4 @@
-import { Button } from "@pec/shared";
+import { Button } from "@pec/ui";
 import Link from "next/link";
 
 import { COMMUNITY_POST_WRITE_PATHNAME } from "@/src/shared/config/pathname";

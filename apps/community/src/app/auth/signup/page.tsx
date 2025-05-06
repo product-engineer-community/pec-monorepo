@@ -11,7 +11,7 @@ import {
   CardTitle,
   Input,
   Label,
-} from "@pec/shared";
+} from "@pec/ui";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

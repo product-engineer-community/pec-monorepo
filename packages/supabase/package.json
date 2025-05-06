@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@pec/env": "workspace:*",
-    "@pec/shared": "workspace:*",
+    "@pec/ui": "workspace:*",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.1"
   },

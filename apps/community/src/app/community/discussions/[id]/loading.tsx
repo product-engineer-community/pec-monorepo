@@ -1,4 +1,4 @@
-import { PostCardSkeleton } from "@pec/shared";
+import { PostCardSkeleton } from "@pec/ui";
 
 export default function Loading() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Text } from "@pec/shared";
 import { getSupabaseClient } from "@pec/supabase";
+import { Button, Text } from "@pec/ui";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CommunityPage() {
