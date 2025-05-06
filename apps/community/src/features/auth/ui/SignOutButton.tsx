@@ -3,6 +3,7 @@
 import { Button } from "@pec/shared";
 
 import { useAuth } from "@/src/features/auth/model/use-auth";
+import { MAIN_PATHNAME } from "@/src/shared/config/pathname";
 
 export function SignOutButton() {
   const { signOut } = useAuth();
@@ -15,6 +16,7 @@ export function SignOutButton() {
         method: "POST",
       }),
     ]);
+    location.href = MAIN_PATHNAME;
   };
 
   return (
