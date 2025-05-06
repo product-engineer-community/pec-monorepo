@@ -32,10 +32,10 @@ export default function PaymentButton({
   payMethod,
   currency = "CURRENCY_KRW",
 }: PaymentButtonProps) {
-  const { session } = useAuth();
-
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
   const [isRefundPolicyAgreed, setIsRefundPolicyAgreed] = useState(false);
+
+  const { getSession } = useAuth();
 
   const handleClick = async () => {
     if (!isRefundPolicyAgreed) {
@@ -45,6 +45,8 @@ export default function PaymentButton({
 
     setIsPaymentLoading(true);
     const paymentId = crypto.randomUUID();
+
+    const session = await getSession();
 
     try {
       const payment = await PortOne.requestPayment({

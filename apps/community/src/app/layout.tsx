@@ -4,7 +4,6 @@ import { GeistSans } from "geist/font/sans";
 import { Toaster } from "sonner";
 
 import { BaseLayout } from "../shared/layouts/base-layout";
-import { Providers } from "./providers";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -24,10 +23,8 @@ export default function RootLayout({
   return (
     <html lang="ko" className={GeistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
-        <Providers>
-          <BaseLayout>{children}</BaseLayout>
-          <Toaster position="top-center" />
-        </Providers>
+        <BaseLayout>{children}</BaseLayout>
+        <Toaster position="top-center" />
       </body>
     </html>
   );
