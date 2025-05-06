@@ -19,4 +19,4 @@ alwaysApply: true
 - **Authentication & User Management** via **Supabase Auth**
 - Architecture: **Feature Sliced Design (FSD)**
 - Primary Goal: Build a scalable authentication system using Supabase and FSD principles.
-- Can add new ui component with shadcn - Move packages/shared, then pnpm add-component button
+- Can add new ui component with shadcn - Move packages/ui, then pnpm add-component button
