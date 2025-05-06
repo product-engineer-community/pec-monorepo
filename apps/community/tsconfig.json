@@ -29,8 +29,6 @@
       "@/widgets/*": ["./src/widgets/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/shared/*": ["./src/shared/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/providers/*": ["./src/providers/*"],
       "@ui/*": ["../../packages/ui/src/*"]
     }
   },
