@@ -64,7 +64,7 @@ export async function Header() {
                   {item.label}
                   <ChevronDown className="h-4 w-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
+                <DropdownMenuContent align="start" className="bg-white">
                   {item.items.map((subItem) => (
                     <DropdownMenuItem key={subItem.href} asChild>
                       <Link href={subItem.href}>{subItem.label}</Link>
