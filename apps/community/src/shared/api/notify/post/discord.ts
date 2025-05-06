@@ -4,7 +4,7 @@ import { NotifyNewPostOptions } from "./types";
  * "community-새글알림" 채널의 웹훅 URL입니다.
  */
 const NEW_POST_NOTIFICATION_WEBHOOK_URL =
-  "https://discord.com/api/webhooks/1367286496545214605/1GTDr6I60h1pKHwa_7_ly_qhh--JeTQa8aR1zi42HV_B0uzYX_NIgIkqyokOTPG-6B5F";
+  process.env.NEW_POST_NOTIFICATION_WEBHOOK_URL || "";
 
 /**
  * PEC 디스코드 채널의 "community-새글알림" 채널로 메시지를 전송하는 함수입니다.
