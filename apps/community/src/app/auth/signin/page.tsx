@@ -50,6 +50,12 @@ export default function SignInPage() {
         </CardHeader>
 
         <CardContent className="space-y-4">
+          <SocialLoginDivider />
+
+          <SocialAuthForm />
+
+          <div className="text-center text-sm text-muted-foreground">또는</div>
+
           <form action={formAction}>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -84,10 +90,6 @@ export default function SignInPage() {
               </div>
             </div>
           </form>
-
-          <SocialLoginDivider />
-
-          <SocialAuthForm error={state?.error} />
         </CardContent>
       </Card>
     </div>

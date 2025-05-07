@@ -131,7 +131,7 @@ export async function getUserEmail(userId: string) {
   };
 }
 
-export async function socialSignIn(formData: FormData) {
+export async function socialSignIn(prevState: SignInState, formData: FormData) {
   const provider = formData.get("provider") as SocialProvider;
 
   const supabase = await getSupabaseServerClient();
@@ -147,11 +147,17 @@ export async function socialSignIn(formData: FormData) {
   });
 
   if (error) {
-    throw new Error(error.message);
+    return {
+      error: error.message,
+      success: false,
+    };
   }
 
   if (!data?.url) {
-    throw new Error("리다이렉트 URL이 생성되지 않았습니다.");
+    return {
+      error: "리다이렉트 URL이 생성되지 않았습니다.",
+      success: false,
+    };
   }
 
   redirect(data.url);

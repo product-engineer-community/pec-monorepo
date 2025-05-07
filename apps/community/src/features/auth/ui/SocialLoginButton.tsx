@@ -12,6 +12,7 @@ import {
 
 type SocialLoginButtonProps = ComponentProps<typeof Button> & {
   provider: SocialProvider;
+  isLoading?: boolean;
 };
 
 export function SocialLoginButton({
@@ -22,15 +23,15 @@ export function SocialLoginButton({
 }: SocialLoginButtonProps) {
   return (
     <Button
+      type="submit"
       variant="outline"
       className={`flex w-full items-center justify-center gap-2 ${className}`}
-      type="button"
       {...props}
     >
       <Image
         src={PROVIDER_ICON_PATHS[provider]}
-        width={16}
-        height={16}
+        width={provider === "figma" ? 24 : 16}
+        height={provider === "figma" ? 24 : 16}
         alt={`${PROVIDER_NAMES[provider]} logo`}
       />
       {children || PROVIDER_NAMES[provider]}

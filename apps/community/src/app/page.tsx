@@ -15,7 +15,7 @@ import ContentItem from "../entities/landing/contentItem";
 import { getIsAuthenticated } from "../features/auth/lib/check-auth";
 import {
   COMMUNITY_QUESTIONS_PATHNAME,
-  SIGN_UP_PATHNAME,
+  SIGN_IN_PATHNAME,
 } from "../shared/config/pathname";
 
 export default async function LandingPage() {
@@ -56,22 +56,20 @@ export default async function LandingPage() {
             </div>
             들의 커뮤니티
           </div>
-          {!isAuthenticated && (
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button size="xl" asChild>
-                <Link
-                  href={
-                    isAuthenticated
-                      ? COMMUNITY_QUESTIONS_PATHNAME
-                      : SIGN_UP_PATHNAME
-                  }
-                >
-                  {isAuthenticated ? "함께 질문하며 성장하기" : "지금 가입하기"}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          )}
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <Button size="xl" asChild>
+              <Link
+                href={
+                  isAuthenticated
+                    ? COMMUNITY_QUESTIONS_PATHNAME
+                    : SIGN_IN_PATHNAME
+                }
+              >
+                {isAuthenticated ? "함께 질문하며 성장하기" : "지금 시작하기"}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </section>
 
         <section className="flex w-full flex-col gap-8 bg-muted p-8 md:flex-row md:py-24">
@@ -305,10 +303,10 @@ export default async function LandingPage() {
                   href={
                     isAuthenticated
                       ? COMMUNITY_QUESTIONS_PATHNAME
-                      : SIGN_UP_PATHNAME
+                      : SIGN_IN_PATHNAME
                   }
                 >
-                  {isAuthenticated ? "함께 성장하기" : "지금 가입하기"}
+                  {isAuthenticated ? "함께 성장하기" : "지금 시작하기"}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
