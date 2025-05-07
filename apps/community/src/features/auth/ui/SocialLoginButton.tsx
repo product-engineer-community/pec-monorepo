@@ -30,8 +30,8 @@ export function SocialLoginButton({
     >
       <Image
         src={PROVIDER_ICON_PATHS[provider]}
-        width={provider === "figma" ? 24 : 16}
-        height={provider === "figma" ? 24 : 16}
+        width={16}
+        height={16}
         alt={`${PROVIDER_NAMES[provider]} logo`}
       />
       {children || PROVIDER_NAMES[provider]}
