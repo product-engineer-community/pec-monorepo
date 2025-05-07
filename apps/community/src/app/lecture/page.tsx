@@ -1,4 +1,4 @@
-import { Button } from "@pec/ui";
+import { Button } from "@packages/ui";
 
 import { getLectures } from "@/src/entities/lecture/action";
 import { LectureItem } from "@/src/entities/lecture/ui";

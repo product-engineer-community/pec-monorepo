@@ -1,4 +1,4 @@
-import { PostType } from "@pec/ui";
+import { PostType } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { getPostById } from "@/src/features/post/api";

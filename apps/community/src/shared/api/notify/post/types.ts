@@ -1,4 +1,4 @@
-import { PostType } from "@pec/ui";
+import { PostType } from "@packages/ui";
 
 export interface NotifyNewPostOptions {
   postId: string;

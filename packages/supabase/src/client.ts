@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
-import type { Env } from "@pec/env";
+import type { Env } from "@packages/env";
 
 let supabaseClient: ReturnType<typeof createClient<Database>> | null = null;
 

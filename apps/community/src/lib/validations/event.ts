@@ -1,4 +1,4 @@
-import { eventSchema } from '@pec/ui'
+import { eventSchema } from '@packages/ui'
 import * as z from 'zod'
 
 export const createEventSchema = z.object({

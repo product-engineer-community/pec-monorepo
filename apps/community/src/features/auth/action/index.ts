@@ -1,6 +1,6 @@
 "use server";
 
-import { getSupabaseClient } from "@pec/supabase";
+import { getSupabaseClient } from "@packages/supabase";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 

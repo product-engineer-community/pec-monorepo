@@ -9,7 +9,7 @@ import {
   CardTitle,
   Input,
   Label,
-} from "@pec/ui";
+} from "@packages/ui";
 import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";

@@ -1,4 +1,4 @@
-qlockfileVersion: '9.0'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
@@ -32,13 +32,13 @@ importers:
       '@next/third-parties':
         specifier: ^15.3.2
         version: 15.3.2(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
-      '@pec/env':
+      '@packages/env':
         specifier: workspace:*
         version: link:../../packages/env
-      '@pec/supabase':
+      '@packages/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
-      '@pec/ui':
+      '@packages/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@portone/browser-sdk':
@@ -228,10 +228,10 @@ importers:
 
   packages/supabase:
     dependencies:
-      '@pec/env':
+      '@packages/env':
         specifier: workspace:*
         version: link:../env
-      '@pec/ui':
+      '@packages/ui':
         specifier: workspace:*
         version: link:../ui
       '@supabase/ssr':

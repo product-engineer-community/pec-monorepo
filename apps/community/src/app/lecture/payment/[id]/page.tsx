@@ -5,7 +5,7 @@ import {
   CardTitle,
   Input,
   Label,
-} from "@pec/ui";
+} from "@packages/ui";
 import Image from "next/image";
 
 import { getLectureItems, getLectures } from "@/entities/lecture/action";

@@ -1,4 +1,4 @@
-import { postSchema } from '@pec/ui'
+import { postSchema } from '@packages/ui'
 import * as z from 'zod'
 
 export const createPostSchema = z.object({

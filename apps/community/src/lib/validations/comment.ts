@@ -1,4 +1,4 @@
-import { commentSchema } from '@pec/ui'
+import { commentSchema } from '@packages/ui'
 import * as z from 'zod'
 
 export const createCommentSchema = z.object({

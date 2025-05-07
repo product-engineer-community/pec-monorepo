@@ -1,4 +1,4 @@
-import { getSupabaseServer } from "@pec/supabase";
+import { getSupabaseServer } from "@packages/supabase";
 import { cookies } from "next/headers";
 
 export async function getSupabaseServerClient() {

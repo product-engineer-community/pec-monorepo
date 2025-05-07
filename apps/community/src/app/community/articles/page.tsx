@@ -1,4 +1,4 @@
-import { Text } from "@pec/ui";
+import { Text } from "@packages/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@pec/ui";
+import { Button } from "@packages/ui";
 import Image from "next/image";
 import { ComponentProps } from "react";
 

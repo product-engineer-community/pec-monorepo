@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from "@pec/supabase";
+import { getSupabaseAdmin } from "@packages/supabase";
 import { cookies } from "next/headers";
 
 export async function getSupabaseAdminClient() {

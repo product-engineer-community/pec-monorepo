@@ -1,4 +1,4 @@
-import { Button } from "@pec/ui";
+import { Button } from "@packages/ui";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

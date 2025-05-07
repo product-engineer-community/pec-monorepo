@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@pec/ui";
+import { Button } from "@packages/ui";
 import Link from "next/link";
 
 export default function DiscussionsError({ reset }: { reset: () => void }) {

@@ -1,4 +1,4 @@
-import { Button, GradientText, RotatingText, ShinyText, Text } from "@pec/ui";
+import { Button, GradientText, RotatingText, ShinyText, Text } from "@packages/ui";
 import {
   ArrowRight,
   CheckCircle,
