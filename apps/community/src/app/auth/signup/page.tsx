@@ -2,6 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  PasswordInput,
+  signUp,
+  type SignUpInput,
+  signUpSchema,
+} from "@packages/auth";
+import {
   Button,
   Card,
   CardContent,
@@ -15,10 +21,6 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
-import { signUp } from "@/features/auth/action";
-import { PasswordInput } from "@/features/auth/ui";
-import { SignUpInput, signUpSchema } from "@/lib/validations/auth";
 
 export default function SignUpPage() {
   const [error, setError] = useState<string>();

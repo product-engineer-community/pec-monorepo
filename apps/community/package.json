@@ -14,6 +14,7 @@
     "@packages/env": "workspace:*",
     "@packages/supabase": "workspace:*",
     "@packages/ui": "workspace:*",
+    "@packages/auth": "workspace:*",
     "@portone/browser-sdk": "^0.0.17",
     "@portone/server-sdk": "^0.14.0",
     "@supabase/ssr": "^0.4.0",

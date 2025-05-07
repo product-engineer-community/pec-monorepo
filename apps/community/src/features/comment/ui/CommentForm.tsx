@@ -1,11 +1,11 @@
 "use client";
 
+import { getUserEmail } from "@packages/auth";
 import { Button } from "@packages/ui";
 import { useState } from "react";
 import { toast } from "sonner";
 
 import { convertPointTypeToToastMessage } from "@/entities/point/model";
-import { getUserEmail } from "@/features/auth/action";
 import { createComment } from "@/features/comment/action";
 import { getPostType } from "@/features/post/action";
 import { getUsername } from "@/features/user/action";

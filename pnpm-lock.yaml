@@ -32,6 +32,9 @@ importers:
       '@next/third-parties':
         specifier: ^15.3.2
         version: 15.3.2(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+      '@packages/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@packages/env':
         specifier: workspace:*
         version: link:../../packages/env
@@ -174,6 +177,37 @@ importers:
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2))
+
+  packages/auth:
+    dependencies:
+      '@packages/env':
+        specifier: workspace:*
+        version: link:../env
+      '@packages/supabase':
+        specifier: workspace:*
+        version: link:../supabase
+      '@packages/ui':
+        specifier: workspace:*
+        version: link:../ui
+      lucide-react:
+        specifier: ^0.350.0
+        version: 0.350.0(react@19.1.0)
+      next:
+        specifier: ^15.3.1
+        version: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: ^18.2.19
+        version: 18.3.5(@types/react@18.3.18)
 
   packages/env:
     devDependencies:

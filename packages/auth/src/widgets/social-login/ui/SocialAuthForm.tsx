@@ -2,13 +2,13 @@
 
 import { useActionState } from "react";
 
-import { SignInState, socialSignIn } from "@/features/auth/action";
+import { SignInState, socialSignIn } from "../../../features/auth/action";
 import {
   DEFAULT_ENABLED_PROVIDERS,
   PROVIDER_NAMES,
   type SocialProvider,
-} from "@/features/auth/model";
-import { SocialLoginButton } from "@/features/auth/ui";
+} from "../../../features/auth";
+import { SocialLoginButton } from "../../../features/auth/ui";
 
 type SocialAuthFormProps = {
   providers?: SocialProvider[];
