@@ -13,6 +13,7 @@ import {
 import { getSupabaseAdminClient } from "@/shared/supabase/admin";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
 
+import { AUTH_ERROR_MESSAGES } from "../config/error-messages";
 import { getAuthErrorMessage } from "../lib/error-handler";
 import type { SocialProvider } from "../model/social-auth";
 
@@ -40,7 +41,7 @@ export async function signUp(
   if (signUpError) {
     console.error(signUpError.message);
     return {
-      error: "알 수 없는 오류로 회원가입에 실패 하였습니다.",
+      error: AUTH_ERROR_MESSAGES["SIGN_UP_DEFAULT"],
     };
   }
 
