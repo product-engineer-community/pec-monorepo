@@ -38,7 +38,10 @@ export async function signUp(
   });
 
   if (signUpError) {
-    return { error: signUpError.message };
+    console.error(signUpError.message);
+    return {
+      error: "알 수 없는 오류로 회원가입에 실패 하였습니다.",
+    };
   }
 
   return {
