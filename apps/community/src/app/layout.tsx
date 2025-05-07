@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { GeistSans } from "geist/font/sans";
 import { Toaster } from "sonner";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <BaseLayout>{children}</BaseLayout>
         <Toaster position="top-center" />
       </body>
+      <GoogleAnalytics gaId="G-WGBMGCF9MG" />
     </html>
   );
 }
