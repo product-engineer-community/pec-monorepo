@@ -1,6 +1,8 @@
 "use client";
 
-import { socialSignIn } from "@/features/auth/action";
+import { useActionState } from "react";
+
+import { SignInState, socialSignIn } from "@/features/auth/action";
 import {
   DEFAULT_ENABLED_PROVIDERS,
   PROVIDER_NAMES,
@@ -10,35 +12,39 @@ import { SocialLoginButton } from "@/features/auth/ui";
 
 type SocialAuthFormProps = {
   providers?: SocialProvider[];
-  error?: string | null;
   gridClass?: string;
+};
+
+const initialState: SignInState = {
+  error: null,
+  success: false,
 };
 
 export function SocialAuthForm({
   providers = DEFAULT_ENABLED_PROVIDERS,
-  error = null,
-  gridClass = "grid-cols-2",
 }: SocialAuthFormProps) {
+  const [state, formAction] = useActionState(socialSignIn, initialState);
+
   return (
     <>
-      {error && (
-        <div className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {error}
-        </div>
-      )}
-
-      <div className={`grid ${gridClass} gap-4`}>
+      <div className="flex flex-col gap-4">
         {providers.map((provider) => (
           <div key={provider} className="w-full">
-            <form action={socialSignIn}>
+            <form action={formAction}>
               <input type="hidden" name="provider" value={provider} />
-              <SocialLoginButton provider={provider} type="submit">
+              <SocialLoginButton provider={provider}>
                 {PROVIDER_NAMES[provider]}
               </SocialLoginButton>
             </form>
           </div>
         ))}
       </div>
+
+      {state.error && (
+        <div className="rounded-md text-center text-sm text-destructive">
+          {state.error}
+        </div>
+      )}
     </>
   );
 }

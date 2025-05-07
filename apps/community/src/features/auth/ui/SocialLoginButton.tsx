@@ -12,6 +12,7 @@ import {
 
 type SocialLoginButtonProps = ComponentProps<typeof Button> & {
   provider: SocialProvider;
+  isLoading?: boolean;
 };
 
 export function SocialLoginButton({
@@ -22,9 +23,9 @@ export function SocialLoginButton({
 }: SocialLoginButtonProps) {
   return (
     <Button
+      type="submit"
       variant="outline"
       className={`flex w-full items-center justify-center gap-2 ${className}`}
-      type="button"
       {...props}
     >
       <Image
