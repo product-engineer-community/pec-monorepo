@@ -1,12 +1,11 @@
 "use client";
 
 import { useAuth } from "@packages/auth";
+import { LECTURE_PATHNAME } from "@packages/constants";
 import { Button } from "@packages/ui";
 import * as PortOne from "@portone/browser-sdk/v2";
 import { useState } from "react";
 import { toast } from "sonner";
-
-import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 import RefundPolicyDialog from "./RefundPolicyDialog";
 

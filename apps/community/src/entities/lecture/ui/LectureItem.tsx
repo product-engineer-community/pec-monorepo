@@ -1,10 +1,16 @@
-import { Button, Card, CardContent, CardFooter, CardHeader } from "@packages/ui";
+import { LECTURE_PATHNAME } from "@packages/constants";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@packages/ui";
 import { Clock, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Lecture } from "@/src/entities/lecture/model";
-import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 // 강의 아이템 컴포넌트
 export function LectureItem({

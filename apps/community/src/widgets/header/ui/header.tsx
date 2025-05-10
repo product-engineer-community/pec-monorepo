@@ -1,4 +1,11 @@
 import { SignOutButton } from "@packages/auth";
+import {
+  COMMUNITY_ARTICLES_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
+  COMMUNITY_EVENTS_PATHNAME,
+  COMMUNITY_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
+} from "@packages/constants";
 import { getUserFromSupabase } from "@packages/supabase";
 import {
   Button,
@@ -12,14 +19,6 @@ import {
 import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-import {
-  COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
-  COMMUNITY_EVENTS_PATHNAME,
-  COMMUNITY_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
-} from "@/shared/config/pathname";
 
 import { DropdownMenuWithPoint } from "./DropdownMenuWithPoint";
 

@@ -1,3 +1,4 @@
+import { LECTURE_PATHNAME } from "@packages/constants";
 import {
   Button,
   Card,
@@ -12,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getLectureItems, getLectures } from "@/entities/lecture/action";
-import { LECTURE_PATHNAME } from "@/src/shared/config/pathname";
 
 interface LecturePageProps {
   params: Promise<{

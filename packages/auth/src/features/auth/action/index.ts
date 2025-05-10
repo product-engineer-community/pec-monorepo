@@ -9,7 +9,7 @@ import {
   AUTH_CALLBACK_PATHNAME,
   MAIN_PATHNAME,
   SIGN_IN_PATHNAME,
-} from "../config/pathname";
+} from "@packages/constants";
 import { getSupabaseAdminClient } from "@packages/supabase";
 import { getSupabaseServerClient } from "@packages/supabase";
 
