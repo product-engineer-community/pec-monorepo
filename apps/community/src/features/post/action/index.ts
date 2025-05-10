@@ -1,15 +1,15 @@
 "use server";
 
+import {
+  getSupabaseServerClient,
+  getUserFromSupabase,
+} from "@packages/supabase";
 import { noop, PostType } from "@packages/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { match } from "ts-pattern";
 
 import { grantPointAction } from "@/features/track-activity/action/grantPoint";
-import {
-  getSupabaseServerClient,
-  getUserFromSupabase,
-} from "@/shared/supabase";
 import { NotifyChannel, notifyPost } from "@/src/shared/api";
 
 /**

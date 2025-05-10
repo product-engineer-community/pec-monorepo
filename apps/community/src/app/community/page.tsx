@@ -1,6 +1,6 @@
 "use client";
 
-import { getSupabaseClient } from "@packages/supabase";
+import { getSupabaseClient } from "@packages/supabase/src/client";
 import { Button, Text } from "@packages/ui";
 import { v4 as uuidv4 } from "uuid";
 

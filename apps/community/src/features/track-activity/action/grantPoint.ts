@@ -1,8 +1,9 @@
 "use server";
 
+import { getSupabaseServerClient } from "@packages/supabase";
+
 import { getUserPoint } from "@/src/entities/point/action";
 import { getPointForAction, PointType } from "@/src/entities/point/model";
-import { getSupabaseServerClient } from "@/src/shared/supabase";
 
 export async function grantPointAction(userId: string, action: PointType) {
   const point = getPointForAction(action);

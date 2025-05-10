@@ -119,7 +119,7 @@ pnpm dev
 ## Supabase 개발 가이드라인
 
 - `getSupabaseServerClient()` 함수를 사용하여 Supabase 클라이언트 초기화
-- `@/shared/supabase`를 활용
+- `@packages/supabase`를 활용
 - 재사용을 위해 단일 Supabase 클라이언트 인스턴스 생성 및 내보내기
 
 ## 빌드

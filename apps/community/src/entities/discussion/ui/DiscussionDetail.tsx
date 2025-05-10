@@ -1,9 +1,9 @@
+import { getAuthSession } from "@packages/supabase";
 import { getRelativeTimeString } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { getPost } from "@/entities/post";
 import { MarkdownViewer } from "@/shared/components/editor";
-import { getAuthSession } from "@/shared/supabase";
 
 interface DiscussionDetailProps {
   id: string;

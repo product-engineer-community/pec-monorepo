@@ -1,10 +1,11 @@
+import { getAuthSession } from "@packages/supabase";
+
 import {
   CommentForm,
   CommentList,
   getComments,
   groupComments,
 } from "@/features/comment";
-import { getAuthSession } from "@/shared/supabase/action";
 
 interface CommentsProps {
   postId: string;

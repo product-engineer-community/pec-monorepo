@@ -1,7 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { Database } from "./types";
+import { cookies } from "next/headers";
 
-export async function getSupabaseAdmin(cookieStore: any) {
+export async function getSupabaseAdminClient() {
+  const cookieStore = await cookies();
+
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
@@ -10,9 +13,11 @@ export async function getSupabaseAdmin(cookieStore: any) {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet: any) {
+        setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }: any) => cookieStore.set(name, value, options));
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
           } catch {
             // The `setAll` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
@@ -20,6 +25,6 @@ export async function getSupabaseAdmin(cookieStore: any) {
           }
         },
       },
-    },
+    }
   );
 }

@@ -1,8 +1,8 @@
+import { getAuthSession } from "@packages/supabase";
 import { getRelativeTimeString } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { MarkdownViewer } from "@/shared/components/editor";
-import { getAuthSession } from "@/shared/supabase";
 import { getPost } from "@/src/entities/post";
 
 interface QuestionDetailProps {

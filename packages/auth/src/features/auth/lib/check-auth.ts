@@ -1,5 +1,6 @@
 "use server";
-import { getAuthSession } from "@/shared/supabase";
+
+import { getAuthSession } from "@packages/supabase";
 
 export const getIsAuthenticated = async () => {
   const user = await getAuthSession();
