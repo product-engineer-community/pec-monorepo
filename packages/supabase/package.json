@@ -2,7 +2,6 @@
   "name": "@packages/supabase",
   "version": "0.0.0",
   "private": true,
-  "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -20,9 +19,5 @@
     "@repo/typescript-config": "workspace:*",
     "eslint": "^8.57.0",
     "typescript": "^5.3.3"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./src/client": "./src/client.ts"
   }
 }
