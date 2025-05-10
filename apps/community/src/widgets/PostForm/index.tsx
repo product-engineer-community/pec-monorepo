@@ -1,8 +1,7 @@
 "use client";
 
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
-import { Button, Input } from "@packages/ui";
-import { type PostType } from "@packages/ui";
+import { Button, Input, type PostType } from "@packages/ui";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
