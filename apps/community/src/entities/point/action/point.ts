@@ -1,4 +1,4 @@
-import { getSupabaseServerClient } from "@/src/shared/supabase/server";
+import { getSupabaseServerClient } from "@packages/supabase";
 
 export const getUserPoint = async (authorId: string) => {
   const supabase = await getSupabaseServerClient();

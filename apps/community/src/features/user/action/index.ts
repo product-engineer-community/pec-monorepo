@@ -1,6 +1,6 @@
 "use server";
 
-import { getSupabaseServerClient } from "@/src/shared/supabase";
+import { getSupabaseServerClient } from "@packages/supabase";
 
 export async function getUsername(userId: string) {
   const supabase = await getSupabaseServerClient();

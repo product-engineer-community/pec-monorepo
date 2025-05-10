@@ -1,4 +1,4 @@
-import { getSupabaseClient } from "@packages/supabase";
+import { getSupabaseClient } from "@packages/supabase/src/client";
 
 export function useAuth() {
   const supabase = getSupabaseClient({

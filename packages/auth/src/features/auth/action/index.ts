@@ -1,6 +1,6 @@
 "use server";
 
-import { getSupabaseClient } from "@packages/supabase";
+import { getSupabaseClient } from "@packages/supabase/src/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -10,8 +10,8 @@ import {
   MAIN_PATHNAME,
   SIGN_IN_PATHNAME,
 } from "../config/pathname";
-import { getSupabaseAdminClient } from "@/shared/supabase/admin";
-import { getSupabaseServerClient } from "@/shared/supabase/server";
+import { getSupabaseAdminClient } from "@packages/supabase";
+import { getSupabaseServerClient } from "@packages/supabase";
 
 import { AUTH_ERROR_MESSAGES } from "../config/error-messages";
 import { getAuthErrorMessage } from "../lib/error-handler";

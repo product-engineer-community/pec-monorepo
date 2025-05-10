@@ -1,4 +1,5 @@
 import { SignOutButton } from "@packages/auth";
+import { getUserFromSupabase } from "@packages/supabase";
 import {
   Button,
   DropdownMenu,
@@ -19,7 +20,6 @@ import {
   COMMUNITY_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
 } from "@/shared/config/pathname";
-import { getUserFromSupabase } from "@/shared/supabase/action";
 
 import { DropdownMenuWithPoint } from "./DropdownMenuWithPoint";
 

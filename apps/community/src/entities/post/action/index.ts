@@ -1,6 +1,6 @@
 "use server";
 
-import { getSupabaseServerClient } from "@/shared/supabase";
+import { getSupabaseServerClient } from "@packages/supabase";
 
 import { Post } from "../model";
 

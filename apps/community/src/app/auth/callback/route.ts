@@ -1,7 +1,7 @@
+import { getSupabaseServerClient } from "@packages/supabase";
 import { NextResponse } from "next/server";
 
 import { MAIN_PATHNAME } from "@/shared/config/pathname";
-import { getSupabaseServerClient } from "@/shared/supabase/server";
 
 export async function GET(request: Request) {
   const searchParams = new URL(request.url).searchParams;

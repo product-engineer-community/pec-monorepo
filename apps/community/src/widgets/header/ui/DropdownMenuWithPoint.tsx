@@ -1,3 +1,4 @@
+import { getUserFromSupabase } from "@packages/supabase";
 import {
   Badge,
   DropdownMenu,
@@ -14,7 +15,6 @@ import {
   convertPointToEmoji,
   convertPointToPercent,
 } from "@/src/entities/point/model";
-import { getUserFromSupabase } from "@/src/shared/supabase/action";
 
 export const DropdownMenuWithPoint = async () => {
   const user = await getUserFromSupabase();
