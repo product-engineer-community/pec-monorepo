@@ -1,4 +1,4 @@
-import { getIsAuthenticated } from "@packages/auth";
+import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
   COMMUNITY_QUESTIONS_PATHNAME,
   SIGN_IN_PATHNAME,

@@ -6,7 +6,7 @@ import {
   signUp,
   type SignUpInput,
   signUpSchema,
-} from "@packages/auth";
+} from "@packages/auth/src/features";
 import {
   Button,
   Card,

@@ -7,6 +7,5 @@ export {
   PROVIDER_NAMES,
   type SocialProvider,
 } from "./model";
-export { SocialAuthForm, SocialLoginDivider } from "../../widgets/social-login";
 export { SignOutButton } from "./ui/SignOutButton";
 export { useAuth } from "./model/use-auth";

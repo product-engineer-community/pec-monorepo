@@ -36,7 +36,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/loading.tsx"
+    "src/app/loading.tsx",
+    "../ui/src/components/ui/header.tsx"
   ],
   "exclude": ["node_modules"]
 }

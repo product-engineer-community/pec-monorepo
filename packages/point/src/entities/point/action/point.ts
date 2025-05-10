@@ -1,7 +1,10 @@
-import { getSupabaseServerClient } from "@packages/supabase";
+import { getSupabaseClient } from "@packages/supabase/src/client";
 
 export const getUserPoint = async (authorId: string) => {
-  const supabase = await getSupabaseServerClient();
+  const supabase = getSupabaseClient({
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  });
   const { data, error } = await supabase
     .from("points")
     .select("point")

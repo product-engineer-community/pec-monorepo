@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@packages/auth";
+import { useAuth } from "@packages/auth/src/features";
 import { LECTURE_PATHNAME } from "@packages/constants";
 import { Button } from "@packages/ui";
 import * as PortOne from "@portone/browser-sdk/v2";

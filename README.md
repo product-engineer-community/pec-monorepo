@@ -35,6 +35,15 @@ pec-monorepo/
     └── typescript-config/   # TypeScript 설정
 ```
 
+### packages 하위
+
+- 기본적으로 shared layer
+  - 이때는 @packages/{name} 으로 참조
+    - e.g. @packages/supabase
+- 특정 packages 는 entities, featrues, widgets 가짐
+  - 이때는 @packages/{name}/src/entities 등으로 참조
+    - e.g. @packages/auth/src/entities, @packages/point/src/features etc.
+
 ## Feature Sliced Design 아키텍처
 
 프로젝트는 Feature Sliced Design 아키텍처를 따릅니다:

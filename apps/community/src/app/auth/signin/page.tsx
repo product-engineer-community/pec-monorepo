@@ -4,9 +4,11 @@ import {
   PasswordInput,
   signIn,
   type SignInState,
+} from "@packages/auth/src/features";
+import {
   SocialAuthForm,
   SocialLoginDivider,
-} from "@packages/auth";
+} from "@packages/auth/src/widgets/social-login";
 import {
   Button,
   Card,
