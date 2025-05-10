@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@packages/constants": "workspace:*",
     "@packages/env": "workspace:*",
     "@packages/supabase": "workspace:*",
     "@packages/ui": "workspace:*",

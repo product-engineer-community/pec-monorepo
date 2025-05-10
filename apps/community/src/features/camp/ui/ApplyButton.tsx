@@ -1,9 +1,8 @@
 "use client";
 
+import { CAMP_PAYMENT_PATHNAME } from "@packages/constants";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-import { CAMP_PAYMENT_PATHNAME } from "@/shared/config/pathname";
 
 export const BasicApplyButton = ({ isFixed = false }) => {
   const baseClasses =

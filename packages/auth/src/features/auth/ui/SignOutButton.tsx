@@ -3,7 +3,7 @@
 import { Button } from "@packages/ui";
 
 import { useAuth } from "../model";
-import { MAIN_PATHNAME } from "../config/pathname";
+import { MAIN_PATHNAME } from "@packages/constants";
 
 export function SignOutButton() {
   const { signOut } = useAuth();

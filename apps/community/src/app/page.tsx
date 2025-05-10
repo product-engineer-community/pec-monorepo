@@ -1,5 +1,9 @@
 import { getIsAuthenticated } from "@packages/auth";
 import {
+  COMMUNITY_QUESTIONS_PATHNAME,
+  SIGN_IN_PATHNAME,
+} from "@packages/constants";
+import {
   Button,
   GradientText,
   RotatingText,
@@ -19,10 +23,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ContentItem from "../entities/landing/contentItem";
-import {
-  COMMUNITY_QUESTIONS_PATHNAME,
-  SIGN_IN_PATHNAME,
-} from "../shared/config/pathname";
 
 export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();

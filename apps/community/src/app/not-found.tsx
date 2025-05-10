@@ -1,7 +1,6 @@
+import { COMMUNITY_QUESTIONS_PATHNAME } from "@packages/constants";
 import Image from "next/image";
 import Link from "next/link";
-
-import { COMMUNITY_QUESTIONS_PATHNAME } from "../shared/config/pathname";
 
 export default function NotFoundPage() {
   return (

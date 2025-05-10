@@ -35,6 +35,9 @@ importers:
       '@packages/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@packages/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@packages/env':
         specifier: workspace:*
         version: link:../../packages/env
@@ -180,6 +183,9 @@ importers:
 
   packages/auth:
     dependencies:
+      '@packages/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@packages/env':
         specifier: workspace:*
         version: link:../env
@@ -208,6 +214,8 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.19
         version: 18.3.5(@types/react@18.3.18)
+
+  packages/constants: {}
 
   packages/env:
     devDependencies:

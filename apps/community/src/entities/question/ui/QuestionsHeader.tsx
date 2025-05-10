@@ -1,7 +1,6 @@
+import { COMMUNITY_POST_WRITE_PATHNAME } from "@packages/constants";
 import { Button } from "@packages/ui";
 import Link from "next/link";
-
-import { COMMUNITY_POST_WRITE_PATHNAME } from "@/src/shared/config/pathname";
 
 export function QuestionsHeader() {
   return (

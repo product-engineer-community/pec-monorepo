@@ -1,6 +1,13 @@
 "use client";
 
 import {
+  COMMUNITY_ARTICLES_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
+  COMMUNITY_EVENTS_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
+  MAIN_PATHNAME,
+} from "@packages/constants";
+import {
   cn,
   Collapsible,
   CollapsibleContent,
@@ -10,14 +17,6 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
-import {
-  COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
-  COMMUNITY_EVENTS_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
-  MAIN_PATHNAME,
-} from "@/src/shared/config/pathname";
 
 type SidebarItem = {
   label: string;
