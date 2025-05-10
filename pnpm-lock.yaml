@@ -271,7 +271,11 @@ importers:
         specifier: ^8.26.0
         version: 8.26.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
 
-  packages/point: {}
+  packages/point:
+    dependencies:
+      '@packages/supabase':
+        specifier: workspace:*
+        version: link:../supabase
 
   packages/supabase:
     dependencies:

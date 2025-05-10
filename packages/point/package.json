@@ -13,5 +13,8 @@
     ".": "./src/index.ts",
     "./src/entities": "./src/entities",
     "./src/features": "./src/features"
+  },
+  "dependencies": {
+    "@packages/supabase": "workspace:*"
   }
 }
