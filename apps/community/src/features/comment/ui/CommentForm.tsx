@@ -5,13 +5,14 @@ import { Button } from "@packages/ui";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { convertPointTypeToToastMessage } from "@/entities/point/model";
 import { createComment } from "@/features/comment/action";
 import { getPostType } from "@/features/post/action";
 import { getUsername } from "@/features/user/action";
 import { sendEmail } from "@/shared/api";
 import { MAIL_TEMPLATE } from "@/shared/api/consts";
 import { Editor } from "@/shared/components/editor";
+
+import { convertPointTypeToToastMessage } from "../../../../../../packages/point/src/entities/point/model";
 
 interface CommentFormProps {
   postId: string;

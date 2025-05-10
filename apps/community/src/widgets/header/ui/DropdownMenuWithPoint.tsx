@@ -10,11 +10,11 @@ import {
   Progress,
 } from "@packages/ui";
 
-import { getUserPoint } from "@/src/entities/point/action";
+import { getUserPoint } from "../../../../../../packages/point/src/entities/point/action";
 import {
   convertPointToEmoji,
   convertPointToPercent,
-} from "@/src/entities/point/model";
+} from "../../../../../../packages/point/src/entities/point/model";
 
 export const DropdownMenuWithPoint = async () => {
   const user = await getUserFromSupabase();

@@ -1,5 +1,6 @@
 "use server";
 
+import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
@@ -9,7 +10,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { match } from "ts-pattern";
 
-import { grantPointAction } from "@/features/track-activity/action/grantPoint";
 import { NotifyChannel, notifyPost } from "@/src/shared/api";
 
 /**

@@ -8,9 +8,10 @@ import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
 import { Editor } from "@/shared/components/editor";
-import { convertPointTypeToToastMessage } from "@/src/entities/point/model";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
+
+import { convertPointTypeToToastMessage } from "../../../../../packages/point/src/entities/point/model";
 
 // 초기 상태 정의
 type FormState = {
