@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Progress,
-} from "@pec/ui";
+} from "@packages/ui";
 
 import { getUserPoint } from "@/src/entities/point/action";
 import {

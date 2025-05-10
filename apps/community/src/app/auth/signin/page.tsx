@@ -1,6 +1,13 @@
 "use client";
 
 import {
+  PasswordInput,
+  signIn,
+  type SignInState,
+  SocialAuthForm,
+  SocialLoginDivider,
+} from "@packages/auth";
+import {
   Button,
   Card,
   CardContent,
@@ -9,14 +16,10 @@ import {
   CardTitle,
   Input,
   Label,
-} from "@pec/ui";
+} from "@packages/ui";
 import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-
-import { signIn, SignInState } from "@/features/auth/action";
-import { PasswordInput } from "@/features/auth/ui";
-import { SocialAuthForm, SocialLoginDivider } from "@/widgets/social-login";
 
 function SubmitButton() {
   const { pending } = useFormStatus();

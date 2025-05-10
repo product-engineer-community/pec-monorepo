@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@pec/ui";
+import { Button } from "@packages/ui";
 import Link from "next/link";
 import { useEffect } from "react";
 

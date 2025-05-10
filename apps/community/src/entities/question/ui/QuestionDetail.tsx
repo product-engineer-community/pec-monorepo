@@ -1,4 +1,4 @@
-import { getRelativeTimeString } from "@pec/ui";
+import { getRelativeTimeString } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { MarkdownViewer } from "@/shared/components/editor";

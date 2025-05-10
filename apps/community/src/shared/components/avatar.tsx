@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@pec/ui";
+import { cn } from "@packages/ui";
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
 

@@ -1,6 +1,6 @@
 "use server";
 
-import { noop, PostType } from "@pec/ui";
+import { noop, PostType } from "@packages/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { match } from "ts-pattern";

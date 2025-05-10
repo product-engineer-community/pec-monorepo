@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@pec/ui";
+import { Button } from "@packages/ui";
 import { TrashIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

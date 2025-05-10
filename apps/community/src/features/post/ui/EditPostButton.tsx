@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@pec/ui";
+} from "@packages/ui";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
 

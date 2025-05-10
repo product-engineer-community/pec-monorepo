@@ -1,4 +1,11 @@
-import { Button, GradientText, RotatingText, ShinyText, Text } from "@pec/ui";
+import { getIsAuthenticated } from "@packages/auth";
+import {
+  Button,
+  GradientText,
+  RotatingText,
+  ShinyText,
+  Text,
+} from "@packages/ui";
 import {
   ArrowRight,
   CheckCircle,
@@ -12,7 +19,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ContentItem from "../entities/landing/contentItem";
-import { getIsAuthenticated } from "../features/auth/lib/check-auth";
 import {
   COMMUNITY_QUESTIONS_PATHNAME,
   SIGN_IN_PATHNAME,

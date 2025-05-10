@@ -1,15 +1,15 @@
 "use server";
 
-import { getSupabaseClient } from "@pec/supabase";
+import { getSupabaseClient } from "@packages/supabase";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { signInSchema } from "@/lib/validations/auth";
+import { signInSchema } from "../lib/validations";
 import {
   AUTH_CALLBACK_PATHNAME,
   MAIN_PATHNAME,
   SIGN_IN_PATHNAME,
-} from "@/shared/config/pathname";
+} from "../config/pathname";
 import { getSupabaseAdminClient } from "@/shared/supabase/admin";
 import { getSupabaseServerClient } from "@/shared/supabase/server";
 
@@ -20,7 +20,7 @@ import type { SocialProvider } from "../model/social-auth";
 export async function signUp(
   email: string,
   password: string,
-  username: string,
+  username: string
 ) {
   const supabase = getSupabaseClient({
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -59,7 +59,7 @@ export type SignInState = {
 
 export async function signIn(
   prevState: SignInState,
-  formData: FormData,
+  formData: FormData
 ): Promise<SignInState> {
   // 폼 데이터 가져오기
   const email = formData.get("email") as string;

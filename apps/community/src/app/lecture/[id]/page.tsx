@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@pec/ui";
+} from "@packages/ui";
 import { BookOpen, Code, Compass, Lightbulb } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,5 +1,5 @@
 {
-  "name": "@pec/supabase",
+  "name": "@packages/supabase",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -9,8 +9,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@pec/env": "workspace:*",
-    "@pec/ui": "workspace:*",
+    "@packages/env": "workspace:*",
+    "@packages/ui": "workspace:*",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.1"
   },

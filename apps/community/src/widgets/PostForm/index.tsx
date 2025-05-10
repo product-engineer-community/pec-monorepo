@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Input } from "@pec/ui";
-import { type PostType } from "@pec/ui";
+import { Button, Input } from "@packages/ui";
+import { type PostType } from "@packages/ui";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";

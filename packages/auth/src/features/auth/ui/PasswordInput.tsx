@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, cn, Input } from "@pec/ui";
+import { Button, cn, Input } from "@packages/ui";
 import { Eye, EyeOff } from "lucide-react";
 import { forwardRef, useState } from "react";
 
@@ -43,7 +43,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         </Button>
       </div>
     );
-  },
+  }
 );
 
 PasswordInput.displayName = "PasswordInput";

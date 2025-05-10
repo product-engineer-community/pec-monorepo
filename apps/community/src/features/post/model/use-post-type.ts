@@ -1,4 +1,4 @@
-import { type PostType } from "@pec/ui";
+import { type PostType } from "@packages/ui";
 import { useSearchParams } from "next/navigation";
 
 export function usePostType(defaultType: PostType = "discussion"): PostType {
