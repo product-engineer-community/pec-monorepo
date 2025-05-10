@@ -41,6 +41,9 @@ importers:
       '@packages/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@packages/point':
+        specifier: workspace:*
+        version: link:../../packages/point
       '@packages/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
@@ -267,6 +270,8 @@ importers:
       typescript-eslint:
         specifier: ^8.26.0
         version: 8.26.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
+
+  packages/point: {}
 
   packages/supabase:
     dependencies:

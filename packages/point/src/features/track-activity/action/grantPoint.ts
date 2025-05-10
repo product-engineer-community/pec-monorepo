@@ -2,8 +2,8 @@
 
 import { getSupabaseServerClient } from "@packages/supabase";
 
-import { getUserPoint } from "@/src/entities/point/action";
-import { getPointForAction, PointType } from "@/src/entities/point/model";
+import { getUserPoint } from "../../../entities/point/action";
+import { getPointForAction, PointType } from "../../../entities/point/model";
 
 export async function grantPointAction(userId: string, action: PointType) {
   const point = getPointForAction(action);

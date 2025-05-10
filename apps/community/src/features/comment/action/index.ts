@@ -1,12 +1,12 @@
 "use server";
 
+import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@packages/supabase";
 import { revalidatePath } from "next/cache";
 
-import { grantPointAction } from "../../track-activity/action";
 import { CommentWithAuthor } from "../model/types";
 
 /**
