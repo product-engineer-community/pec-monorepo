@@ -1,9 +1,11 @@
+"use server";
+
+import { getUserFromSupabase } from "@packages/supabase";
 import {
   convertPointToEmoji,
   convertPointToPercent,
   getUserPoint,
 } from "../..";
-import { getSupabaseClient } from "@packages/supabase/src/client";
 import {
   Badge,
   DropdownMenu,
@@ -16,14 +18,7 @@ import {
 } from "@packages/ui";
 
 export const DropdownMenuWithPoint = async () => {
-  const supabaseClient = getSupabaseClient({
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  });
-  const {
-    data: { user },
-  } = await supabaseClient.auth.getUser();
-
+  const user = await getUserFromSupabase();
   const point = await getUserPoint(user?.id ?? "");
 
   const percent = convertPointToPercent(point);

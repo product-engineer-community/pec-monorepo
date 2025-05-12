@@ -1,3 +1,5 @@
+"use server";
+
 import { getUserFromSupabase } from "@packages/supabase";
 import { SignOutButton } from "../../features";
 import {
