@@ -1,3 +1,4 @@
+"use client";
 import { getSupabaseClient } from "@packages/supabase/src/client";
 
 export function useAuth() {

@@ -1,6 +1,7 @@
 "use client";
 
-import { getUserEmail } from "@packages/auth";
+import { getUserEmail } from "@packages/auth/src/features";
+import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
 import { Button } from "@packages/ui";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -11,8 +12,6 @@ import { getUsername } from "@/features/user/action";
 import { sendEmail } from "@/shared/api";
 import { MAIL_TEMPLATE } from "@/shared/api/consts";
 import { Editor } from "@/shared/components/editor";
-
-import { convertPointTypeToToastMessage } from "../../../../../../packages/point/src/entities/point/model";
 
 interface CommentFormProps {
   postId: string;

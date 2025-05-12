@@ -1,4 +1,4 @@
-import { getIsAuthenticated } from "@packages/auth";
+import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
   COMMUNITY_QUESTIONS_PATHNAME,
   SIGN_IN_PATHNAME,
@@ -184,7 +184,7 @@ export default async function LandingPage() {
           <div className="grid gap-10 px-6 md:gap-16 lg:grid-cols-2 lg:px-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-                30명+ 의 Product Engineer 와 함께하세요
+                70명+ 의 Product Engineer 와 함께하세요
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
                 P.E Community 에는 70명 이상의 열정 있는 Product Engineer 들이
@@ -195,7 +195,7 @@ export default async function LandingPage() {
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-green-500" />
-                  <span className="text-sm">30+ 활동 멤버</span>
+                  <span className="text-sm">70+ 활동 멤버</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-blue-500" />

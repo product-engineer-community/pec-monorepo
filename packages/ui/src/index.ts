@@ -1,6 +1,7 @@
 export * from "./types";
 export * from "./utils";
 export * from "./components/ui/badge";
+export * from "./components/ui/base-layout";
 export * from "./components/ui/button";
 export * from "./components/ui/card";
 export * from "./components/ui/collapsible";

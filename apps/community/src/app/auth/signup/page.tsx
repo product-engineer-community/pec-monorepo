@@ -3,10 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   PasswordInput,
-  signUp,
   type SignUpInput,
   signUpSchema,
-} from "@packages/auth";
+} from "@packages/auth/src/features";
+import { signUp } from "@packages/auth/src/features";
 import {
   Button,
   Card,

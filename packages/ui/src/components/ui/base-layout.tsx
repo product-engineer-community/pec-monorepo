@@ -1,13 +1,12 @@
-import { Header } from "@/src/widgets/header/ui/header";
-
 interface BaseLayoutProps {
+  header: React.ReactNode;
   children: React.ReactNode;
 }
 
-export function BaseLayout({ children }: BaseLayoutProps) {
+export function BaseLayout({ header, children }: BaseLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      {header}
       <main className="flex flex-1">
         <div className="mx-auto w-full max-w-7xl bg-background px-4 py-6 sm:px-6 lg:px-8">
           {children}

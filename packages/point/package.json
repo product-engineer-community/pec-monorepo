@@ -15,6 +15,7 @@
     "./src/features": "./src/features"
   },
   "dependencies": {
-    "@packages/supabase": "workspace:*"
+    "@packages/supabase": "workspace:*",
+    "@packages/ui": "workspace:*"
   }
 }

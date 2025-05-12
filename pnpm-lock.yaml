@@ -276,6 +276,9 @@ importers:
       '@packages/supabase':
         specifier: workspace:*
         version: link:../supabase
+      '@packages/ui':
+        specifier: workspace:*
+        version: link:../ui
 
   packages/supabase:
     dependencies:

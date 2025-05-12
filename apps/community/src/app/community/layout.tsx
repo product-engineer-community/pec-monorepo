@@ -1,4 +1,4 @@
-import { Sidebar } from "@/widgets/sidebar/ui/sidebar";
+import { Sidebar } from "@/src/widgets/sidebar";
 
 export default function CommunityLayout({
   children,

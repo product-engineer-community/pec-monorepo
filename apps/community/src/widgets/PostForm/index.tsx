@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Input } from "@packages/ui";
-import { type PostType } from "@packages/ui";
+import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
+import { Button, Input, type PostType } from "@packages/ui";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -10,8 +10,6 @@ import { toast } from "sonner";
 import { Editor } from "@/shared/components/editor";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
-
-import { convertPointTypeToToastMessage } from "../../../../../packages/point/src/entities/point/model";
 
 // 초기 상태 정의
 type FormState = {

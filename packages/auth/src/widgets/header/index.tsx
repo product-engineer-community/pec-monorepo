@@ -1,12 +1,5 @@
-import { SignOutButton } from "@packages/auth";
-import {
-  COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
-  COMMUNITY_EVENTS_PATHNAME,
-  COMMUNITY_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
-} from "@packages/constants";
 import { getUserFromSupabase } from "@packages/supabase";
+import { SignOutButton } from "../../features";
 import {
   Button,
   DropdownMenu,
@@ -19,23 +12,13 @@ import {
 import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { MENU_ITEMS } from "@packages/constants";
 
-import { DropdownMenuWithPoint } from "./DropdownMenuWithPoint";
+interface HeaderProps {
+  DropdownMenuWithPoint: React.ReactNode;
+}
 
-const MENU_ITEMS = [
-  {
-    label: "Community",
-    href: COMMUNITY_PATHNAME,
-    items: [
-      { label: "Questions", href: COMMUNITY_QUESTIONS_PATHNAME },
-      { label: "Discussions", href: COMMUNITY_DISCUSSIONS_PATHNAME },
-    ],
-  },
-  { label: "Articles", href: COMMUNITY_ARTICLES_PATHNAME },
-  { label: "Events", href: COMMUNITY_EVENTS_PATHNAME },
-] as const;
-
-export async function Header() {
+export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
   const user = await getUserFromSupabase();
   const isAuthenticated = !!user;
 
@@ -64,11 +47,13 @@ export async function Header() {
                   <ChevronDown className="h-4 w-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="bg-white">
-                  {item.items.map((subItem) => (
-                    <DropdownMenuItem key={subItem.href} asChild>
-                      <Link href={subItem.href}>{subItem.label}</Link>
-                    </DropdownMenuItem>
-                  ))}
+                  {item.items.map(
+                    (subItem: { href: string; label: string }) => (
+                      <DropdownMenuItem key={subItem.href} asChild>
+                        <Link href={subItem.href}>{subItem.label}</Link>
+                      </DropdownMenuItem>
+                    )
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
@@ -79,14 +64,14 @@ export async function Header() {
               >
                 {item.label}
               </Link>
-            ),
+            )
           )}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
           {isAuthenticated ? (
             <>
-              <DropdownMenuWithPoint />
+              {DropdownMenuWithPoint}
               <SignOutButton />
             </>
           ) : (
@@ -120,18 +105,20 @@ export async function Header() {
                     </span>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent side="right">
-                    {item.items.map((subItem) => (
-                      <DropdownMenuItem key={subItem.href} asChild>
-                        <Link href={subItem.href}>{subItem.label}</Link>
-                      </DropdownMenuItem>
-                    ))}
+                    {item.items.map(
+                      (subItem: { href: string; label: string }) => (
+                        <DropdownMenuItem key={subItem.href} asChild>
+                          <Link href={subItem.href}>{subItem.label}</Link>
+                        </DropdownMenuItem>
+                      )
+                    )}
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
                 <DropdownMenuItem key={item.href} asChild>
                   <Link href={item.href}>{item.label}</Link>
                 </DropdownMenuItem>
-              ),
+              )
             )}
             <DropdownMenuSeparator />
             {isAuthenticated ? (
