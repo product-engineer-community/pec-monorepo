@@ -7,7 +7,7 @@ import {
   DEFAULT_ENABLED_PROVIDERS,
   PROVIDER_NAMES,
   type SocialProvider,
-} from "../../../features/auth";
+} from "../../../features";
 import { SocialLoginButton } from "../../../features/auth/ui";
 
 type SocialAuthFormProps = {

@@ -86,6 +86,6 @@ alwaysApply: true
 
 ### Supabase Development Guidelines
 
-- ✅ **Use `createClient()`** - Always initialize Supabase client using `createClient()` function
+- ✅ **Use `getSupabaseServerClient()`** - Always initialize Supabase server client using `getSupabaseServerClient()` function
 - ✅ **Type Safety** - Use type definitions from `@/supabase/types.ts` for all Supabase operations
 - ✅ **Single Instance** - Create and export a single Supabase client instance for reuse
