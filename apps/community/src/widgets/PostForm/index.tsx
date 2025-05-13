@@ -27,7 +27,7 @@ const initialState: FormState = {
 };
 
 // 폼 기본값 타입
-export interface PostFormDefaultValues {
+interface PostFormDefaultValues {
   id?: string;
   title?: string;
   content?: string;
