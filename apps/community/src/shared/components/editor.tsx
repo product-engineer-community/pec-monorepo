@@ -1,85 +1,65 @@
 "use client";
 
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
-import "highlight.js/styles/atom-one-dark.css";
+import "@mdxeditor/editor/style.css";
 
-import { Button } from "@packages/ui";
-import { Code } from "lucide-react";
+import type { MDXEditorMethods, MDXEditorProps } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
-import ReactMarkdown from "react-markdown";
-import rehypeHighlight from "rehype-highlight";
+import { forwardRef } from "react";
 
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+// 에디터 동적 가져오기 (SSR 비활성화)
+const MDXEditorComponent = dynamic(() => import("./InitializedMDXEditor"), {
+  ssr: false,
+});
 
+// 뷰어용 에디터 동적 가져오기 (SSR 비활성화)
+const MDXViewerComponent = dynamic(
+  () => import("./InitializedViewerMDXEditor"),
+  { ssr: false },
+);
+
+// 다른 컴포넌트에서 사용할 forwardRef 컴포넌트
+const ForwardRefEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
+  (props, ref) => {
+    return <MDXEditorComponent editorRef={ref} {...props} />;
+  },
+);
+
+ForwardRefEditor.displayName = "ForwardRefEditor";
+
+// 에디터 Props
 interface EditorProps {
   content: string;
   onChange: (value: string) => void;
 }
 
+/**
+ * 마크다운 에디터 컴포넌트
+ */
 export function Editor({ content, onChange }: EditorProps) {
   return (
-    <div className="space-y-2">
-      <Button
-        variant="ghost"
-        size="sm"
-        type="button"
-        onClick={() => {
-          const textarea = document.querySelector(
-            "textarea.w-md-editor-text-input",
-          ) as HTMLTextAreaElement;
-          if (!textarea) return;
-
-          const start = textarea.selectionStart;
-          const end = textarea.selectionEnd;
-          const text = textarea.value;
-          const before = text.substring(0, start);
-          const selected = text.substring(start, end);
-          const after = text.substring(end);
-
-          const codeBlock = "\n```\n" + selected + "\n```\n";
-          const newText = before + codeBlock + after;
-          onChange?.(newText);
-
-          setTimeout(() => {
-            textarea.selectionStart = start + 5;
-            textarea.selectionEnd = start + 5 + selected.length;
-            textarea.focus();
-          }, 0);
-        }}
-      >
-        <Code className="mr-2 h-4 w-4" />
-        코드블럭 추가
-      </Button>
-      <MDEditor
-        hideToolbar
-        value={content}
-        onChange={(value) => onChange(value || "")}
-        preview="edit"
-        extraCommands={[]}
-        previewOptions={{
-          allowedElements: ["p", "code", "pre"],
-        }}
-        textareaProps={{
-          placeholder: "내용을 입력하세요",
-        }}
+    <div className="[&_.MarkdownEditor-content]:prose [&_.MarkdownEditor-content]:prose-sm [&_.MarkdownEditor-content]:max-w-none">
+      <MDXEditorComponent
+        markdown={content}
+        onChange={onChange}
+        placeholder="내용을 입력하세요"
+        editorRef={null}
       />
     </div>
   );
 }
 
+// 마크다운 뷰어 Props
 interface MarkdownViewerProps {
   content: string;
 }
 
+/**
+ * 마크다운 뷰어 컴포넌트
+ */
 export function MarkdownViewer({ content }: MarkdownViewerProps) {
   return (
-    <div className="prose prose-sm max-w-none [&>p]:my-2 [&>p]:text-[14px] [&>pre>code]:text-[14px]">
-      <ReactMarkdown
-        rehypePlugins={[[rehypeHighlight, { detect: true }]]} // <- sync 플러그인
-      >
-        {content}
-      </ReactMarkdown>
+    <div className="prose prose-sm max-w-none [&>p]:my-2 [&>p]:text-[14px] [&>pre>code]:text-[14px] [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5">
+      <MDXViewerComponent markdown={content} editorRef={null} />
     </div>
   );
 }

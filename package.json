@@ -22,5 +22,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@mdxeditor/editor": "^3.32.2"
+  }
 }
