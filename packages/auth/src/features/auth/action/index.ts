@@ -4,7 +4,6 @@ import { getSupabaseClient } from "@packages/supabase/src/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { signInSchema } from "../lib/validations";
 import {
   AUTH_CALLBACK_PATHNAME,
   MAIN_PATHNAME,
@@ -17,16 +16,22 @@ import { AUTH_ERROR_MESSAGES } from "../config/error-messages";
 import { getAuthErrorMessage } from "../lib/error-handler";
 import type { SocialProvider } from "../model/social-auth";
 
-export async function signUp(
-  email: string,
-  password: string,
-  username: string
-) {
-  const supabase = getSupabaseClient({
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  });
+export type AuthState = {
+  error: string | null;
+  success: boolean;
+  message?: string;
+};
 
+export async function signUp(
+  prevState: AuthState,
+  formData: FormData
+): Promise<AuthState> {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
+  const username = formData.get("username") as string;
+
+  const supabase = await getSupabaseServerClient();
   const { error: signUpError } = await supabase.auth.signUp({
     email,
     password,
@@ -42,42 +47,34 @@ export async function signUp(
     console.error(signUpError.message);
     return {
       error: AUTH_ERROR_MESSAGES["SIGN_UP_DEFAULT"],
+      success: false,
+    };
+  }
+
+  if (password !== confirmPassword) {
+    return {
+      success: false,
+      error: "비밀번호가 일치하지 않습니다.",
     };
   }
 
   return {
     success: true,
-    message: "이메일 확인 링크를 보냈습니다. 이메일을 확인해주세요.",
+    error: null,
+    message:
+      "이메일 확인 링크를 보냈습니다. 먼저 이메일을 확인하신 후 로그인 해주세요.",
   };
 }
 
-// 로그인 상태 타입 정의
-export type SignInState = {
-  error: string | null;
-  success: boolean;
-};
-
 export async function signIn(
-  prevState: SignInState,
+  prevState: AuthState,
   formData: FormData
-): Promise<SignInState> {
+): Promise<AuthState> {
   // 폼 데이터 가져오기
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
-    // 유효성 검사
-    const validatedFields = signInSchema.safeParse({ email, password });
-
-    if (!validatedFields.success) {
-      return {
-        error:
-          validatedFields.error.errors[0]?.message ||
-          "유효하지 않은 로그인 정보입니다.",
-        success: false,
-      };
-    }
-
     // Supabase 클라이언트 생성
     const supabase = await getSupabaseServerClient();
     const supabaseClient = getSupabaseClient({
@@ -135,7 +132,7 @@ export async function getUserEmail(userId: string) {
   };
 }
 
-export async function socialSignIn(prevState: SignInState, formData: FormData) {
+export async function socialSignIn(prevState: AuthState, formData: FormData) {
   const provider = formData.get("provider") as SocialProvider;
 
   const supabase = await getSupabaseServerClient();
