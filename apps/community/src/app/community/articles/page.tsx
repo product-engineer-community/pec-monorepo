@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 import { getPosts } from "@/entities/post";
+import { MarkdownViewer } from "@/src/shared/components/editor";
 
 // Badge 컴포넌트 직접 구현
 interface BadgeProps {
@@ -87,9 +88,7 @@ export default async function ArticlesPage() {
                   <h2 className="mb-4 text-2xl font-bold md:text-3xl">
                     {featuredArticle.title}
                   </h2>
-                  <p className="mb-4 text-muted-foreground">
-                    {featuredArticle.excerpt}
-                  </p>
+                  <MarkdownViewer content={featuredArticle.excerpt} />
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
                       <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
@@ -166,9 +165,7 @@ export default async function ArticlesPage() {
                   <h3 className="mb-2 line-clamp-2 text-xl font-bold">
                     {post.title}
                   </h3>
-                  <p className="line-clamp-3 text-sm text-muted-foreground">
-                    {post.excerpt}
-                  </p>
+                  <MarkdownViewer content={post.excerpt} />
                   <div className="mt-4 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="h-6 w-6 overflow-hidden rounded-full bg-gray-200">

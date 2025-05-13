@@ -103,8 +103,8 @@ export async function getPosts(type: "question" | "discussion" | "article") {
     likes_count: post.likes?.[0]?.count || 0,
     solved: type === "question" ? post.solved || false : undefined,
     content:
-      post.content.length > 300
-        ? post.content.slice(0, 300) + "..."
+      post.content.length > 200
+        ? post.content.slice(0, 200) + "..."
         : post.content,
   }));
 }
