@@ -132,7 +132,10 @@ export async function getUserEmail(userId: string) {
   };
 }
 
-export async function socialSignIn(prevState: AuthState, formData: FormData) {
+export async function socialSignIn(
+  prevState: AuthState,
+  formData: FormData
+): Promise<AuthState> {
   const provider = formData.get("provider") as SocialProvider;
 
   const supabase = await getSupabaseServerClient();
