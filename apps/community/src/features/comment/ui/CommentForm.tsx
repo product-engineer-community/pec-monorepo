@@ -6,7 +6,7 @@ import { Button } from "@packages/ui";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { createComment } from "@/features/comment/action";
+import { createComment } from "@/features/comment";
 import { getPostType } from "@/features/post/action";
 import { getUsername } from "@/features/user/action";
 import { sendEmail } from "@/shared/api";

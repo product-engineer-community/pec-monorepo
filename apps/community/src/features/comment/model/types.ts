@@ -1,4 +1,4 @@
-export interface Comment {
+interface Comment {
   id: string;
   content: string;
   created_at: string;
@@ -20,7 +20,7 @@ export interface CommentWithAuthor extends Comment {
   replies?: CommentWithAuthor[];
 }
 
-export interface GroupedComment {
+interface GroupedComment {
   comment: CommentWithAuthor;
   replies: CommentWithAuthor[];
 }

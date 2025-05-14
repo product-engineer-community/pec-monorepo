@@ -2,27 +2,7 @@
 export { groupComments } from "./libs";
 
 // Action 내보내기
-export {
-  createComment,
-  deleteComment,
-  getComments,
-  toggleCommentLike,
-} from "./action";
-
-// 모델 내보내기
-export type {
-  Comment,
-  CommentWithAuthor,
-  GroupedComment,
-  GroupedComments,
-} from "./model/types";
+export { createComment, getComments } from "./action";
 
 // UI 컴포넌트 내보내기
-export {
-  CommentDeleteButton,
-  CommentForm,
-  CommentItem,
-  CommentLikeButton,
-  CommentList,
-  CommentReplyButton,
-} from "./ui";
+export { CommentForm, CommentList } from "./ui";
