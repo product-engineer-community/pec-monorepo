@@ -28,7 +28,7 @@
     "lucide-react": "^0.350.0",
     "mailersend": "^2.5.0",
     "net": "^1.0.2",
-    "next": "^15.3.1",
+    "next": "^15.3.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.51.0",
