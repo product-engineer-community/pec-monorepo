@@ -28,7 +28,10 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="mr-8 flex items-center gap-2">
+        <ExternalLink
+          href={`${getOrigin("community")}`}
+          className="mr-8 flex items-center gap-2"
+        >
           <Image
             src="/logo.webp"
             alt="PEC"
@@ -39,7 +42,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           <Text size="xl" weight="bold" className="text-primary">
             P.E.C
           </Text>
-        </Link>
+        </ExternalLink>
 
         <nav className="hidden flex-1 items-center gap-6 md:flex">
           {MENU_ITEMS.map((item) =>
@@ -80,13 +83,9 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           ) : (
             <>
               <Button variant="outline" size="sm" asChild>
-                {process.env.NODE_ENV === "production" ? (
-                  <Link href="/auth/signin">로그인</Link>
-                ) : (
-                  <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
-                    로그인
-                  </ExternalLink>
-                )}
+                <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
+                  로그인
+                </ExternalLink>
               </Button>
             </>
           )}

@@ -18,7 +18,12 @@ const nextConfig = {
         },
       ];
     }
-    return [];
+    return [
+      {
+        source: "/",
+        destination: "/community",
+      },
+    ];
   },
 };
 module.exports = nextConfig;

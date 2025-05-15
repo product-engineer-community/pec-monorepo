@@ -12,5 +12,5 @@ export const getOrigin = (appName: AppName) => {
     return `http://localhost:${appPort[appName]}`;
   }
 
-  return "https://productengineer.info";
+  return process.env.NEXT_PUBLIC_SITE_URL;
 };
