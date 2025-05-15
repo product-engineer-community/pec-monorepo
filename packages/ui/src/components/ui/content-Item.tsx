@@ -12,7 +12,7 @@ interface ContentItemProps {
   link: string;
 }
 
-export default function ContentItem({
+export function ContentItem({
   category,
   time,
   title,

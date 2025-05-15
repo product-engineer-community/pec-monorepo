@@ -5,11 +5,11 @@ import {
 } from "@packages/constants";
 import {
   Button,
-  ContentItem,
   GradientText,
   RotatingText,
   ShinyText,
   Text,
+  ContentItem,
 } from "@packages/ui";
 import {
   ArrowRight,
