@@ -13,7 +13,7 @@ export async function QuestionsListContent() {
       {questions.map((question) => (
         <Link
           key={question.id}
-          href={`/community/questions/${question.id}`}
+          href={`/questions/${question.id}`}
           className="block"
         >
           <div className="rounded-lg border p-6 transition-colors hover:border-primary">

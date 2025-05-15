@@ -1,10 +1,13 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
+  AUTH_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
+  getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
 import {
   Button,
+  ContentItem,
   GradientText,
   RotatingText,
   ShinyText,
@@ -22,10 +25,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-import ContentItem from "../../../camp/src/entities/contentItem";
-
 export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();
+
+  const ctaButtonUrl = isAuthenticated
+    ? COMMUNITY_QUESTIONS_PATHNAME
+    : `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -64,13 +69,7 @@ export default async function LandingPage() {
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button size="xl" asChild>
-              <Link
-                href={
-                  isAuthenticated
-                    ? COMMUNITY_QUESTIONS_PATHNAME
-                    : SIGN_IN_PATHNAME
-                }
-              >
+              <Link href={ctaButtonUrl}>
                 {isAuthenticated ? "함께 질문하며 성장하기" : "지금 시작하기"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -305,13 +304,7 @@ export default async function LandingPage() {
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
               <Button asChild size="xl">
-                <Link
-                  href={
-                    isAuthenticated
-                      ? COMMUNITY_QUESTIONS_PATHNAME
-                      : SIGN_IN_PATHNAME
-                  }
-                >
+                <Link href={ctaButtonUrl}>
                   {isAuthenticated ? "함께 성장하기" : "지금 시작하기"}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

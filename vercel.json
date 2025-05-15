@@ -1,16 +1,27 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://productengineer.info/community/landing",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
+      "source": "/community/:path*",
+      "destination": "https://community.productengineer.info/community/:path*"
+    },
+    {
       "source": "/auth/:path*",
-      "destination": "https://auth.productengineer.info/:path*"
+      "destination": "https://auth.productengineer.info/auth/:path*"
     },
     {
       "source": "/camp/:path*",
-      "destination": "https://camp.productengineer.info/:path*"
+      "destination": "https://camp.productengineer.info/camp/:path*"
     },
     {
-      "source": "/community/:path*",
-      "destination": "https://community.productengineer.info/:path*"
+      "source": "/course/:path*",
+      "destination": "https://course.productengineer.info/course/:path*"
     }
   ]
 }

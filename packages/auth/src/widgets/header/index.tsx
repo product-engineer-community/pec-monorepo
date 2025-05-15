@@ -9,13 +9,14 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  ExternalLink,
   Text,
 } from "@packages/ui";
 import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { CAMP_PATHNAME, MENU_ITEMS, getOrigin } from "@packages/constants";
+import { HEADER_MENU_ITEMS, getOrigin } from "@packages/constants";
+import LogoSrc from "../../asset/logo.webp";
+import { LoginButton } from "./ui/LoginButton";
 
 interface HeaderProps {
   DropdownMenuWithPoint: React.ReactNode;
@@ -28,12 +29,9 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        <Link
-          href={getOrigin("community")}
-          className="mr-8 flex items-center gap-2"
-        >
+        <Link href={getOrigin()} className="mr-8 flex items-center gap-2">
           <Image
-            src="/community/logo.webp"
+            src={LogoSrc}
             alt="PEC"
             width={32}
             height={32}
@@ -45,7 +43,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
         </Link>
 
         <nav className="hidden flex-1 items-center gap-6 md:flex">
-          {MENU_ITEMS.map((item) =>
+          {HEADER_MENU_ITEMS.map((item) =>
             "items" in item ? (
               <DropdownMenu key={item.href}>
                 <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
@@ -62,18 +60,10 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : ["Articles", "Events"].includes(item.label) ? (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {item.label}
-              </Link>
             ) : (
               <Link
                 key={item.href}
-                href={`${getOrigin("camp")}${CAMP_PATHNAME}`}
+                href={item.href}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
@@ -89,11 +79,9 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
               <SignOutButton />
             </>
           ) : (
-            <>
-              <Button variant="outline" size="sm" asChild>
-                <Link href={`${getOrigin("auth")}/auth/signin`}>로그인</Link>
-              </Button>
-            </>
+            <Button asChild>
+              <LoginButton />
+            </Button>
           )}
         </div>
 
@@ -109,7 +97,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[200px]">
-            {MENU_ITEMS.map((item) =>
+            {HEADER_MENU_ITEMS.map((item) =>
               "items" in item ? (
                 <DropdownMenu key={item.href}>
                   <DropdownMenuTrigger className="w-full px-2 py-1.5 text-sm">
@@ -147,13 +135,9 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
                 </DropdownMenuItem>
               </>
             ) : (
-              <>
-                <DropdownMenuItem asChild>
-                  <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
-                    로그인
-                  </ExternalLink>
-                </DropdownMenuItem>
-              </>
+              <DropdownMenuItem asChild>
+                <LoginButton />
+              </DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>

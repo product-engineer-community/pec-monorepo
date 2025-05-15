@@ -7,9 +7,15 @@ import {
 } from "@packages/ui";
 
 import { SignInForm } from "@/src/widgets/SignInForm";
-import { SocialAuthForm, SocialLoginDivider } from "@/widgets/SocialLogin";
+import { SocialLoginDivider, SocialLoginForm } from "@/widgets/SocialLogin";
 
-export default function SignInPage() {
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  const nextPathname = (await searchParams).nextPathname;
+
   return (
     <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-4 sm:w-auto">
       <Card className="w-full sm:w-[350px]">
@@ -21,7 +27,7 @@ export default function SignInPage() {
         <CardContent className="space-y-4">
           <SocialLoginDivider />
 
-          <SocialAuthForm />
+          <SocialLoginForm nextPathname={nextPathname} />
 
           <div className="text-center text-sm text-muted-foreground">또는</div>
 

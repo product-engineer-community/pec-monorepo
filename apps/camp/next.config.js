@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["*.productengineer.info", "localhost"],
+    },
+  },
+
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
   basePath: "/camp",
@@ -10,14 +16,17 @@ const nextConfig = {
   },
 
   async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/community",
-        basePath: false,
-        permanent: false,
-      },
-    ];
+    if (process.env.NODE_ENV === "development") {
+      return [
+        {
+          source: "/",
+          destination: "/community",
+          basePath: false,
+          permanent: false,
+        },
+      ];
+    }
+    return [];
   },
 
   async rewrites() {

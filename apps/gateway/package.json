@@ -1,5 +1,5 @@
 {
-  "name": "@apps/auth",
+  "name": "@apps/gateway",
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "scripts": {

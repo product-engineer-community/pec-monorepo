@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["*.productengineer.info", "localhost"],
+    },
+  },
+
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
   basePath: "/auth",
@@ -10,14 +16,17 @@ const nextConfig = {
   },
 
   async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/community",
-        basePath: false,
-        permanent: false,
-      },
-    ];
+    if (process.env.NODE_ENV === "development") {
+      return [
+        {
+          source: "/",
+          destination: "/community/landing",
+          basePath: false,
+          permanent: false,
+        },
+      ];
+    }
+    return [];
   },
 
   async rewrites() {
@@ -26,6 +35,16 @@ const nextConfig = {
         {
           source: "/community/:path*",
           destination: "http://localhost:3001/community/:path*",
+          basePath: false,
+        },
+        {
+          source: "/camp/:path*",
+          destination: "http://localhost:3002/camp/:path*",
+          basePath: false,
+        },
+        {
+          source: "/lecture/:path*",
+          destination: "http://localhost:3003/lecture/:path*",
           basePath: false,
         },
       ];

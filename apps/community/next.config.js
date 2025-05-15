@@ -1,5 +1,12 @@
+2;
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["*.productengineer.info", "localhost"],
+    },
+  },
+
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
   basePath: "/community",
@@ -7,17 +14,6 @@ const nextConfig = {
   webpack: (config) => {
     config.externals = [...config.externals, "canvas", "jsdom"];
     return config;
-  },
-
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/community",
-        basePath: false,
-        permanent: false,
-      },
-    ];
   },
 
   async rewrites() {

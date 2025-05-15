@@ -1,2 +1,2 @@
-export * from "./SocialAuthForm";
 export * from "./SocialLoginDivider";
+export * from "./SocialLoginForm";

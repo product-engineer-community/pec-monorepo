@@ -12,9 +12,9 @@ import {
 import { SocialLoginButton } from "@packages/auth/src/features/auth/ui";
 import { useActionState } from "react";
 
-type SocialAuthFormProps = {
+type SocialLoginFormProps = {
   providers?: SocialProvider[];
-  gridClass?: string;
+  nextPathname?: string;
 };
 
 const initialState: AuthState = {
@@ -22,9 +22,10 @@ const initialState: AuthState = {
   success: false,
 };
 
-export function SocialAuthForm({
+export function SocialLoginForm({
   providers = DEFAULT_ENABLED_PROVIDERS,
-}: SocialAuthFormProps) {
+  nextPathname,
+}: SocialLoginFormProps) {
   const [state, formAction] = useActionState(socialSignIn, initialState);
 
   return (
@@ -33,6 +34,7 @@ export function SocialAuthForm({
         {providers.map((provider) => (
           <div key={provider} className="w-full">
             <form action={formAction}>
+              <input type="hidden" name="nextPathname" value={nextPathname} />
               <input type="hidden" name="provider" value={provider} />
               <SocialLoginButton provider={provider}>
                 {PROVIDER_NAMES[provider]}

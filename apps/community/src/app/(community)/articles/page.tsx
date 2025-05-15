@@ -1,3 +1,4 @@
+import { COMMUNITY_ARTICLES_PATHNAME } from "@packages/constants";
 import { Text } from "@packages/ui";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,12 +45,13 @@ export default async function ArticlesPage() {
       excerpt: article.content || "아티클 요약이 없습니다.",
       author: {
         name: article.author?.username || "익명",
-        avatar: article.author?.avatar_url || "/default-avatar.svg",
+        avatar: article.author?.avatar_url || "/community/default-avatar.svg",
       },
       publishedAt: new Date(article.created_at).toLocaleDateString("ko-KR"),
       readingTime: "8 min read",
       tags: article.tags || ["Product Engineer"],
-      coverImage: article.thumbnail_url || "/default-article-thumbnail.svg",
+      coverImage:
+        article.thumbnail_url || "/community/default-article-thumbnail.svg",
       category: article.category || "기타",
     };
   });
@@ -75,7 +77,9 @@ export default async function ArticlesPage() {
         <div className="mb-16 overflow-hidden rounded-lg bg-muted shadow-lg">
           <div className="md:flex">
             <div className="md:w-2/3">
-              <Link href={`/community/articles/${featuredArticle.id}`}>
+              <Link
+                href={`${COMMUNITY_ARTICLES_PATHNAME}/${featuredArticle.id}`}
+              >
                 <div className="h-full w-full p-4 md:p-8">
                   <div className="mb-2 flex flex-wrap gap-2">
                     <Badge>{featuredArticle.category}</Badge>

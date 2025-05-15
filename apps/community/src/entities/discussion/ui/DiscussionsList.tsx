@@ -13,7 +13,7 @@ async function DiscussionsListContent() {
       {discussions.map((discussion) => (
         <Link
           key={discussion.id}
-          href={`/community/discussions/${discussion.id}`}
+          href={`/discussions/${discussion.id}`}
           className="block"
         >
           <div className="rounded-lg border p-6 transition-colors hover:border-primary">

@@ -4,8 +4,8 @@ import {
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
+  COMMUNITY_LANDING_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
-  MAIN_PATHNAME,
 } from "@packages/constants";
 import {
   cn,
@@ -28,7 +28,7 @@ type SidebarItem = {
 const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: "Home",
-    href: MAIN_PATHNAME,
+    href: COMMUNITY_LANDING_PATHNAME,
   },
   {
     label: "Community",

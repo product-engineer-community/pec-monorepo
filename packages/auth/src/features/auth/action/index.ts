@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 import {
   AUTH_CALLBACK_PATHNAME,
-  MAIN_PATHNAME,
+  getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
 import { getSupabaseAdminClient } from "@packages/supabase";
@@ -107,29 +107,7 @@ export async function signIn(
 
   revalidatePath("/", "layout");
   // 성공 시 try/catch 블록 외부에서 리다이렉트
-  redirect(MAIN_PATHNAME);
-}
-
-export async function signOut() {
-  const supabase = await getSupabaseServerClient();
-  await supabase.auth.signOut();
-
-  redirect(SIGN_IN_PATHNAME);
-}
-
-export async function getUserEmail(userId: string) {
-  const supabaseAdmin = await getSupabaseAdminClient();
-
-  const { data: user, error: userError } =
-    await supabaseAdmin.auth.admin.getUserById(userId);
-
-  if (userError) {
-    throw userError;
-  }
-
-  return {
-    email: user.user?.email,
-  };
+  redirect(getOrigin());
 }
 
 export async function socialSignIn(
@@ -137,12 +115,12 @@ export async function socialSignIn(
   formData: FormData
 ): Promise<AuthState> {
   const provider = formData.get("provider") as SocialProvider;
+  const nextPathname = formData.get("nextPathname") as string;
+  console.log("🚀 ~ nextPathname:", nextPathname);
+
+  const redirectTo = `${getOrigin()}${AUTH_CALLBACK_PATHNAME}?next=${getOrigin()}${nextPathname}`;
 
   const supabase = await getSupabaseServerClient();
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const redirectTo = `${siteUrl.replace(/\/$/, "")}${AUTH_CALLBACK_PATHNAME}`;
-
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
@@ -165,4 +143,26 @@ export async function socialSignIn(
   }
 
   redirect(data.url);
+}
+
+export async function signOut() {
+  const supabase = await getSupabaseServerClient();
+  await supabase.auth.signOut();
+
+  redirect(SIGN_IN_PATHNAME);
+}
+
+export async function getUserEmail(userId: string) {
+  const supabaseAdmin = await getSupabaseAdminClient();
+
+  const { data: user, error: userError } =
+    await supabaseAdmin.auth.admin.getUserById(userId);
+
+  if (userError) {
+    throw userError;
+  }
+
+  return {
+    email: user.user?.email,
+  };
 }
