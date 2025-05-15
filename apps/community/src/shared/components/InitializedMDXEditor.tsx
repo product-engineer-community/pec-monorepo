@@ -14,7 +14,7 @@ import {
   ListsToggle,
   markdownShortcutPlugin,
   MDXEditor,
-  type MDXEditorMethods,
+type MDXEditorMethods,
   type MDXEditorProps,
   quotePlugin,
   toolbarPlugin,
