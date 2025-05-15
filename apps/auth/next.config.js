@@ -8,6 +8,18 @@ const nextConfig = {
     config.externals = [...config.externals, "canvas", "jsdom"];
     return config;
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/community",
+        basePath: false,
+        permanent: false,
+      },
+    ];
+  },
+
   async rewrites() {
     if (process.env.NODE_ENV === "development") {
       return [
@@ -18,12 +30,7 @@ const nextConfig = {
         },
       ];
     }
-    return [
-      {
-        source: "/",
-        destination: "/community",
-      },
-    ];
+    return [];
   },
 };
 module.exports = nextConfig;

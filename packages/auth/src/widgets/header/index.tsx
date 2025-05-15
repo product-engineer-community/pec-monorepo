@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserFromSupabase } from "@packages/supabase";
-import { SignOutButton } from "../../../features";
+import { SignOutButton } from "../../features";
 import {
   Button,
   DropdownMenu,
@@ -28,12 +28,12 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        <ExternalLink
-          href={`${getOrigin("community")}`}
+        <Link
+          href={`${getOrigin("community")}/community`}
           className="mr-8 flex items-center gap-2"
         >
           <Image
-            src="/logo.webp"
+            src="/community/logo.webp"
             alt="PEC"
             width={32}
             height={32}
@@ -42,7 +42,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           <Text size="xl" weight="bold" className="text-primary">
             P.E.C
           </Text>
-        </ExternalLink>
+        </Link>
 
         <nav className="hidden flex-1 items-center gap-6 md:flex">
           {MENU_ITEMS.map((item) =>
@@ -83,9 +83,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           ) : (
             <>
               <Button variant="outline" size="sm" asChild>
-                <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
-                  로그인
-                </ExternalLink>
+                <Link href={`${getOrigin("auth")}/auth/signin`}>로그인</Link>
               </Button>
             </>
           )}

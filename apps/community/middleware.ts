@@ -56,7 +56,7 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  if (!user && !request.nextUrl.pathname.startsWith("/community")) {
+  if (!user && !request.nextUrl.pathname.startsWith("/community/")) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
     url.pathname = "/auth/signin";

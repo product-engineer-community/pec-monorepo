@@ -18,12 +18,7 @@ const nextConfig = {
         },
       ];
     }
-    return [
-      {
-        source: "/",
-        destination: "/community",
-      },
-    ];
+    return [];
   },
 };
 
