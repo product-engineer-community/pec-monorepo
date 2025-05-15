@@ -14,6 +14,7 @@ export const ExternalLink = ({
   className,
   target = "_self",
   children,
+  ...props
 }: ExternalLinkProps) => {
   return (
     <a
@@ -21,6 +22,7 @@ export const ExternalLink = ({
       href={href}
       target={target}
       rel="noopener noreferrer"
+      {...props}
     >
       {children}
     </a>
