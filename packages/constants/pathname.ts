@@ -14,8 +14,8 @@ export const COMMUNITY_ARTICLES_PATHNAME = "/articles";
 export const COMMUNITY_EVENTS_PATHNAME = "/events";
 
 export const CAMP_PATHNAME = "/camp";
-export const CAMP_PAYMENT_PATHNAME = "/camp/payment";
-export const CAMP_PAYMENT_COMPLETE_PATHNAME = "/camp/payment/complete";
-export const CAMP_PAYMENT_FAIL_PATHNAME = "/camp/payment/fail";
+export const CAMP_PAYMENT_PATHNAME = "/payment";
+export const CAMP_PAYMENT_COMPLETE_PATHNAME = "/payment/complete";
+export const CAMP_PAYMENT_FAIL_PATHNAME = "/payment/fail";
 
 export const LECTURE_PATHNAME = "/lecture";

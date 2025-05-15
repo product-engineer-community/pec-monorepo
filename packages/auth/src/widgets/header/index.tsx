@@ -15,7 +15,7 @@ import {
 import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MENU_ITEMS, getOrigin } from "@packages/constants";
+import { CAMP_PATHNAME, MENU_ITEMS, getOrigin } from "@packages/constants";
 
 interface HeaderProps {
   DropdownMenuWithPoint: React.ReactNode;
@@ -62,10 +62,18 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
+            ) : ["Articles", "Events"].includes(item.label) ? (
               <Link
                 key={item.href}
                 href={item.href}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <Link
+                key={item.href}
+                href={`${getOrigin("camp")}${CAMP_PATHNAME}`}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}

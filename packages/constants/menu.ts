@@ -1,4 +1,5 @@
 import {
+  CAMP_PATHNAME,
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
@@ -17,4 +18,5 @@ export const MENU_ITEMS = [
   },
   { label: "Articles", href: COMMUNITY_ARTICLES_PATHNAME },
   { label: "Events", href: COMMUNITY_EVENTS_PATHNAME },
+  { label: "Camp", href: CAMP_PATHNAME },
 ] as const;

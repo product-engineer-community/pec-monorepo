@@ -1,3 +1,4 @@
+import { CAMP_PATHNAME } from "@packages/constants";
 import { ExternalLink } from "@packages/ui";
 import Image from "next/image";
 
@@ -9,12 +10,6 @@ import {
   SubTitle,
   Title,
 } from "@/features/camp/ui";
-import feedbackSessionSrc from "@/public/camp/feedback-session.webp";
-import questionSrc from "@/public/camp/question.webp";
-import sessionSrc from "@/public/camp/session.webp";
-import sessionGuideSrc from "@/public/camp/session-guide.webp";
-import subjectSrc from "@/public/camp/subject.webp";
-import teamSubjectSrc from "@/public/camp/team-subject.webp";
 
 export default async function Index() {
   return (
@@ -82,31 +77,31 @@ export default async function Index() {
           <SubTitle className="mt-8 text-center">함께 다룰 기술들</SubTitle>
           <div className="mt-6 flex flex-wrap justify-center gap-4 md:mt-8">
             <Image
-              width={120}
-              height={120}
-              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
-              src={"/camp/tech/reactlogo.png"}
+              width={100}
+              height={100}
+              className="h-[100px] w-[100px] md:h-[140px] md:w-[140px]"
+              src={`${CAMP_PATHNAME}/tech/reactlogo.png`}
               alt="react"
             />
             <Image
-              width={120}
-              height={120}
-              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
-              src={"/camp/tech/nextjs.png"}
+              width={100}
+              height={100}
+              className="h-[100px] w-[100px] md:h-[140px] md:w-[140px]"
+              src={`${CAMP_PATHNAME}/tech/nextjs.png`}
               alt="nextjs"
             />
             <Image
-              width={120}
-              height={120}
-              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
-              src={"/camp/tech/zustand.png"}
+              width={100}
+              height={100}
+              className="h-[100px] w-[100px] md:h-[140px] md:w-[140px]"
+              src={`${CAMP_PATHNAME}/tech/zustand.png`}
               alt="zustand"
             />
             <Image
-              width={120}
-              height={120}
-              className="h-[120px] w-[120px] md:h-[180px] md:w-[180px]"
-              src={"/camp/tech/fsd.png"}
+              width={100}
+              height={100}
+              className="h-[100px] w-[100px] md:h-[140px] md:w-[140px]"
+              src={`${CAMP_PATHNAME}/tech/fsd.png`}
               alt="fsd"
             />
           </div>
@@ -121,7 +116,7 @@ export default async function Index() {
             width={1000}
             height={300}
             className="h-auto w-full"
-            src={"/camp/schedule.webp"}
+            src={`${CAMP_PATHNAME}/schedule.webp`}
             alt="schedule"
           />
 
@@ -132,7 +127,7 @@ export default async function Index() {
                 titleBgColor="#feeab3"
                 description="주 1회 / 1시간 30분 ZOOM 세션에 참여하여 주차별 커리큘럼 주제를
         학습하고, 수행한 과제에 대해 피드백을 받습니다."
-                imageSrc={sessionSrc}
+                imageSrc={`${CAMP_PATHNAME}/session.webp`}
                 imageDescription="ZOOM 세션 강의"
               />
               <ProcessItem
@@ -141,7 +136,7 @@ export default async function Index() {
                 description="주차별 주제 상세 설명, 과제 진행 방법에 대해 설명하는 세션
                   가이드 파일(pdf)을 제공합니다. (과제는 주차별 주제에 대한
                   실습입니다.)"
-                imageSrc={sessionGuideSrc}
+                imageSrc={`${CAMP_PATHNAME}/session-guide.webp`}
                 imageDescription="2주차 세션 가이드 파일"
               />
             </div>
@@ -150,14 +145,14 @@ export default async function Index() {
                 title="개인 과제"
                 titleBgColor="#fed3dd"
                 description="같은 주제로, 각자가 개인 과제를 진행합니다. 개인 과제를 기반으로 하나의 팀 과제를 완성합니다."
-                imageSrc={subjectSrc}
+                imageSrc={`${CAMP_PATHNAME}/subject.webp`}
                 imageDescription="다양한 UX framework 활용 연습"
               />
               <ProcessItem
                 title="피드백 세션"
                 titleBgColor="#fee0c9"
                 description="완성한 과제에 대해, 정규 세션 전 추가로 피드백 세션을 진행하며 과제 완성도를 높입니다."
-                imageSrc={feedbackSessionSrc}
+                imageSrc={`${CAMP_PATHNAME}/feedback-session.webp`}
                 imageDescription="과제에 대해 피드백을 제공하는 모습"
               />
             </div>
@@ -166,14 +161,14 @@ export default async function Index() {
                 title="실시간 질문"
                 titleBgColor="#cdf5ce"
                 description="Discord 로 세션과 과제에 대해 실시간으로 질문하며, 이를 토대로 깊이 있게 학습합니다."
-                imageSrc={questionSrc}
+                imageSrc={`${CAMP_PATHNAME}/question.webp`}
                 imageDescription="Dicord 로 피드백 및 실시간 Q&A"
               />
               <ProcessItem
                 title="팀 과제"
                 titleBgColor="#cfe2fd"
                 description="앞서 진행한 개인 과제를 바탕으로, 팀원과 함께 ZOOM 을 통해 의견을 나누며 과제를 완성합니다."
-                imageSrc={teamSubjectSrc}
+                imageSrc={`${CAMP_PATHNAME}/team-subject.webp`}
                 imageDescription="함께 완성하는 팀 과제"
               />
             </div>
@@ -230,7 +225,7 @@ export default async function Index() {
               className="h-auto w-full"
               width={1000}
               height={300}
-              src={"/camp/weekly-subject.webp"}
+              src={`${CAMP_PATHNAME}/weekly-subject.webp`}
               alt="weekly subject"
             />
           </div>
@@ -243,7 +238,7 @@ export default async function Index() {
               <Image
                 width={200}
                 height={200}
-                src={"/camp/mento.webp"}
+                src={`${CAMP_PATHNAME}/mento.webp`}
                 alt="mento"
               />
             </div>

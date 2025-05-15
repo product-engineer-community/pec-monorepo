@@ -22,7 +22,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-import ContentItem from "../entities/landing/contentItem";
+import ContentItem from "../../../camp/src/entities/contentItem";
 
 export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();

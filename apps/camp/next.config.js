@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
-  basePath: "/community",
-  assetPrefix: "/community/",
+  basePath: "/camp",
+  assetPrefix: "/camp/",
   webpack: (config) => {
     config.externals = [...config.externals, "canvas", "jsdom"];
     return config;
@@ -29,8 +29,8 @@ const nextConfig = {
           basePath: false,
         },
         {
-          source: "/camp/:path*",
-          destination: "http://localhost:3002/camp/:path*",
+          source: "/community/:path*",
+          destination: "http://localhost:3001/community/:path*",
           basePath: false,
         },
       ];
