@@ -1,16 +1,16 @@
 {
   "rewrites": [
     {
-      "source": "/auth/:path*",
-      "destination": "https://auth.productengineer.info/:path*"
+      "source": "https://www.productengineer.info/auth/:path*",
+      "destination": "https://auth.productengineer.info/auth/:path*"
     },
     {
-      "source": "/camp/:path*",
-      "destination": "https://camp.productengineer.info/:path*"
+      "source": "https://www.productengineer.info/camp/:path*",
+      "destination": "https://camp.productengineer.info/camp/:path*"
     },
     {
       "source": "/community/:path*",
-      "destination": "https://community.productengineer.info/:path*"
+      "destination": "https://www.productengineer.info/community/:path*"
     }
   ]
 }
