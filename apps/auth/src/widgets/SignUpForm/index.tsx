@@ -91,7 +91,7 @@ export function SignUpForm() {
         <div className="text-center text-sm text-muted-foreground">
           이미 계정이 있으신가요?{" "}
           <Link
-            href="/auth/signin"
+            href="/signin"
             className="text-primary underline-offset-4 hover:underline"
           >
             로그인
