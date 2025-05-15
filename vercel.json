@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/auth/:path*",
+      "destination": "https://auth.productengineer.info/:path*"
+    },
+    {
+      "source": "/camp/:path*",
+      "destination": "https://camp.productengineer.info/:path*"
+    },
+    {
+      "source": "/community/:path*",
+      "destination": "https://community.productengineer.info/:path*"
+    }
+  ]
+}
