@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "./globals.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Header } from "@packages/auth/src/widgets";
