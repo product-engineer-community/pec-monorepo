@@ -17,7 +17,7 @@
     },
     {
       "source": "/community/:path*",
-      "destination": "https://community.productengineer.info/:path*"
+      "destination": "https://community.productengineer.info/community/:path*"
     }
   ]
 }
