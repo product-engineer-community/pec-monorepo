@@ -10,14 +10,17 @@ const nextConfig = {
   },
 
   async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/community",
-        basePath: false,
-        permanent: false,
-      },
-    ];
+    if (process.env.NODE_ENV === "development") {
+      return [
+        {
+          source: "/",
+          destination: "/community",
+          basePath: false,
+          permanent: false,
+        },
+      ];
+    }
+    return [];
   },
 
   async rewrites() {
