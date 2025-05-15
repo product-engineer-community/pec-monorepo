@@ -1,34 +1,43 @@
 "use client";
 
 import { PasswordInput } from "@packages/auth/src/features";
-import { signIn, type SignInState } from "@packages/auth/src/features";
+import { type AuthState, signIn } from "@packages/auth/src/features";
 import { Button, Input, Label } from "@packages/ui";
-import { Link } from "lucide-react";
+import Link from "next/link";
 import { useActionState } from "react";
 
-const initialState: SignInState = {
+const initialState: AuthState = {
   error: null,
   success: false,
 };
 
 export function SignInForm() {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
+
   return (
     <form action={formAction}>
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">이메일</Label>
           <Input
-            name="email"
             id="email"
+            name="email"
             type="email"
             placeholder="name@example.com"
             required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            title="유효한 이메일 주소를 입력해주세요."
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password">비밀번호</Label>
-          <PasswordInput name="password" id="password" required />
+          <PasswordInput
+            id="password"
+            name="password"
+            required
+            minLength={6}
+            title="비밀번호는 최소 6자 이상이어야 합니다."
+          />
         </div>
         {state?.error && (
           <div className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">

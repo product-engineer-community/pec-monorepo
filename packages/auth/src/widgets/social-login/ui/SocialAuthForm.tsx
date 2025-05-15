@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 
-import { SignInState, socialSignIn } from "../../../features/auth/action";
+import { AuthState, socialSignIn } from "../../../features/auth/action";
 import {
   DEFAULT_ENABLED_PROVIDERS,
   PROVIDER_NAMES,
@@ -15,7 +15,7 @@ type SocialAuthFormProps = {
   gridClass?: string;
 };
 
-const initialState: SignInState = {
+const initialState: AuthState = {
   error: null,
   success: false,
 };
