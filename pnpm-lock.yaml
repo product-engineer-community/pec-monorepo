@@ -11,6 +11,15 @@ importers:
       '@mdxeditor/editor':
         specifier: ^3.32.2
         version: 3.32.2(@codemirror/language@6.11.0)(@lezer/highlight@1.2.1)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.26)
+      next:
+        specifier: ^15.3.2
+        version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -21,6 +30,12 @@ importers:
       '@types/node':
         specifier: ^20.11.24
         version: 20.17.24
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: ^18.2.19
+        version: 18.3.5(@types/react@18.3.18)
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -78,15 +93,6 @@ importers:
       net:
         specifier: ^1.0.2
         version: 1.0.2
-      next:
-        specifier: ^15.3.2
-        version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
@@ -103,12 +109,6 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2)))
-      '@types/react':
-        specifier: ^18.2.61
-        version: 18.3.18
-      '@types/react-dom':
-        specifier: ^18.2.19
-        version: 18.3.5(@types/react@18.3.18)
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
@@ -190,15 +190,6 @@ importers:
       net:
         specifier: ^1.0.2
         version: 1.0.2
-      next:
-        specifier: ^15.3.2
-        version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
@@ -212,12 +203,6 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2)))
-      '@types/react':
-        specifier: ^18.2.61
-        version: 18.3.18
-      '@types/react-dom':
-        specifier: ^18.2.19
-        version: 18.3.5(@types/react@18.3.18)
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
@@ -302,15 +287,6 @@ importers:
       net:
         specifier: ^1.0.2
         version: 1.0.2
-      next:
-        specifier: ^15.3.2
-        version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
@@ -330,12 +306,6 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2)))
-      '@types/react':
-        specifier: ^18.2.61
-        version: 18.3.18
-      '@types/react-dom':
-        specifier: ^18.2.19
-        version: 18.3.5(@types/react@18.3.18)
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
@@ -373,17 +343,7 @@ importers:
         specifier: ^3.4.1
         version: 3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2))
 
-  apps/gateway:
-    dependencies:
-      next:
-        specifier: ^15.3.2
-        version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
+  apps/gateway: {}
 
   packages/auth:
     dependencies:
