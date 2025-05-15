@@ -1,11 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/community",
-      "permanent": false
-    }
-  ],
   "rewrites": [
     {
       "source": "/auth/:path*",
