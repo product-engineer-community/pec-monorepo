@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
-  basePath: "/community",
-  assetPrefix: "/community/",
+  basePath: "/auth",
+  assetPrefix: "/auth/",
   webpack: (config) => {
     config.externals = [...config.externals, "canvas", "jsdom"];
     return config;
@@ -12,8 +12,8 @@ const nextConfig = {
     if (process.env.NODE_ENV === "development") {
       return [
         {
-          source: "/auth/:path*",
-          destination: "http://localhost:3000/auth/:path*",
+          source: "/community/:path*",
+          destination: "http://localhost:3001/community/:path*",
           basePath: false,
         },
       ];
@@ -21,5 +21,4 @@ const nextConfig = {
     return [];
   },
 };
-
 module.exports = nextConfig;

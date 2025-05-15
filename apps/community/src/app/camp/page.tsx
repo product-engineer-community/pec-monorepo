@@ -1,3 +1,4 @@
+import { ExternalLink } from "@packages/ui";
 import Image from "next/image";
 
 import {
@@ -14,7 +15,6 @@ import sessionSrc from "@/public/camp/session.webp";
 import sessionGuideSrc from "@/public/camp/session-guide.webp";
 import subjectSrc from "@/public/camp/subject.webp";
 import teamSubjectSrc from "@/public/camp/team-subject.webp";
-import { ExternalLink } from "@/shared/components/ExternalLink";
 
 export default async function Index() {
   return (

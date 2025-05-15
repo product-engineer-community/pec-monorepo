@@ -1,14 +1,16 @@
 "use client";
 
-import { useActionState } from "react";
-
-import { AuthState, socialSignIn } from "../../../features/auth/action";
 import {
   DEFAULT_ENABLED_PROVIDERS,
   PROVIDER_NAMES,
   type SocialProvider,
-} from "../../../features";
-import { SocialLoginButton } from "../../../features/auth/ui";
+} from "@packages/auth/src/features";
+import {
+  AuthState,
+  socialSignIn,
+} from "@packages/auth/src/features/auth/action";
+import { SocialLoginButton } from "@packages/auth/src/features/auth/ui";
+import { useActionState } from "react";
 
 type SocialAuthFormProps = {
   providers?: SocialProvider[];

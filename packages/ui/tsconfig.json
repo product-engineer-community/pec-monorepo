@@ -6,6 +6,7 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "types": ["react/experimental"],
+    "rootDir": "src",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],

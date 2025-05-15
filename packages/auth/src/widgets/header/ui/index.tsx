@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserFromSupabase } from "@packages/supabase";
-import { SignOutButton } from "../../features";
+import { SignOutButton } from "../../../features";
 import {
   Button,
   DropdownMenu,
@@ -9,12 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  ExternalLink,
   Text,
 } from "@packages/ui";
 import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MENU_ITEMS } from "@packages/constants";
+import { MENU_ITEMS, getOrigin } from "@packages/constants";
 
 interface HeaderProps {
   DropdownMenuWithPoint: React.ReactNode;
@@ -79,7 +80,13 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           ) : (
             <>
               <Button variant="outline" size="sm" asChild>
-                <Link href="/auth/signin">로그인</Link>
+                {process.env.NODE_ENV === "production" ? (
+                  <Link href="/auth/signin">로그인</Link>
+                ) : (
+                  <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
+                    로그인
+                  </ExternalLink>
+                )}
               </Button>
             </>
           )}
@@ -137,7 +144,9 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
             ) : (
               <>
                 <DropdownMenuItem asChild>
-                  <Link href="/auth/signin">로그인</Link>
+                  <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
+                    로그인
+                  </ExternalLink>
                 </DropdownMenuItem>
               </>
             )}

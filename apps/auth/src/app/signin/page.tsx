@@ -1,4 +1,3 @@
-import { SocialAuthForm, SocialLoginDivider } from "@packages/auth/src/widgets";
 import {
   Card,
   CardContent,
@@ -8,6 +7,7 @@ import {
 } from "@packages/ui";
 
 import { SignInForm } from "@/src/widgets/SignInForm";
+import { SocialAuthForm, SocialLoginDivider } from "@/widgets/SocialLogin";
 
 export default function SignInPage() {
   return (

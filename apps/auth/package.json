@@ -1,9 +1,9 @@
 {
-  "name": "@apps/community",
+  "name": "@apps/auth",
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -30,7 +30,6 @@
     "sharp": "^0.33.5",
     "sonner": "^2.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "ts-pattern": "^5.7.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

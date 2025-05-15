@@ -37,8 +37,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/loading.tsx",
-    "../../packages/auth/src/widgets/header/index.tsx",
-    "../../packages/ui/src/components/ui/external-link.tsx"
+    "../../packages/auth/src/widgets/header/index.tsx"
   ],
   "exclude": ["node_modules"]
 }
