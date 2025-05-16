@@ -8,16 +8,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {
-    "@next/third-parties": "^15.3.2",
-    "@packages/auth": "workspace:*",
-    "@packages/constants": "workspace:*",
-    "@packages/env": "workspace:*",
-    "@packages/point": "workspace:*",
-    "@packages/ui": "workspace:*",
-    "lucide-react": "^0.350.0",
-    "geist": "^1.2.1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"

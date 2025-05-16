@@ -34,11 +34,11 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         <Link
-          href={getOrigin("community") + COMMUNITY_LANDING_PATHNAME}
+          href={getOrigin("gateway")}
           className="mr-8 flex items-center gap-2"
         >
           <Image
-            src="/community/logo.webp"
+            src="/logo.webp"
             alt="PEC"
             width={32}
             height={32}
@@ -78,7 +78,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
             ) : (
               <Link
                 key={item.href}
-                href={`${getOrigin("camp")}${CAMP_LANDING_PATHNAME}`}
+                href={`${getOrigin("camp")}${item.href}`}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
