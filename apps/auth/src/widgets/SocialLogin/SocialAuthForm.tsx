@@ -28,8 +28,9 @@ export function SocialAuthForm({
 }: SocialAuthFormProps) {
   const [state, formAction] = useActionState(socialSignIn, initialState);
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") ?? "https://productengineer.info";
-
+  const nextBase = searchParams.get("next") ?? "https://productengineer.info";
+  // page url
+  const next = `${nextBase}/auth/callback`;
   return (
     <>
       <div className="flex flex-col gap-4">
