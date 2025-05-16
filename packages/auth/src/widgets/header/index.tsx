@@ -35,9 +35,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
   const protocol = host?.startsWith("localhost") ? "http" : "https";
   const currentAppUrl = `${protocol}://${host}`;
 
-  // const signinUrl = `${getOrigin("auth")}/auth/signin?next=${encodeURIComponent(currentAppUrl)}`;
-
-  const signinUrl = "/auth/signin";
+  const signinUrl = `${getOrigin("auth")}/auth/signin?next=${encodeURIComponent(currentAppUrl)}`;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
