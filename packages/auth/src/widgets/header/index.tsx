@@ -15,12 +15,7 @@ import {
 import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  CAMP_LANDING_PATHNAME,
-  COMMUNITY_LANDING_PATHNAME,
-  MENU_ITEMS,
-  getOrigin,
-} from "@packages/constants";
+import { MENU_ITEMS, getOrigin } from "@packages/constants";
 
 interface HeaderProps {
   DropdownMenuWithPoint: React.ReactNode;
