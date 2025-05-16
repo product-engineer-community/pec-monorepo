@@ -20,6 +20,7 @@ import {
   MENU_ITEMS,
   getOrigin,
 } from "@packages/constants";
+import { headers } from "next/headers";
 
 interface HeaderProps {
   DropdownMenuWithPoint: React.ReactNode;
@@ -28,6 +29,13 @@ interface HeaderProps {
 export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
   const user = await getUserFromSupabase();
   const isAuthenticated = !!user;
+
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = host?.startsWith("localhost") ? "http" : "https";
+  const currentAppUrl = `${protocol}://${host}`;
+
+  const signinUrl = `${getOrigin("auth")}/auth/signin?next=${encodeURIComponent(currentAppUrl)}`;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -95,11 +103,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           ) : (
             <>
               <Button variant="outline" size="sm" asChild>
-                <Link
-                  href={`${getOrigin("auth")}/auth/signin?next=${encodeURIComponent(window.location.href)}`}
-                >
-                  로그인
-                </Link>
+                <Link href={signinUrl}>로그인</Link>
               </Button>
             </>
           )}
@@ -157,9 +161,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
             ) : (
               <>
                 <DropdownMenuItem asChild>
-                  <ExternalLink href={`${getOrigin("auth")}/auth/signin`}>
-                    로그인
-                  </ExternalLink>
+                  <Link href={signinUrl}>로그인</Link>
                 </DropdownMenuItem>
               </>
             )}
