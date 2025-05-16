@@ -1,4 +1,4 @@
-type AppName = "auth" | "community" | "camp" | "lecture";
+export type AppName = "auth" | "community" | "camp" | "lecture";
 
 const appPort = {
   auth: 3000,

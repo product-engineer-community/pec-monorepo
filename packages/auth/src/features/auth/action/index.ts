@@ -5,7 +5,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
+  AppName,
   AUTH_CALLBACK_PATHNAME,
+  getOrigin,
   MAIN_PATHNAME,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
@@ -137,11 +139,12 @@ export async function socialSignIn(
   formData: FormData
 ): Promise<AuthState> {
   const provider = formData.get("provider") as SocialProvider;
-
+  const next = formData.get("next") as string;
   const supabase = await getSupabaseServerClient();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const redirectTo = `${siteUrl.replace(/\/$/, "")}${AUTH_CALLBACK_PATHNAME}`;
+  const siteUrl = getOrigin("auth");
+  const baseCallbackUrl = `${siteUrl.replace(/\/$/, "")}${AUTH_CALLBACK_PATHNAME}`;
+  const redirectTo = `${baseCallbackUrl}?next=${encodeURIComponent(next)}`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,

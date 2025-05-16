@@ -7,20 +7,6 @@ const nextConfig = {
     return config;
   },
 
-  async redirects() {
-    if (process.env.NODE_ENV === "development") {
-      return [
-        {
-          source: "/",
-          destination: "/community",
-          basePath: false,
-          permanent: false,
-        },
-      ];
-    }
-    return [];
-  },
-
   async rewrites() {
     if (process.env.NODE_ENV === "development") {
       return [

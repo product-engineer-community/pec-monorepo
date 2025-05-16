@@ -10,6 +10,7 @@ import {
   socialSignIn,
 } from "@packages/auth/src/features/auth/action";
 import { SocialLoginButton } from "@packages/auth/src/features/auth/ui";
+import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 
 type SocialAuthFormProps = {
@@ -26,6 +27,8 @@ export function SocialAuthForm({
   providers = DEFAULT_ENABLED_PROVIDERS,
 }: SocialAuthFormProps) {
   const [state, formAction] = useActionState(socialSignIn, initialState);
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next") ?? "https://productengineer.info";
 
   return (
     <>
@@ -33,6 +36,7 @@ export function SocialAuthForm({
         {providers.map((provider) => (
           <div key={provider} className="w-full">
             <form action={formAction}>
+              <input type="hidden" name="next" value={next} />
               <input type="hidden" name="provider" value={provider} />
               <SocialLoginButton provider={provider}>
                 {PROVIDER_NAMES[provider]}

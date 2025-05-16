@@ -101,7 +101,7 @@ export default async function LandingPage() {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/community/webinar.webp"
+              src="/webinar.webp"
               alt="Product Engineer"
               width={800}
               height={800}
@@ -246,7 +246,7 @@ export default async function LandingPage() {
                 category="튜토리얼"
                 title="F.S.D 를 활용하여 Next.js 폴더구조 설계하기"
                 description="프론트엔드 개발자가 프로젝트를 진행하면서 중요한 것 중 하나는 폴더 구조를 잘 설계하는 것입니다. 폴더 구조는 프로젝트의 규모가 커질수록 더 중요해집니다."
-                image="/community/FSD.webp"
+                image="/FSD.webp"
                 link="/"
               />
 
@@ -255,7 +255,7 @@ export default async function LandingPage() {
                 category="튜토리얼"
                 title="OAuth 2.0 을 활용한 인증 시스템 구현하기"
                 description="OAuth 2.0 을 활용한 인증 시스템을 구현하는 방법을 알아보세요. 이 시스템은 사용자의 인증 정보를 안전하게 저장하고, 검증하는 데 사용합니다."
-                image="/community/OAuth.webp"
+                image="/OAuth.webp"
                 link="/"
               />
 
@@ -264,7 +264,7 @@ export default async function LandingPage() {
                 category="튜토리얼"
                 title="Github actions 를 활용한 CI/CD 구현하기"
                 description="Github actions 를 활용하여 CI/CD 를 구현하는 방법을 알아보세요. 이를 통해 코드를 자동으로 빌드하고, 테스트하고, 배포하는 것이 가능해집니다."
-                image="/community/GithubActions.webp"
+                image="/GithubActions.webp"
                 link="/"
               />
             </div>
@@ -323,7 +323,7 @@ export default async function LandingPage() {
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <div className="flex items-center gap-2 text-lg font-semibold">
             <Image
-              src="/community/logo.webp"
+              src="/logo.webp"
               className="rounded-full"
               alt="logo"
               width={32}

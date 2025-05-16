@@ -37,7 +37,7 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           className="mr-8 flex items-center gap-2"
         >
           <Image
-            src="/community/logo.webp"
+            src="/logo.webp"
             alt="PEC"
             width={32}
             height={32}
@@ -95,7 +95,11 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
           ) : (
             <>
               <Button variant="outline" size="sm" asChild>
-                <Link href={`${getOrigin("auth")}/auth/signin`}>로그인</Link>
+                <Link
+                  href={`${getOrigin("auth")}/auth/signin?next=${encodeURIComponent(window.location.href)}`}
+                >
+                  로그인
+                </Link>
               </Button>
             </>
           )}
