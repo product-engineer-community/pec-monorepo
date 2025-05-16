@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
+  basePath: "/community",
+  assetPrefix: "/community/",
   webpack: (config) => {
     config.externals = [...config.externals, "canvas", "jsdom"];
     return config;
