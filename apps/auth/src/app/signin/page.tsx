@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@packages/ui";
+import { Suspense } from "react";
 
 import { SignInForm } from "@/src/widgets/SignInForm";
 import { SocialAuthForm, SocialLoginDivider } from "@/widgets/SocialLogin";
@@ -21,7 +22,9 @@ export default function SignInPage() {
         <CardContent className="space-y-4">
           <SocialLoginDivider />
 
-          <SocialAuthForm />
+          <Suspense>
+            <SocialAuthForm />
+          </Suspense>
 
           <div className="text-center text-sm text-muted-foreground">또는</div>
 
