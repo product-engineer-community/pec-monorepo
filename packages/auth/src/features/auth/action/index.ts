@@ -142,7 +142,7 @@ export async function socialSignIn(
   const next = formData.get("next") as string;
   const supabase = await getSupabaseServerClient();
 
-  const siteUrl = "https://auth.productengineer.info";
+  const siteUrl = getOrigin("auth");
   const baseCallbackUrl = `${siteUrl.replace(/\/$/, "")}${AUTH_CALLBACK_PATHNAME}`;
   const redirectTo = `${baseCallbackUrl}?next=${encodeURIComponent(next)}`;
 
