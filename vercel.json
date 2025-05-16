@@ -9,23 +9,20 @@
   "rewrites": [
     {
       "source": "/auth/:path*",
-      "destination": "https://auth.productengineer.info/auth/:path*",
-      "permanent": false
+      "destination": "https://auth.productengineer.info/auth/:path*"
+      
     },
     {
       "source": "/community/:path*",
-      "destination": "https://community.productengineer.info/community/:path*",
-      "permanent": false
+      "destination": "https://community.productengineer.info/community/:path*"
     },
     {
       "source": "/camp/:path*",
-      "destination": "https://camp.productengineer.info/camp/:path*",
-      "permanent": false
+      "destination": "https://camp.productengineer.info/camp/:path*"
     },
     {
       "source": "/lecture/:path*",
-      "destination": "https://lecture.productengineer.info/lecture/:path*",
-      "permanent": false
+      "destination": "https://lecture.productengineer.info/lecture/:path*"
     }
   ]
 }
