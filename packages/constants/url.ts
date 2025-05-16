@@ -12,5 +12,10 @@ export const getOrigin = (appName: AppName) => {
     return `http://localhost:${appPort[appName]}`;
   }
 
-  return process.env.NEXT_PUBLIC_SITE_URL || "";
+  return {
+    auth: "https://auth.productengineer.info",
+    community: "https://community.productengineer.info",
+    camp: "https://camp.productengineer.info",
+    lecture: "https://lecture.productengineer.info",
+  }[appName];
 };
