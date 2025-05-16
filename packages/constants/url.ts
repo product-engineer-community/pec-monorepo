@@ -8,9 +8,9 @@ const appPort = {
 };
 
 export const getOrigin = (appName: AppName) => {
-  // if (process.env.NODE_ENV === "development") {
-  //   return `http://localhost:${appPort[appName]}`;
-  // }
+  if (process.env.NODE_ENV === "development") {
+    return `http://localhost:${appPort[appName]}`;
+  }
 
   return {
     auth: "https://auth.productengineer.info",
