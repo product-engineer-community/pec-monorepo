@@ -148,7 +148,10 @@ export default async function ArticlesPage() {
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {remainingArticles.map((post) => (
-            <Link key={post.id} href={`/community/articles/${post.id}`}>
+            <Link
+              key={post.id}
+              href={`${COMMUNITY_ARTICLES_PATHNAME}/${post.id}`}
+            >
               <div className="h-full overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
                 <div className="aspect-w-16 aspect-h-9 overflow-hidden">
                   <Image
