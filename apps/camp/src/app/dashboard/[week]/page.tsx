@@ -67,8 +67,12 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export default async function Home({ params }: { params: { week: string } }) {
-  const weekNum = parseInt(params.week);
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ week: string }>;
+}) {
+  const weekNum = parseInt((await params).week);
   const miroLink = ""; // Default empty value for miroLink
 
   return (
