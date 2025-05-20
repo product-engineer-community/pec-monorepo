@@ -16,65 +16,53 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
+        {/* Floating Apply Button */}
+        <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform">
+          <Button
+            size="lg"
+            className="rounded-full bg-secondary px-8 py-6 text-lg font-semibold text-primary shadow-lg transition-all hover:bg-secondary hover:text-xl"
+          >
+            알림 신청하기
+          </Button>
+        </div>
+
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-slate-900 to-slate-800 py-20 text-white">
-          <div className="container px-4 md:px-6">
-            <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
-              <div className="space-y-4">
-                <h1 className="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-                  AI시대, 대체불가한 프론트엔드 엔지니어가 되는 방법ㅅ
-                </h1>
-                <p className="text-xl text-gray-200">
-                  8주 동안 Camp 에서 AI와 함께 내 주변에 실제 문제를 해결하며
-                  진짜 성장을 경험하세요
-                </p>
-                <div className="flex flex-col gap-3 pt-4 sm:flex-row">
-                  <Button
-                    size="lg"
-                    className="bg-white text-slate-900 hover:bg-gray-200"
-                  >
-                    지금 신청하기
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white text-white hover:bg-white/10"
-                  >
-                    더 알아보기
-                  </Button>
-                </div>
-              </div>
-              <div className="relative h-[400px] overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="Product Engineer Camp"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+        <section className="py-12 lg:py-20">
+          <div className="flex flex-col items-center gap-8 px-4 md:px-6 lg:gap-12">
+            <h1 className="flex flex-col gap-4 text-center text-3xl font-bold tracking-tighter md:text-5xl lg:px-44 lg:text-6xl">
+              <div>AI시대, 대체불가한 프론트엔드</div>
+              <div>엔지니어가 되는 방법</div>
+            </h1>
+            <div className="tex-center flex flex-col justify-center text-center text-xl font-bold lg:text-2xl">
+              <div>8주 동안 Camp 에서 </div>
+              <div>AI와 함께 내 주변에 실제 문제를 해결하며</div>
+              <div>진짜 성장을 경험하세요</div>
+            </div>
+
+            <div className="relative overflow-hidden rounded-lg lg:h-[400px]">
+              <video
+                src="/camp/pec-intro.mp4"
+                autoPlay
+                muted
+                loop
+                className="w-full rounded-lg lg:h-[400px]"
+              />
             </div>
           </div>
         </section>
 
         {/* For Whom Section */}
-        <section id="about" className="bg-white py-16">
+        <section id="about" className="pb-12">
           <div className="container px-4 md:px-6">
-            <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
-                이런 분들에게 추천해요
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-                Product Engineer Camp는 AI 시대에 필요한 실질적인 역량을
-                키우고자 하는 프론트엔드 개발자를 위한 프로그램입니다.
-              </p>
+            <div className="mb-4 text-center">
+              <h2 className="text-3xl font-bold">이런 분들에게 추천해요</h2>
             </div>
             <div className="grid gap-8 md:grid-cols-3">
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <Brain className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <Brain className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">
@@ -91,14 +79,14 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <Layers className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <Layers className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">설계 역량 향상</h3>
                       <p className="mt-2 text-gray-500">
-                        &quot;좋은 프론트엔드 설계란 무엇인가?&quot; 에 대해
-                        고민하는 분
+                        &quot;좋은 설계란 무엇인가?&quot; 에 대해 고민하며 답을
+                        찾는 분
                       </p>
                     </div>
                   </div>
@@ -107,14 +95,14 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <Users className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <Users className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">성장 커뮤니티</h3>
                       <p className="mt-2 text-gray-500">
-                        성장에 대한 나의 고민에 대해 피드백을 주고 받을 사수,
-                        동료가 없는 분
+                        성장에 대한 고민과 관련해 피드백을 나눌 사수, 동료가
+                        없는 분
                       </p>
                     </div>
                   </div>
@@ -125,10 +113,10 @@ export default function Home() {
         </section>
 
         {/* Experience Section */}
-        <section id="experience" className="bg-gray-50 py-16">
+        <section id="experience" className="bg-primary/5 py-12">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold">
                 어떤 것들을 경험할 수 있나요?
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-gray-500">
@@ -139,7 +127,7 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-900 p-3">
+                    <div className="rounded-full bg-primary p-3">
                       <BookOpen className="h-6 w-6 text-white" />
                     </div>
                     <div>
@@ -157,7 +145,7 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-900 p-3">
+                    <div className="rounded-full bg-primary p-3">
                       <Users className="h-6 w-6 text-white" />
                     </div>
                     <div>
@@ -175,7 +163,7 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-900 p-3">
+                    <div className="rounded-full bg-primary p-3">
                       <Brain className="h-6 w-6 text-white" />
                     </div>
                     <div>
@@ -193,129 +181,132 @@ export default function Home() {
         </section>
 
         {/* Program Details */}
-        <section className="bg-white py-16">
+        <section className="py-12">
           <div className="container px-4 md:px-6">
             <div className="grid gap-12 lg:grid-cols-2">
               <div>
-                <h2 className="mb-6 text-3xl font-bold tracking-tight">
+                <h2 className="mb-6 text-3xl font-bold tracking-tight text-primary">
                   정규 세션
                 </h2>
                 <p className="mb-6 text-gray-500">
                   라이브 세션에 참여하여 주차별 주제를 학습하고, 수행한 과제에
                   대해 피드백을 받습니다.
                 </p>
-                <div className="mb-4 flex items-center gap-4">
-                  <div className="rounded-full bg-slate-100 p-2">
-                    <MessageCircle className="h-5 w-5 text-slate-900" />
-                  </div>
-                  <span className="font-medium">ZOOM 세션 강의</span>
-                </div>
+                {/* responsive fullness */}
+                <Image
+                  className="w-full"
+                  src="/camp/session.webp"
+                  alt="ZOOM"
+                  width={200}
+                  height={200}
+                />
 
-                <h2 className="mb-6 mt-12 text-3xl font-bold tracking-tight">
+                <h2 className="mb-6 mt-12 text-3xl font-bold tracking-tight text-primary">
                   코드 리뷰
                 </h2>
                 <p className="mb-6 text-gray-500">
                   기획에 기반하여 설계한 후 구현합니다. 이 과정에서 AI와
                   협업하는 방법과 결과물(코드)에 대해 리뷰합니다.
                 </p>
-                <div className="mb-4 flex items-center gap-4">
-                  <div className="rounded-full bg-slate-100 p-2">
-                    <Code className="h-5 w-5 text-slate-900" />
-                  </div>
-                  <span className="font-medium">멘토 코드리뷰</span>
-                </div>
+                <Image
+                  className="w-full"
+                  src="/camp/code-review.webp"
+                  alt="Code Review"
+                  width={200}
+                  height={200}
+                />
               </div>
 
               <div>
-                <h2 className="mb-6 text-3xl font-bold tracking-tight">
+                <h2 className="mb-6 text-3xl font-bold tracking-tight text-primary">
                   개인 과제
                 </h2>
                 <p className="mb-6 text-gray-500">
                   주차별 주제에 대해 각자 개인 과제를 진행합니다. 개인 과제를
                   통해 주제를 실습하며 경험합니다.
                 </p>
-                <div className="mb-4 flex items-center gap-4">
-                  <div className="rounded-full bg-slate-100 p-2">
-                    <BookOpen className="h-5 w-5 text-slate-900" />
-                  </div>
-                  <span className="font-medium">
-                    UX framework 를 통해 F.E 설계 기반을 학습
-                  </span>
-                </div>
+                <Image
+                  className="w-full"
+                  src="/camp/subject.webp"
+                  alt="Individual Task"
+                  width={200}
+                  height={200}
+                />
 
-                <h2 className="mb-6 mt-12 text-3xl font-bold tracking-tight">
+                <h2 className="mb-6 mt-12 text-3xl font-bold tracking-tight text-primary">
                   피드백 세션
                 </h2>
                 <p className="mb-6 text-gray-500">
                   완성한 과제에 대해, 심화 피드백 세션을 추가로 진행하며 과제
                   완성도를 높입니다.
                 </p>
-                <div className="mb-4 flex items-center gap-4">
-                  <div className="rounded-full bg-slate-100 p-2">
-                    <MessageCircle className="h-5 w-5 text-slate-900" />
-                  </div>
-                  <span className="font-medium">
-                    과제에 대한 심화 피드백을 제공
-                  </span>
-                </div>
+                <Image
+                  className="w-full"
+                  src="/camp/feedback-session.webp"
+                  alt="Feedback Session"
+                  width={200}
+                  height={200}
+                />
               </div>
             </div>
           </div>
         </section>
 
         {/* Technologies */}
-        <section className="bg-slate-900 py-16 text-white">
+        <section className="bg-primary py-12 text-white">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight">
                 함께 다룰 기술들
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-gray-300">
+              <p className="mx-auto mt-4 max-w-2xl text-primary-foreground">
                 최신 기술 스택을 활용하여 실무에서 바로 적용 가능한 역량을
                 키웁니다.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              <div className="flex flex-col items-center">
-                <div className="mb-4 rounded-full bg-white p-4">
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white p-4">
                   <Image
-                    src="/placeholder.svg?height=40&width=40"
+                    src="/camp/tech/nextjs.png"
                     alt="Next.js"
-                    width={40}
-                    height={40}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <span className="font-medium">Next.js</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="mb-4 rounded-full bg-white p-4">
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white p-4">
                   <Image
-                    src="/placeholder.svg?height=40&width=40"
+                    src="/camp/tech/cursor.png"
                     alt="Cursor"
-                    width={40}
-                    height={40}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <span className="font-medium">Cursor(AI editor)</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="mb-4 rounded-full bg-white p-4">
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white p-4">
                   <Image
-                    src="/placeholder.svg?height=40&width=40"
+                    className="rounded-full"
+                    src="/camp/tech/fsd.png"
                     alt="FSD"
-                    width={40}
-                    height={40}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <span className="font-medium">Feature Sliced Design</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="mb-4 rounded-full bg-white p-4">
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white p-4">
                   <Image
-                    src="/placeholder.svg?height=40&width=40"
+                    className="rounded-full"
+                    src="/camp/tech/supabase.png"
                     alt="Supabase"
-                    width={40}
-                    height={40}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <span className="font-medium">Supabase</span>
@@ -325,10 +316,10 @@ export default function Home() {
         </section>
 
         {/* Weekly Schedule */}
-        <section id="curriculum" className="bg-white py-16">
+        <section id="curriculum" className="py-12">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">
                 P.E.C 주간 일정
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-gray-500">
@@ -339,8 +330,8 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <MessageCircle className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <MessageCircle className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">정규 세션</h3>
@@ -355,8 +346,8 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <BookOpen className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <BookOpen className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">개인 과제</h3>
@@ -371,8 +362,8 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <MessageCircle className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <MessageCircle className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">피드백 세션</h3>
@@ -387,8 +378,8 @@ export default function Home() {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="rounded-full bg-slate-100 p-3">
-                      <Users className="h-6 w-6 text-slate-900" />
+                    <div className="rounded-full bg-primary/10 p-3">
+                      <Users className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">팀 과제</h3>
@@ -405,10 +396,10 @@ export default function Home() {
         </section>
 
         {/* Weekly Topics */}
-        <section className="bg-gray-50 py-16">
+        <section className="bg-primary/5 py-12">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">
                 P.E.C 주차별 주제
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-gray-500">
@@ -418,9 +409,9 @@ export default function Home() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-slate-900">1주차</Badge>
+                  <Badge className="mb-4 bg-primary">1주차</Badge>
                   <div className="mb-2 flex items-center gap-2">
-                    <MessageCircle className="h-5 w-5 text-slate-900" />
+                    <MessageCircle className="h-5 w-5 text-primary" />
                     <h3 className="text-lg font-semibold">문제 정의</h3>
                   </div>
                   <p className="text-gray-500">
@@ -430,9 +421,9 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-slate-900">2주차</Badge>
+                  <Badge className="mb-4 bg-primary">2주차</Badge>
                   <div className="mb-2 flex items-center gap-2">
-                    <Layers className="h-5 w-5 text-slate-900" />
+                    <Layers className="h-5 w-5 text-primary" />
                     <h3 className="text-lg font-semibold">Information flow</h3>
                   </div>
                   <p className="text-gray-500">
@@ -443,9 +434,9 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-slate-900">3주차</Badge>
+                  <Badge className="mb-4 bg-primary">3주차</Badge>
                   <div className="mb-2 flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-slate-900" />
+                    <Zap className="h-5 w-5 text-primary" />
                     <h3 className="text-lg font-semibold">서비스 구체화</h3>
                   </div>
                   <p className="text-gray-500">
@@ -455,9 +446,9 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-slate-900">4주차</Badge>
+                  <Badge className="mb-4 bg-primary">4주차</Badge>
                   <div className="mb-2 flex items-center gap-2">
-                    <Code className="h-5 w-5 text-slate-900" />
+                    <Code className="h-5 w-5 text-primary" />
                     <h3 className="text-lg font-semibold">
                       컴포넌트 설계(F.S.D)
                     </h3>
@@ -469,9 +460,9 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-slate-900">5-6주차</Badge>
+                  <Badge className="mb-4 bg-primary">5-6주차</Badge>
                   <div className="mb-2 flex items-center gap-2">
-                    <Brain className="h-5 w-5 text-slate-900" />
+                    <Brain className="h-5 w-5 text-primary" />
                     <h3 className="text-lg font-semibold">
                       AI 와 협업(Cursor)
                     </h3>
@@ -484,9 +475,9 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-slate-900">7-8주차</Badge>
+                  <Badge className="mb-4 bg-primary">7-8주차</Badge>
                   <div className="mb-2 flex items-center gap-2">
-                    <Code className="h-5 w-5 text-slate-900" />
+                    <Code className="h-5 w-5 text-primary" />
                     <h3 className="text-lg font-semibold">
                       상태 설계 및 전체 구현
                     </h3>
@@ -502,10 +493,10 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
-        <section id="testimonials" className="bg-white py-16">
+        <section id="testimonials" className="py-12">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">
                 P.E.C 참가자 인터뷰
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-gray-500">
@@ -515,7 +506,7 @@ export default function Home() {
             <div className="grid gap-8 md:grid-cols-2">
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-bold">
+                  <h3 className="mb-4 text-xl font-bold text-primary">
                     리팩토링은 나를 위한 선물?!
                   </h3>
                   <p className="mb-4 text-gray-500">
@@ -525,7 +516,7 @@ export default function Home() {
                     것입니다.&quot;
                   </p>
                   <div className="mt-6 flex items-center gap-4">
-                    <div className="h-12 w-12 overflow-hidden rounded-full bg-gray-200">
+                    <div className="h-12 w-12 overflow-hidden rounded-full bg-primary/10">
                       <Image
                         src="/placeholder.svg?height=48&width=48"
                         alt="동희님"
@@ -544,7 +535,7 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-bold">
+                  <h3 className="mb-4 text-xl font-bold text-primary">
                     성장의 비결은? 사용자 중심 개발!
                   </h3>
                   <p className="mb-4 text-gray-500">
@@ -554,7 +545,7 @@ export default function Home() {
                     들어보세요.&quot;
                   </p>
                   <div className="mt-6 flex items-center gap-4">
-                    <div className="h-12 w-12 overflow-hidden rounded-full bg-gray-200">
+                    <div className="h-12 w-12 overflow-hidden rounded-full bg-primary/10">
                       <Image
                         src="/placeholder.svg?height=48&width=48"
                         alt="권효진님"
@@ -576,11 +567,11 @@ export default function Home() {
         </section>
 
         {/* Apply Section */}
-        <section id="apply" className="bg-slate-900 py-16 text-white">
+        <section id="apply" className="bg-primary py-12 text-white">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight">모집 정보</h2>
-              <p className="mx-auto mt-4 max-w-2xl text-gray-300">
+              <p className="mx-auto mt-4 max-w-2xl text-primary-foreground">
                 Product Engineer Camp에 지원하고 함께 성장하세요.
               </p>
             </div>
@@ -590,20 +581,20 @@ export default function Home() {
                   <h3 className="mb-4 text-xl font-bold">지원 자격</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>
                         실제 운영중인 서비스를 개발해 본 Frontend Engineer
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>
                         포트폴리오를 넘어, 실제 문제를 해결하는 Product 를
                         완성하고 싶은 분
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>아래 진행 방식에 맞추어 참여 가능한 분</span>
                     </li>
                   </ul>
@@ -614,21 +605,21 @@ export default function Home() {
                   <h3 className="mb-4 text-xl font-bold">진행 방식</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>방식 : 팀 진행(피드백, 코드리뷰)</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>
                         온라인 정규 세션, 실시간 Q&A 채널(디스코드) 제공
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>커리큘럼(주차별 주제)에 따른 주차별 과제 수행</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <span>비용 : 200만원</span>
                     </li>
                   </ul>
@@ -639,31 +630,31 @@ export default function Home() {
                   <h3 className="mb-4 text-xl font-bold">9기 모집 일정</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-2">
-                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <div>
                         <p className="font-medium">Camp 신청</p>
-                        <p className="text-gray-300">6/7-15일</p>
+                        <p className="text-primary-foreground">6/7-15일</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <div>
                         <p className="font-medium">서류 합격자</p>
-                        <p className="text-gray-300">6월 16일</p>
+                        <p className="text-primary-foreground">6월 16일</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <div>
                         <p className="font-medium">인터뷰 진행</p>
-                        <p className="text-gray-300">6/21-22일</p>
+                        <p className="text-primary-foreground">6/21-22일</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
+                      <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
                       <div>
                         <p className="font-medium">최종 합격자</p>
-                        <p className="text-gray-300">6월 23일</p>
+                        <p className="text-primary-foreground">6월 23일</p>
                       </div>
                     </li>
                   </ul>
@@ -673,22 +664,14 @@ export default function Home() {
                 </CardContent>
               </Card>
             </div>
-            <div className="mt-12 text-center">
-              <Button
-                size="lg"
-                className="bg-white text-slate-900 hover:bg-gray-200"
-              >
-                지금 신청하기
-              </Button>
-            </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="bg-white py-16">
+        <section className="py-12">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">
                 자주 묻는 질문들
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-gray-500">
@@ -698,7 +681,7 @@ export default function Home() {
             <div className="mx-auto max-w-3xl space-y-6">
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="mb-2 text-lg font-semibold">
+                  <h3 className="mb-2 text-lg font-semibold text-primary">
                     한 기수에 몇 명이 함께 하나요?
                   </h3>
                   <p className="text-gray-500">
@@ -710,7 +693,7 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="mb-2 text-lg font-semibold">
+                  <h3 className="mb-2 text-lg font-semibold text-primary">
                     해결할 실제 문제를 어떻게 정하나요?
                   </h3>
                   <p className="text-gray-500">
@@ -721,7 +704,7 @@ export default function Home() {
               </Card>
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="mb-2 text-lg font-semibold">
+                  <h3 className="mb-2 text-lg font-semibold text-primary">
                     원할한 캠프를 위해, 일주일에 얼마나 시간을 투자하면
                     좋을까요?
                   </h3>
