@@ -1,5 +1,10 @@
 "use server";
 
+import {
+  COMMUNITY_ARTICLES_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
+} from "@packages/constants";
 import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
@@ -156,12 +161,12 @@ export async function createPost(
       await grantPointAction(data.author_id, "post");
     }
     // 캐시 무효화
-    revalidatePath("/community");
+    revalidatePath("/");
   } catch (error) {
     console.error("Error creating post:", error);
     return { error: "포스트 생성 중 오류가 발생했습니다." };
   }
-  redirect(`/community/${postType}s/${createdPost.id}`);
+  redirect(`/${postType}s/${createdPost.id}`);
 }
 
 export async function getPostType(postId: string) {
@@ -208,9 +213,9 @@ export async function deletePost(postId: string, postType: PostType) {
 
   // 일반적으로 쓰는 스타일
   const newPath = match(postType)
-    .with("question", () => "/community/questions")
-    .with("discussion", () => "/community/discussions")
-    .with("article", () => "/community/articles")
+    .with("question", () => COMMUNITY_QUESTIONS_PATHNAME)
+    .with("discussion", () => COMMUNITY_DISCUSSIONS_PATHNAME)
+    .with("article", () => COMMUNITY_ARTICLES_PATHNAME)
     .exhaustive();
 
   revalidatePath(newPath);
@@ -304,8 +309,7 @@ export async function updatePost(postId: string, formData: FormData) {
     if (error) throw error;
 
     // 캐시 무효화
-    revalidatePath(`/community/${post.type}s/${postId}`);
-    revalidatePath("/community");
+    revalidatePath(`/${post.type}s/${postId}`);
 
     return { success: true, postId, type: post.type };
   } catch (error) {
