@@ -9,6 +9,69 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      assignment: {
+        Row: {
+          checklist: string[] | null
+          example_image_url: string | null
+          id: string
+          output: string | null
+          process: string[] | null
+          purpose: string | null
+          tips: string[] | null
+          title: string
+          week: number
+        }
+        Insert: {
+          checklist?: string[] | null
+          example_image_url?: string | null
+          id?: string
+          output?: string | null
+          process?: string[] | null
+          purpose?: string | null
+          tips?: string[] | null
+          title: string
+          week: number
+        }
+        Update: {
+          checklist?: string[] | null
+          example_image_url?: string | null
+          id?: string
+          output?: string | null
+          process?: string[] | null
+          purpose?: string | null
+          tips?: string[] | null
+          title?: string
+          week?: number
+        }
+        Relationships: []
+      }
+      camp_sessions: {
+        Row: {
+          created_at: string
+          generation: string
+          id: string
+          session_date: string
+          updated_at: string
+          week: number
+        }
+        Insert: {
+          created_at?: string
+          generation: string
+          id?: string
+          session_date: string
+          updated_at?: string
+          week: number
+        }
+        Update: {
+          created_at?: string
+          generation?: string
+          id?: string
+          session_date?: string
+          updated_at?: string
+          week?: number
+        }
+        Relationships: []
+      }
       comments: {
         Row: {
           author_id: string
@@ -93,6 +156,35 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      feedback_session: {
+        Row: {
+          camp_session_id: string | null
+          date: string
+          id: string
+          team_id: string | null
+        }
+        Insert: {
+          camp_session_id?: string | null
+          date: string
+          id?: string
+          team_id?: string | null
+        }
+        Update: {
+          camp_session_id?: string | null
+          date?: string
+          id?: string
+          team_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_session_camp_session_id_fkey"
+            columns: ["camp_session_id"]
+            isOneToOne: false
+            referencedRelation: "camp_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       likes: {
         Row: {
@@ -246,6 +338,105 @@ export type Database = {
           role?: Database["public"]["Enums"]["user_role"]
           updated_at?: string
           username?: string
+        }
+        Relationships: []
+      }
+      regular_session: {
+        Row: {
+          id: string
+          regular_session_guide_url: string | null
+          title: string
+          week: number
+        }
+        Insert: {
+          id?: string
+          regular_session_guide_url?: string | null
+          title: string
+          week: number
+        }
+        Update: {
+          id?: string
+          regular_session_guide_url?: string | null
+          title?: string
+          week?: number
+        }
+        Relationships: []
+      }
+      session_zoom_url: {
+        Row: {
+          created_at: string
+          id: string
+          type: string
+          zoom_url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          type: string
+          zoom_url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          type?: string
+          zoom_url?: string
+        }
+        Relationships: []
+      }
+      task: {
+        Row: {
+          created_at: string | null
+          entity_id: string | null
+          id: string
+          task_type: string
+          updated_at: string | null
+          user_id: string
+          value: string | null
+          value_type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          entity_id?: string | null
+          id?: string
+          task_type: string
+          updated_at?: string | null
+          user_id: string
+          value?: string | null
+          value_type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          entity_id?: string | null
+          id?: string
+          task_type?: string
+          updated_at?: string | null
+          user_id?: string
+          value?: string | null
+          value_type?: string | null
+        }
+        Relationships: []
+      }
+      team: {
+        Row: {
+          avatar_url: string | null
+          generation: number
+          id: string
+          name: string
+          user_ids: string[] | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          generation: number
+          id?: string
+          name: string
+          user_ids?: string[] | null
+        }
+        Update: {
+          avatar_url?: string | null
+          generation?: number
+          id?: string
+          name?: string
+          user_ids?: string[] | null
         }
         Relationships: []
       }
