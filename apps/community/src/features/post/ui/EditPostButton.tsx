@@ -16,7 +16,7 @@ interface EditPostButtonProps {
 
 export function EditPostButton({ postId }: EditPostButtonProps) {
   return (
-    <Link href={`/community/post/edit/${postId}`}>
+    <Link href={`/post/edit/${postId}`}>
       {/* hover popup 수정하기 텍스트 */}
       <TooltipProvider>
         <Tooltip delayDuration={100}>
