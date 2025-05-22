@@ -46,10 +46,6 @@ export async function checkSessionRecording(userId: string, week: number) {
 
   const regularSessionRecordingList =
     await getRegularSessionRecordingFromYoutube();
-  console.log(
-    "🚀 ~ checkSessionRecording ~ regularSessionRecordingList:",
-    regularSessionRecordingList,
-  );
 
   const regularSessionRecording = regularSessionRecordingList.find(
     (recording: any) =>
@@ -58,6 +54,8 @@ export async function checkSessionRecording(userId: string, week: number) {
   );
 
   return {
-    recordingUrl: `https://www.youtube.com/watch?v=${regularSessionRecording.snippet.resourceId.videoId}`,
+    recordingUrl: regularSessionRecording
+      ? `https://www.youtube.com/watch?v=${regularSessionRecording.snippet.resourceId.videoId}`
+      : null,
   };
 }

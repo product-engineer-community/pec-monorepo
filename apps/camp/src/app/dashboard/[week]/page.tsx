@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { TasksCard } from "@/features/task/ui/TasksCard";
 import Sidebar from "@/widgets/layout/sidebar";
 import { RegularSessionTasks } from "@/widgets/RegularSession/ui/RegularSessionTasks";
+import { getRegularSession } from "@/src/entities/regular-session/action";
 
 // Mock data for other components
 const weekDetails = {
@@ -52,6 +53,8 @@ export default async function Home({
     redirect("/login");
   }
 
+  const regularSession = await getRegularSession(weekNum);
+
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       <Sidebar activeWeek={weekNum} />
@@ -59,7 +62,7 @@ export default async function Home({
       <div className="flex-1">
         <div className="p-4 md:p-6">
           <h1 className="mb-4 text-2xl font-bold md:mb-6 md:text-3xl">
-            {weekNum}주차
+            {weekNum}주차 {regularSession.title}
           </h1>
 
           <div className="flex flex-wrap gap-4 md:gap-6">

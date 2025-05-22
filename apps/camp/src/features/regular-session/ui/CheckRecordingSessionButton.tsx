@@ -1,34 +1,30 @@
 "use client";
 
 import { Button } from "@packages/ui";
-import { VideotapeIcon } from "lucide-react";
-import { toast } from "sonner";
-
-import { checkSessionRecording } from "../action/session";
+import { Disc2Icon } from "lucide-react";
 
 interface CheckRecordingSessionButtonProps {
-  userId: string;
-  week: number;
+  recordingUrl: string | null;
 }
 
 export function CheckRecordingSessionButton({
-  userId,
-  week,
+  recordingUrl,
 }: CheckRecordingSessionButtonProps) {
   const handleViewRecording = async () => {
-    try {
-      const result = await checkSessionRecording(userId, week);
-      window.open(result.recordingUrl, "_blank");
-    } catch (error) {
-      console.error("Failed to view recording:", error);
-      toast.error("녹화 영상을 불러오는데 실패했습니다.");
-    }
+    if (!recordingUrl) return;
+
+    window.open(recordingUrl, "_blank");
   };
 
   return (
-    <Button variant="outline" className="w-full" onClick={handleViewRecording}>
-      <VideotapeIcon />
-      녹화 영상 보기
+    <Button
+      className="w-full"
+      variant="outline"
+      disabled={!recordingUrl}
+      onClick={handleViewRecording}
+    >
+      <Disc2Icon />
+      {recordingUrl ? "녹화 영상 보기" : "녹화 영상 준비중"}
     </Button>
   );
 }

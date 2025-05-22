@@ -6,6 +6,7 @@ import {
 } from "@/features/regular-session/ui";
 import { TasksCard } from "@/features/task/ui/TasksCard";
 import { getRegularSession } from "@/entities/regular-session/action";
+import { checkSessionRecording } from "@/src/features/regular-session/action/session";
 
 interface RegularSessionTasksProps {
   userId: string;
@@ -17,9 +18,10 @@ export async function RegularSessionTasks({
   week,
 }: RegularSessionTasksProps) {
   const regularSession = await getRegularSession(week);
+  const { recordingUrl } = await checkSessionRecording(userId, week);
 
   return (
-    <TasksCard title={regularSession.title} status={"진행중"}>
+    <TasksCard title="정규 세션" status={"진행중"}>
       <div className="mb-4 space-y-2">
         <h4 className="font-medium">가이드</h4>
         <div className="flex flex-wrap gap-2">
@@ -42,7 +44,7 @@ export async function RegularSessionTasks({
 
       <div className="space-y-2">
         <h4 className="font-medium">녹화본</h4>
-        <CheckRecordingSessionButton userId={userId} week={week} />
+        <CheckRecordingSessionButton recordingUrl={recordingUrl} />
       </div>
     </TasksCard>
   );
