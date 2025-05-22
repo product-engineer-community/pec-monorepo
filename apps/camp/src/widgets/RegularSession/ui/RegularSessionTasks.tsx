@@ -1,27 +1,25 @@
-"use client";
-
-import { RegularSession } from "@/entities/regular-session/type";
-import { CheckRecordingSessionButton } from "@/features/regular-session/ui/CheckRecordingSessionButton";
-import { DownloadSessionGuideButton } from "@/features/regular-session/ui/DownloadSessionGuideButton";
-import { JoinRegularSessionButton } from "@/features/regular-session/ui/JoinRegularSessionButton";
-import { TimerReadingSessionGuideButton } from "@/features/regular-session/ui/TimerReadingSessionGuideButton";
+import {
+  CheckRecordingSessionButton,
+  DownloadSessionGuideButton,
+  JoinRegularSessionButton,
+  TimerReadingSessionGuideButton,
+} from "@/features/regular-session/ui";
 import { TasksCard } from "@/features/task/ui/TasksCard";
+import { getRegularSession } from "@/entities/regular-session/action";
 
 interface RegularSessionTasksProps {
   userId: string;
   week: number;
-  regularSession: RegularSession;
-  status?: string;
 }
 
-export function RegularSessionTasks({
+export async function RegularSessionTasks({
   userId,
   week,
-  regularSession,
-  status = "진행중", // Default status if not provided
 }: RegularSessionTasksProps) {
+  const regularSession = await getRegularSession(week);
+
   return (
-    <TasksCard title={regularSession.title} status={status}>
+    <TasksCard title={regularSession.title} status={"진행중"}>
       <div className="mb-4 space-y-2">
         <h4 className="font-medium">가이드</h4>
         <div className="flex flex-wrap gap-2">

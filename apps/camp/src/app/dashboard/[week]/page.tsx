@@ -2,7 +2,6 @@ import { getUserFromSupabase } from "@packages/supabase";
 import { Button, Input } from "@packages/ui";
 import { redirect } from "next/navigation";
 
-import { getRegularSession } from "@/entities/regular-session/action";
 import { TasksCard } from "@/features/task/ui/TasksCard";
 import Sidebar from "@/widgets/layout/sidebar";
 import { RegularSessionTasks } from "@/widgets/RegularSession/ui/RegularSessionTasks";
@@ -45,9 +44,6 @@ export default async function Home({
   const weekNum = parseInt((await params).week);
   const miroLink = ""; // Default empty value for miroLink
 
-  // Fetch regular session data
-  const regularSession = await getRegularSession(weekNum);
-
   // Mock user ID for now
   const user = await getUserFromSupabase();
   const userId = user?.id;
@@ -68,11 +64,7 @@ export default async function Home({
 
           <div className="flex flex-wrap gap-4 md:gap-6">
             {/* Regular Session Card - Using our new components */}
-            <RegularSessionTasks
-              userId={userId}
-              week={weekNum}
-              regularSession={regularSession}
-            />
+            <RegularSessionTasks userId={userId} week={weekNum} />
 
             {/* Personal Assignment Card */}
             <TasksCard

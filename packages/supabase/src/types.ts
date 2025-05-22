@@ -317,6 +317,7 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          camp_generation: number | null
           created_at: string
           id: string
           role: Database["public"]["Enums"]["user_role"]
@@ -325,6 +326,7 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          camp_generation?: number | null
           created_at?: string
           id: string
           role?: Database["public"]["Enums"]["user_role"]
@@ -333,6 +335,7 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          camp_generation?: number | null
           created_at?: string
           id?: string
           role?: Database["public"]["Enums"]["user_role"]
@@ -386,33 +389,33 @@ export type Database = {
       task: {
         Row: {
           created_at: string | null
-          entity_id: string | null
           id: string
           task_type: string
           updated_at: string | null
           user_id: string
           value: string | null
           value_type: string | null
+          week: number | null
         }
         Insert: {
           created_at?: string | null
-          entity_id?: string | null
           id?: string
           task_type: string
           updated_at?: string | null
           user_id: string
           value?: string | null
           value_type?: string | null
+          week?: number | null
         }
         Update: {
           created_at?: string | null
-          entity_id?: string | null
           id?: string
           task_type?: string
           updated_at?: string | null
           user_id?: string
           value?: string | null
           value_type?: string | null
+          week?: number | null
         }
         Relationships: []
       }

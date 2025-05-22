@@ -4,7 +4,7 @@ import { Button } from "@packages/ui";
 import { CheckCircle, Timer } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
-import { completeTask } from "@/shared/task/action";
+import { completeTask } from "@/shared/action/task";
 
 interface TimerReadingSessionGuideButtonProps {
   defaultIsCompleted?: boolean;

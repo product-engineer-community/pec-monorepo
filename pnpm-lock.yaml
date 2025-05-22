@@ -20,6 +20,9 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      sonner:
+        specifier: ^2.0.1
+        version: 2.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -99,9 +102,6 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
-      sonner:
-        specifier: ^2.0.1
-        version: 2.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2)))
@@ -293,9 +293,6 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
-      sonner:
-        specifier: ^2.0.1
-        version: 2.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2)))
@@ -396,9 +393,6 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
-      sonner:
-        specifier: ^2.0.1
-        version: 2.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.17.24)(typescript@5.8.2)))
@@ -490,9 +484,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
-      typescript:
-        specifier: ^5.3.3
-        version: 5.8.2
 
   packages/eslint-config:
     devDependencies:
@@ -523,9 +514,6 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.0.0
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
       typescript-eslint:
         specifier: ^8.26.0
         version: 8.26.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
@@ -610,9 +598,6 @@ importers:
       react-hook-form:
         specifier: ^7.51.0
         version: 7.54.2(react@19.1.0)
-      sonner:
-        specifier: ^2.0.1
-        version: 2.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -650,9 +635,6 @@ importers:
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
-      typescript:
-        specifier: ^5.3.3
-        version: 5.8.2
 
 packages:
 

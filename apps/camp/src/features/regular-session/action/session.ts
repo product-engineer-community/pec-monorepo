@@ -1,6 +1,10 @@
 "use server";
+import { getSupabaseServerClient } from "@packages/supabase";
+
 import { getRegularSession } from "@/entities/regular-session/action";
-import { completeTask } from "@/shared/task/action";
+import { completeTask } from "@/shared/action/task";
+import { getProfile } from "@/src/shared/action/profile";
+import { getRegularSessionRecordingFromYoutube } from "@/src/shared/action/youtube";
 
 export async function downloadSessionGuide(userId: string, week: number) {
   const regularSession = await getRegularSession(week);
@@ -37,7 +41,23 @@ export async function joinRegularSession(userId: string, week: number) {
 }
 
 export async function checkSessionRecording(userId: string, week: number) {
-  // This is a placeholder for actual implementation
-  // In a real app, would use userId and week to fetch the specific recording
-  return { recordingUrl: "https://example.com/recording" };
+  const profile = await getProfile(userId);
+  const generation = profile.camp_generation;
+
+  const regularSessionRecordingList =
+    await getRegularSessionRecordingFromYoutube();
+  console.log(
+    "🚀 ~ checkSessionRecording ~ regularSessionRecordingList:",
+    regularSessionRecordingList,
+  );
+
+  const regularSessionRecording = regularSessionRecordingList.find(
+    (recording: any) =>
+      recording.snippet.title.includes(generation) &&
+      recording.snippet.title.includes(week.toString()),
+  );
+
+  return {
+    recordingUrl: `https://www.youtube.com/watch?v=${regularSessionRecording.snippet.resourceId.videoId}`,
+  };
 }

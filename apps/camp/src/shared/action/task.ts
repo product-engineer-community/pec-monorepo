@@ -2,7 +2,7 @@
 
 import { getSupabaseServerClient } from "@packages/supabase";
 
-import { TaskData } from "../type";
+import { TaskData } from "../type/task";
 
 export async function getTask({ userId, week, taskType }: TaskData) {
   const supabase = await getSupabaseServerClient();
