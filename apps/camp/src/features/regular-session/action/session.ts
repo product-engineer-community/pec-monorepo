@@ -1,6 +1,4 @@
 "use server";
-import { getSupabaseServerClient } from "@packages/supabase";
-
 import { getRegularSession } from "@/entities/regular-session/action";
 import { completeTask } from "@/shared/action/task";
 import { getProfile } from "@/src/shared/action/profile";
@@ -48,6 +46,7 @@ export async function checkSessionRecording(userId: string, week: number) {
     await getRegularSessionRecordingFromYoutube();
 
   const regularSessionRecording = regularSessionRecordingList.find(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (recording: any) =>
       recording.snippet.title.includes(generation) &&
       recording.snippet.title.includes(week.toString()),

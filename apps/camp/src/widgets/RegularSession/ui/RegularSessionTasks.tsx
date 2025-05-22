@@ -5,7 +5,6 @@ import {
   TimerReadingSessionGuideButton,
 } from "@/features/regular-session/ui";
 import { TasksCard } from "@/features/task/ui/TasksCard";
-import { getRegularSession } from "@/entities/regular-session/action";
 import { checkSessionRecording } from "@/src/features/regular-session/action/session";
 
 interface RegularSessionTasksProps {
@@ -17,7 +16,6 @@ export async function RegularSessionTasks({
   userId,
   week,
 }: RegularSessionTasksProps) {
-  const regularSession = await getRegularSession(week);
   const { recordingUrl } = await checkSessionRecording(userId, week);
 
   return (

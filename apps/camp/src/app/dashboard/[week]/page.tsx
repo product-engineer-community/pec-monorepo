@@ -3,9 +3,9 @@ import { Button, Input } from "@packages/ui";
 import { redirect } from "next/navigation";
 
 import { TasksCard } from "@/features/task/ui/TasksCard";
+import { getRegularSession } from "@/src/entities/regular-session/action";
 import Sidebar from "@/widgets/layout/sidebar";
 import { RegularSessionTasks } from "@/widgets/RegularSession/ui/RegularSessionTasks";
-import { getRegularSession } from "@/src/entities/regular-session/action";
 
 // Mock data for other components
 const weekDetails = {
