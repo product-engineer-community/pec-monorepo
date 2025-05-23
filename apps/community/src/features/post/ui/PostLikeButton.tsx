@@ -80,6 +80,7 @@ export function PostLikeButton({
       variant="ghost"
       size="sm"
       onClick={handleToggleLike}
+      aria-label={state.isLiked ? "좋아요 취소" : "좋아요"}
       disabled={isPending || !isAuthenticated}
       className={`flex items-center gap-2 ${
         !isAuthenticated ? "cursor-default opacity-50" : ""
