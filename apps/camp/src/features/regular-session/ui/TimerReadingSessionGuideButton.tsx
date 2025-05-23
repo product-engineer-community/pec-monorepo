@@ -66,6 +66,7 @@ export function TimerReadingSessionGuideButton({
   return (
     <div className="space-y-2">
       <Button
+        className="p-4"
         variant={isCompleted ? "outline" : "default"}
         size="sm"
         onClick={handleStartReading}

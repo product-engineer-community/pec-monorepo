@@ -32,13 +32,14 @@ export function DownloadSessionGuideButton({
 
   return (
     <Button
+      className="p-4"
       variant="outline"
       size="sm"
       onClick={handleDownload}
       disabled={isLoading}
     >
       <DownloadIcon />
-      가이드 다운로드
+      가이드 내려받기
     </Button>
   );
 }

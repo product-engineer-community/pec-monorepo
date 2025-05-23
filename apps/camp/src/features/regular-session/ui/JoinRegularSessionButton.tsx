@@ -29,6 +29,7 @@ export function JoinRegularSessionButton({
   return (
     <Button
       className="w-full"
+      variant="outline"
       onClick={handleJoinSession}
       disabled={!isSessionActive}
     >
