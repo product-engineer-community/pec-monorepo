@@ -65,6 +65,7 @@ export function CommentItem({
             postId={postId}
             initialLikes={comment.likes_count}
             initialIsLiked={comment.is_liked}
+            isAuthenticated={Boolean(currentUserId)}
           />
           {!isReply && (
             <CommentReplyButton commentId={comment.id} onReply={handleReply} />
