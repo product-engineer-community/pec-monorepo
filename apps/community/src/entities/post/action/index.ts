@@ -11,7 +11,12 @@ import { Post } from "../model";
 export async function getPost(id: string): Promise<Post | null> {
   const supabase = await getSupabaseServerClient();
 
-  const query = supabase
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const userId = user?.id;
+
+  const { data: post, error } = await supabase
     .from("posts")
     .select(
       `
@@ -24,12 +29,11 @@ export async function getPost(id: string): Promise<Post | null> {
         ),
         comments:comments(count),
         likes:likes(count),
-        user_like:likes(id)
+        user_like:likes(id, user_id)
       `,
     )
-    .eq("id", id);
-
-  const { data: post, error } = await query.single();
+    .eq("id", id)
+    .single();
 
   if (error) {
     if (error.code === "PGRST116") {
@@ -43,12 +47,16 @@ export async function getPost(id: string): Promise<Post | null> {
     return null;
   }
 
+  const isLiked = userId
+    ? post.user_like?.some((like) => like.user_id === userId) || false
+    : false;
+
   return {
     ...post,
     author: Array.isArray(post.author) ? post.author[0] : post.author,
     comments_count: post.comments?.[0]?.count || 0,
     likes_count: post.likes?.[0]?.count || 0,
-    is_liked: post.user_like?.length > 0,
+    is_liked: isLiked,
   };
 }
 
