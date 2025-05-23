@@ -1,6 +1,7 @@
 import {
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_LANDING_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
 } from "@packages/constants";
 import { ArrowLeft, BookOpen, MessageSquare } from "lucide-react";
 import Link from "next/link";
@@ -58,6 +59,12 @@ export default function GuidePage() {
                   <li>• 관심 있는 질문에 답변 달아보기</li>
                   <li>• 다른 멤버들의 프로필 둘러보기</li>
                 </ul>
+                <Link
+                  href={COMMUNITY_QUESTIONS_PATHNAME}
+                  className="inline-flex items-center gap-1 text-sm font-medium text-blue-700 transition-colors hover:text-blue-800"
+                >
+                  Questions 바로가기 →
+                </Link>
               </div>
             </div>
           </div>

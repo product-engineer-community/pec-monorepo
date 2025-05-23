@@ -2,15 +2,9 @@
 
 import {
   COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_QUESTIONS_PATHNAME,
 } from "@packages/constants";
-import {
-  BookOpen,
-  MessageCircleQuestionIcon,
-  MessageSquare,
-  X,
-} from "lucide-react";
+import { BookOpen, MessageCircleQuestionIcon, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
@@ -79,23 +73,6 @@ export default function GuidePage({ onClose }: GuideModalProps) {
                   </h3>
                   <p className="mt-1 text-xs text-blue-700">
                     <strong>Questions</strong> 에서 질문을 읽어보세요.
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* discussions page */}
-          <div className="rounded-md border bg-red-50 p-3">
-            <Link href={COMMUNITY_DISCUSSIONS_PATHNAME}>
-              <div className="flex items-start gap-2">
-                <MessageSquare className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-600" />
-                <div>
-                  <h3 className="text-sm font-semibold text-red-900">
-                    고민을 함께 나눌 동료를 찾는다면
-                  </h3>
-                  <p className="mt-1 text-xs text-red-700">
-                    <strong>Discussions</strong> 에서 토론에 참여해보세요.
                   </p>
                 </div>
               </div>
