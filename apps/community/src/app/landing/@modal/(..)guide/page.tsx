@@ -1,4 +1,4 @@
-import GuideModal from "../../components/GuideModal";
+import GuideModal from "@/entities/guide/ui/GuideModal";
 
 export default function InterceptedGuidePage() {
   return <GuideModal />;

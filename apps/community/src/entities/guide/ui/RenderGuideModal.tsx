@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface CheckGuideModalProps {
+interface RenderGuideModalProps {
   isAuthenticated: boolean;
 }
 
-export default function CheckGuideModal({
+export default function RenderGuideModal({
   isAuthenticated,
-}: CheckGuideModalProps) {
+}: RenderGuideModalProps) {
   const router = useRouter();
 
   useEffect(() => {
