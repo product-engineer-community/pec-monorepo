@@ -53,7 +53,7 @@ export async function getComments(
     author: Array.isArray(comment.author) ? comment.author[0] : comment.author,
     likes_count: comment.likes?.[0]?.count || 0,
     is_liked: userId
-      ? comment.user_like?.some((like) => like.user_id === userId) || false
+      ? comment.user_like?.some((like) => like.user_id === userId)
       : false,
   })) as CommentWithAuthor[];
 }

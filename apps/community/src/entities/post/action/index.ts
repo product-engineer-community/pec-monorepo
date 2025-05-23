@@ -48,7 +48,7 @@ export async function getPost(id: string): Promise<Post | null> {
   }
 
   const isLiked = userId
-    ? post.user_like?.some((like) => like.user_id === userId) || false
+    ? post.user_like?.some((like) => like.user_id === userId)
     : false;
 
   return {
