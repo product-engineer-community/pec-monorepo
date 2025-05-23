@@ -34,6 +34,12 @@ export async function togglePostLike(postId: string) {
 
   const userId = user.id;
 
+  const { data: post } = await supabase
+    .from("posts")
+    .select("type")
+    .eq("id", postId)
+    .single();
+
   // 기존 좋아요 확인
   const { data: existingLike } = await supabase
     .from("likes")
@@ -43,18 +49,24 @@ export async function togglePostLike(postId: string) {
     .maybeSingle();
 
   try {
-    if (existingLike) {
-      // 좋아요 취소
-      await supabase.from("likes").delete().eq("id", existingLike.id);
-      return { isLiked: false };
-    } else {
-      // 좋아요 추가
-      await supabase.from("likes").insert({
-        user_id: userId,
-        post_id: postId,
-      });
-      return { isLiked: true };
+    const { error } = existingLike
+      ? await supabase.from("likes").delete().eq("id", existingLike.id)
+      : await supabase.from("likes").insert({
+          user_id: userId,
+          post_id: postId,
+        });
+
+    if (error) {
+      const action = existingLike ? "취소" : "추가";
+      console.error(`Error like ${action}:`, error);
+      return { error: `좋아요 ${action} 중 오류가 발생했습니다.` };
     }
+
+    if (post?.type) {
+      revalidatePath(`/${post.type}s/${postId}`);
+    }
+
+    return { isLiked: !existingLike };
   } catch (error) {
     console.error("Error toggling post like:", error);
     return { error: "좋아요 처리 중 오류가 발생했습니다." };

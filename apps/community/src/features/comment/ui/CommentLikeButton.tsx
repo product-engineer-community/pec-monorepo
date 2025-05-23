@@ -2,8 +2,7 @@
 
 import { Button } from "@packages/ui";
 import { HeartIcon } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
+import { useReducer, useTransition } from "react";
 
 import { toggleCommentLike } from "../action";
 
@@ -12,6 +11,36 @@ interface CommentLikeButtonProps {
   postId: string;
   initialLikes: number;
   initialIsLiked: boolean;
+  isAuthenticated?: boolean;
+}
+
+interface LikeState {
+  likes: number;
+  isLiked: boolean;
+}
+
+type LikeAction =
+  | { type: "TOGGLE" }
+  | { type: "REVERT" }
+  | { type: "SET"; payload: LikeState };
+
+function likeReducer(state: LikeState, action: LikeAction): LikeState {
+  switch (action.type) {
+    case "TOGGLE":
+      return {
+        isLiked: !state.isLiked,
+        likes: state.isLiked ? state.likes - 1 : state.likes + 1,
+      };
+    case "REVERT":
+      return {
+        isLiked: !state.isLiked,
+        likes: state.isLiked ? state.likes - 1 : state.likes + 1,
+      };
+    case "SET":
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
 export function CommentLikeButton({
@@ -19,37 +48,44 @@ export function CommentLikeButton({
   postId,
   initialLikes,
   initialIsLiked,
+  isAuthenticated = false,
 }: CommentLikeButtonProps) {
-  const [isLiked, setIsLiked] = useState(initialIsLiked);
-  const [likesCount, setLikesCount] = useState(initialLikes);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [state, dispatch] = useReducer(likeReducer, {
+    likes: initialLikes,
+    isLiked: initialIsLiked,
+  });
 
-  const handleLike = async () => {
-    try {
-      setIsLoading(true);
-      await toggleCommentLike(commentId, postId);
-
-      // 낙관적 업데이트
-      setIsLiked(!isLiked);
-      setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-    } catch (error) {
-      toast.error("좋아요 처리 중 오류가 발생했습니다.");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+  const handleLike = () => {
+    if (!isAuthenticated) {
+      return;
     }
+
+    startTransition(async () => {
+      dispatch({ type: "TOGGLE" });
+
+      try {
+        await toggleCommentLike(commentId, postId);
+      } catch (error) {
+        dispatch({ type: "REVERT" });
+        console.error("댓글 좋아요 처리 중 오류 발생:", error);
+      }
+    });
   };
 
   return (
     <Button
       variant="ghost"
-      size="icon"
+      size="sm"
       onClick={handleLike}
-      disabled={isLoading}
-      aria-label={isLiked ? "좋아요 취소" : "좋아요"}
+      aria-label={state.isLiked ? "좋아요 취소" : "좋아요"}
+      disabled={isPending || !isAuthenticated}
+      className={`flex items-center gap-2 ${
+        !isAuthenticated ? "cursor-default opacity-50" : ""
+      }`}
     >
-      <HeartIcon className={isLiked ? "fill-current text-red-500" : ""} />
-      <span className="ml-1">{likesCount}</span>
+      <HeartIcon className={state.isLiked ? "fill-current text-red-500" : ""} />
+      <span>{state.likes}</span>
     </Button>
   );
 }

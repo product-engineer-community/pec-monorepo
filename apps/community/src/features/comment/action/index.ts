@@ -19,7 +19,7 @@ export async function getComments(
   const user = await getUserFromSupabase();
   const userId = user?.id;
 
-  let query = supabase
+  const { data: comments, error } = await supabase
     .from("comments")
     .select(
       `
@@ -37,30 +37,24 @@ export async function getComments(
         role
       ),
       likes:likes(count),
-      user_like:likes(id)
+      user_like:likes(id, user_id)
     `,
     )
     .eq("post_id", postId)
     .order("created_at", { ascending: true });
-
-  // userId가 있을 때만 user_like 필터링 추가
-  if (userId) {
-    query = query.eq("user_like.user_id", userId);
-  }
-
-  const { data: comments, error } = await query;
 
   if (error) {
     console.error("Error fetching comments:", error);
     throw error;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (comments || []).map((comment: any) => ({
+  return (comments || []).map((comment) => ({
     ...comment,
     author: Array.isArray(comment.author) ? comment.author[0] : comment.author,
     likes_count: comment.likes?.[0]?.count || 0,
-    is_liked: comment.user_like?.length > 0,
+    is_liked: userId
+      ? comment.user_like?.some((like) => like.user_id === userId)
+      : false,
   })) as CommentWithAuthor[];
 }
 
