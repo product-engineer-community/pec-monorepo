@@ -1,3 +1,4 @@
+import { getAuthSession } from "@packages/supabase";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -44,8 +45,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // 조회수 증가
   await incrementViewCount(id);
 
-  // 게시물 정보 가져오기
-  const article = await getPost(id);
+  const [article, session] = await Promise.all([getPost(id), getAuthSession()]);
 
   if (!article) {
     return notFound();
@@ -67,6 +67,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 postId={id}
                 initialLikes={article.likes_count}
                 initialIsLiked={article.is_liked}
+                isAuthenticated={Boolean(session?.user)}
               />
             }
             editButton={<EditPostButton postId={id} />}

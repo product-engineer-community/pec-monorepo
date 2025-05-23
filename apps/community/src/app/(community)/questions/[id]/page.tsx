@@ -1,6 +1,7 @@
+import { getAuthSession } from "@packages/supabase";
 import { Suspense } from "react";
 
-import { incrementViewCount } from "@/entities/post/action";
+import { getPost, incrementViewCount } from "@/entities/post/action";
 import { QuestionDetail } from "@/entities/question";
 import {
   DeletePostButton,
@@ -19,6 +20,11 @@ interface QuestionPageProps {
 export default async function QuestionPage({ params }: QuestionPageProps) {
   const { id } = await params;
 
+  const [question, session] = await Promise.all([
+    getPost(id),
+    getAuthSession(),
+  ]);
+
   // 조회수 증가
   await incrementViewCount(id);
 
@@ -36,8 +42,9 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
             postLikeButton={
               <PostLikeButton
                 postId={id}
-                initialLikes={0}
-                initialIsLiked={false}
+                initialLikes={question?.likes_count || 0}
+                initialIsLiked={question?.is_liked || false}
+                isAuthenticated={Boolean(session?.user)}
               />
             }
             editButton={<EditPostButton postId={id} />}
