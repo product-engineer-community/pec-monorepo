@@ -1,3 +1,4 @@
+import { getIsAuthenticated } from "@packages/auth/src/features";
 import { getAuthSession } from "@packages/supabase";
 import { Suspense } from "react";
 
@@ -20,9 +21,9 @@ interface QuestionPageProps {
 export default async function QuestionPage({ params }: QuestionPageProps) {
   const { id } = await params;
 
-  const [question, session] = await Promise.all([
+  const [question, isAuthenticated] = await Promise.all([
     getPost(id),
-    getAuthSession(),
+    getIsAuthenticated(),
   ]);
 
   // 조회수 증가
@@ -44,7 +45,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
                 postId={id}
                 initialLikes={question?.likes_count || 0}
                 initialIsLiked={question?.is_liked || false}
-                isAuthenticated={Boolean(session?.user)}
+                isAuthenticated={isAuthenticated}
               />
             }
             editButton={<EditPostButton postId={id} />}

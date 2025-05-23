@@ -1,3 +1,4 @@
+import { getIsAuthenticated } from "@packages/auth/src/features";
 import { getAuthSession } from "@packages/supabase";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -20,9 +21,9 @@ export default async function DiscussionDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [discussion, session] = await Promise.all([
+  const [discussion, isAuthenticated] = await Promise.all([
     getPost(id),
-    getAuthSession(),
+    getIsAuthenticated(),
   ]);
 
   if (!discussion) {
@@ -43,7 +44,7 @@ export default async function DiscussionDetailPage({
               postId={id}
               initialLikes={discussion.likes_count}
               initialIsLiked={discussion.is_liked}
-              isAuthenticated={Boolean(session?.user)}
+              isAuthenticated={isAuthenticated}
             />
           }
           editButton={<EditPostButton postId={id} />}

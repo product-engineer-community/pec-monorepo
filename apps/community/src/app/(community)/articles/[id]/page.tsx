@@ -1,3 +1,4 @@
+import { getIsAuthenticated } from "@packages/auth/src/features";
 import { getAuthSession } from "@packages/supabase";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -45,7 +46,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // 조회수 증가
   await incrementViewCount(id);
 
-  const [article, session] = await Promise.all([getPost(id), getAuthSession()]);
+  const [article, isAuthenticated] = await Promise.all([
+    getPost(id),
+    getIsAuthenticated(),
+  ]);
 
   if (!article) {
     return notFound();
@@ -67,7 +71,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 postId={id}
                 initialLikes={article.likes_count}
                 initialIsLiked={article.is_liked}
-                isAuthenticated={Boolean(session?.user)}
+                isAuthenticated={isAuthenticated}
               />
             }
             editButton={<EditPostButton postId={id} />}
