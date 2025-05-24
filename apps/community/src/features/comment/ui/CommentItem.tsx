@@ -42,6 +42,7 @@ export function CommentItem({
           <div className="h-8 w-8 overflow-hidden rounded-full bg-muted">
             {comment.author.avatar_url ? (
               <Image
+                fill
                 objectFit="cover"
                 src={comment.author.avatar_url}
                 alt={comment.author.username}

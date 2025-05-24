@@ -4,7 +4,21 @@ import {
   COMMUNITY_QUESTIONS_PATHNAME,
 } from "@packages/constants";
 import { ArrowLeft, BookOpen, MessageSquare } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "커뮤니티 가이드 | PEC 커뮤니티",
+  description:
+    "PEC 커뮤니티 이용 가이드입니다. 플랫폼 기능, 규칙, 그리고 커뮤니티를 최대한 활용하는 방법에 대해 알아보세요.",
+  openGraph: {
+    title: "커뮤니티 가이드 | PEC 커뮤니티",
+    description:
+      "PEC 커뮤니티 이용 가이드입니다. 플랫폼 기능, 규칙, 그리고 커뮤니티를 최대한 활용하는 방법에 대해 알아보세요.",
+    images: ["/logo.webp"],
+    type: "article",
+  },
+};
 
 export default function GuidePage() {
   return (

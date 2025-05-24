@@ -1,4 +1,5 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
+import { COMMUNITY_PATHNAME } from "@packages/constants";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -35,7 +36,15 @@ export async function generateMetadata({
   return {
     title: article.title || "아티클",
     description:
-      article.content?.substring(0, 160) || "아티클의 상세 내용입니다.",
+      article.content?.substring(0, 160) || "아티클 상세 내용입니다.",
+    openGraph: {
+      title: article.title || "아티클",
+      description:
+        article.content?.substring(0, 160) || "아티클 상세 내용입니다.",
+      type: "article",
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${COMMUNITY_PATHNAME}/articles/${id}`,
+      images: [article.thumbnail_url || "/default-article-thumbnail.svg"],
+    },
   };
 }
 
