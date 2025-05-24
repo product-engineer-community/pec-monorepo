@@ -15,7 +15,6 @@ export async function POST(req: Request) {
   const text = `안녕하세요 ${email}님. PEC 알림 신청 해주셔서 감사합니다. 저는 코치 Boaz 입니다. 혹시 가능하실때 잠깐 전화할 수 있을까요? 캠프에 대해 설명드릴 것이 있어서요`;
 
   try {
-    console.log("🚀 ~ POST ~ to:", to);
     if (to && email) {
       await messageService.send({
         to,
