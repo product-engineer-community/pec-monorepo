@@ -75,6 +75,8 @@ export async function signIn(
   const password = formData.get("password") as string;
   const nextPathname = formData.get("nextPathname") as string | null;
 
+  let redirectUrl = getOrigin();
+
   try {
     // Supabase 클라이언트 생성
     const supabase = await getSupabaseServerClient();
@@ -99,7 +101,6 @@ export async function signIn(
     // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
     await supabaseClient.auth.getUser();
 
-    let redirectUrl = getOrigin();
     if (nextPathname) {
       // Check if nextPathname is a relative path
       if (nextPathname.startsWith("/")) {
