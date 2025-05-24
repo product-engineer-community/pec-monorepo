@@ -70,8 +70,12 @@ export function CommentItem({
             initialIsLiked={comment.is_liked}
             isAuthenticated={Boolean(currentUserId)}
           />
-          {!isReply && currentUserId && (
-            <CommentReplyButton commentId={comment.id} onReply={handleReply} />
+          {!isReply && (
+            <CommentReplyButton
+              commentId={comment.id}
+              onReply={handleReply}
+              disabled={!currentUserId}
+            />
           )}
           <CommentDeleteButton
             commentId={comment.id}
