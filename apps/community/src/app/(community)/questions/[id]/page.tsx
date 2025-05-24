@@ -1,5 +1,4 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { getAuthSession } from "@packages/supabase";
 import { Suspense } from "react";
 
 import { getPost, incrementViewCount } from "@/entities/post/action";

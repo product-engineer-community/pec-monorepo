@@ -1,5 +1,4 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { getAuthSession } from "@packages/supabase";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 

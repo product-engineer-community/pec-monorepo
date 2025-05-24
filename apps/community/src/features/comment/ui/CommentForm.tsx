@@ -10,7 +10,6 @@ import { createComment } from "@/features/comment";
 import { getPostType } from "@/features/post/action";
 import { getUsername } from "@/features/user/action";
 import { sendEmail } from "@/shared/api";
-import { MAIL_TEMPLATE } from "@/shared/api/consts";
 import { Editor } from "@/shared/components/editor";
 
 interface CommentFormProps {
@@ -46,9 +45,9 @@ export function CommentForm({
           title: "작성하신 게시글에 댓글이 달렸어요!",
           recipientEmail: email,
           recipientName: username,
-          templateId: MAIL_TEMPLATE.COMMENT,
           data: {
-            link: `https://www.productengineer.info/community/${type}s/${postId}`,
+            type,
+            postId,
           },
         }).catch();
       }
