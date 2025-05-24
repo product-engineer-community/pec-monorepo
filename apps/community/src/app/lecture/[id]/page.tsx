@@ -48,7 +48,7 @@ export async function generateMetadata({
         lecture.description?.substring(0, 160) ||
         "Product Engineer를 위한 프리미엄 강의입니다.",
       type: "article",
-      url: `/lecture/${id}`,
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${LECTURE_PATHNAME}/${id}`,
       images: [lecture.image || "/webinar.webp"], // Using lecture.image from the Lecture object
     },
   };
