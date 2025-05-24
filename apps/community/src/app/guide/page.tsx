@@ -113,10 +113,10 @@ export default function GuidePage() {
             <div className="rounded-lg border bg-white p-4 text-center">
               <div className="mb-2 text-2xl">💡</div>
               <h3 className="mb-2 font-semibold text-gray-900">
-                질 높은 질문하기
+                무엇이든 물어보기
               </h3>
               <p className="text-sm text-gray-600">
-                구체적이고 명확한 질문을 통해 더 나은 답변을 받아보세요.
+                질문은 성장의 지름길이에요. 떠오르는 대로 편하게 질문해보세요.
               </p>
             </div>
             <div className="rounded-lg border bg-white p-4 text-center">
@@ -125,7 +125,7 @@ export default function GuidePage() {
                 적극적으로 참여하기
               </h3>
               <p className="text-sm text-gray-600">
-                답변, 댓글, 좋아요를 통해 활발한 소통에 참여해주세요.
+                답변, 댓글, 좋아요를 통해 활발한 소통에 참여해보세요.
               </p>
             </div>
             <div className="rounded-lg border bg-white p-4 text-center">
@@ -134,7 +134,7 @@ export default function GuidePage() {
                 지식 공유하기
               </h3>
               <p className="text-sm text-gray-600">
-                본인의 경험과 지식을 아티클이나 답변으로 공유해주세요.
+                본인의 경험과 지식을 다른 멤버들과 공유해보세요.
               </p>
             </div>
           </div>
