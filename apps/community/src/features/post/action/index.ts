@@ -11,6 +11,7 @@ import {
   getUserFromSupabase,
 } from "@packages/supabase";
 import { noop, PostType } from "@packages/ui";
+import { postType as postTypeSchema } from "@packages/ui/src/types/schema";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { match } from "ts-pattern";
@@ -129,14 +130,14 @@ export async function createPost(
     // 게시물 유형별 추가 데이터
     let finalPost;
     switch (postType) {
-      case "discussion":
+      case postTypeSchema.Enum.discussion:
         finalPost = {
           ...basePost,
           category: category || "",
           tags,
         };
         break;
-      case "question":
+      case postTypeSchema.Enum.question:
         finalPost = {
           ...basePost,
           category: category || "",
@@ -144,7 +145,7 @@ export async function createPost(
           answer_id: null,
         };
         break;
-      case "article":
+      case postTypeSchema.Enum.article:
         finalPost = {
           ...basePost,
           thumbnail_url: thumbnailUrl || null,
@@ -225,9 +226,9 @@ export async function deletePost(postId: string, postType: PostType) {
 
   // 일반적으로 쓰는 스타일
   const newPath = match(postType)
-    .with("question", () => COMMUNITY_QUESTIONS_PATHNAME)
-    .with("discussion", () => COMMUNITY_DISCUSSIONS_PATHNAME)
-    .with("article", () => COMMUNITY_ARTICLES_PATHNAME)
+    .with(postTypeSchema.Enum.question, () => COMMUNITY_QUESTIONS_PATHNAME)
+    .with(postTypeSchema.Enum.discussion, () => COMMUNITY_DISCUSSIONS_PATHNAME)
+    .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
     .exhaustive();
 
   revalidatePath(newPath);
@@ -290,20 +291,20 @@ export async function updatePost(postId: string, formData: FormData) {
     // 게시물 유형별 추가 데이터
     let finalUpdate;
     switch (post.type) {
-      case "discussion":
+      case postTypeSchema.Enum.discussion:
         finalUpdate = {
           ...baseUpdate,
           category: category || "",
           tags,
         };
         break;
-      case "question":
+      case postTypeSchema.Enum.question:
         finalUpdate = {
           ...baseUpdate,
           category: category || "",
         };
         break;
-      case "article":
+      case postTypeSchema.Enum.article:
         finalUpdate = {
           ...baseUpdate,
           thumbnail_url: thumbnailUrl || null,

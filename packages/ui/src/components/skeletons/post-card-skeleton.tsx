@@ -1,13 +1,12 @@
-interface PostCardSkeletonProps {
-  count?: number;
-  variant?: "discussion" | "question";
-}
+import { PostType, postType } from "../../types/schema";
 
-export function PostCardSkeleton({
-  count = 3,
-  variant = "discussion",
-}: PostCardSkeletonProps) {
-  if (variant === "discussion") {
+type PostCardSkeletonProps = {
+  count?: number;
+  variant?: Exclude<PostType, "article">;
+};
+
+export function PostCardSkeleton({ count = 3, variant = postType.Enum.discussion }: PostCardSkeletonProps) {
+  if (variant === postType.Enum.discussion) {
     return (
       <div className="space-y-6">
         {Array.from({ length: count }).map((_, i) => (
