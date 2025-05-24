@@ -6,20 +6,21 @@ import { Button, Input, Label } from "@packages/ui";
 import Link from "next/link";
 import { useActionState } from "react";
 
-interface SignInFormProps {
-  nextPathname?: string;
-}
-
 const initialState: AuthState = {
   error: null,
   success: false,
 };
+
+export interface SignInFormProps {
+  nextPathname?: string;
+}
 
 export function SignInForm({ nextPathname }: SignInFormProps) {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
 
   return (
     <form action={formAction}>
+      <input type="hidden" name="nextPathname" value={nextPathname} />
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">이메일</Label>
