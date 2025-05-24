@@ -1,4 +1,5 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
+import { COMMUNITY_PATHNAME } from "@packages/constants";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -42,7 +43,7 @@ export async function generateMetadata({
       description:
         question.content?.substring(0, 160) || "퀘스천 상세 내용입니다.",
       type: "article",
-      url: `/questions/${id}`,
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${COMMUNITY_PATHNAME}/questions/${id}`,
       images: [question.thumbnail_url || "/logo.webp"],
     },
   };

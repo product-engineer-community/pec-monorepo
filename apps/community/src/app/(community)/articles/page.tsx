@@ -35,7 +35,7 @@ const Badge = ({
 };
 
 export const metadata: Metadata = {
-  title: "아티클 | PEC 커뮤니티",
+  title: "아티클",
   description:
     "PEC 커뮤니티의 다양한 아티클들을 살펴보세요. 새로운 관점을 발견하고, 유용한 지식을 얻으며, 당신의 경험을 공유해보세요.",
   openGraph: {
