@@ -146,7 +146,6 @@ export async function socialSignIn(
 ): Promise<AuthState> {
   const provider = formData.get("provider") as SocialProvider;
   const nextPathname = formData.get("nextPathname") as string;
-  console.log("🚀 ~ nextPathname:", nextPathname);
 
   const redirectTo = `${getOrigin()}${AUTH_CALLBACK_PATHNAME}?next=${getOrigin()}${nextPathname}`;
 
