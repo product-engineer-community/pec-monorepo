@@ -15,19 +15,25 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
+      - name: Setup Node.js with pnpm cache
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Enable corepack & activate pnpm
+        run: corepack enable && corepack prepare pnpm@8.15.4 --activate
+
+      - name: Setup pnpm store dir for better caching
+        run: echo "store-dir=.pnpm-store" >> .npmrc
+
+      - name: Install dependencies (prefer cache)
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run linter with fix
         run: pnpm lint --fix
 
-      - name: Commit and push if fixed
+      - name: Commit and push if any lint fix
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
