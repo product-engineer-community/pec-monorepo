@@ -8,7 +8,8 @@ import {
 import { CommentNotification } from "@packages/transactional"; // Or correct path
 import { revalidatePath } from "next/cache";
 
-import { sendEmail } from "../../../shared/api/email"; // Adjust relative path as needed
+import { sendEmail } from "@/shared/api/email"; // Adjust relative path as needed
+
 import { CommentWithAuthor } from "../model/types";
 
 /**
@@ -136,9 +137,7 @@ export async function createComment(
             baseUrl: "https://www.productengineer.info", // Added
           }),
         });
-        console.log(
-          `Comment notification email sent to ${authorData.email}`,
-        );
+        console.log(`Comment notification email sent to ${authorData.email}`);
       }
     }
   } catch (emailError) {

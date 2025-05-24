@@ -1,8 +1,7 @@
 "use server";
 
+import * as React from "react"; // Ensure React is imported if not already
 import { Resend } from "resend";
-
-import * as React from 'react'; // Ensure React is imported if not already
 
 const resend = new Resend(process.env.EMAIL_SERVICE_API_KEY!);
 
