@@ -4,7 +4,21 @@ import {
   COMMUNITY_QUESTIONS_PATHNAME,
 } from "@packages/constants";
 import { ArrowLeft, BookOpen, MessageSquare } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "커뮤니티 가이드 | PEC 커뮤니티",
+  description:
+    "PEC 커뮤니티 이용 가이드입니다. 플랫폼 기능, 규칙, 그리고 커뮤니티를 최대한 활용하는 방법에 대해 알아보세요.",
+  openGraph: {
+    title: "커뮤니티 가이드 | PEC 커뮤니티",
+    description:
+      "PEC 커뮤니티 이용 가이드입니다. 플랫폼 기능, 규칙, 그리고 커뮤니티를 최대한 활용하는 방법에 대해 알아보세요.",
+    images: ["/logo.webp"],
+    type: "article",
+  },
+};
 
 export default function GuidePage() {
   return (
@@ -52,7 +66,7 @@ export default function GuidePage() {
               </p>
               <div className="rounded-md border bg-blue-50 p-4">
                 <h3 className="mb-2 font-semibold text-blue-900">추천 활동</h3>
-                <ul className="space-y-1 text-sm text-blue-700">
+                <ul className="mb-3 space-y-1 text-sm text-blue-700">
                   <li>
                     • <strong>Questions</strong> 섹션에서 다양한 질문 읽어보기
                   </li>
