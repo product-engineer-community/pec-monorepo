@@ -11,11 +11,16 @@ const initialState: AuthState = {
   success: false,
 };
 
-export function SignInForm() {
+export interface SignInFormProps {
+  nextPathname?: string;
+}
+
+export function SignInForm({ nextPathname }: SignInFormProps) {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
 
   return (
     <form action={formAction}>
+      <input type="hidden" name="nextPathname" value={nextPathname} />
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">이메일</Label>

@@ -73,6 +73,7 @@ export async function signIn(
   // 폼 데이터 가져오기
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const nextPathname = formData.get("nextPathname") as string | null;
 
   try {
     // Supabase 클라이언트 생성
@@ -97,6 +98,34 @@ export async function signIn(
 
     // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
     await supabaseClient.auth.getUser();
+
+    let redirectUrl = getOrigin();
+    if (nextPathname) {
+      // Check if nextPathname is a relative path
+      if (nextPathname.startsWith("/")) {
+        redirectUrl = getOrigin() + nextPathname;
+      } else {
+        // Assume nextPathname is an absolute URL and validate its hostname
+        try {
+          const url = new URL(nextPathname);
+          const allowedHosts = [
+            "auth.productengineer.info",
+            "community.productengineer.info",
+            "camp.productengineer.info",
+            "productengineer.info",
+            "www.productengineer.info",
+            "localhost",
+          ];
+          if (allowedHosts.includes(url.hostname)) {
+            redirectUrl = nextPathname;
+          }
+          // If not in allowedHosts, redirectUrl remains getOrigin()
+        } catch (e) {
+          // Invalid URL, redirectUrl remains getOrigin()
+          console.warn("Invalid nextPathname URL:", nextPathname, e);
+        }
+      }
+    }
   } catch (error) {
     console.error("로그인 중 오류가 발생했습니다", error);
     return {
@@ -107,7 +136,7 @@ export async function signIn(
 
   revalidatePath("/", "layout");
   // 성공 시 try/catch 블록 외부에서 리다이렉트
-  redirect(getOrigin());
+  redirect(redirectUrl);
 }
 
 export async function socialSignIn(
