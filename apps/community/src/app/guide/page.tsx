@@ -52,7 +52,7 @@ export default function GuidePage() {
               </p>
               <div className="rounded-md border bg-blue-50 p-4">
                 <h3 className="mb-2 font-semibold text-blue-900">추천 활동</h3>
-                <ul className="space-y-1 text-sm text-blue-700">
+                <ul className="mb-3 space-y-1 text-sm text-blue-700">
                   <li>
                     • <strong>Questions</strong> 섹션에서 다양한 질문 읽어보기
                   </li>
