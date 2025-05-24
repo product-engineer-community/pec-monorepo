@@ -9,10 +9,12 @@
     "check-types": "turbo run check-types"
   },
   "dependencies": {
+    "@next/third-parties": "^15.3.2",
     "@mdxeditor/editor": "^3.32.2",
     "next": "^15.3.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "lucide-react": "^0.350.0",
     "resend": "^4.5.1",
     "sonner": "^2.0.1"
   },

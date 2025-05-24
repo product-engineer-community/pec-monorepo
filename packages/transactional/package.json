@@ -2,21 +2,11 @@
   "name": "@packages/transactional",
   "version": "0.1.0",
   "private": true,
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
   "scripts": {
-    "dev": "email dev -p 3005",
-    "build": "email build",
-    "export": "email export"
+    "dev": "email dev -p 3005"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-email": "^2.1.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "typescript": "^5.0.0"
+    "@react-email/components": "0.0.41",
+    "react-email": "^2.1.6"
   }
 }

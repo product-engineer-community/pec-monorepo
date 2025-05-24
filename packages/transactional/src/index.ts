@@ -1,1 +1,1 @@
-export * from './templates/CommentNotification'; // Updated name
+export * from "./templates/CommentNotification"; // Updated name

@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/third-parties": "^15.3.2",
     "@packages/auth": "workspace:*",
     "@packages/constants": "workspace:*",
     "@packages/point": "workspace:*",
@@ -20,8 +19,6 @@
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "2.45.1",
     "geist": "^1.2.1",
-    "lucide-react": "^0.350.0",
-    "mailersend": "^2.5.0",
     "net": "^1.0.2",
     "sharp": "^0.33.5",
     "tailwindcss-animate": "^1.0.7",
