@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 
-import EmailTemplate from "./EmailTemplate";
+import * as React from 'react'; // Ensure React is imported if not already
 
 const resend = new Resend(process.env.EMAIL_SERVICE_API_KEY!);
 
@@ -12,26 +12,22 @@ const resend = new Resend(process.env.EMAIL_SERVICE_API_KEY!);
 export async function sendEmail({
   title,
   recipientEmail,
-  recipientName,
-  data,
+  // recipientName, // No longer directly used by sendEmail if the template handles it
+  reactElement, // New parameter for the React email component
 }: {
   title: string;
   recipientEmail: string;
-  recipientName: string;
-  data: Record<string, string>;
+  // recipientName: string;
+  reactElement: React.ReactElement;
 }) {
   const { error } = await resend.emails.send({
     from: "PEC <support@productengineer.info>",
     to: [recipientEmail],
     subject: title,
-    react: EmailTemplate({
-      name: recipientName,
-      type: data.type,
-      postId: data.postId,
-    }),
+    react: reactElement, // Use the passed React element
   });
   if (error) {
-    console.error(error);
+    console.error("Error sending email:", error); // Added more context to error
     throw error;
   }
 }
