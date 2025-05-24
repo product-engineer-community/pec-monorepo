@@ -21,8 +21,8 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - name: Enable corepack & activate pnpm
-        run: corepack enable && corepack prepare pnpm@8.15.4 --activate
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Setup pnpm store dir for better caching
         run: echo "store-dir=.pnpm-store" >> .npmrc
