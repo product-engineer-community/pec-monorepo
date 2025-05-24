@@ -1,7 +1,21 @@
 import { Button } from "@packages/ui";
+import type { Metadata } from "next";
 
 import { getLectures } from "@/src/entities/lecture/action";
 import { LectureItem } from "@/src/entities/lecture/ui";
+
+export const metadata: Metadata = {
+  title: "강의 | PEC 커뮤니티",
+  description:
+    "Product Engineer를 위한 프리미엄 강의를 만나보세요. 기술의 등장 배경과 동작 원리를 이해하며 성장을 가속화하세요.",
+  openGraph: {
+    title: "강의 | PEC 커뮤니티",
+    description:
+      "Product Engineer를 위한 프리미엄 강의를 만나보세요. 기술의 등장 배경과 동작 원리를 이해하며 성장을 가속화하세요.",
+    type: "website",
+    images: ["/webinar.webp"],
+  },
+};
 
 export default async function LecturePage() {
   const lectures = await getLectures();

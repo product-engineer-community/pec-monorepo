@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@packages/ui";
 import { BookOpen, Code, Compass, Lightbulb } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,6 +19,39 @@ interface LecturePageProps {
   params: Promise<{
     id: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const lectures = await getLectures();
+  const lecture = lectures.find((l) => l.id === id);
+
+  if (!lecture) {
+    return {
+      title: "강의를 찾을 수 없습니다",
+      description: "요청하신 강의를 찾을 수 없습니다.",
+    };
+  }
+
+  return {
+    title: lecture.title || "강의 상세",
+    description:
+      lecture.description?.substring(0, 160) ||
+      "Product Engineer를 위한 프리미엄 강의입니다.",
+    openGraph: {
+      title: lecture.title || "강의 상세",
+      description:
+        lecture.description?.substring(0, 160) ||
+        "Product Engineer를 위한 프리미엄 강의입니다.",
+      type: "article",
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${LECTURE_PATHNAME}/${id}`,
+      images: [lecture.image || "/webinar.webp"], // Using lecture.image from the Lecture object
+    },
+  };
 }
 
 export default async function LecturePage({ params }: LecturePageProps) {
