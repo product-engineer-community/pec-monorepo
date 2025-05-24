@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 
-export function useKeyEvent(key: string[], callback: Function) {
-  const ref = useRef<Function>(callback);
+import type { KeyboardEventKey, KeyEventCallback } from "./types";
+
+export function useKeyEvent(key: KeyboardEventKey[], callback: KeyEventCallback) {
+  const ref = useRef<KeyEventCallback>(callback);
 
   useEffect(() => {
     ref.current = callback;
@@ -9,7 +11,7 @@ export function useKeyEvent(key: string[], callback: Function) {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (key.includes(event.key)) {
+      if (key.includes(event.key as KeyboardEventKey)) {
         ref.current(event);
       }
     };
