@@ -5,7 +5,14 @@ const nextConfig = {
       allowedOrigins: ["*.productengineer.info", "localhost"],
     },
   },
-
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+    ],
+  },
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
   basePath: "/community",

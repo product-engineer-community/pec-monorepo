@@ -43,6 +43,8 @@ export function CommentItem({
             {comment.author.avatar_url ? (
               <Image
                 objectFit="cover"
+                width={32}
+                height={32}
                 src={comment.author.avatar_url}
                 alt={comment.author.username}
               />
@@ -67,7 +69,7 @@ export function CommentItem({
             initialIsLiked={comment.is_liked}
             isAuthenticated={Boolean(currentUserId)}
           />
-          {!isReply && (
+          {!isReply && currentUserId && (
             <CommentReplyButton commentId={comment.id} onReply={handleReply} />
           )}
           <CommentDeleteButton

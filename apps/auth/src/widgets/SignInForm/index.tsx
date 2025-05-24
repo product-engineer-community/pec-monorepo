@@ -6,12 +6,16 @@ import { Button, Input, Label } from "@packages/ui";
 import Link from "next/link";
 import { useActionState } from "react";
 
+interface SignInFormProps {
+  nextPathname?: string;
+}
+
 const initialState: AuthState = {
   error: null,
   success: false,
 };
 
-export function SignInForm() {
+export function SignInForm({ nextPathname }: SignInFormProps) {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
 
   return (
@@ -39,6 +43,7 @@ export function SignInForm() {
             title="비밀번호는 최소 6자 이상이어야 합니다."
           />
         </div>
+        <input type="hidden" name="nextPathname" value={nextPathname} />
         {state?.error && (
           <div className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
             {state.error}
