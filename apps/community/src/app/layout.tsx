@@ -5,15 +5,27 @@ import { Header } from "@packages/auth/src/widgets";
 import { DropdownMenuWithPoint } from "@packages/point/src/entities";
 import { BaseLayout } from "@packages/ui";
 import { GeistSans } from "geist/font/sans";
+import type { Metadata } from "next";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "PEC Community",
-  description: "Product Engineer Community",
+  title: {
+    template: "%s | PEC 커뮤니티",
+    default: "PEC 커뮤니티",
+  },
+  description:
+    "다양한 주제에 대해 토론하고, 배우고, 지식을 공유하는 활기찬 PEC 커뮤니티에 참여하세요.",
+  openGraph: {
+    title: "PEC 커뮤니티",
+    description:
+      "다양한 주제에 대해 토론하고, 배우고, 지식을 공유하는 활기찬 PEC 커뮤니티에 참여하세요.",
+    images: ["/logo.webp"],
+    type: "website",
+  },
 };
 
 export default function RootLayout({

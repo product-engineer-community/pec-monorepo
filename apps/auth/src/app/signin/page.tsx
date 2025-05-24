@@ -31,7 +31,7 @@ export default async function SignInPage({
 
           <div className="text-center text-sm text-muted-foreground">또는</div>
 
-          <SignInForm />
+          <SignInForm nextPathname={nextPathname} />
         </CardContent>
       </Card>
     </div>

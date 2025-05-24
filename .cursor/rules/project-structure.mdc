@@ -1,0 +1,46 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Structure
+
+## Feature Sliced Design (FSD) Architecture
+
+The codebase follows Feature Sliced Design architecture with these layers:
+
+- **app**: Contains both the traditional app layer and pages layer in a single structure. Contains Next.js App Router pages.
+- **widgets**: Composes reusable UI blocks by combining features, entities, and shared components, focusing on layout and presentation.
+- **features**: Implements product-level features, includes domain-specific logic like CRUD operations.
+- **entities**: Represents core business entities (e.g., user, question) with read-only domain logic and UI components.
+- **shared**: Contains reusable utilities, UI components, and other shared code.
+
+## Key Dependency Rules
+
+1. Upper layers can only depend on lower layers: app → widgets → features → entities → shared
+2. Lower layers don't know about upper layers
+3. Different slices within the same layer cannot depend on each other
+
+## File Organization
+
+Each slice (logical unit) follows consistent organization:
+- `ui/`: Contains UI components
+- `model/`: Contains business logic
+- `action/`: Contains server actions
+- `api/`: Contains external API calls
+- `index.ts`: Public API that exports only what's needed by other layers
+
+## Project Root Structure
+
+The monorepo contains:
+- `apps/community/`: Main community application
+- `packages/`: Shared packages and components
+  - `packages/ui/`: Shared UI components
+  - `packages/auth/`: Authentication features
+  - `packages/constants/`: Shared constants
+
+## Naming Conventions
+- Components: PascalCase
+- Hooks: lowerCamelCase
+- Utilities: kebab-case
+- Types/interfaces: PascalCase + `.types.ts`

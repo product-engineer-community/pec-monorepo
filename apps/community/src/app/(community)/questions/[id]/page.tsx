@@ -1,4 +1,6 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
+import { COMMUNITY_PATHNAME } from "@packages/constants";
+import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { getPost, incrementViewCount } from "@/entities/post/action";
@@ -15,6 +17,36 @@ interface QuestionPageProps {
   params: Promise<{
     id: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const question = await getPost(id);
+
+  if (!question) {
+    return {
+      title: "퀘스천을 찾을 수 없습니다",
+      description: "요청하신 퀘스천을 찾을 수 없습니다.",
+    };
+  }
+
+  return {
+    title: question.title || "퀘스천",
+    description:
+      question.content?.substring(0, 160) || "퀘스천 상세 내용입니다.",
+    openGraph: {
+      title: question.title || "퀘스천",
+      description:
+        question.content?.substring(0, 160) || "퀘스천 상세 내용입니다.",
+      type: "article",
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${COMMUNITY_PATHNAME}/questions/${id}`,
+      images: [question.thumbnail_url || "/logo.webp"],
+    },
+  };
 }
 
 export default async function QuestionPage({ params }: QuestionPageProps) {

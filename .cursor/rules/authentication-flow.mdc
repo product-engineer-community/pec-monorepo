@@ -1,0 +1,62 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Authentication Flow
+
+## Overview
+
+The project uses Supabase Auth for authentication. The authentication flow is managed by components and utilities in [packages/auth/](mdc:packages/auth).
+
+## Key Authentication URLs
+
+Authentication related routes are defined in [packages/constants/](mdc:packages/constants):
+
+- `AUTH_PATHNAME`: Base path for auth routes
+- `SIGN_IN_PATHNAME`: Path for sign-in page
+- `SIGN_UP_PATHNAME`: Path for sign-up page
+- `COMMUNITY_QUESTIONS_PATHNAME`: Path for community questions
+
+## Checking Authentication State
+
+To check if a user is authenticated in a server component:
+
+```tsx
+import { getIsAuthenticated } from "@packages/auth/src/features";
+
+export default async function ProtectedPage() {
+  const isAuthenticated = await getIsAuthenticated();
+  
+  if (!isAuthenticated) {
+    // Handle unauthenticated state
+    redirect(`${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`);
+  }
+  
+  return <div>Protected Content</div>;
+}
+```
+
+## Auth UI Components
+
+Authentication UI components are provided in the auth package:
+
+- SignInForm
+- SignUpForm
+- PasswordResetForm
+
+## Supabase Auth Hooks
+
+For client components that need to interact with auth:
+
+```tsx
+'use client';
+
+import { useAuth } from "@packages/auth/src/hooks";
+
+export default function AuthButton() {
+  const { signOut } = useAuth();
+  
+  return <button onClick={signOut}>Sign Out</button>;
+}
+```

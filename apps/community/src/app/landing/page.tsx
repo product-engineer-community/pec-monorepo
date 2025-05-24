@@ -22,8 +22,24 @@ import {
   MessageSquare,
   Users,
 } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+import RenderGuideModal from "@/entities/guide/ui/RenderGuideModal";
+
+export const metadata: Metadata = {
+  title: "PEC 커뮤니티에 오신 것을 환영합니다 - 연결하고, 배우고, 성장하세요",
+  description:
+    "PEC 커뮤니티를 만나보세요! 동료들과 교류하고, 유용한 게시글을 탐색하며, 토론에 참여하고, 지식을 넓힐 수 있는 공간입니다.",
+  openGraph: {
+    title: "PEC 커뮤니티에 오신 것을 환영합니다 - 연결하고, 배우고, 성장하세요",
+    description:
+      "PEC 커뮤니티를 만나보세요! 동료들과 교류하고, 유용한 게시글을 탐색하며, 토론에 참여하고, 지식을 넓힐 수 있는 공간입니다.",
+    images: ["/logo.webp"],
+    type: "website",
+  },
+};
 
 export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();
@@ -34,6 +50,7 @@ export default async function LandingPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <RenderGuideModal isAuthenticated={isAuthenticated} />
       <main className="flex-1">
         <section className="flex w-full flex-col items-center justify-center px-2 py-24 text-center">
           {/* Because of hydration issue, Use div instead of <Text /> */}

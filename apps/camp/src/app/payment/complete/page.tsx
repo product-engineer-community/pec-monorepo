@@ -29,8 +29,6 @@ function PaymentDetails() {
         router.push(`/fail?message=${json.message}&code=${json.code}`);
         return;
       }
-
-      console.log("client payment complete", json);
     }
     confirm();
   }, [searchParams, router]);
