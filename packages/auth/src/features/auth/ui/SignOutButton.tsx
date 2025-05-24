@@ -9,6 +9,7 @@ export function SignOutButton() {
   const { signOut } = useAuth();
 
   const handleSignOut = async () => {
+    const currentUrl = window.location.href;
     // promise all 로 묶어서 처리
     await Promise.all([
       signOut(),
@@ -16,7 +17,11 @@ export function SignOutButton() {
         method: "POST",
       }),
     ]);
-    location.href = MAIN_PATHNAME;
+    if (currentUrl) {
+      location.href = currentUrl;
+    } else {
+      location.href = MAIN_PATHNAME;
+    }
   };
 
   return (
