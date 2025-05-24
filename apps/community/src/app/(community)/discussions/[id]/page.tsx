@@ -19,9 +19,9 @@ import { Comments, CommentsSkeleton } from "@/widgets/comments";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const discussion = await getPost(id);
 
   if (!discussion) {

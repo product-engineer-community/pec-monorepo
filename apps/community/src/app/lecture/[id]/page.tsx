@@ -24,9 +24,9 @@ interface LecturePageProps {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const lectures = await getLectures();
   const lecture = lectures.find((l) => l.id === id);
 

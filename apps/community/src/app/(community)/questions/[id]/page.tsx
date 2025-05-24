@@ -22,9 +22,9 @@ interface QuestionPageProps {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const question = await getPost(id);
 
   if (!question) {
