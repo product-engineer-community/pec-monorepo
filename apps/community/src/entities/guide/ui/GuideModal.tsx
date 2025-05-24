@@ -7,7 +7,7 @@ import {
 import { BookOpen, MessageCircleQuestionIcon, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 interface GuideModalProps {
   onClose?: () => void;
@@ -26,18 +26,6 @@ export default function GuidePage({ onClose }: GuideModalProps) {
       router.back();
     }
   }, [onClose, router]);
-
-  // ESC 키로 모달 닫기
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        handleClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [handleClose]);
 
   return (
     <div className="animate-in slide-in-from-bottom-4 fixed bottom-6 right-6 z-50 w-80">
