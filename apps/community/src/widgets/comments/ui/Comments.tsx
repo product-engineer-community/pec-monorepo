@@ -1,10 +1,12 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
   AUTH_PATHNAME,
+  COMMUNITY_PATHNAME,
   getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
 import { getAuthSession } from "@packages/supabase";
+import { PostType } from "@packages/ui";
 import Link from "next/link";
 
 import {
@@ -15,10 +17,11 @@ import {
 } from "@/features/comment";
 
 interface CommentsProps {
+  postType: PostType;
   postId: string;
 }
 
-export async function Comments({ postId }: CommentsProps) {
+export async function Comments({ postType, postId }: CommentsProps) {
   const session = await getAuthSession();
   const isAuthenticated = await getIsAuthenticated();
   const comments = await getComments(postId);
@@ -34,7 +37,12 @@ export async function Comments({ postId }: CommentsProps) {
           <CommentForm postId={postId} />
         ) : (
           <Link
-            href={`${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`}
+            href={{
+              pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
+              query: {
+                nextPathname: `${COMMUNITY_PATHNAME}/${postType}s/${postId}`,
+              },
+            }}
             className="text-center text-sm text-muted-foreground"
           >
             <strong className="underline">로그인</strong> 후 댓글을 작성할 수

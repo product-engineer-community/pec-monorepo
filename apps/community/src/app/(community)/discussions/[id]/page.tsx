@@ -84,7 +84,7 @@ export default async function DiscussionDetailPage({
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postId={id} />
+          <Comments postType="discussion" postId={id} />
         </Suspense>
       </div>
     </div>

@@ -89,7 +89,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postId={id} />
+          <Comments postType="article" postId={id} />
         </Suspense>
       </div>
     </div>

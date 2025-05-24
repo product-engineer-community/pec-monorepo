@@ -86,7 +86,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postId={id} />
+          <Comments postType="question" postId={id} />
         </Suspense>
       </div>
     </div>
