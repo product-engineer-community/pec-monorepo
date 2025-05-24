@@ -1,4 +1,5 @@
 import { getRelativeTimeString, PostCardSkeleton } from "@packages/ui";
+import { postType } from "@packages/ui/src/types/schema";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -6,7 +7,7 @@ import { getPosts } from "@/entities/post";
 import { MarkdownViewer } from "@/shared/components/editor";
 
 async function DiscussionsListContent() {
-  const discussions = await getPosts("discussion");
+  const discussions = await getPosts(postType.Enum.discussion);
 
   return (
     <>
@@ -57,7 +58,11 @@ async function DiscussionsListContent() {
 export function DiscussionsList() {
   return (
     <div className="space-y-6">
-      <Suspense fallback={<PostCardSkeleton count={3} variant="discussion" />}>
+      <Suspense
+        fallback={
+          <PostCardSkeleton count={3} variant={postType.Enum.discussion} />
+        }
+      >
         <DiscussionsListContent />
       </Suspense>
     </div>

@@ -7,6 +7,7 @@ import {
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
 import { Button } from "@packages/ui";
+import { postType } from "@packages/ui/src/types/schema";
 import Link from "next/link";
 
 export async function DiscussionsHeader() {
@@ -21,12 +22,12 @@ export async function DiscussionsHeader() {
             isAuthenticated
               ? {
                   pathname: COMMUNITY_POST_WRITE_PATHNAME,
-                  query: { type: "discussion" },
+                  query: { type: postType.Enum.discussion },
                 }
               : {
                   pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
                   query: {
-                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=discussion`,
+                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=${postType.Enum.discussion}`,
                   },
                 }
           }

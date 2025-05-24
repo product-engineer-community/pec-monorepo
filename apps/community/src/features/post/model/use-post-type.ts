@@ -1,11 +1,13 @@
-import { type PostType } from "@packages/ui";
+import { PostType, postType } from "@packages/ui/src/types/schema";
 import { useSearchParams } from "next/navigation";
 
-export function usePostType(defaultType: PostType = "discussion"): PostType {
+export function usePostType(
+  defaultType: PostType = postType.Enum.discussion,
+): PostType {
   const searchParams = useSearchParams();
-  const type = searchParams.get("type");
+  const type = searchParams.get("type") as PostType;
 
-  if (type === "discussion" || type === "question" || type === "article") {
+  if (!Object.values(postType.Values).includes(type)) {
     return type;
   }
 

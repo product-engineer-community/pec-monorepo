@@ -1,5 +1,6 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import { COMMUNITY_PATHNAME } from "@packages/constants";
+import { postType } from "@packages/ui/src/types/schema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -73,7 +74,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         >
           <ArticleDetail
             id={id}
-            deleteButton={<DeletePostButton postType="article" postId={id} />}
+            deleteButton={
+              <DeletePostButton postType={postType.Enum.article} postId={id} />
+            }
             postLikeButton={
               <PostLikeButton
                 postId={id}
@@ -89,7 +92,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postType="article" postId={id} />
+          <Comments postType={postType.Enum.article} postId={id} />
         </Suspense>
       </div>
     </div>
