@@ -26,7 +26,7 @@ export async function QuestionsHeader() {
               : {
                   pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
                   query: {
-                    nextPathname: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=question`,
+                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=question`,
                   },
                 }
           }
