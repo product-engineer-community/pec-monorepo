@@ -25,6 +25,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+import RenderGuideModal from "@/entities/guide/ui/RenderGuideModal";
+
 export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();
 
@@ -34,6 +36,7 @@ export default async function LandingPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <RenderGuideModal isAuthenticated={isAuthenticated} />
       <main className="flex-1">
         <section className="flex w-full flex-col items-center justify-center px-2 py-24 text-center">
           {/* Because of hydration issue, Use div instead of <Text /> */}

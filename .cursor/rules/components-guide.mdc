@@ -1,0 +1,85 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Component Usage Guide
+
+## Server vs Client Components
+
+This project follows a "Server Component First" approach:
+
+- Components are server components by default unless they require:
+  - Client-side interactivity
+  - Browser APIs
+  - Use of hooks
+  - Event handlers
+
+- Client components are marked with `'use client'` directive at the top of the file
+- Data fetching should happen in server components or server actions
+- Heavy computation (filtering, transformations) should be on the server
+
+## Component Composition Patterns
+
+### Server-Client Separation
+```tsx
+// ServerComponent.tsx
+import ClientComponent from './ClientComponent';
+
+export default async function ServerComponent() {
+  // Fetch data on the server
+  const data = await fetchData();
+  
+  return (
+    <div>
+      <h1>Server Rendered Content</h1>
+      <ClientComponent data={data} />
+    </div>
+  );
+}
+```
+
+```tsx
+// ClientComponent.tsx
+'use client';
+
+import { useState } from 'react';
+
+export default function ClientComponent({ data }) {
+  const [state, setState] = useState(initialState);
+  
+  // Client-side event handlers
+  function handleClick() {
+    // Update state, call server actions, etc.
+  }
+  
+  return (
+    <button onClick={handleClick}>
+      Interact with {data.name}
+    </button>
+  );
+}
+```
+
+## UI Components
+
+The project uses [packages/ui/](mdc:packages/ui) for shared UI components, which are built with Tailwind CSS. New UI components can be added using:
+
+```bash
+pnpm add-component <component-name>
+```
+
+## Supabase Integration
+
+When using Supabase in a server component:
+
+```tsx
+import { getSupabaseServerClient } from '@/supabase/server';
+
+export default async function Component() {
+  const supabase = getSupabaseServerClient();
+  const { data } = await supabase.from('table').select('*');
+  
+  return <div>{/* render data */}</div>;
+}
+```
