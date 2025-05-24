@@ -5,10 +5,7 @@ import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@packages/supabase";
-import { CommentNotification } from "@packages/transactional"; // Or correct path
 import { revalidatePath } from "next/cache";
-
-import { sendEmail } from "@/shared/api/email"; // Adjust relative path as needed
 
 import { CommentWithAuthor } from "../model/types";
 
@@ -90,60 +87,7 @@ export async function createComment(
 
   if (error) throw error;
 
-  await grantPointAction(userId, "comment");
-
-  // Send email notification
-  try {
-    const { data: postData, error: postError } = await supabase
-      .from("posts") // Assuming 'posts' is the table name
-      .select("author_id, title, type") // 'type' is used for URL generation
-      .eq("id", postId)
-      .single();
-
-    if (postError || !postData) {
-      console.error(
-        "Error fetching post details for email notification:",
-        postError,
-      );
-    } else if (postData && postData.author_id) {
-      // Proceed only if author_id is available
-      const { data: authorData, error: authorError } = await supabase
-        .from("profiles") // Assuming 'profiles' is the table for user details
-        .select("email, username") // or 'full_name', 'name' etc.
-        .eq("id", postData.author_id)
-        .single();
-
-      if (authorError || !authorData) {
-        console.error(
-          "Error fetching post author details for email notification:",
-          authorError,
-        );
-      } else if (authorData.email && userId !== postData.author_id) {
-        // Send email only if author has an email and the commenter is not the author
-        const commenterName =
-          user?.user_metadata?.username || user?.email || "A user";
-        const postUrl = `https://www.productengineer.info/community/${postData.type}/${postId}`; // Construct the URL
-
-        await sendEmail({
-          recipientEmail: authorData.email,
-          title: `New comment on your post: "${postData.title}"`,
-          reactElement: CommentNotification({
-            postAuthorName: authorData.username || authorData.email,
-            commenterName: commenterName,
-            postTitle: postData.title,
-            commentUrl: postUrl,
-            commentContentSnippet: content, // Or a snippet of 'content' if you prefer
-            appName: "PEC", // Added
-            baseUrl: "https://www.productengineer.info", // Added
-          }),
-        });
-        console.log(`Comment notification email sent to ${authorData.email}`);
-      }
-    }
-  } catch (emailError) {
-    console.error("Failed to send comment notification email:", emailError);
-    // Do not throw error here to prevent createComment from failing if email sending fails
-  }
+  grantPointAction(userId, "comment");
 
   revalidatePath(`/community/discussions/${postId}`);
   revalidatePath(`/community/questions/${postId}`);

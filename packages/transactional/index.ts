@@ -1,1 +1,1 @@
-export * from "./emails/CommentNotification";
+export { default as CommentNotification } from "./emails/CommentNotification";

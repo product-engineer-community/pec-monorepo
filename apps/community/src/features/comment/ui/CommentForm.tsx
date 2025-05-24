@@ -1,7 +1,9 @@
 "use client";
 
 import { getUserEmail } from "@packages/auth/src/features";
+import { getOrigin } from "@packages/constants";
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
+import { CommentNotification } from "@packages/transactional";
 import { Button } from "@packages/ui";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -36,24 +38,49 @@ export function CommentForm({
       setIsLoading(true);
       await createComment(postId, content, parentId);
       setContent("");
+      toast.success(convertPointTypeToToastMessage("comment"));
 
-      const { authorId, type } = await getPostType(postId);
-      const { email } = await getUserEmail(authorId);
-      const { username } = await getUsername(authorId);
-      if (email) {
-        sendEmail({
-          title: "작성하신 게시글에 댓글이 달렸어요!",
-          recipientEmail: email,
-          recipientName: username,
-          data: {
-            type,
-            postId,
-          },
-        }).catch();
-      }
+      // change below logic not await but using promise
+      getPostType(postId).then((res) => {
+        const { authorId, type } = res;
+        getUserEmail(authorId).then(({ email }) => {
+          getUsername(authorId).then(({ username }) => {
+            if (email) {
+              sendEmail({
+                title: "작성하신 게시글에 댓글이 달렸어요!",
+                recipientEmail: email,
+                reactElement: CommentNotification({
+                  postAuthorName: username,
+                  postTitle: `${username}님의 ${type}에 댓글이 달렸습니다`,
+                  commentUrl: `${getOrigin("community")}/${type}s/${postId}`,
+                }),
+              }).catch((error) => {
+                console.error(error);
+              });
+            }
+          });
+        });
+      });
+
+      // const { authorId, type } = await getPostType(postId);
+      // const [{ email }, { username }] = await Promise.all([
+      //   getUserEmail(authorId),
+      //   getUsername(authorId),
+      // ]);
+
+      // if (email) {
+      //   sendEmail({
+      //     title: "작성하신 게시글에 댓글이 달렸어요!",
+      //     recipientEmail: email,
+      //     reactElement: CommentNotification({
+      //       postAuthorName: username,
+      //       postTitle: `${username}님의 ${type}에 댓글이 달렸습니다`,
+      //       commentUrl: `${getOrigin("community")}/${type}s/${postId}`,
+      //     }),
+      //   }).catch();
+      // }
 
       if (onCancel) onCancel();
-      toast.success(convertPointTypeToToastMessage("comment"));
     } catch (error) {
       toast.error("댓글 작성 중 오류가 발생했습니다.");
       console.error(error);
