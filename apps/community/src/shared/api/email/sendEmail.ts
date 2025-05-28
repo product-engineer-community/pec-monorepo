@@ -2,8 +2,6 @@
 
 import { Resend } from "resend";
 
-import EmailTemplate from "./EmailTemplate";
-
 const resend = new Resend(process.env.EMAIL_SERVICE_API_KEY!);
 
 /**
@@ -12,23 +10,17 @@ const resend = new Resend(process.env.EMAIL_SERVICE_API_KEY!);
 export async function sendEmail({
   title,
   recipientEmail,
-  recipientName,
-  data,
+  template,
 }: {
   title: string;
   recipientEmail: string;
-  recipientName: string;
-  data: Record<string, string>;
+  template: React.ReactNode;
 }) {
   const { error } = await resend.emails.send({
     from: "PEC <support@productengineer.info>",
     to: [recipientEmail],
     subject: title,
-    react: EmailTemplate({
-      name: recipientName,
-      type: data.type,
-      postId: data.postId,
-    }),
+    react: template,
   });
   if (error) {
     console.error(error);

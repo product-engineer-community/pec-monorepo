@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { createComment } from "@/features/comment";
 import { getPostType } from "@/features/post/action";
 import { getUsername } from "@/features/user/action";
-import { sendEmail } from "@/shared/api";
+import { CommentNotificationEmailTemplate, sendEmail } from "@/shared/api";
 import { Editor } from "@/shared/components/editor";
 
 interface CommentFormProps {
@@ -44,11 +44,11 @@ export function CommentForm({
         sendEmail({
           title: "작성하신 게시글에 댓글이 달렸어요!",
           recipientEmail: email,
-          recipientName: username,
-          data: {
+          template: CommentNotificationEmailTemplate({
+            name: username,
             type,
             postId,
-          },
+          }),
         }).catch();
       }
 
