@@ -5,6 +5,7 @@ export * from "./components/ui/badge";
 export * from "./components/ui/base-layout";
 export * from "./components/ui/button";
 export * from "./components/ui/card";
+export * from "./components/ui/checkbox";
 export * from "./components/ui/collapsible";
 export * from "./components/ui/content-Item";
 export * from "./components/ui/dialog";

@@ -4,20 +4,12 @@ import { redirect } from "next/navigation";
 
 import { TasksCard } from "@/features/task/ui/TasksCard";
 import { getRegularSession } from "@/src/entities/regular-session/action";
+import { AssignmentTasks } from "@/widgets/Assignment/ui/AssignmentTasks";
 import Sidebar from "@/widgets/layout/sidebar";
 import { RegularSessionTasks } from "@/widgets/RegularSession/ui/RegularSessionTasks";
 
 // Mock data for other components
 const weekDetails = {
-  personalAssignment: {
-    title: "개인 과제",
-    status: "제출 완료",
-    description: "Week 3 개인 과제: 고객 여정 맵 및 서비스 청사진 작성하기",
-    submissionUrl: "https://miro.com/app/board/personal-assignment-123/",
-    submitted: true,
-    feedbackSessionScheduled: true,
-    feedbackSessionDate: "2023-06-15T15:00:00",
-  },
   feedbackSession: {
     title: "피드백 세션",
     status: "새 피드백!",
@@ -69,103 +61,8 @@ export default async function Home({
             {/* Regular Session Card - Using our new components */}
             <RegularSessionTasks userId={userId} week={weekNum} />
 
-            {/* Personal Assignment Card */}
-            <TasksCard
-              title={weekDetails.personalAssignment.title}
-              status={weekDetails.personalAssignment.status}
-            >
-              <div className="mb-4">
-                <h4 className="mb-2 font-medium">과제 안내</h4>
-                <p className="text-sm text-muted-foreground">
-                  {weekDetails.personalAssignment.description}
-                </p>
-              </div>
-
-              <div className="mb-4 space-y-2">
-                <h4 className="font-medium">제출</h4>
-                {weekDetails.personalAssignment.submitted ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center rounded-md border border-input p-2">
-                      <input
-                        type="text"
-                        value={weekDetails.personalAssignment.submissionUrl}
-                        readOnly
-                        className="flex-1 bg-transparent text-sm outline-none"
-                      />
-                      <Button variant="ghost" size="sm">
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                          />
-                        </svg>
-                      </Button>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      다시 제출하기
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="flex space-x-2">
-                    <Input
-                      placeholder="Miro 링크를 입력하세요"
-                      value={miroLink}
-                      readOnly
-                      className="flex-1"
-                    />
-                    <Button>제출</Button>
-                  </div>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="font-medium">피드백 세션</h4>
-                {weekDetails.personalAssignment.feedbackSessionScheduled ? (
-                  <div className="rounded-md bg-muted p-3">
-                    <p className="text-sm font-medium">
-                      피드백 세션이 예약되었습니다
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {new Date(
-                        weekDetails.personalAssignment.feedbackSessionDate,
-                      ).toLocaleString("ko-KR", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </p>
-                  </div>
-                ) : (
-                  <Button variant="outline" className="w-full">
-                    <svg
-                      className="mr-2 h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    피드백 세션 일정 등록
-                  </Button>
-                )}
-              </div>
-            </TasksCard>
+            {/* Personal Assignment Card - Using AssignmentTasks widget */}
+            <AssignmentTasks title="개인 과제" week={weekNum} />
 
             {/* Feedback Session Card */}
             <TasksCard

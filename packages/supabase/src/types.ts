@@ -14,6 +14,7 @@ export type Database = {
           checklist: string[] | null
           example_image_url: string | null
           id: string
+          order: number | null
           output: string | null
           process: string[] | null
           purpose: string | null
@@ -25,6 +26,7 @@ export type Database = {
           checklist?: string[] | null
           example_image_url?: string | null
           id?: string
+          order?: number | null
           output?: string | null
           process?: string[] | null
           purpose?: string | null
@@ -36,6 +38,7 @@ export type Database = {
           checklist?: string[] | null
           example_image_url?: string | null
           id?: string
+          order?: number | null
           output?: string | null
           process?: string[] | null
           purpose?: string | null
