@@ -146,7 +146,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </div>
 
                 {/* 버튼 영역 */}
-                <Link href={`${COURSE_PATHNAME}/payment/${id}`}>
+                <Link href={`/payment/${id}`}>
                   <Button className="w-full">수강 신청하기</Button>
                 </Link>
               </Card>

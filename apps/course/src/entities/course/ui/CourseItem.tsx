@@ -1,4 +1,3 @@
-import { COURSE_PATHNAME } from "@packages/constants";
 import {
   Button,
   Card,
@@ -107,7 +106,7 @@ export function CourseItem({
             asChild
             disabled={salePrice !== 132000}
           >
-            <Link href={`${COURSE_PATHNAME}/${id}`}>상세보기</Link>
+            <Link href={`/${id}`}>상세보기</Link>
           </Button>
           <Button
             asChild
@@ -115,7 +114,7 @@ export function CourseItem({
             className="flex-1"
             disabled={salePrice !== 132000}
           >
-            <Link href={`${COURSE_PATHNAME}/payment/${id}`}>수강신청</Link>
+            <Link href={`/payment/${id}`}>수강신청</Link>
           </Button>
         </div>
       </CardFooter>
