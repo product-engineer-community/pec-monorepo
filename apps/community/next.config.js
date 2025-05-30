@@ -28,6 +28,11 @@ const nextConfig = {
           destination: "http://localhost:3002/camp/:path*",
           basePath: false,
         },
+        {
+          source: "/course/:path*",
+          destination: "http://localhost:3003/course/:path*",
+          basePath: false,
+        },
       ];
     }
     return [];
