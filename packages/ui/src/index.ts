@@ -21,3 +21,4 @@ export * from "./components/ui/shiny-text";
 export * from "./components/ui/text";
 export * from "./components/ui/tooltip";
 export * from "./components/skeletons/post-card-skeleton";
+export * from "./components/ui/select";
