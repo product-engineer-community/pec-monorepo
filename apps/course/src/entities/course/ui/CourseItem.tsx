@@ -1,4 +1,3 @@
-import { COURSE_PATHNAME } from "@packages/constants";
 import {
   Button,
   Card,
