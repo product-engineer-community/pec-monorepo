@@ -43,6 +43,7 @@ export function AssignmentItem({
         const tasks = await getTask({
           userId,
           week,
+          assignmentOrder: assignment.order,
           taskType: "assignment_checklist",
         });
         const checklistTask = tasks.find((task) => task.value === "true");
@@ -55,7 +56,7 @@ export function AssignmentItem({
       }
     }
     fetchChecklistStatus();
-  }, [userId, week, assignment.title]);
+  }, [userId, week, assignment.order]);
 
   return (
     <div className="space-y-4">
@@ -63,6 +64,7 @@ export function AssignmentItem({
         week={week}
         title={assignment.title}
         userId={userId}
+        assignmentOrder={assignment.order ?? 0}
       />
 
       <div className="space-y-2">

@@ -391,6 +391,7 @@ export type Database = {
       }
       task: {
         Row: {
+          assignment_order: number | null
           created_at: string | null
           id: string
           task_type: string
@@ -401,6 +402,7 @@ export type Database = {
           week: number | null
         }
         Insert: {
+          assignment_order?: number | null
           created_at?: string | null
           id?: string
           task_type: string
@@ -411,6 +413,7 @@ export type Database = {
           week?: number | null
         }
         Update: {
+          assignment_order?: number | null
           created_at?: string | null
           id?: string
           task_type?: string

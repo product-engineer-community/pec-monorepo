@@ -9,4 +9,5 @@ export interface TaskData {
     | "assignment_checklist";
   value?: string;
   valueType?: "boolean" | "string";
+  assignmentOrder?: number | null;
 }

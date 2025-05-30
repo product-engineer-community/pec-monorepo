@@ -1,12 +1,19 @@
 import { getUserFromSupabase } from "@packages/supabase";
 import { Button, Input } from "@packages/ui";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
+import { getRegularSession } from "@/entities/regular-session/action";
 import { TasksCard } from "@/features/task/ui/TasksCard";
-import { getRegularSession } from "@/src/entities/regular-session/action";
-import { AssignmentTasks } from "@/widgets/Assignment/ui/AssignmentTasks";
+import {
+  AssignmentTasks,
+  AssignmentTasksSkeleton,
+} from "@/widgets/Assignment/ui";
 import Sidebar from "@/widgets/layout/sidebar";
-import { RegularSessionTasks } from "@/widgets/RegularSession/ui/RegularSessionTasks";
+import {
+  RegularSessionTasks,
+  RegularSessionTasksSkeleton,
+} from "@/widgets/RegularSession/ui";
 
 // Mock data for other components
 const weekDetails = {
@@ -59,10 +66,14 @@ export default async function Home({
 
           <div className="flex flex-wrap gap-4 md:gap-6">
             {/* Regular Session Card - Using our new components */}
-            <RegularSessionTasks userId={userId} week={weekNum} />
+            <Suspense fallback={<RegularSessionTasksSkeleton />}>
+              <RegularSessionTasks userId={userId} week={weekNum} />
+            </Suspense>
 
             {/* Personal Assignment Card - Using AssignmentTasks widget */}
-            <AssignmentTasks title="개인 과제" week={weekNum} />
+            <Suspense fallback={<AssignmentTasksSkeleton />}>
+              <AssignmentTasks title="개인 과제" week={weekNum} />
+            </Suspense>
 
             {/* Feedback Session Card */}
             <TasksCard

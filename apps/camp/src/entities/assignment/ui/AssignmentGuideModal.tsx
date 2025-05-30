@@ -86,16 +86,10 @@ export function AssignmentGuideModal({
       await completeTask({
         userId,
         week,
-        taskType: "assignment",
-        value: "true",
-        valueType: "boolean",
-      });
-      await completeTask({
-        userId,
-        week,
         taskType: "assignment_checklist",
         value: "true",
         valueType: "boolean",
+        assignmentOrder: assignment.order,
       });
       handleClose();
     } catch (error) {
@@ -241,7 +235,7 @@ export function AssignmentGuideModal({
                   isLoading={isCompleting}
                 >
                   {allItemsChecked
-                    ? "과제 완료하기"
+                    ? "과제 제출하러 가기"
                     : `체크리스트 완료 (${checkedItems.filter(Boolean).length}/${checkedItems.length})`}
                 </Button>
                 {!allItemsChecked && (

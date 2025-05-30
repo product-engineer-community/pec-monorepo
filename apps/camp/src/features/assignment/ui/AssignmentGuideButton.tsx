@@ -1,7 +1,8 @@
 "use client";
 
 import { Checkbox } from "@packages/ui";
-import Link from "next/link";
+import { Loader2 } from "lucide-react";
+import Link, { useLinkStatus } from "next/link";
 import { useEffect, useState } from "react";
 
 import { getTask } from "@/shared/action/task"; // Assuming getTask is in this path
@@ -10,15 +11,18 @@ interface AssignmentGuideButtonProps {
   week: number;
   title: string;
   userId: string; // Added userId
+  assignmentOrder: number;
 }
 
 export function AssignmentGuideButton({
   week,
   title,
   userId,
+  assignmentOrder,
 }: AssignmentGuideButtonProps) {
   const [isChecklistCompleted, setIsChecklistCompleted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const { pending: isPending } = useLinkStatus();
 
   useEffect(() => {
     async function fetchTaskStatus() {
@@ -27,6 +31,7 @@ export function AssignmentGuideButton({
         const tasks = await getTask({
           userId,
           week,
+          assignmentOrder,
           taskType: "assignment_checklist",
         });
         if (tasks && tasks.length > 0 && tasks[0].value === "true") {
@@ -45,7 +50,7 @@ export function AssignmentGuideButton({
     if (userId) {
       fetchTaskStatus();
     }
-  }, [userId, week]);
+  }, [userId, week, assignmentOrder]);
 
   // The modal is opened via routing, so clicking the label/checkbox will navigate
   return (
@@ -59,8 +64,8 @@ export function AssignmentGuideButton({
       />
       <Link
         href={`/dashboard/${week}/assignment/${title}`}
-        className={`flex flex-1 items-center ${isLoading ? "cursor-wait" : isChecklistCompleted ? "cursor-not-allowed text-muted-foreground line-through" : "cursor-pointer"}`}
-        aria-disabled={isLoading || isChecklistCompleted}
+        className={`flex flex-1 items-center ${isLoading || isPending ? "cursor-wait" : isChecklistCompleted ? "cursor-not-allowed text-muted-foreground line-through" : "cursor-pointer"}`}
+        aria-disabled={isLoading || isChecklistCompleted || isPending}
         onClick={(e) => {
           if (isLoading || isChecklistCompleted) {
             e.preventDefault();
@@ -69,10 +74,13 @@ export function AssignmentGuideButton({
       >
         <label
           htmlFor={`assignment-checklist-${week}-${title}`}
-          className={`flex-1 text-sm font-medium leading-none ${isLoading ? "cursor-wait" : isChecklistCompleted ? "cursor-not-allowed text-muted-foreground line-through" : "cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"}`}
+          className={`flex-1 text-sm font-medium leading-none ${isLoading || isPending ? "cursor-wait" : isChecklistCompleted ? "cursor-not-allowed text-muted-foreground line-through" : "cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"}`}
         >
           과제 가이드 확인
         </label>
+        {(isLoading || isPending) && (
+          <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+        )}
       </Link>
     </div>
   );

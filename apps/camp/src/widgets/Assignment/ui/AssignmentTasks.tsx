@@ -35,7 +35,9 @@ export async function AssignmentTasks({ title, week }: AssignmentTasksProps) {
     );
   }
 
-  const assignments = await getAssignmentList(week);
+  const assignments = (await getAssignmentList(week)).sort(
+    (a, b) => (a.order ?? 0) - (b.order ?? 0),
+  );
 
   return (
     <TasksCard title={title} status={"진행중"}>
@@ -48,16 +50,14 @@ export async function AssignmentTasks({ title, week }: AssignmentTasksProps) {
         </div>
       ) : assignments.length <= 2 ? (
         <div className="space-y-6">
-          {assignments
-            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-            .map((assignment) => (
-              <AssignmentItem
-                key={assignment.id}
-                assignment={assignment}
-                week={week}
-                userId={userId || ""}
-              />
-            ))}
+          {assignments.map((assignment) => (
+            <AssignmentItem
+              key={assignment.id}
+              assignment={assignment}
+              week={week}
+              userId={userId || ""}
+            />
+          ))}
         </div>
       ) : (
         <div className="space-y-4">
