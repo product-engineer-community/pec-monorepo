@@ -12,6 +12,8 @@ import { BookOpen, Code, Compass, Lightbulb } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import MuxPlayer from "@mux/mux-player-react";
+import { type Asset } from "@mux/mux-node";
 
 import { getCourseItems, getCourses } from "@/entities/course/action";
 
@@ -62,7 +64,7 @@ export default async function coursePage({ params }: coursePageProps) {
   console.log("🚀 ~ coursePage ~ courses:", courses);
   const course = courses[0];
 
-  const CourseItems = await getCourseItems();
+  const CourseItems: Asset[] = await getCourseItems();
   console.log("🚀 ~ coursePage ~ CourseItems:", CourseItems);
 
   // 할인율 계산
@@ -310,6 +312,24 @@ export default async function coursePage({ params }: coursePageProps) {
           </ul>
         </CardContent>
       </Card>
+
+      {/* Course Videos Section */}
+      {CourseItems && CourseItems.length > 0 && (
+        <Card className="mb-10">
+          <CardHeader>
+            <CardTitle>강의 영상</CardTitle>
+          </CardHeader>
+          <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {CourseItems.map((asset) =>
+              asset.playback_ids?.map((playbackId) => (
+                <div key={playbackId.id} className="aspect-video">
+                  <MuxPlayer playbackId={playbackId.id} />
+                </div>
+              )),
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <div className="mb-10">
         <h2 className="mb-4 text-2xl font-semibold">이 강의의 핵심 강점</h2>

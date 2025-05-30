@@ -1,21 +1,29 @@
 "use server";
 
+import Mux from "@mux/mux-node";
 import { Course } from "../model";
 
 export async function getCourseItems() {
-  // from youtube, get private video list
-  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-  const PLAYLIST_ID = process.env.YOUTUBE_PLAYLIST_ID;
+  const MUX_TOKEN_ID = process.env.MUX_TOKEN_ID;
+  const MUX_TOKEN_SECRET = process.env.MUX_TOKEN_SECRET;
 
-  if (!YOUTUBE_API_KEY || !PLAYLIST_ID) {
-    console.error("YouTube API key and Playlist ID are required");
+  if (!MUX_TOKEN_ID || !MUX_TOKEN_SECRET) {
+    console.error("Mux Token ID and Mux Token Secret are required");
     return [];
   }
 
-  const url = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${PLAYLIST_ID}&key=${YOUTUBE_API_KEY}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.items;
+  try {
+    const mux = new Mux({
+      tokenId: MUX_TOKEN_ID,
+      tokenSecret: MUX_TOKEN_SECRET,
+    });
+
+    const assets = await mux.video.assets.list();
+    return assets;
+  } catch (error) {
+    console.error("Error fetching Mux assets:", error);
+    return [];
+  }
 }
 
 export async function getCourses(): Promise<Course[]> {

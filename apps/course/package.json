@@ -19,6 +19,8 @@
     "@portone/server-sdk": "^0.14.0",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "2.45.1",
+    "@mux/mux-node": "^8.0.0",
+    "@mux/mux-player-react": "^2.4.0",
     "geist": "^1.2.1",
     "lucide-react": "^0.350.0",
     "mailersend": "^2.5.0",
