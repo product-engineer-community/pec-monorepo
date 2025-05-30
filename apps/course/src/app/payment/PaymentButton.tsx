@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@packages/auth/src/features";
-import { LECTURE_PATHNAME } from "@packages/constants";
+import { COURSE_PATHNAME } from "@packages/constants";
 import { Button } from "@packages/ui";
 import * as PortOne from "@portone/browser-sdk/v2";
 import { useState } from "react";
@@ -69,7 +69,7 @@ export default function PaymentButton({
       }
 
       const completeResponse = await fetch(
-        `${LECTURE_PATHNAME}/payment/complete`,
+        `${COURSE_PATHNAME}/payment/complete`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

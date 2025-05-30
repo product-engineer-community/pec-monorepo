@@ -1,10 +1,10 @@
-export type AppName = "auth" | "community" | "camp" | "lecture";
+export type AppName = "auth" | "community" | "camp" | "course";
 
 const appPort = {
   auth: 3000,
   community: 3001,
   camp: 3002,
-  lecture: 3003,
+  course: 3003,
 };
 
 export const getOrigin = (appName?: AppName) => {

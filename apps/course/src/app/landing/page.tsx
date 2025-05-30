@@ -1,8 +1,8 @@
 import { Button } from "@packages/ui";
 import type { Metadata } from "next";
 
-import { getLectures } from "@/src/entities/lecture/action";
-import { LectureItem } from "@/src/entities/lecture/ui";
+import { getCourses } from "@/entities/course/action";
+import { CourseItem } from "@/entities/course/ui";
 
 export const metadata: Metadata = {
   title: "강의 | PEC 커뮤니티",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function LecturePage() {
-  const lectures = await getLectures();
+export default async function coursePage() {
+  const courses = await getCourses();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -47,8 +47,8 @@ export default async function LecturePage() {
               <h2 className="text-2xl font-bold">인기 강의</h2>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {lectures.map((lecture) => (
-                <LectureItem key={lecture.id} {...lecture} />
+              {courses.map((course) => (
+                <CourseItem key={course.id} {...course} />
               ))}
             </div>
             <div className="mt-10 flex justify-center">

@@ -8,8 +8,8 @@ const nextConfig = {
 
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
-  basePath: "/auth",
-  assetPrefix: "/auth/",
+  basePath: "/course",
+  assetPrefix: "/course/",
   webpack: (config) => {
     config.externals = [...config.externals, "canvas", "jsdom"];
     return config;
@@ -20,7 +20,7 @@ const nextConfig = {
       return [
         {
           source: "/",
-          destination: "/community/landing",
+          destination: "/course",
           basePath: false,
           permanent: false,
         },
@@ -33,6 +33,11 @@ const nextConfig = {
     if (process.env.NODE_ENV === "development") {
       return [
         {
+          source: "/auth/:path*",
+          destination: "http://localhost:3000/auth/:path*",
+          basePath: false,
+        },
+        {
           source: "/community/:path*",
           destination: "http://localhost:3001/community/:path*",
           basePath: false,
@@ -42,14 +47,10 @@ const nextConfig = {
           destination: "http://localhost:3002/camp/:path*",
           basePath: false,
         },
-        {
-          source: "/course/:path*",
-          destination: "http://localhost:3003/course/:path*",
-          basePath: false,
-        },
       ];
     }
     return [];
   },
 };
+
 module.exports = nextConfig;

@@ -6,7 +6,7 @@ import {
   COMMUNITY_QUESTIONS_PATHNAME,
   CAMP_LANDING_PATHNAME,
   CAMP_PATHNAME,
-  LECTURE_PATHNAME,
+  COURSE_PATHNAME,
 } from "./pathname";
 import { getOrigin } from "./url";
 

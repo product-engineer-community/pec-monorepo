@@ -1,4 +1,4 @@
-import { LECTURE_PATHNAME } from "@packages/constants";
+import { COURSE_PATHNAME } from "@packages/constants";
 import {
   Button,
   Card,
@@ -10,10 +10,10 @@ import { Clock, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Lecture } from "@/src/entities/lecture/model";
+import { Course } from "../model";
 
 // 강의 아이템 컴포넌트
-export function LectureItem({
+export function CourseItem({
   title,
   description,
   instructor,
@@ -25,7 +25,7 @@ export function LectureItem({
   image,
   tags,
   id,
-}: Lecture) {
+}: Course) {
   // 할인율 계산
   const discountRate = Math.round(((price - salePrice) / price) * 100);
 
@@ -107,7 +107,7 @@ export function LectureItem({
             asChild
             disabled={salePrice !== 132000}
           >
-            <Link href={`${LECTURE_PATHNAME}/${id}`}>상세보기</Link>
+            <Link href={`${COURSE_PATHNAME}/${id}`}>상세보기</Link>
           </Button>
           <Button
             asChild
@@ -115,7 +115,7 @@ export function LectureItem({
             className="flex-1"
             disabled={salePrice !== 132000}
           >
-            <Link href={`${LECTURE_PATHNAME}/payment/${id}`}>수강신청</Link>
+            <Link href={`${COURSE_PATHNAME}/payment/${id}`}>수강신청</Link>
           </Button>
         </div>
       </CardFooter>

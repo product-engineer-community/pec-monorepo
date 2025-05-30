@@ -1,4 +1,4 @@
-import { LECTURE_PATHNAME } from "@packages/constants";
+import { COURSE_PATHNAME } from "@packages/constants";
 import {
   Button,
   Card,
@@ -13,9 +13,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getLectureItems, getLectures } from "@/entities/lecture/action";
+import { getCourseItems, getCourses } from "@/entities/course/action";
 
-interface LecturePageProps {
+interface coursePageProps {
   params: Promise<{
     id: string;
   }>;
@@ -27,10 +27,10 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const lectures = await getLectures();
-  const lecture = lectures.find((l) => l.id === id);
+  const courses = await getCourses();
+  const course = courses.find((l) => l.id === id);
 
-  if (!lecture) {
+  if (!course) {
     return {
       title: "강의를 찾을 수 없습니다",
       description: "요청하신 강의를 찾을 수 없습니다.",
@@ -38,40 +38,40 @@ export async function generateMetadata({
   }
 
   return {
-    title: lecture.title || "강의 상세",
+    title: course.title || "강의 상세",
     description:
-      lecture.description?.substring(0, 160) ||
+      course.description?.substring(0, 160) ||
       "Product Engineer를 위한 프리미엄 강의입니다.",
     openGraph: {
-      title: lecture.title || "강의 상세",
+      title: course.title || "강의 상세",
       description:
-        lecture.description?.substring(0, 160) ||
+        course.description?.substring(0, 160) ||
         "Product Engineer를 위한 프리미엄 강의입니다.",
       type: "article",
-      url: `${process.env.NEXT_PUBLIC_APP_URL}/${LECTURE_PATHNAME}/${id}`,
-      images: [lecture.image || "/webinar.webp"], // Using lecture.image from the Lecture object
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${COURSE_PATHNAME}/${id}`,
+      images: [course.image || "/webinar.webp"], // Using course.image from the course object
     },
   };
 }
 
-export default async function LecturePage({ params }: LecturePageProps) {
-  //TODO: id 활용하여 supabase 에서 lecture 정보 불러오기
+export default async function coursePage({ params }: coursePageProps) {
+  //TODO: id 활용하여 supabase 에서 course 정보 불러오기
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
-  const lectures = await getLectures();
-  console.log("🚀 ~ LecturePage ~ lectures:", lectures);
-  const lecture = lectures[0];
+  const courses = await getCourses();
+  console.log("🚀 ~ coursePage ~ courses:", courses);
+  const course = courses[0];
 
-  const lectureItems = await getLectureItems();
-  console.log("🚀 ~ LecturePage ~ lectureItems:", lectureItems);
+  const CourseItems = await getCourseItems();
+  console.log("🚀 ~ coursePage ~ CourseItems:", CourseItems);
 
   // 할인율 계산
   const discountRate = Math.floor(
-    ((lecture.price - lecture.salePrice) / lecture.price) * 100,
+    ((course.price - course.salePrice) / course.price) * 100,
   );
 
   // 월 할부 금액 계산 (12개월 기준)
-  const monthlyPayment = Math.floor(lecture.salePrice / 6);
+  const monthlyPayment = Math.floor(course.salePrice / 6);
 
   return (
     <div className="container mx-auto px-4 pb-8">
@@ -84,27 +84,27 @@ export default async function LecturePage({ params }: LecturePageProps) {
               {/* 상단 제목과 좋아요(하트) 영역 */}
               <div className="mb-4 flex items-start justify-between">
                 <h1 className="text-xl font-bold leading-snug text-gray-900">
-                  {lecture.title}
+                  {course.title}
                 </h1>
               </div>
 
               {/* 간단한 정보 (수강기간, 강의 시간 등) */}
               <div className="mb-3 flex flex-wrap items-center space-x-1 text-sm text-gray-500">
-                <span>수강기간 {lecture.duration}</span>
+                <span>수강기간 {course.duration}</span>
                 <span>·</span>
-                <span>난이도 {lecture.level}</span>
+                <span>난이도 {course.level}</span>
                 <span>·</span>
-                <span>수강생 {lecture.students}명+</span>
+                <span>수강생 {course.students}명+</span>
               </div>
-              <div className="text-gray-500">{lecture.description}</div>
+              <div className="text-gray-500">{course.description}</div>
 
               {/* 수강생/평가 정보 (임의로 추가) */}
               <div className="mt-auto flex items-center text-sm text-gray-600">
-                <span className="mr-3">강사: {lecture.instructor}</span>
+                <span className="mr-3">강사: {course.instructor}</span>
                 <span className="mr-3">|</span>
                 <span>★ 4.9 (82+)</span>
                 <span className="mr-3">|</span>
-                <span>수강 기간: {lecture.duration}</span>
+                <span>수강 기간: {course.duration}</span>
               </div>
             </div>
 
@@ -128,25 +128,24 @@ export default async function LecturePage({ params }: LecturePageProps) {
                     <div className="flex justify-between text-sm text-gray-400">
                       <div>권장 소비자 가격</div>
                       <div className="line-through">
-                        {lecture.price.toLocaleString()}원
+                        {course.price.toLocaleString()}원
                       </div>
                     </div>
                     <div className="flex justify-between text-sm text-gray-400">
                       <div>할인 금액</div>
                       <div>
-                        -{(lecture.price - lecture.salePrice).toLocaleString()}
-                        원
+                        -{(course.price - course.salePrice).toLocaleString()}원
                       </div>
                     </div>
                     <div className="flex justify-between text-lg font-bold text-gray-900">
                       <div>할인 판매가</div>
-                      <div>{lecture.salePrice.toLocaleString()}원</div>
+                      <div>{course.salePrice.toLocaleString()}원</div>
                     </div>
                   </div>
                 </div>
 
                 {/* 버튼 영역 */}
-                <Link href={`${LECTURE_PATHNAME}/payment/${id}`}>
+                <Link href={`${COURSE_PATHNAME}/payment/${id}`}>
                   <Button className="w-full">수강 신청하기</Button>
                 </Link>
               </Card>

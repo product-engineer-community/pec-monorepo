@@ -1,8 +1,8 @@
 "use server";
 
-import { Lecture } from "@/src/entities/lecture/model";
+import { Course } from "../model";
 
-export async function getLectureItems() {
+export async function getCourseItems() {
   // from youtube, get private video list
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
   const PLAYLIST_ID = process.env.YOUTUBE_PLAYLIST_ID;
@@ -18,7 +18,7 @@ export async function getLectureItems() {
   return data.items;
 }
 
-export async function getLectures(): Promise<Lecture[]> {
+export async function getCourses(): Promise<Course[]> {
   // 강의 목록 Mock 데이터
   return [
     {
@@ -35,7 +35,7 @@ export async function getLectures(): Promise<Lecture[]> {
       tags: ["Next.js", "TypeScript", "면접", "실무"],
     },
     {
-      id: "lecture-2",
+      id: "course-2",
       title: "Product Engineer를 위한 알고리즘 & 자료구조(5월 예정)",
       description:
         "실무에서 마주치는 다양한 알고리즘 문제를 소개합니다. 복잡한 비즈니스 로직을 효율적으로 구현하기 위한 알고리즘적 사고와 최적화 기법을 습득하세요.",
@@ -49,7 +49,7 @@ export async function getLectures(): Promise<Lecture[]> {
       tags: ["알고리즘", "자료구조", "최적화", "코딩테스트"],
     },
     {
-      id: "lecture-3",
+      id: "course-3",
       title: "Product Engineer를 위한 시스템 디자인(6월 예정)",
       description:
         "확장 가능하고 안정적인 시스템을 설계하는 방법을 배웁니다. 대규모 트래픽, 데이터 처리, 분산 시스템 등 실제 서비스 개발에 필요한 아키텍처 설계 원칙과 패턴을 학습합니다.",

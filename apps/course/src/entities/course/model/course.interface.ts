@@ -1,5 +1,5 @@
 // 강의 타입 정의
-export interface Lecture {
+export interface Course {
   id: string;
   title: string;
   description: string;
