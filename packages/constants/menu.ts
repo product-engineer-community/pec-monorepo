@@ -7,6 +7,7 @@ import {
   CAMP_LANDING_PATHNAME,
   CAMP_PATHNAME,
   COURSE_PATHNAME,
+  COURSE_LANDING_PATHNAME,
 } from "./pathname";
 import { getOrigin } from "./url";
 
@@ -32,6 +33,10 @@ export const HEADER_MENU_ITEMS = [
   {
     label: "Events",
     href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_EVENTS_PATHNAME}`,
+  },
+  {
+    label: "Course",
+    href: `${getOrigin()}${COURSE_PATHNAME}${COURSE_LANDING_PATHNAME}`,
   },
   {
     label: "Camp",
