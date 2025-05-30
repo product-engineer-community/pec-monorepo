@@ -15,7 +15,7 @@ import Link from "next/link";
 
 import { getCourseItems, getCourses } from "@/entities/course/action";
 
-interface coursePageProps {
+interface CoursePageProps {
   params: Promise<{
     id: string;
   }>;
@@ -54,7 +54,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function coursePage({ params }: coursePageProps) {
+export default async function CoursePage({ params }: CoursePageProps) {
   //TODO: id 활용하여 supabase 에서 course 정보 불러오기
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
@@ -145,7 +145,7 @@ export default async function coursePage({ params }: coursePageProps) {
                 </div>
 
                 {/* 버튼 영역 */}
-                <Link href={`${COURSE_PATHNAME}/payment/${id}`}>
+                <Link href={`/payment/${id}`}>
                   <Button className="w-full">수강 신청하기</Button>
                 </Link>
               </Card>
