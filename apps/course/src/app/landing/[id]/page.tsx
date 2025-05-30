@@ -1,3 +1,4 @@
+import MuxPlayer from "@mux/mux-player-react";
 import { COURSE_PATHNAME } from "@packages/constants";
 import {
   Button,
@@ -12,12 +13,10 @@ import { BookOpen, Code, Compass, Lightbulb } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import MuxPlayer from "@mux/mux-player-react";
-import { type Asset } from "@mux/mux-node";
 
 import { getCourseItems, getCourses } from "@/entities/course/action";
 
-interface coursePageProps {
+interface CoursePageProps {
   params: Promise<{
     id: string;
   }>;
@@ -56,7 +55,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function coursePage({ params }: coursePageProps) {
+export default async function CoursePage({ params }: CoursePageProps) {
   //TODO: id 활용하여 supabase 에서 course 정보 불러오기
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = await params;
@@ -64,7 +63,7 @@ export default async function coursePage({ params }: coursePageProps) {
   console.log("🚀 ~ coursePage ~ courses:", courses);
   const course = courses[0];
 
-  const CourseItems: Asset[] = await getCourseItems();
+  const CourseItems = await getCourseItems();
   console.log("🚀 ~ coursePage ~ CourseItems:", CourseItems);
 
   // 할인율 계산
@@ -320,8 +319,9 @@ export default async function coursePage({ params }: coursePageProps) {
             <CardTitle>강의 영상</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {CourseItems.map((asset) =>
-              asset.playback_ids?.map((playbackId) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {CourseItems.map((asset: any) =>
+              asset.playback_ids?.map((playbackId: { id: string }) => (
                 <div key={playbackId.id} className="aspect-video">
                   <MuxPlayer playbackId={playbackId.id} />
                 </div>

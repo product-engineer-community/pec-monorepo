@@ -1,6 +1,7 @@
 "use server";
 
 import Mux from "@mux/mux-node";
+
 import { Course } from "../model";
 
 export async function getCourseItems() {
