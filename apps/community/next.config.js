@@ -6,6 +6,16 @@ const nextConfig = {
     },
   },
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/**",
+      },
+    ],
+  },
+
   reactStrictMode: false,
   transpilePackages: ["@packages/auth"],
   basePath: "/community",
