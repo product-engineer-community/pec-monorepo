@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
   PostType,
+  postType as postTypeSchema,
 } from "@packages/ui";
 import { Trash2 } from "lucide-react";
 import { useActionState, useState } from "react";
@@ -34,9 +35,9 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
   // 타입에 따른 제목 및 설명 텍스트 설정
   const getTitle = () => {
     switch (postType) {
-      case "question":
+      case postTypeSchema.Enum.question:
         return "질문 삭제";
-      case "discussion":
+      case postTypeSchema.Enum.discussion:
         return "토론 삭제";
       default:
         return "게시글 삭제";
@@ -46,10 +47,10 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
   const getDescription = () => {
     let postTypeText = "";
     switch (postType) {
-      case "question":
+      case postTypeSchema.Enum.question:
         postTypeText = "질문";
         break;
-      case "discussion":
+      case postTypeSchema.Enum.discussion:
         postTypeText = "토론";
         break;
       default:

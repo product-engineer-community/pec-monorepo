@@ -1,15 +1,20 @@
 "use client";
 
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
-import { Button, Input, type PostType } from "@packages/ui";
+import {
+  Button,
+  Input,
+  PostType,
+  postType as postTypeSchema,
+} from "@packages/ui";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
+import { createPost, updatePost } from "@/features/post/action";
+import { usePostType } from "@/features/post/model/use-post-type";
 import { Editor } from "@/shared/components/editor";
-import { createPost, updatePost } from "@/src/features/post/action";
-import { usePostType } from "@/src/features/post/model/use-post-type";
 
 // 초기 상태 정의
 type FormState = {
@@ -136,24 +141,32 @@ export default function PostForm({
         <div className="flex gap-4">
           <Button
             type="button"
-            variant={postType === "question" ? "default" : "outline"}
-            onClick={() => setPostType("question")}
+            variant={
+              postType === postTypeSchema.Enum.question ? "default" : "outline"
+            }
+            onClick={() => setPostType(postTypeSchema.Enum.question)}
             className="capitalize"
           >
             question
           </Button>
           <Button
             type="button"
-            variant={postType === "discussion" ? "default" : "outline"}
-            onClick={() => setPostType("discussion")}
+            variant={
+              postType === postTypeSchema.Enum.discussion
+                ? "default"
+                : "outline"
+            }
+            onClick={() => setPostType(postTypeSchema.Enum.discussion)}
             className="capitalize"
           >
             discussion
           </Button>
           <Button
             type="button"
-            variant={postType === "article" ? "default" : "outline"}
-            onClick={() => setPostType("article")}
+            variant={
+              postType === postTypeSchema.Enum.article ? "default" : "outline"
+            }
+            onClick={() => setPostType(postTypeSchema.Enum.article)}
             className="capitalize"
           >
             article
@@ -177,7 +190,7 @@ export default function PostForm({
         </div>
       </div>
 
-      {postType !== "article" && (
+      {postType !== postTypeSchema.Enum.article && (
         <div className="space-y-2">
           <label className="text-sm font-medium">카테고리</label>
           <Input
@@ -188,7 +201,7 @@ export default function PostForm({
         </div>
       )}
 
-      {postType === "discussion" && (
+      {postType === postTypeSchema.Enum.discussion && (
         <div className="space-y-2">
           <label className="text-sm font-medium">태그</label>
           <div className="mb-2 flex flex-wrap gap-2">
@@ -216,7 +229,7 @@ export default function PostForm({
         </div>
       )}
 
-      {postType === "article" && (
+      {postType === postTypeSchema.Enum.article && (
         <div className="space-y-2">
           <label className="text-sm font-medium">썸네일 URL</label>
           <Input

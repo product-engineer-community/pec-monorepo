@@ -5,7 +5,6 @@ const nextConfig = {
       allowedOrigins: ["*.productengineer.info", "localhost"],
     },
   },
-
   images: {
     remotePatterns: [
       {

@@ -1,5 +1,5 @@
 import { COMMUNITY_ARTICLES_PATHNAME } from "@packages/constants";
-import { Text } from "@packages/ui";
+import { postType,Text } from "@packages/ui";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
 export default async function ArticlesPage() {
   // getPosts 함수를 사용하여 'article' 타입의 게시물을 가져옵니다
-  const articles = await getPosts("article");
+  const articles = await getPosts(postType.Enum.article);
 
   // 가공된 아티클 데이터 생성
   const articlesData = articles.map((article) => {

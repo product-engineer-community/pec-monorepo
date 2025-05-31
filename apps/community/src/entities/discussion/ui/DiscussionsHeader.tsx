@@ -1,17 +1,35 @@
-import { COMMUNITY_POST_WRITE_PATHNAME } from "@packages/constants";
-import { Button } from "@packages/ui";
+import { getIsAuthenticated } from "@packages/auth/src/features";
+import {
+  AUTH_PATHNAME,
+  COMMUNITY_PATHNAME,
+  COMMUNITY_POST_WRITE_PATHNAME,
+  getOrigin,
+  SIGN_IN_PATHNAME,
+} from "@packages/constants";
+import { Button, postType } from "@packages/ui";
 import Link from "next/link";
 
-export function DiscussionsHeader() {
+export async function DiscussionsHeader() {
+  const isAuthenticated = await getIsAuthenticated();
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Discussions</h1>
         <Link
-          href={{
-            pathname: COMMUNITY_POST_WRITE_PATHNAME,
-            query: { type: "discussion" },
-          }}
+          href={
+            isAuthenticated
+              ? {
+                  pathname: COMMUNITY_POST_WRITE_PATHNAME,
+                  query: { type: postType.Enum.discussion },
+                }
+              : {
+                  pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
+                  query: {
+                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=${postType.Enum.discussion}`,
+                  },
+                }
+          }
         >
           <Button>글쓰기</Button>
         </Link>

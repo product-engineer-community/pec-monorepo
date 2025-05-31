@@ -1,5 +1,6 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import { COMMUNITY_PATHNAME } from "@packages/constants";
+import { postType } from "@packages/ui";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -70,7 +71,9 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
         >
           <QuestionDetail
             id={id}
-            deleteButton={<DeletePostButton postType="question" postId={id} />}
+            deleteButton={
+              <DeletePostButton postType={postType.Enum.question} postId={id} />
+            }
             postLikeButton={
               <PostLikeButton
                 postId={id}
@@ -86,7 +89,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postId={id} />
+          <Comments postType={postType.Enum.question} postId={id} />
         </Suspense>
       </div>
     </div>

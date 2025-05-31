@@ -1,6 +1,8 @@
 "use server";
 
 import { getSupabaseServerClient } from "@packages/supabase";
+import { postType } from "@packages/ui";
+import { z } from "zod";
 
 import { Post } from "../model";
 
@@ -64,7 +66,7 @@ export async function getPost(id: string): Promise<Post | null> {
  * 타입을 기반으로 게시물 목록을 가져오는 함수
  * 'question', 'discussion', 'article' 타입의 게시물을 구분하여 처리합니다
  */
-export async function getPosts(type: "question" | "discussion" | "article") {
+export async function getPosts(type: z.infer<typeof postType>) {
   const supabase = await getSupabaseServerClient();
 
   const query = supabase
@@ -109,7 +111,7 @@ export async function getPosts(type: "question" | "discussion" | "article") {
     author: Array.isArray(post.author) ? post.author[0] : post.author,
     comments_count: post.comments?.[0]?.count || 0,
     likes_count: post.likes?.[0]?.count || 0,
-    solved: type === "question" ? post.solved || false : undefined,
+    solved: type === postType.Enum.question ? post.solved || false : undefined,
     content:
       post.content.length > 200
         ? post.content.slice(0, 200) + "..."
