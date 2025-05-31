@@ -6,8 +6,7 @@ import {
   getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
-import { Button } from "@packages/ui";
-import { postType } from "@packages/ui/src/types/schema";
+import { Button, postType } from "@packages/ui";
 import Link from "next/link";
 
 export async function DiscussionsHeader() {

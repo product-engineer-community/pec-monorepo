@@ -10,8 +10,7 @@ import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@packages/supabase";
-import { noop, PostType } from "@packages/ui";
-import { postType as postTypeSchema } from "@packages/ui/src/types/schema";
+import { noop, PostType, postType as postTypeSchema } from "@packages/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { match } from "ts-pattern";

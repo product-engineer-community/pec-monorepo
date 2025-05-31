@@ -11,8 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
   PostType,
+  postType as postTypeSchema,
 } from "@packages/ui";
-import { postType as postTypeSchema } from "@packages/ui/src/types/schema";
 import { Trash2 } from "lucide-react";
 import { useActionState, useState } from "react";
 

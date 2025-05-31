@@ -1,5 +1,8 @@
-import { getRelativeTimeString, PostCardSkeleton } from "@packages/ui";
-import { postType } from "@packages/ui/src/types/schema";
+import {
+  getRelativeTimeString,
+  PostCardSkeleton,
+  postType,
+} from "@packages/ui";
 import Link from "next/link";
 import { Suspense } from "react";
 

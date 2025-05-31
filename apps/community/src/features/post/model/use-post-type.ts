@@ -1,4 +1,4 @@
-import { PostType, postType } from "@packages/ui/src/types/schema";
+import { PostType, postType } from "@packages/ui";
 import { useSearchParams } from "next/navigation";
 
 export function usePostType(

@@ -1,7 +1,7 @@
 "use server";
 
 import { getSupabaseServerClient } from "@packages/supabase";
-import { postType } from "@packages/ui/src/types/schema";
+import { postType } from "@packages/ui";
 import { z } from "zod";
 
 import { Post } from "../model";

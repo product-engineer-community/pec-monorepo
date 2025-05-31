@@ -1,6 +1,5 @@
 import { COMMUNITY_ARTICLES_PATHNAME } from "@packages/constants";
-import { Text } from "@packages/ui";
-import { postType } from "@packages/ui/src/types/schema";
+import { postType,Text } from "@packages/ui";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";

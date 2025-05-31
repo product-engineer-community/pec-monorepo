@@ -1,6 +1,6 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import { COMMUNITY_PATHNAME } from "@packages/constants";
-import { postType } from "@packages/ui/src/types/schema";
+import { postType } from "@packages/ui";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
