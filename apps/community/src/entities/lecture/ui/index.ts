@@ -1,1 +1,0 @@
-export { LectureItem } from "./LectureItem";

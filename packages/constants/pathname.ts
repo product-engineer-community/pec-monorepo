@@ -21,4 +21,5 @@ export const CAMP_PAYMENT_PATHNAME = "/payment";
 export const CAMP_PAYMENT_COMPLETE_PATHNAME = "/payment/complete";
 export const CAMP_PAYMENT_FAIL_PATHNAME = "/payment/fail";
 
-export const LECTURE_PATHNAME = "/lecture";
+export const COURSE_PATHNAME = "/course";
+export const COURSE_LANDING_PATHNAME = "/landing";

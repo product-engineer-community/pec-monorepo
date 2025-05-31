@@ -41,14 +41,14 @@ export function CommentItem({
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 overflow-hidden rounded-full bg-muted">
             {comment.author.avatar_url ? (
-              <Image
-                fill
-                objectFit="cover"
-                width={32}
-                height={32}
-                src={comment.author.avatar_url}
-                alt={comment.author.username}
-              />
+              <div className="relative flex h-full w-full items-center justify-center">
+                <Image
+                  fill
+                  objectFit="cover"
+                  src={comment.author.avatar_url}
+                  alt={comment.author.username}
+                />
+              </div>
             ) : (
               <div className="flex h-full w-full items-center justify-center font-semibold">
                 {comment.author.username?.[0]?.toUpperCase()}

@@ -1,6 +1,6 @@
 "use server";
 
-import { EmailParams, MailerSend, Recipient, Sender } from "mailersend";
+import { Resend } from "resend";
 
 /**
  * 이메일 전송 함수
@@ -8,35 +8,22 @@ import { EmailParams, MailerSend, Recipient, Sender } from "mailersend";
 export async function sendEmail({
   title,
   recipientEmail,
-  recipientName,
-  templateId,
-  data,
+  template,
 }: {
   title: string;
   recipientEmail: string;
-  recipientName: string;
-  templateId: string;
-  data?: Record<string, string>;
+  template: React.ReactNode;
 }) {
-  const mailerSend = new MailerSend({
-    apiKey: process.env.MAILERSEND_API_KEY!,
+  const resend = new Resend(process.env.EMAIL_SERVICE_API_KEY!);
+
+  const { error } = await resend.emails.send({
+    from: "PEC <support@productengineer.info>",
+    to: [recipientEmail],
+    subject: title,
+    react: template,
   });
-
-  const sentFrom = new Sender("support@productengineer.info", "PEC");
-  const recipients = [new Recipient(recipientEmail, recipientName)];
-
-  const emailParams = new EmailParams()
-    .setFrom(sentFrom)
-    .setTo(recipients)
-    .setReplyTo(sentFrom)
-    .setTemplateId(templateId)
-    .setPersonalization([
-      {
-        email: recipientEmail,
-        data: data ?? {},
-      },
-    ])
-    .setSubject(title);
-
-  await mailerSend.email.send(emailParams);
+  if (error) {
+    console.error(error);
+    throw error;
+  }
 }

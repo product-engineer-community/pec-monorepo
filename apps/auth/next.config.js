@@ -43,8 +43,8 @@ const nextConfig = {
           basePath: false,
         },
         {
-          source: "/lecture/:path*",
-          destination: "http://localhost:3003/lecture/:path*",
+          source: "/course/:path*",
+          destination: "http://localhost:3003/course/:path*",
           basePath: false,
         },
       ];

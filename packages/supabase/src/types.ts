@@ -14,6 +14,7 @@ export type Database = {
           checklist: string[] | null
           example_image_url: string | null
           id: string
+          order: number | null
           output: string | null
           process: string[] | null
           purpose: string | null
@@ -25,6 +26,7 @@ export type Database = {
           checklist?: string[] | null
           example_image_url?: string | null
           id?: string
+          order?: number | null
           output?: string | null
           process?: string[] | null
           purpose?: string | null
@@ -36,6 +38,7 @@ export type Database = {
           checklist?: string[] | null
           example_image_url?: string | null
           id?: string
+          order?: number | null
           output?: string | null
           process?: string[] | null
           purpose?: string | null
@@ -388,6 +391,7 @@ export type Database = {
       }
       task: {
         Row: {
+          assignment_order: number | null
           created_at: string | null
           id: string
           task_type: string
@@ -398,6 +402,7 @@ export type Database = {
           week: number | null
         }
         Insert: {
+          assignment_order?: number | null
           created_at?: string | null
           id?: string
           task_type: string
@@ -408,6 +413,7 @@ export type Database = {
           week?: number | null
         }
         Update: {
+          assignment_order?: number | null
           created_at?: string | null
           id?: string
           task_type?: string
