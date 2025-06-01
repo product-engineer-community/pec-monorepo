@@ -2,10 +2,11 @@
 
 import {
   COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_LANDING_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME, // New
+  COMMUNITY_NEXTJS_PATHNAME,     // New
+  COMMUNITY_FSD_PATHNAME,        // New
 } from "@packages/constants";
 import {
   cn,
@@ -30,19 +31,20 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
     label: "Home",
     href: COMMUNITY_LANDING_PATHNAME,
   },
+  // New Board Links (Top-level)
   {
-    label: "Community",
-    items: [
-      {
-        label: "Questions",
-        href: COMMUNITY_QUESTIONS_PATHNAME,
-      },
-      {
-        label: "Discussions",
-        href: COMMUNITY_DISCUSSIONS_PATHNAME,
-      },
-    ],
+    label: "Productivity",
+    href: COMMUNITY_PRODUCTIVITY_PATHNAME,
   },
+  {
+    label: "Next.js",
+    href: COMMUNITY_NEXTJS_PATHNAME,
+  },
+  {
+    label: "F.S.D",
+    href: COMMUNITY_FSD_PATHNAME,
+  },
+  // Existing Links
   {
     label: "Articles",
     href: COMMUNITY_ARTICLES_PATHNAME,
