@@ -111,7 +111,7 @@ export async function getPosts(type: z.infer<typeof postType>) {
     author: Array.isArray(post.author) ? post.author[0] : post.author,
     comments_count: post.comments?.[0]?.count || 0,
     likes_count: post.likes?.[0]?.count || 0,
-    solved: type === postType.Enum.question ? post.solved || false : undefined,
+    solved: undefined,
     content:
       post.content.length > 200
         ? post.content.slice(0, 200) + "..."

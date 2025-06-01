@@ -273,7 +273,7 @@ export type Database = {
           tags: string[] | null
           thumbnail_url: string | null
           title: string
-          type: string
+          type: 'post' | 'productivity' | 'next.js' | 'F.S.D'
           updated_at: string
           views_count: number
         }
@@ -288,7 +288,7 @@ export type Database = {
           tags?: string[] | null
           thumbnail_url?: string | null
           title: string
-          type: string
+          type: 'post' | 'productivity' | 'next.js' | 'F.S.D'
           updated_at?: string
           views_count?: number
         }
@@ -303,7 +303,7 @@ export type Database = {
           tags?: string[] | null
           thumbnail_url?: string | null
           title?: string
-          type?: string
+          type?: 'post' | 'productivity' | 'next.js' | 'F.S.D'
           updated_at?: string
           views_count?: number
         }
@@ -454,14 +454,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      increment_discussion_view_count: {
-        Args: { discussion_id: string }
-        Returns: undefined
-      }
-      increment_question_view_count: {
-        Args: { question_id: string }
-        Returns: undefined
-      }
       increment_view_count: {
         Args: { post_id: string }
         Returns: undefined

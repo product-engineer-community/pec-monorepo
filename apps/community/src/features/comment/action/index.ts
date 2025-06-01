@@ -2,6 +2,11 @@
 
 import { grantPointAction } from "@packages/point/src/features";
 import {
+  COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_NEXTJS_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
+} from "@packages/constants"; // Added new path constants
+import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@packages/supabase";
@@ -89,8 +94,14 @@ export async function createComment(
 
   await grantPointAction(userId, "comment");
 
-  revalidatePath(`/community/discussions/${postId}`);
-  revalidatePath(`/community/questions/${postId}`);
+  // Revalidate all relevant board paths
+  revalidatePath(`${COMMUNITY_PRODUCTIVITY_PATHNAME}/${postId}`);
+  revalidatePath(`${COMMUNITY_NEXTJS_PATHNAME}/${postId}`);
+  revalidatePath(`${COMMUNITY_FSD_PATHNAME}/${postId}`);
+  // Also revalidate the specific board listing pages if applicable
+  revalidatePath(COMMUNITY_PRODUCTIVITY_PATHNAME);
+  revalidatePath(COMMUNITY_NEXTJS_PATHNAME);
+  revalidatePath(COMMUNITY_FSD_PATHNAME);
 }
 
 /**
@@ -113,8 +124,14 @@ export async function deleteComment(commentId: string, postId: string) {
 
   if (error) throw error;
 
-  revalidatePath(`/community/discussions/${postId}`);
-  revalidatePath(`/community/questions/${postId}`);
+  // Revalidate all relevant board paths
+  revalidatePath(`${COMMUNITY_PRODUCTIVITY_PATHNAME}/${postId}`);
+  revalidatePath(`${COMMUNITY_NEXTJS_PATHNAME}/${postId}`);
+  revalidatePath(`${COMMUNITY_FSD_PATHNAME}/${postId}`);
+  // Also revalidate the specific board listing pages if applicable
+  revalidatePath(COMMUNITY_PRODUCTIVITY_PATHNAME);
+  revalidatePath(COMMUNITY_NEXTJS_PATHNAME);
+  revalidatePath(COMMUNITY_FSD_PATHNAME);
 }
 
 /**
@@ -145,6 +162,12 @@ export async function toggleCommentLike(commentId: string, postId: string) {
     });
   }
 
-  revalidatePath(`/community/discussions/${postId}`);
-  revalidatePath(`/community/questions/${postId}`);
+  // Revalidate all relevant board paths
+  revalidatePath(`${COMMUNITY_PRODUCTIVITY_PATHNAME}/${postId}`);
+  revalidatePath(`${COMMUNITY_NEXTJS_PATHNAME}/${postId}`);
+  revalidatePath(`${COMMUNITY_FSD_PATHNAME}/${postId}`);
+  // Also revalidate the specific board listing pages if applicable
+  revalidatePath(COMMUNITY_PRODUCTIVITY_PATHNAME);
+  revalidatePath(COMMUNITY_NEXTJS_PATHNAME);
+  revalidatePath(COMMUNITY_FSD_PATHNAME);
 }

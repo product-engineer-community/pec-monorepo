@@ -125,7 +125,7 @@ CREATE TABLE public.posts (
   tags text[],
   CONSTRAINT posts_title_length CHECK ((char_length(title) >= 5) AND (char_length(title) <= 200)),
   CONSTRAINT posts_content_length CHECK (char_length(content) >= 10),
-  CONSTRAINT posts_type_check CHECK (type IN ('post', 'question', 'discussion'))
+  CONSTRAINT posts_type_check CHECK (type IN ('post', 'productivity', 'next.js', 'F.S.D'))
 );
 
 -- Create comments table
