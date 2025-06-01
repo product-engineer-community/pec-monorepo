@@ -1,45 +1,33 @@
-import { postType as postTypeSchema } from "@packages/ui"; // Import postTypeSchema
 import type { Metadata } from "next";
-
-import { getPosts } from "@/entities/post"; // Assuming getPosts is the correct action
-
-// TODO: Replace with actual Productivity components or generic PostList components
-// import { ProductivityHeader, ProductivityList } from "@/entities/productivity";
+import { postType as postTypeSchema } from "@packages/ui";
+import { COMMUNITY_PRODUCTIVITY_PATHNAME } from "@packages/constants";
+import { PostHeader, PostList } from "@/widgets/post";
 
 export const metadata: Metadata = {
   title: "Productivity",
   description:
-    "Explore posts related to Productivity. Share tips, ask questions, and improve together.",
+    "Discuss productivity techniques, tools, and workflows. Share tips, ask questions, and improve together.", // Updated description
   openGraph: {
     title: "Productivity | PEC 커뮤니티",
     description:
-      "Explore posts related to Productivity. Share tips, ask questions, and improve together.",
+      "Discuss productivity techniques, tools, and workflows. Share tips, ask questions, and improve together.", // Updated description
     images: ["/logo.webp"],
     type: "website",
   },
 };
 
 export default async function ProductivityPage() {
-  // Fetch posts for the "productivity" type
-  const posts = await getPosts(postTypeSchema.Enum.productivity);
-
   return (
     <div className="container py-6">
-      {/* <ProductivityHeader /> */}
-      {/* <ProductivityList posts={posts} /> */}
-      <h1>Productivity Posts</h1>
-      <p>Posts related to productivity will be displayed here.</p>
-      {posts && posts.length > 0 ? (
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
-              <a href={`/community/productivity/${post.id}`}>{post.title}</a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No productivity posts found.</p>
-      )}
+      <PostHeader
+        title="Productivity"
+        description="Discuss productivity techniques, tools, and workflows."
+        postTypeForWriteButton={postTypeSchema.Enum.productivity}
+      />
+      <PostList
+        postTypeToFetch={postTypeSchema.Enum.productivity}
+        basePath={COMMUNITY_PRODUCTIVITY_PATHNAME}
+      />
     </div>
   );
 }

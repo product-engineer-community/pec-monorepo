@@ -1,15 +1,13 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { COMMUNITY_PATHNAME } from "@packages/constants";
-import { postType } from "@packages/ui";
+import { COMMUNITY_NEXTJS_PATHNAME, COMMUNITY_PATHNAME } from "@packages/constants";
+import { PostType, postType as postTypeSchema } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import {
-  DiscussionDetail,
-  DiscussionDetailSkeleton,
-} from "@/entities/discussion";
+// import { DiscussionDetail, DiscussionDetailSkeleton } from "@/entities/discussion"; // Old import
 import { getPost, incrementViewCount } from "@/entities/post";
+import { PostDetail } from "@/widgets/post"; // Import generic PostDetail
 import {
   DeletePostButton,
   EditPostButton,
@@ -17,67 +15,69 @@ import {
 } from "@/features/post";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
 
+interface NextjsPostPageProps {
+  params: {
+    id: string;
+  };
+}
+
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}): Promise<Metadata> {
-  const { id } = await params;
-  const discussion = await getPost(id);
+}: NextjsPostPageProps): Promise<Metadata> {
+  const { id } = params;
+  const post = await getPost(id);
 
-  if (!discussion) {
+  if (!post) {
     return {
-      title: "디스커션을 찾을 수 없습니다",
-      description: "요청하신 디스커션을 찾을 수 없습니다.",
+      title: "Next.js 게시물을 찾을 수 없습니다",
+      description: "요청하신 Next.js 게시물을 찾을 수 없습니다.",
     };
   }
 
   return {
-    title: discussion.title || "디스커션",
+    title: post.title || "Next.js 게시물",
     description:
-      discussion.content?.substring(0, 160) || "디스커션 상세 내용입니다.",
+      post.content?.substring(0, 160) || "Next.js 게시물 상세 내용입니다.",
     openGraph: {
-      title: discussion.title || "디스커션",
+      title: post.title || "Next.js 게시물",
       description:
-        discussion.content?.substring(0, 160) || "디스커션 상세 내용입니다.",
+        post.content?.substring(0, 160) || "Next.js 게시물 상세 내용입니다.",
       type: "article",
-      url: `${process.env.NEXT_PUBLIC_APP_URL}/${COMMUNITY_PATHNAME}/discussions/${id}`,
-      images: [discussion.thumbnail_url || "/logo.webp"],
+      url: `${process.env.NEXT_PUBLIC_APP_URL}${COMMUNITY_PATHNAME}${COMMUNITY_NEXTJS_PATHNAME}/${id}`,
+      images: [post.thumbnail_url || "/logo.webp"],
     },
   };
 }
 
-export default async function DiscussionDetailPage({
+export default async function NextjsPostPage({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const [discussion, isAuthenticated] = await Promise.all([
+}: NextjsPostPageProps) {
+  const { id } = params;
+  const [post, isAuthenticated] = await Promise.all([
     getPost(id),
     getIsAuthenticated(),
   ]);
 
-  if (!discussion) {
+  if (!post) {
     notFound();
   }
 
   // 조회수 증가
-  incrementViewCount(id);
+  incrementViewCount(id); // No await needed if it's fire-and-forget
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
-      <Suspense fallback={<DiscussionDetailSkeleton />}>
-        <DiscussionDetail
+      <Suspense fallback={<div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />}>
+        <PostDetail // Using generic PostDetail
           id={id}
           deleteButton={
-            <DeletePostButton postType={postType.Enum.discussion} postId={id} />
+            <DeletePostButton postType={postTypeSchema.Enum.nextjs} postId={id} />
           }
           postLikeButton={
             <PostLikeButton
               postId={id}
-              initialLikes={discussion.likes_count}
-              initialIsLiked={discussion.is_liked}
+              initialLikes={post.likes_count}
+              initialIsLiked={post.is_liked}
               isAuthenticated={isAuthenticated}
             />
           }
@@ -87,7 +87,7 @@ export default async function DiscussionDetailPage({
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postType={postType.Enum.discussion} postId={id} />
+          <Comments postType={postTypeSchema.Enum.nextjs} postId={id} />
         </Suspense>
       </div>
     </div>

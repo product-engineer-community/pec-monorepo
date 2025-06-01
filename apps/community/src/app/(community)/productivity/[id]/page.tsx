@@ -1,13 +1,12 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { COMMUNITY_PATHNAME,COMMUNITY_PRODUCTIVITY_PATHNAME } from "@packages/constants";
+import { COMMUNITY_PRODUCTIVITY_PATHNAME, COMMUNITY_PATHNAME } from "@packages/constants";
 import { PostType, postType as postTypeSchema } from "@packages/ui"; // Import postTypeSchema
 import type { Metadata } from "next";
 import { notFound } from "next/navigation"; // Import notFound
 import { Suspense } from "react";
 
 import { getPost, incrementViewCount } from "@/entities/post/action";
-// TODO: Replace with actual ProductivityDetail components or generic PostDetail components
-// import { ProductivityDetail, ProductivityDetailSkeleton } from "@/entities/productivity";
+import { PostDetail } from "@/widgets/post"; // Import generic PostDetail
 import {
   DeletePostButton,
   EditPostButton,
@@ -17,28 +16,18 @@ import { Comments } from "@/widgets/comments";
 import { CommentsSkeleton } from "@/widgets/comments/ui/CommentsSkeleton";
 
 interface ProductivityPostPageProps { // Renamed interface
-  params: { // params is not a Promise here, Next.js resolves it
+  params: {
     id: string;
   };
 }
 
-// Placeholder for missing components
-const ProductivityDetailSkeleton = () => <div>Loading productivity post details...</div>;
-const ProductivityDetail = ({ id, deleteButton, postLikeButton, editButton, postData }: any) => (
-  <div>
-    <h1>Post Title: {postData.title}</h1>
-    <p>Content: {postData.content}</p>
-    {/* Render actual post data here */}
-    <div>{editButton} {deleteButton}</div>
-    <div>{postLikeButton}</div>
-  </div>
-);
+// Removed local placeholders for ProductivityDetail and ProductivityDetailSkeleton
 
 export async function generateMetadata({
   params,
-}: ProductivityPostPageProps): Promise<Metadata> { // Used renamed interface
-  const { id } = params; // params is not a Promise
-  const post = await getPost(id); // Renamed variable
+}: ProductivityPostPageProps): Promise<Metadata> {
+  const { id } = params;
+  const post = await getPost(id);
 
   if (!post) {
     return {
@@ -81,19 +70,20 @@ export default async function ProductivityPostPage({ params }: ProductivityPostP
     <div className="mx-auto lg:container lg:py-8">
       <div className="overflow-hidden rounded-lg bg-white p-6 shadow-md">
         <Suspense
-          fallback={<ProductivityDetailSkeleton />} // Using placeholder
+          fallback={<div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />}
         >
-          <ProductivityDetail // Using placeholder
+          <PostDetail // Using generic PostDetail
             id={id}
-            postData={post} // Pass post data to placeholder
+            // getPost in PostDetail will fetch the data.
+            // The interactive buttons are passed as children/props
             deleteButton={
-              <DeletePostButton postType={postTypeSchema.Enum.productivity} postId={id} /> // Updated postType
+              <DeletePostButton postType={postTypeSchema.Enum.productivity} postId={id} />
             }
             postLikeButton={
               <PostLikeButton
                 postId={id}
-                initialLikes={post.likes_count || 0} // Use post variable
-                initialIsLiked={post.is_liked || false} // Use post variable
+                initialLikes={post.likes_count || 0}
+                initialIsLiked={post.is_liked || false}
                 isAuthenticated={isAuthenticated}
               />
             }

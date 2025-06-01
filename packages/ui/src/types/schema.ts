@@ -12,7 +12,7 @@ export const userSchema = z.object({
 });
 
 // Post Types
-export const postType = z.enum(["article", "productivity", "nextjs", "FSD"]);
+export const postType = z.enum(["article", "productivity", "next.js", "F.S.D"]);
 export type PostType = z.infer<typeof postType>;
 
 // Base Post Schema (공통 필드)
@@ -48,7 +48,7 @@ export const productivitySchema = z.object({
 // Next.js Schema
 export const nextjsSchema = z.object({
   ...basePostSchema,
-  type: z.literal("nextjs"),
+  type: z.literal("next.js"),
   // category: z.string().optional(), // Example: if next.js posts have categories
   // tags: z.array(z.string()).optional(), // Example: if they have tags
 });
@@ -56,7 +56,7 @@ export const nextjsSchema = z.object({
 // F.S.D Schema
 export const fsdSchema = z.object({
   ...basePostSchema,
-  type: z.literal("FSD"),
+  type: z.literal("F.S.D"),
   // category: z.string().optional(), // Example: if F.S.D posts have categories
   // tags: z.array(z.string()).optional(), // Example: if they have tags
 });

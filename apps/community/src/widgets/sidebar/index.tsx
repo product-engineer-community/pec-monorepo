@@ -2,11 +2,10 @@
 
 import {
   COMMUNITY_ARTICLES_PATHNAME,
+  COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
-  COMMUNITY_FSD_PATHNAME,
   COMMUNITY_LANDING_PATHNAME,
-  COMMUNITY_NEXTJS_PATHNAME,
-  COMMUNITY_PRODUCTIVITY_PATHNAME,
+  COMMUNITY_QUESTIONS_PATHNAME,
 } from "@packages/constants";
 import {
   cn,
@@ -35,16 +34,12 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
     label: "Community",
     items: [
       {
-        label: "Productivity",
-        href: COMMUNITY_PRODUCTIVITY_PATHNAME,
+        label: "Questions",
+        href: COMMUNITY_QUESTIONS_PATHNAME,
       },
       {
-        label: "F.S.D",
-        href: COMMUNITY_FSD_PATHNAME,
-      },
-      {
-        label: "Next.js",
-        href: COMMUNITY_NEXTJS_PATHNAME,
+        label: "Discussions",
+        href: COMMUNITY_DISCUSSIONS_PATHNAME,
       },
     ],
   },
