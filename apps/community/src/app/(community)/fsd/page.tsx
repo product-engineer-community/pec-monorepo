@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { getPosts } from "@/entities/post"; // Assuming getPosts is the correct action
 import { postType as postTypeSchema } from "@packages/ui"; // Import postTypeSchema
+import type { Metadata } from "next";
+
+import { getPosts } from "@/entities/post"; // Assuming getPosts is the correct action
 
 // TODO: Replace with actual F.S.D components or generic PostList components
 // import { FSDHeader, FSDList } from "@/entities/fsd";

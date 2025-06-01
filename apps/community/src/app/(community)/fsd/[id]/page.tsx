@@ -1,6 +1,9 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { COMMUNITY_FSD_PATHNAME, COMMUNITY_PATHNAME } from "@packages/constants"; // Updated import
-import { PostType, postType } from "@packages/ui"; // Added PostType for casting
+import {
+  COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_PATHNAME,
+} from "@packages/constants";
+import { PostType } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -17,18 +20,6 @@ import {
   PostLikeButton,
 } from "@/features/post";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
-
-// Placeholder for missing component
-const FSDDetailSkeleton = () => <div>Loading F.S.D post details...</div>;
-const FSDDetail = ({ id, deleteButton, postLikeButton, editButton, postData }: any) => (
-  <div>
-    <h1>Post Title: {postData.title}</h1>
-    <p>Content: {postData.content}</p>
-    <div>{editButton} {deleteButton}</div>
-    <div>{postLikeButton}</div>
-  </div>
-);
-
 
 export async function generateMetadata({
   params,
@@ -60,13 +51,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function FSDDetailPage({ // Renamed function
+export default async function FSDDetailPage({
+  // Renamed function
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [post, isAuthenticated] = await Promise.all([ // Renamed variable
+  const [post, isAuthenticated] = await Promise.all([
+    // Renamed variable
     getPost(id),
     getIsAuthenticated(),
   ]);
@@ -101,7 +94,8 @@ export default async function FSDDetailPage({ // Renamed function
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postType={"fsd" as PostType} postId={id} />  // Updated postType
+          <Comments postType={"fsd" as PostType} postId={id} /> // Updated
+          postType
         </Suspense>
       </div>
     </div>

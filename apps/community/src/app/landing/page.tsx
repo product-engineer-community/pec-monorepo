@@ -1,7 +1,7 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
   AUTH_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_ARTICLES_PATHNAME,
   getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
@@ -45,7 +45,7 @@ export default async function LandingPage() {
   const isAuthenticated = await getIsAuthenticated();
 
   const ctaButtonUrl = isAuthenticated
-    ? COMMUNITY_QUESTIONS_PATHNAME
+    ? COMMUNITY_ARTICLES_PATHNAME
     : `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`;
 
   return (
@@ -87,7 +87,7 @@ export default async function LandingPage() {
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button size="xl" asChild>
               <Link href={ctaButtonUrl}>
-                {isAuthenticated ? "함께 질문하며 성장하기" : "지금 시작하기"}
+                {isAuthenticated ? "아티클 읽어보기" : "지금 시작하기"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -322,7 +322,7 @@ export default async function LandingPage() {
             <div className="mx-auto w-full max-w-sm space-y-2">
               <Button asChild size="xl">
                 <Link href={ctaButtonUrl}>
-                  {isAuthenticated ? "함께 성장하기" : "지금 시작하기"}
+                  {isAuthenticated ? "아티클 읽어보기" : "지금 시작하기"}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

@@ -2,11 +2,9 @@
 
 import {
   COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME, // Will be removed after full transition
-  COMMUNITY_QUESTIONS_PATHNAME, // Will be removed after full transition
-  COMMUNITY_PRODUCTIVITY_PATHNAME,
-  COMMUNITY_NEXTJS_PATHNAME,
   COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_NEXTJS_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
 } from "@packages/constants";
 import { grantPointAction } from "@packages/point/src/features";
 import {
@@ -212,7 +210,10 @@ export async function createPost(
   }
 
   const redirectPath = match(postType)
-    .with(postTypeSchema.Enum.productivity, () => COMMUNITY_PRODUCTIVITY_PATHNAME)
+    .with(
+      postTypeSchema.Enum.productivity,
+      () => COMMUNITY_PRODUCTIVITY_PATHNAME,
+    )
     .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
     .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
     .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
@@ -265,7 +266,10 @@ export async function deletePost(postId: string, postType: PostType) {
 
   // 일반적으로 쓰는 스타일
   const newPath = match(postType)
-    .with(postTypeSchema.Enum.productivity, () => COMMUNITY_PRODUCTIVITY_PATHNAME)
+    .with(
+      postTypeSchema.Enum.productivity,
+      () => COMMUNITY_PRODUCTIVITY_PATHNAME,
+    )
     .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
     .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
     .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
@@ -386,7 +390,7 @@ export async function updatePost(postId: string, formData: FormData) {
         basePath = COMMUNITY_FSD_PATHNAME;
         break;
       default:
-      // Fallback or error for unknown types
+        // Fallback or error for unknown types
         console.warn(`Unknown post type for revalidation: ${post.type}`);
         basePath = `/community/${post.type}s`; // current potentially problematic fallback
     }

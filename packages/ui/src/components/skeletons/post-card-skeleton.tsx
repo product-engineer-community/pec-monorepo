@@ -2,11 +2,14 @@ import { PostType, postType } from "../../types/schema";
 
 type PostCardSkeletonProps = {
   count?: number;
-  variant?: Exclude<PostType, "article">;
+  variant?: PostType;
 };
 
-export function PostCardSkeleton({ count = 3, variant = postType.Enum.discussion }: PostCardSkeletonProps) {
-  if (variant === postType.Enum.discussion) {
+export function PostCardSkeleton({
+  count = 3,
+  variant = postType.Enum.article,
+}: PostCardSkeletonProps) {
+  if (variant === postType.Enum.article) {
     return (
       <div className="space-y-6">
         {Array.from({ length: count }).map((_, i) => (

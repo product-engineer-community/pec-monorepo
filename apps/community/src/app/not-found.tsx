@@ -1,4 +1,4 @@
-import { COMMUNITY_QUESTIONS_PATHNAME } from "@packages/constants";
+import { COMMUNITY_LANDING_PATHNAME } from "@packages/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,10 +23,10 @@ export default function NotFoundPage() {
 
       <div className="mt-8">
         <Link
-          href={COMMUNITY_QUESTIONS_PATHNAME}
+          href={COMMUNITY_LANDING_PATHNAME}
           className="inline-block rounded-lg bg-primary px-5 py-3 text-sm text-white shadow transition hover:bg-gray-800"
         >
-          Questions 로 돌아가기
+          홈으로 돌아가기
         </Link>
       </div>
     </main>

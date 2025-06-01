@@ -1,5 +1,5 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { COMMUNITY_PRODUCTIVITY_PATHNAME, COMMUNITY_PATHNAME } from "@packages/constants";
+import { COMMUNITY_PATHNAME,COMMUNITY_PRODUCTIVITY_PATHNAME } from "@packages/constants";
 import { PostType, postType as postTypeSchema } from "@packages/ui"; // Import postTypeSchema
 import type { Metadata } from "next";
 import { notFound } from "next/navigation"; // Import notFound
