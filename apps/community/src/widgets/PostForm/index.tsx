@@ -14,6 +14,7 @@ import { toast } from "sonner";
 
 import { Editor } from "@/shared/components/editor";
 import { SelectCategory } from "@/src/entities/post/ui/SelectCategory";
+import { SelectType } from "@/src/entities/post/ui/SelectType";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
 
@@ -64,12 +65,16 @@ export default function PostForm({
   isEdit = false,
 }: PostFormProps) {
   const router = useRouter();
-  const postType = usePostType();
+  const initialPostType = usePostType();
+  const initialType = defaultValues?.type || initialPostType;
+  const [postType, setPostType] = useState<PostType>(initialType);
 
   // 컨트롤된 상태 (content, tags만)
   const [content, setContent] = useState(defaultValues?.content || "");
   const [tags, setTags] = useState<string[]>(defaultValues?.tags || []);
-  const [category, setCategory] = useState(defaultValues?.category || "");
+  const [category, setCategory] = useState(
+    defaultValues?.category || "question",
+  );
 
   // 서버 액션을 폼에 맞게 수정하는 래퍼 함수
   const handleFormAction = async (prevState: FormState, formData: FormData) => {
@@ -137,6 +142,23 @@ export default function PostForm({
 
   return (
     <form action={formAction} className="space-y-6">
+      <div className="flex gap-4">
+        {!isEdit && (
+          // responsive layout
+          <div className="space-y-2">
+            <label className="text-sm font-medium">게시판</label>
+            <SelectType value={postType} onValueChange={setPostType} />
+          </div>
+        )}
+
+        {postType !== postTypeSchema.Enum.article && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium">카테고리</label>
+            <SelectCategory value={category} onValueChange={setCategory} />
+          </div>
+        )}
+      </div>
+
       <div className="space-y-2">
         <label className="text-sm font-medium">글 제목</label>
         <Input
@@ -152,17 +174,6 @@ export default function PostForm({
           <Editor content={content} onChange={setContent} />
         </div>
       </div>
-
-      {postType !== postTypeSchema.Enum.article && (
-        <div className="space-y-2">
-          <label className="text-sm font-medium">카테고리</label>
-          <SelectCategory
-            value={category}
-            onValueChange={setCategory}
-            defaultValue={defaultValues?.category}
-          />
-        </div>
-      )}
 
       {postType !== postTypeSchema.Enum.article && (
         <div className="space-y-2">
