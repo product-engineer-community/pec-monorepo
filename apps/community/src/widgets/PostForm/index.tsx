@@ -138,49 +138,19 @@ export default function PostForm({
   return (
     <form action={formAction} className="space-y-6">
       {!isEdit && (
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            variant={
-              postType === postTypeSchema.Enum.productivity
-                ? "default"
-                : "outline"
-            }
-            onClick={() => setPostType(postTypeSchema.Enum.productivity)}
-            className="capitalize"
-          >
-            Productivity
-          </Button>
-          <Button
-            type="button"
-            variant={
-              postType === postTypeSchema.Enum.nextjs ? "default" : "outline"
-            }
-            onClick={() => setPostType(postTypeSchema.Enum.nextjs)}
-            className="capitalize"
-          >
-            Next.js
-          </Button>
-          <Button
-            type="button"
-            variant={
-              postType === postTypeSchema.Enum.FSD ? "default" : "outline"
-            }
-            onClick={() => setPostType(postTypeSchema.Enum.FSD)}
-            className="capitalize"
-          >
-            F.S.D
-          </Button>
-          <Button
-            type="button"
-            variant={
-              postType === postTypeSchema.Enum.article ? "default" : "outline"
-            }
-            onClick={() => setPostType(postTypeSchema.Enum.article)}
-            className="capitalize"
-          >
-            article
-          </Button>
+        // responsive layout
+        <div className="flex flex-wrap gap-4">
+          {Object.values(postTypeSchema.Enum).map((type) => (
+            <Button
+              key={type}
+              type="button"
+              variant={postType === type ? "default" : "outline"}
+              onClick={() => setPostType(type)}
+              className="capitalize"
+            >
+              {type}
+            </Button>
+          ))}
         </div>
       )}
 
