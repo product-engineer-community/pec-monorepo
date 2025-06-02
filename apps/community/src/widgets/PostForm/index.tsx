@@ -12,9 +12,11 @@ import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
-import { createPost, updatePost } from "@/features/post/action";
-import { usePostType } from "@/features/post/model/use-post-type";
 import { Editor } from "@/shared/components/editor";
+import { SelectCategory } from "@/src/entities/post/ui/SelectCategory";
+import { createPost, updatePost } from "@/src/features/post/action";
+import { usePostType } from "@/src/features/post/model/use-post-type";
+
 
 // 초기 상태 정의
 type FormState = {
@@ -57,7 +59,7 @@ function SubmitButton({ isEdit }: { isEdit?: boolean }) {
     </Button>
   );
 }
-
+// TODO : react-hook-form 적용 + zod 스키마 필요해보임.
 export default function PostForm({
   defaultValues,
   isEdit = false,
@@ -70,11 +72,13 @@ export default function PostForm({
   // 컨트롤된 상태 (content, tags만)
   const [content, setContent] = useState(defaultValues?.content || "");
   const [tags, setTags] = useState<string[]>(defaultValues?.tags || []);
+  const [category, setCategory] = useState(defaultValues?.category || "");
 
   // 서버 액션을 폼에 맞게 수정하는 래퍼 함수
   const handleFormAction = async (prevState: FormState, formData: FormData) => {
     formData.set("content", content);
     formData.set("tags", JSON.stringify(tags));
+    formData.set("category", category);
 
     // 수정 모드일 경우 updatePost 호출
     if (isEdit && defaultValues?.id) {
@@ -100,7 +104,6 @@ export default function PostForm({
       toast.success(
         isEdit ? "게시물이 수정되었습니다." : "게시물이 생성되었습니다.",
       );
-
       // 수정 완료 후 상세 페이지로 이동
       if (isEdit) {
         router.push(`/community/${state.type}s/${state.postId}`);
@@ -173,10 +176,10 @@ export default function PostForm({
       {postType !== postTypeSchema.Enum.article && (
         <div className="space-y-2">
           <label className="text-sm font-medium">카테고리</label>
-          <Input
-            name="category"
-            placeholder="카테고리를 입력하세요"
-            defaultValue={defaultValues?.category || ""}
+          <SelectCategory
+            value={category}
+            onValueChange={setCategory}
+            defaultValue={defaultValues?.category}
           />
         </div>
       )}

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { uploadImage } from "@/src/shared/api/upload/image";
+
 // send the file to your server and return
 // // the URL of the uploaded image in the response
 // const response = await fetch("/api/upload/image", {
