@@ -12,7 +12,16 @@ export const userSchema = z.object({
 });
 
 // Post Types
-export const postType = z.enum(["article", "question", "discussion"]);
+export const postType = z.enum([
+  "article",
+  "AI",
+  "learning",
+  "sideproject",
+  "productivity",
+  "nextjs",
+  "FSD",
+  "codereview",
+]);
 export type PostType = z.infer<typeof postType>;
 
 // Base Post Schema (공통 필드)
@@ -37,27 +46,68 @@ export const postSchema = z.object({
   category: z.string().optional(),
 });
 
-// Question Schema
-export const questionSchema = z.object({
+// Productivity Schema
+export const productivitySchema = z.object({
   ...basePostSchema,
-  type: z.literal("question"),
-  solved: z.boolean().default(false),
-  answer_id: z.string().uuid().nullish(),
+  type: z.literal("productivity"),
+  // category: z.string().optional(), // Example: if productivity posts have categories
+  // solved: z.boolean().default(false), // Example: if they can be "solved"
 });
 
-// Discussion Schema
-export const discussionSchema = z.object({
+// Next.js Schema
+export const nextjsSchema = z.object({
   ...basePostSchema,
-  type: z.literal("discussion"),
-  category: z.string(),
-  tags: z.array(z.string()).optional(),
+  type: z.literal("nextjs"),
+  // category: z.string().optional(), // Example: if next.js posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+// F.S.D Schema
+export const fsdSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("FSD"),
+  // category: z.string().optional(), // Example: if F.S.D posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const sideprojectSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("sideproject"),
+  // category: z.string().optional(), // Example: if sideproject posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const learningSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("learning"),
+  // category: z.string().optional(), // Example: if learning posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const aiSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("AI"),
+  // category: z.string().optional(), // Example: if learning posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const codereviewSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("codereview"),
+  // category: z.string().optional(), // Example: if codereview posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
 });
 
 // Combined Post Schema (모든 타입의 포스트를 포함)
 export const combinedPostSchema = z.discriminatedUnion("type", [
   postSchema,
-  questionSchema,
-  discussionSchema,
+  productivitySchema,
+  nextjsSchema,
+  fsdSchema,
+  sideprojectSchema,
+  learningSchema,
+  aiSchema,
+  codereviewSchema,
 ]);
 
 // Comment Schema
@@ -96,8 +146,9 @@ export const eventSchema = z.object({
 
 export type User = z.infer<typeof userSchema>;
 export type Post = z.infer<typeof postSchema>;
-export type Question = z.infer<typeof questionSchema>;
-export type Discussion = z.infer<typeof discussionSchema>;
+export type ProductivityPost = z.infer<typeof productivitySchema>;
+export type NextjsPost = z.infer<typeof nextjsSchema>;
+export type FsdPost = z.infer<typeof fsdSchema>;
 export type CombinedPost = z.infer<typeof combinedPostSchema>;
 export type Comment = z.infer<typeof commentSchema>;
 export type Like = z.infer<typeof likeSchema>;

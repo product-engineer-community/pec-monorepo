@@ -20,6 +20,9 @@ export type AuthState = {
   error: string | null;
   success: boolean;
   message?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: any;
+  redirectUrl?: string;
 };
 
 export async function signUp(
@@ -80,13 +83,9 @@ export async function signIn(
   try {
     // Supabase 클라이언트 생성
     const supabase = await getSupabaseServerClient();
-    const supabaseClient = getSupabaseClient({
-      NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    });
 
     // 로그인 시도
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -98,46 +97,31 @@ export async function signIn(
       };
     }
 
-    // 로그인 후 로컬스토리지에 세션 저장 용으로 호출
-    await supabaseClient.auth.getUser();
-
     if (nextPathname) {
-      // Check if nextPathname is a relative path
-      if (nextPathname.startsWith("/")) {
+      // Assume nextPathname is an absolute URL and validate its hostname
+      try {
         redirectUrl = getOrigin() + nextPathname;
-      } else {
-        // Assume nextPathname is an absolute URL and validate its hostname
-        try {
-          const url = new URL(nextPathname);
-          const allowedHosts = [
-            "auth.productengineer.info",
-            "community.productengineer.info",
-            "camp.productengineer.info",
-            "productengineer.info",
-            "www.productengineer.info",
-            "localhost",
-          ];
-          if (allowedHosts.includes(url.hostname)) {
-            redirectUrl = nextPathname;
-          }
-          // If not in allowedHosts, redirectUrl remains getOrigin()
-        } catch (e) {
-          // Invalid URL, redirectUrl remains getOrigin()
-          console.warn("Invalid nextPathname URL:", nextPathname, e);
-        }
+        revalidatePath("/", "layout");
+        return {
+          data,
+          success: true,
+          error: null,
+          redirectUrl,
+        };
+        // If not in allowedHosts, redirectUrl remains getOrigin()
+      } catch (e) {
+        // Invalid URL, redirectUrl remains getOrigin()
+        console.warn("Invalid nextPathname URL:", nextPathname, e);
       }
     }
   } catch (error) {
     console.error("로그인 중 오류가 발생했습니다", error);
-    return {
-      error: "로그인 중 오류가 발생했습니다",
-      success: false,
-    };
   }
 
-  revalidatePath("/", "layout");
-  // 성공 시 try/catch 블록 외부에서 리다이렉트
-  redirect(redirectUrl);
+  return {
+    error: "로그인 중 오류가 발생했습니다",
+    success: false,
+  };
 }
 
 export async function socialSignIn(

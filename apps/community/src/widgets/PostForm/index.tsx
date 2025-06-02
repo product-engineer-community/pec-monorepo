@@ -142,24 +142,34 @@ export default function PostForm({
           <Button
             type="button"
             variant={
-              postType === postTypeSchema.Enum.question ? "default" : "outline"
+              postType === postTypeSchema.Enum.productivity
+                ? "default"
+                : "outline"
             }
-            onClick={() => setPostType(postTypeSchema.Enum.question)}
+            onClick={() => setPostType(postTypeSchema.Enum.productivity)}
             className="capitalize"
           >
-            question
+            Productivity
           </Button>
           <Button
             type="button"
             variant={
-              postType === postTypeSchema.Enum.discussion
-                ? "default"
-                : "outline"
+              postType === postTypeSchema.Enum.nextjs ? "default" : "outline"
             }
-            onClick={() => setPostType(postTypeSchema.Enum.discussion)}
+            onClick={() => setPostType(postTypeSchema.Enum.nextjs)}
             className="capitalize"
           >
-            discussion
+            Next.js
+          </Button>
+          <Button
+            type="button"
+            variant={
+              postType === postTypeSchema.Enum.FSD ? "default" : "outline"
+            }
+            onClick={() => setPostType(postTypeSchema.Enum.FSD)}
+            className="capitalize"
+          >
+            F.S.D
           </Button>
           <Button
             type="button"
@@ -201,9 +211,9 @@ export default function PostForm({
         </div>
       )}
 
-      {postType === postTypeSchema.Enum.discussion && (
+      {postType !== postTypeSchema.Enum.article && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">태그</label>
+          <label className="text-sm font-medium">태그 (선택 사항)</label>
           <div className="mb-2 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <div
@@ -222,9 +232,9 @@ export default function PostForm({
             ))}
           </div>
           <Input
-            name="tag-input"
+            name="tag-input" // This input doesn't directly set form data, handleAddTag manages 'tags' state
             onKeyDown={handleAddTag}
-            placeholder="작성후 엔터를 입력해 추가하세요"
+            placeholder="태그 작성 후 엔터"
           />
         </div>
       )}

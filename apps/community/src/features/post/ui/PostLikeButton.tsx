@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@packages/auth/src/features";
 import { Button } from "@packages/ui";
 import { HeartIcon } from "lucide-react";
 import { useReducer, useTransition } from "react";
@@ -10,7 +11,6 @@ interface PostLikeButtonProps {
   postId: string;
   initialLikes: number;
   initialIsLiked: boolean;
-  isAuthenticated?: boolean;
 }
 
 interface LikeState {
@@ -46,18 +46,19 @@ export function PostLikeButton({
   postId,
   initialLikes,
   initialIsLiked,
-  isAuthenticated = false,
 }: PostLikeButtonProps) {
+  const { isAuthenticated } = useAuth();
   const [isPending, startTransition] = useTransition();
   const [state, dispatch] = useReducer(likeReducer, {
     likes: initialLikes,
     isLiked: initialIsLiked,
   });
 
-  const handleToggleLike = () => {
+  const handleToggleLike = async () => {
     if (!isAuthenticated) {
       return;
     }
+
     startTransition(async () => {
       dispatch({ type: "TOGGLE" });
 
@@ -81,7 +82,7 @@ export function PostLikeButton({
       size="sm"
       onClick={handleToggleLike}
       aria-label={state.isLiked ? "좋아요 취소" : "좋아요"}
-      disabled={isPending || !isAuthenticated}
+      disabled={isPending}
       className={`flex items-center gap-2 ${
         !isAuthenticated ? "cursor-default opacity-50" : ""
       }`}

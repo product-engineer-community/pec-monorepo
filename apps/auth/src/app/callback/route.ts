@@ -8,9 +8,16 @@ export async function GET(request: Request) {
     const code = searchParams.get("code");
     const next = searchParams.get("next");
 
+    let access_token, refresh_token;
+
     if (code) {
       const supabase = await getSupabaseServerClient();
-      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+      if (data?.session) {
+        access_token = data.session.access_token;
+        refresh_token = data.session.refresh_token;
+      }
 
       if (error) {
         console.error("exchangeCodeForSession error:", error);
@@ -26,6 +33,7 @@ export async function GET(request: Request) {
 
     let redirectUrl = getOrigin();
 
+    console.log("🚀 ~ GET ~ next:", next);
     if (next) {
       try {
         const url = new URL(next);
@@ -39,6 +47,14 @@ export async function GET(request: Request) {
         ];
         if (allowedHosts.includes(url.hostname)) {
           redirectUrl = next;
+        }
+
+        if (access_token && refresh_token) {
+          // use url object to add search params
+          const url = new URL(redirectUrl);
+          url.searchParams.set("sb-access-token", access_token);
+          url.searchParams.set("sb-refresh-token", refresh_token);
+          redirectUrl = url.toString();
         }
       } catch (err: unknown) {
         console.warn("Invalid next URL:", next, err);

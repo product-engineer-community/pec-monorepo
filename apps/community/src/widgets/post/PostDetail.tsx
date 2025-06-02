@@ -3,46 +3,48 @@ import { getRelativeTimeString } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { MarkdownViewer } from "@/shared/components/editor";
+// Assuming getPost is correctly typed to return a comprehensive Post object
 import { getPost } from "@/src/entities/post";
 
-interface QuestionDetailProps {
+// Define a more generic Post type if not already available from getPost
+// For now, assuming getPost returns an object with at least these fields:
+// id, title, content, created_at, author: { id, username }, etc.
+
+interface PostDetailProps {
   id: string;
   deleteButton?: React.ReactNode;
   postLikeButton?: React.ReactNode;
   editButton?: React.ReactNode;
 }
 
-export async function QuestionDetail({
+export async function PostDetail({
   id,
   deleteButton,
   postLikeButton,
   editButton,
-}: QuestionDetailProps) {
-  // 질문 데이터 가져오기
-  const question = await getPost(id);
+}: PostDetailProps) {
+  // Fetch post data
+  const post = await getPost(id);
 
-  // 질문이 존재하지 않는 경우
-  if (!question) {
+  // Post not found
+  if (!post) {
     notFound();
   }
 
   const session = await getAuthSession();
-
-  const isAuthor = session?.user?.id === question.author.id;
+  const isAuthor = session?.user?.id === post.author.id;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-            {question.author.username?.[0]?.toUpperCase()}
+            {post.author.username?.[0]?.toUpperCase()}
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">
-              {question.author.username}
-            </span>
+            <span className="text-sm font-medium">{post.author.username}</span>
             <span className="text-xs text-gray-500">
-              {getRelativeTimeString(question.created_at)}
+              {getRelativeTimeString(post.created_at)}
             </span>
           </div>
         </div>
@@ -53,8 +55,8 @@ export async function QuestionDetail({
         </div>
       </div>
       <div>
-        <h1 className="mb-4 text-2xl font-bold">{question.title}</h1>
-        <MarkdownViewer content={question.content} />
+        <h1 className="mb-4 text-2xl font-bold">{post.title}</h1>
+        <MarkdownViewer content={post.content} />
       </div>
     </div>
   );
