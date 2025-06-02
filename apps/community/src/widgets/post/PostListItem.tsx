@@ -1,12 +1,10 @@
-import {
-  getRelativeTimeString,
-  postType as postTypeSchema,
-} from "@packages/ui"; // Import PostType for post.type comparison
+import { postType as postTypeSchema } from "@packages/ui"; // Import PostType for post.type comparison
 import Image from "next/image";
 import Link from "next/link";
 
 import { Post } from "@/entities/post/model"; // Import the Post type
 import { MarkdownViewer } from "@/shared/components/editor";
+import { getRelativeTime } from "@/shared/libs/date";
 
 interface PostListItemProps {
   post: Post;
@@ -36,7 +34,7 @@ export function PostListItem({ post, basePath }: PostListItemProps) {
             <div className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
               <span>{post.author.username}</span>
               <span className="hidden sm:inline">•</span>
-              <span>{getRelativeTimeString(post.created_at)}</span>
+              <span>{getRelativeTime(post.created_at)}</span>
               {post.type === postTypeSchema.Enum.productivity && (
                 <>
                   <span className="hidden sm:inline">•</span>

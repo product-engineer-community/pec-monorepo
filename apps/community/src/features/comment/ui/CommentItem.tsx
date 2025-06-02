@@ -1,10 +1,10 @@
 "use client";
 
-import { getRelativeTimeString } from "@packages/ui";
 import Image from "next/image";
 import { useState } from "react";
 
 import { MarkdownViewer } from "@/src/shared/components/editor";
+import { getRelativeTime } from "@/shared/libs/date";
 
 import { CommentWithAuthor } from "../model/types";
 import { CommentDeleteButton } from "./CommentDeleteButton";
@@ -58,7 +58,7 @@ export function CommentItem({
           <div>
             <span className="font-semibold">{comment.author.username}</span>
             <span className="ml-2 text-sm text-muted-foreground">
-              {getRelativeTimeString(comment.created_at)}
+              {getRelativeTime(comment.created_at)}
             </span>
           </div>
         </div>

@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 
 import {
   AUTH_CALLBACK_PATHNAME,
+  COMMUNITY_PATHNAME,
+  COMMUNITY_POST_PATHNAME,
   getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
@@ -78,7 +80,7 @@ export async function signIn(
   const password = formData.get("password") as string;
   const nextPathname = formData.get("nextPathname") as string | null;
 
-  let redirectUrl = getOrigin();
+  let redirectUrl = getOrigin() + COMMUNITY_PATHNAME + COMMUNITY_POST_PATHNAME;
 
   try {
     // Supabase 클라이언트 생성
@@ -130,8 +132,13 @@ export async function socialSignIn(
 ): Promise<AuthState> {
   const provider = formData.get("provider") as SocialProvider;
   const nextPathname = formData.get("nextPathname") as string;
+  const redirectUrl =
+    getOrigin() +
+    (nextPathname
+      ? nextPathname
+      : COMMUNITY_PATHNAME + COMMUNITY_POST_PATHNAME);
 
-  const redirectTo = `${getOrigin()}${AUTH_CALLBACK_PATHNAME}?next=${getOrigin()}${nextPathname}`;
+  const redirectTo = `${getOrigin()}${AUTH_CALLBACK_PATHNAME}?next=${redirectUrl}`;
 
   const supabase = await getSupabaseServerClient();
   const { data, error } = await supabase.auth.signInWithOAuth({

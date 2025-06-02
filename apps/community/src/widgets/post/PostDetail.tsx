@@ -1,8 +1,8 @@
 import { getAuthSession } from "@packages/supabase";
-import { getRelativeTimeString } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { MarkdownViewer } from "@/shared/components/editor";
+import { getRelativeTime } from "@/shared/libs/date";
 // Assuming getPost is correctly typed to return a comprehensive Post object
 import { getPost } from "@/src/entities/post";
 
@@ -44,7 +44,7 @@ export async function PostDetail({
           <div className="flex flex-col">
             <span className="text-sm font-medium">{post.author.username}</span>
             <span className="text-xs text-gray-500">
-              {getRelativeTimeString(post.created_at)}
+              {getRelativeTime(post.created_at)}
             </span>
           </div>
         </div>

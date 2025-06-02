@@ -12,8 +12,9 @@ export const COMMUNITY_PATHNAME = "/community";
 export const COMMUNITY_LANDING_PATHNAME = "/landing";
 export const COMMUNITY_POST_WRITE_PATHNAME = "/post/write";
 export const COMMUNITY_POST_EDIT_PATHNAME = "/post/edit";
-export const COMMUNITY_PRODUCTIVITY_PATHNAME = "/post/productivity";
 
+export const COMMUNITY_POST_PATHNAME = "/post";
+export const COMMUNITY_PRODUCTIVITY_PATHNAME = "/post/productivity";
 export const COMMUNITY_NEXTJS_PATHNAME = "/post/nextjs";
 export const COMMUNITY_FSD_PATHNAME = "/post/FSD";
 export const COMMUNITY_SIDEPROJECT_PATHNAME = "/post/sideproject";

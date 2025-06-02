@@ -1,4 +1,8 @@
-import { getOrigin } from "@packages/constants";
+import {
+  COMMUNITY_PATHNAME,
+  COMMUNITY_POST_PATHNAME,
+  getOrigin,
+} from "@packages/constants";
 import { getSupabaseServerClient } from "@packages/supabase";
 import { NextResponse } from "next/server";
 
@@ -31,9 +35,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "No code provided" }, { status: 400 });
     }
 
-    let redirectUrl = getOrigin();
+    let redirectUrl =
+      getOrigin() + COMMUNITY_PATHNAME + COMMUNITY_POST_PATHNAME;
 
-    console.log("🚀 ~ GET ~ next:", next);
     if (next) {
       try {
         const url = new URL(next);

@@ -1,9 +1,9 @@
 import { getAuthSession } from "@packages/supabase";
-import { getRelativeTimeString } from "@packages/ui";
 import { notFound } from "next/navigation";
 
 import { getPost } from "@/entities/post/action";
 import { MarkdownViewer } from "@/shared/components/editor";
+import { getRelativeTime } from "@/shared/libs/date";
 
 interface ArticleDetailProps {
   id: string;
@@ -39,7 +39,7 @@ export async function ArticleDetail({
               {article.author.username}
             </span>
             <span className="text-xs text-gray-500">
-              {getRelativeTimeString(article.created_at)}
+              {getRelativeTime(article.created_at)}
             </span>
           </div>
         </div>

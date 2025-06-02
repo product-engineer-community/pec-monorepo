@@ -17,3 +17,19 @@ export const getPostTypeDescription = (postType: PostType) => {
     learning: "학습 방법, 학습 자료, 학습 팁 등을 공유하는 공간입니다.",
   }[postType];
 };
+
+export const getPostCategoryDescription = (category: string) => {
+  return {
+    question:
+      "명확한 문제 해결을 원하는 글. 에러, 구현 방법, 모범 사례 등. 예시) 이럴 땐 서버 액션 써야 하나요? 또는 Supabase에서 세션이 안 잡혀요",
+    discussion:
+      "정답이 없는 주제에 대해 생각이나 의견을 나누는 글. 예시) Next.js에서 caching 전략 어떻게 가져가세요? 또는 FSD에서 api 호출 위치 어떻게 잡으세요?",
+    retrospective:
+      "프로젝트/작업/학습 이후에 정리한 경험 공유. 예시) 사이드 프로젝트 MVP 4주 회고 또는 실무에서 FSD 도입해본 후기",
+    introduction:
+      "내가 만든 도구/서비스/라이브러리/프로젝트 등을 알리는 글. 예시) Next.js + AI로 만든 문서 생성기 소개합니다",
+    guide:
+      "어떤 주제에 대한 정리된 설명, 팁, 모범 사례. 예시) Supabase에서 SSR 안전하게 쓰는 방법 또는 TurboRepo와 Vercel 캐시 최적화 가이드",
+    etc: "위에 포함되지 않는 잡담, 이벤트, 뉴스 등. 예시) 캠프에서 나눈 이야기 정리 또는 이번에 Notion AI가 달라졌네요",
+  }[category];
+};
