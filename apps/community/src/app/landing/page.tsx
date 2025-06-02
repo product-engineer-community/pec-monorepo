@@ -150,7 +150,7 @@ export default async function LandingPage() {
                 </div>
                 <h3 className="text-xl font-bold">네트워킹</h3>
                 <p className="text-center text-muted-foreground">
-                  사용자들의 문제 해결에 진심인 현업 개발자들과의 깊이 있는
+                  사용자의 문제 해결에 진심인 현업 개발자들과 깊이 있는
                   네트워킹을 제공합니다.
                 </p>
               </div>
