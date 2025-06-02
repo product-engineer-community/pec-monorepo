@@ -1,4 +1,3 @@
-import { getIsAuthenticated } from "@packages/auth/src/features";
 import { COMMUNITY_PATHNAME } from "@packages/constants";
 import { postType } from "@packages/ui";
 import type { Metadata } from "next";
@@ -52,17 +51,13 @@ export async function generateMetadata({
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { id } = await params;
 
-  // 조회수 증가
-  await incrementViewCount(id);
-
-  const [article, isAuthenticated] = await Promise.all([
-    getPost(id),
-    getIsAuthenticated(),
-  ]);
-
+  const article = await getPost(id);
   if (!article) {
     return notFound();
   }
+
+  // 조회수 증가
+  await incrementViewCount(id);
 
   return (
     <div className="mx-auto lg:container lg:py-8">
@@ -82,7 +77,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 postId={id}
                 initialLikes={article.likes_count}
                 initialIsLiked={article.is_liked}
-                isAuthenticated={isAuthenticated}
               />
             }
             editButton={<EditPostButton postId={id} />}

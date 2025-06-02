@@ -1,15 +1,8 @@
-import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
-  COMMUNITY_AI_PATHNAME,
-  COMMUNITY_CODEREVIEW_PATHNAME,
-  COMMUNITY_FSD_PATHNAME,
-  COMMUNITY_LEARNING_PATHNAME,
-  COMMUNITY_NEXTJS_PATHNAME,
-  COMMUNITY_PRODUCTIVITY_PATHNAME,
-  COMMUNITY_SIDEPROJECT_PATHNAME,
   getPostTypeDisplayName,
+  getPostTypePathname,
 } from "@packages/constants";
-import { PostType } from "@packages/ui";
+import { PostType, postType as postTypeSchema } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -46,15 +39,7 @@ export async function generateMetadata({
     };
   }
 
-  const postTypePath = {
-    productivity: COMMUNITY_PRODUCTIVITY_PATHNAME,
-    AI: COMMUNITY_AI_PATHNAME,
-    sideproject: COMMUNITY_SIDEPROJECT_PATHNAME,
-    learning: COMMUNITY_LEARNING_PATHNAME,
-    FSD: COMMUNITY_FSD_PATHNAME,
-    nextjs: COMMUNITY_NEXTJS_PATHNAME,
-    codereview: COMMUNITY_CODEREVIEW_PATHNAME,
-  }[type];
+  const postTypePath = getPostTypePathname(type);
 
   return {
     title: post.title || `${postTypeDisplayName} 게시물`,
@@ -76,25 +61,11 @@ export async function generateMetadata({
 export default async function PostPage({ params }: PostPageProps) {
   const { type: postType, id } = await params;
 
-  // Validate post type
-  const validPostTypes = [
-    "productivity",
-    "AI",
-    "sideproject",
-    "learning",
-    "FSD",
-    "nextjs",
-    "codereview",
-  ];
-
-  if (!validPostTypes.includes(postType)) {
+  if (!(postType in postTypeSchema.Enum)) {
     notFound();
   }
 
-  const [post, isAuthenticated] = await Promise.all([
-    getPost(id),
-    getIsAuthenticated(),
-  ]);
+  const post = await getPost(id);
 
   if (!post) {
     notFound();
@@ -119,7 +90,6 @@ export default async function PostPage({ params }: PostPageProps) {
                 postId={id}
                 initialLikes={post.likes_count || 0}
                 initialIsLiked={post.is_liked || false}
-                isAuthenticated={isAuthenticated}
               />
             }
             editButton={<EditPostButton postId={id} />}

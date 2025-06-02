@@ -42,9 +42,7 @@ export async function PostDetail({
             {post.author.username?.[0]?.toUpperCase()}
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">
-              {post.author.username}
-            </span>
+            <span className="text-sm font-medium">{post.author.username}</span>
             <span className="text-xs text-gray-500">
               {getRelativeTimeString(post.created_at)}
             </span>

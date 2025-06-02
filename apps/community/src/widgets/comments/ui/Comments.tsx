@@ -3,6 +3,7 @@ import {
   AUTH_PATHNAME,
   COMMUNITY_PATHNAME,
   getOrigin,
+  getPostTypePathname,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
 import { getAuthSession } from "@packages/supabase";
@@ -40,7 +41,7 @@ export async function Comments({ postType, postId }: CommentsProps) {
             href={{
               pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
               query: {
-                nextPathname: `${COMMUNITY_PATHNAME}/${postType}s/${postId}`,
+                nextPathname: `${COMMUNITY_PATHNAME}/${getPostTypePathname(postType)}/${postId}`,
               },
             }}
             className="text-center text-sm text-muted-foreground"
