@@ -16,7 +16,7 @@ import {
 } from "./pathname";
 import { getOrigin } from "./url";
 
-// exclude article
+// To avoid dependency(packages/ui)
 export type postType =
   | "productivity"
   | "AI"
@@ -26,7 +26,6 @@ export type postType =
   | "nextjs"
   | "codereview"
   | "article";
-type communityPostType = Exclude<postType, "article">;
 
 // Helper function to get post type display name
 export function getPostTypeDisplayName(type: postType): string {
