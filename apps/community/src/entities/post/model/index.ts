@@ -22,5 +22,3 @@ export interface Post {
     id: string;
   }[];
 }
-
-export * from "./getPostTypeDisplayName";

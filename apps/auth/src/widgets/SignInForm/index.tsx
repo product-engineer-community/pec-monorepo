@@ -2,9 +2,10 @@
 
 import { PasswordInput } from "@packages/auth/src/features";
 import { type AuthState, signIn } from "@packages/auth/src/features";
+import { getSupabaseClient } from "@packages/supabase/src/client";
 import { Button, Input, Label } from "@packages/ui";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
 const initialState: AuthState = {
   error: null,
@@ -17,6 +18,18 @@ export interface SignInFormProps {
 
 export function SignInForm({ nextPathname }: SignInFormProps) {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
+
+  useEffect(() => {
+    if (state.success && state.data) {
+      const supabase = getSupabaseClient({
+        NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        NEXT_PUBLIC_SUPABASE_ANON_KEY:
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      });
+      supabase.auth.setSession(state.data.session);
+      window.location.href = state.redirectUrl || "/";
+    }
+  }, [state.success, state.data, state.redirectUrl]);
 
   return (
     <form action={formAction}>

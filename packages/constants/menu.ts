@@ -17,14 +17,16 @@ import {
 import { getOrigin } from "./url";
 
 // exclude article
-type communityPostType =
+export type postType =
   | "productivity"
   | "AI"
   | "sideproject"
   | "learning"
   | "FSD"
   | "nextjs"
-  | "codereview";
+  | "codereview"
+  | "article";
+type communityPostType = Exclude<postType, "article">;
 
 // Helper function to get post type display name
 export function getPostTypeDisplayName(type: communityPostType): string {
@@ -46,31 +48,31 @@ export const HEADER_MENU_ITEMS = [
     items: [
       {
         label: getPostTypeDisplayName("productivity"),
-        href: `${getOrigin()}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("FSD"),
-        href: `${getOrigin()}${COMMUNITY_FSD_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_FSD_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("nextjs"),
-        href: `${getOrigin()}${COMMUNITY_NEXTJS_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_NEXTJS_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("codereview"),
-        href: `${getOrigin()}${COMMUNITY_CODEREVIEW_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_CODEREVIEW_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("AI"),
-        href: `${getOrigin()}${COMMUNITY_AI_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_AI_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("sideproject"),
-        href: `${getOrigin()}${COMMUNITY_SIDEPROJECT_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_SIDEPROJECT_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("learning"),
-        href: `${getOrigin()}${COMMUNITY_LEARNING_PATHNAME}`,
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_LEARNING_PATHNAME}`,
       },
     ],
   },

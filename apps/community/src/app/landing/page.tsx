@@ -1,10 +1,3 @@
-import { getIsAuthenticated } from "@packages/auth/src/features";
-import {
-  AUTH_PATHNAME,
-  COMMUNITY_ARTICLES_PATHNAME,
-  getOrigin,
-  SIGN_IN_PATHNAME,
-} from "@packages/constants";
 import {
   Button,
   ContentItem,
@@ -14,7 +7,6 @@ import {
   Text,
 } from "@packages/ui";
 import {
-  ArrowRight,
   CheckCircle,
   Github,
   Lightbulb,
@@ -27,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import RenderGuideModal from "@/entities/guide/ui/RenderGuideModal";
+import { StartCTAButton } from "@/src/entities/landing/ui/StartCTAButton";
 
 export const metadata: Metadata = {
   title: "PEC 커뮤니티에 오신 것을 환영합니다 - 연결하고, 배우고, 성장하세요",
@@ -42,15 +35,9 @@ export const metadata: Metadata = {
 };
 
 export default async function LandingPage() {
-  const isAuthenticated = await getIsAuthenticated();
-
-  const ctaButtonUrl = isAuthenticated
-    ? COMMUNITY_ARTICLES_PATHNAME
-    : `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`;
-
   return (
     <div className="flex min-h-screen flex-col">
-      <RenderGuideModal isAuthenticated={isAuthenticated} />
+      <RenderGuideModal />
       <main className="flex-1">
         <section className="flex w-full flex-col items-center justify-center px-2 py-24 text-center">
           {/* Because of hydration issue, Use div instead of <Text /> */}
@@ -85,12 +72,7 @@ export default async function LandingPage() {
             들의 커뮤니티
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Button size="xl" asChild>
-              <Link href={ctaButtonUrl}>
-                {isAuthenticated ? "아티클 살펴보기" : "지금 시작하기"}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+            <StartCTAButton />
           </div>
         </section>
 
@@ -320,12 +302,7 @@ export default async function LandingPage() {
               </div>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
-              <Button asChild size="xl">
-                <Link href={ctaButtonUrl}>
-                  {isAuthenticated ? "아티클 살펴보기" : "지금 시작하기"}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <StartCTAButton />
             </div>
           </div>
         </section>

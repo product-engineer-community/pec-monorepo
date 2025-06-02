@@ -1,4 +1,5 @@
 import { PostCardSkeleton, PostType } from "@packages/ui"; // Import PostType
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { getPosts } from "@/entities/post/action"; // Ensure this path is correct
@@ -17,11 +18,7 @@ async function PostListContent({
   const posts = await getPosts(postTypeToFetch);
 
   if (!posts || posts.length === 0) {
-    return (
-      <p className="text-center text-muted-foreground">
-        No posts found in this category yet.
-      </p>
-    );
+    notFound();
   }
 
   return (
