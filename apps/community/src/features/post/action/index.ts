@@ -76,7 +76,7 @@ export async function togglePostLike(postId: string) {
         case postTypeSchema.Enum.nextjs:
           basePath = COMMUNITY_NEXTJS_PATHNAME;
           break;
-        case postTypeSchema.Enum.fsd:
+        case postTypeSchema.Enum.FSD:
           basePath = COMMUNITY_FSD_PATHNAME;
           break;
         default:
@@ -167,7 +167,7 @@ export async function createPost(
           answer_id: null, // Placeholder
         };
         break;
-      case postTypeSchema.Enum.fsd:
+      case postTypeSchema.Enum.FSD:
         finalPost = {
           ...basePost,
           category: category || "", // Placeholder
@@ -215,7 +215,7 @@ export async function createPost(
       () => COMMUNITY_PRODUCTIVITY_PATHNAME,
     )
     .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
-    .with(postTypeSchema.Enum.fsd, () => COMMUNITY_FSD_PATHNAME)
+    .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
     .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
     .otherwise(() => "/community"); // Fallback
 
@@ -271,7 +271,7 @@ export async function deletePost(postId: string, postType: PostType) {
       () => COMMUNITY_PRODUCTIVITY_PATHNAME,
     )
     .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
-    .with(postTypeSchema.Enum.fsd, () => COMMUNITY_FSD_PATHNAME)
+    .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
     .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
     .otherwise(() => "/community"); // Fallback for any unexpected type
 
@@ -349,7 +349,7 @@ export async function updatePost(postId: string, formData: FormData) {
           category: category || "", // Placeholder
         };
         break;
-      case postTypeSchema.Enum.fsd:
+      case postTypeSchema.Enum.FSD:
         finalUpdate = {
           ...baseUpdate,
           category: category || "", // Placeholder
@@ -386,7 +386,7 @@ export async function updatePost(postId: string, formData: FormData) {
       case postTypeSchema.Enum.nextjs:
         basePath = COMMUNITY_NEXTJS_PATHNAME;
         break;
-      case postTypeSchema.Enum.fsd:
+      case postTypeSchema.Enum.FSD:
         basePath = COMMUNITY_FSD_PATHNAME;
         break;
       default:

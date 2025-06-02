@@ -9,8 +9,35 @@ import {
   COMMUNITY_PRODUCTIVITY_PATHNAME,
   COMMUNITY_FSD_PATHNAME,
   COMMUNITY_NEXTJS_PATHNAME,
+  COMMUNITY_CODEREVIEW_PATHNAME,
+  COMMUNITY_AI_PATHNAME,
+  COMMUNITY_SIDEPROJECT_PATHNAME,
+  COMMUNITY_LEARNING_PATHNAME,
 } from "./pathname";
 import { getOrigin } from "./url";
+
+// exclude article
+type communityPostType =
+  | "productivity"
+  | "AI"
+  | "sideproject"
+  | "learning"
+  | "FSD"
+  | "nextjs"
+  | "codereview";
+
+// Helper function to get post type display name
+export function getPostTypeDisplayName(type: communityPostType): string {
+  return {
+    productivity: "생산성",
+    AI: "AI",
+    sideproject: "사이드 프로젝트",
+    learning: "학습 노하우",
+    FSD: "F.S.D",
+    nextjs: "Next.js",
+    codereview: "코드 리뷰",
+  }[type];
+}
 
 export const HEADER_MENU_ITEMS = [
   {
@@ -18,16 +45,32 @@ export const HEADER_MENU_ITEMS = [
     href: COMMUNITY_PATHNAME,
     items: [
       {
-        label: "Productivity",
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
+        label: getPostTypeDisplayName("productivity"),
+        href: `${getOrigin()}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
       },
       {
-        label: "F.S.D",
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_FSD_PATHNAME}`,
+        label: getPostTypeDisplayName("FSD"),
+        href: `${getOrigin()}${COMMUNITY_FSD_PATHNAME}`,
       },
       {
-        label: "Next.js",
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_NEXTJS_PATHNAME}`,
+        label: getPostTypeDisplayName("nextjs"),
+        href: `${getOrigin()}${COMMUNITY_NEXTJS_PATHNAME}`,
+      },
+      {
+        label: getPostTypeDisplayName("codereview"),
+        href: `${getOrigin()}${COMMUNITY_CODEREVIEW_PATHNAME}`,
+      },
+      {
+        label: getPostTypeDisplayName("AI"),
+        href: `${getOrigin()}${COMMUNITY_AI_PATHNAME}`,
+      },
+      {
+        label: getPostTypeDisplayName("sideproject"),
+        href: `${getOrigin()}${COMMUNITY_SIDEPROJECT_PATHNAME}`,
+      },
+      {
+        label: getPostTypeDisplayName("learning"),
+        href: `${getOrigin()}${COMMUNITY_LEARNING_PATHNAME}`,
       },
     ],
   },

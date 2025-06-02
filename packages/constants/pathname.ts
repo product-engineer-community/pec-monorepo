@@ -10,9 +10,13 @@ export const COMMUNITY_PATHNAME = "/community";
 export const COMMUNITY_LANDING_PATHNAME = "/landing";
 export const COMMUNITY_POST_WRITE_PATHNAME = "/post/write";
 export const COMMUNITY_POST_EDIT_PATHNAME = "/post/edit";
-export const COMMUNITY_PRODUCTIVITY_PATHNAME = "/productivity";
-export const COMMUNITY_NEXTJS_PATHNAME = "/nextjs";
-export const COMMUNITY_FSD_PATHNAME = "/fsd";
+export const COMMUNITY_PRODUCTIVITY_PATHNAME = "/post/productivity";
+export const COMMUNITY_NEXTJS_PATHNAME = "/post/nextjs";
+export const COMMUNITY_FSD_PATHNAME = "/post/fsd";
+export const COMMUNITY_SIDEPROJECT_PATHNAME = "/post/sideproject";
+export const COMMUNITY_LEARNING_PATHNAME = "/post/learning";
+export const COMMUNITY_AI_PATHNAME = "/post/ai";
+export const COMMUNITY_CODEREVIEW_PATHNAME = "/post/codereview";
 export const COMMUNITY_ARTICLES_PATHNAME = "/articles";
 export const COMMUNITY_EVENTS_PATHNAME = "/events";
 

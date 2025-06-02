@@ -77,7 +77,7 @@ export default async function FSDDetailPage({ params }: FSDPostPageProps) {
         <PostDetail // Using generic PostDetail
           id={id}
           deleteButton={
-            <DeletePostButton postType={postTypeSchema.Enum.fsd} postId={id} />
+            <DeletePostButton postType={postTypeSchema.Enum.FSD} postId={id} />
           }
           postLikeButton={
             <PostLikeButton
@@ -93,7 +93,7 @@ export default async function FSDDetailPage({ params }: FSDPostPageProps) {
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postType={postTypeSchema.Enum.fsd} postId={id} />
+          <Comments postType={postTypeSchema.Enum.FSD} postId={id} />
         </Suspense>
       </div>
     </div>

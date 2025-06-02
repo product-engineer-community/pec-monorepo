@@ -164,9 +164,9 @@ export default function PostForm({
           <Button
             type="button"
             variant={
-              postType === postTypeSchema.Enum.fsd ? "default" : "outline"
+              postType === postTypeSchema.Enum.FSD ? "default" : "outline"
             }
-            onClick={() => setPostType(postTypeSchema.Enum.fsd)}
+            onClick={() => setPostType(postTypeSchema.Enum.FSD)}
             className="capitalize"
           >
             F.S.D

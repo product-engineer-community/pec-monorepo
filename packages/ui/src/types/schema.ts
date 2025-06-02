@@ -14,10 +14,13 @@ export const userSchema = z.object({
 // Post Types
 export const postType = z.enum([
   "article",
-  "question",
+  "AI",
+  "learning",
+  "sideproject",
   "productivity",
   "nextjs",
-  "fsd",
+  "FSD",
+  "codereview",
 ]);
 export type PostType = z.infer<typeof postType>;
 
@@ -54,7 +57,7 @@ export const productivitySchema = z.object({
 // Next.js Schema
 export const nextjsSchema = z.object({
   ...basePostSchema,
-  type: z.literal("next.js"),
+  type: z.literal("nextjs"),
   // category: z.string().optional(), // Example: if next.js posts have categories
   // tags: z.array(z.string()).optional(), // Example: if they have tags
 });
@@ -62,8 +65,36 @@ export const nextjsSchema = z.object({
 // F.S.D Schema
 export const fsdSchema = z.object({
   ...basePostSchema,
-  type: z.literal("F.S.D"),
+  type: z.literal("FSD"),
   // category: z.string().optional(), // Example: if F.S.D posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const sideprojectSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("sideproject"),
+  // category: z.string().optional(), // Example: if sideproject posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const learningSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("learning"),
+  // category: z.string().optional(), // Example: if learning posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const aiSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("AI"),
+  // category: z.string().optional(), // Example: if learning posts have categories
+  // tags: z.array(z.string()).optional(), // Example: if they have tags
+});
+
+export const codereviewSchema = z.object({
+  ...basePostSchema,
+  type: z.literal("codereview"),
+  // category: z.string().optional(), // Example: if codereview posts have categories
   // tags: z.array(z.string()).optional(), // Example: if they have tags
 });
 
@@ -73,6 +104,10 @@ export const combinedPostSchema = z.discriminatedUnion("type", [
   productivitySchema,
   nextjsSchema,
   fsdSchema,
+  sideprojectSchema,
+  learningSchema,
+  aiSchema,
+  codereviewSchema,
 ]);
 
 // Comment Schema

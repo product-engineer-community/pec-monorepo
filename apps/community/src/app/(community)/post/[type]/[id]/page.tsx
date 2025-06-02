@@ -1,9 +1,15 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
 import {
-  COMMUNITY_PATHNAME,
+  COMMUNITY_AI_PATHNAME,
+  COMMUNITY_CODEREVIEW_PATHNAME,
+  COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_LEARNING_PATHNAME,
+  COMMUNITY_NEXTJS_PATHNAME,
   COMMUNITY_PRODUCTIVITY_PATHNAME,
+  COMMUNITY_SIDEPROJECT_PATHNAME,
+  getPostTypeDisplayName,
 } from "@packages/constants";
-import { postType as postTypeSchema } from "@packages/ui";
+import { PostType } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -18,56 +24,80 @@ import { Comments } from "@/widgets/comments";
 import { CommentsSkeleton } from "@/widgets/comments/ui/CommentsSkeleton";
 import { PostDetail } from "@/widgets/post";
 
-interface ProductivityPostPageProps {
+interface PostPageProps {
   params: Promise<{
+    type: Exclude<PostType, "article">;
     id: string;
   }>;
 }
 
 export async function generateMetadata({
   params,
-}: ProductivityPostPageProps): Promise<Metadata> {
-  const { id } = await params;
+}: PostPageProps): Promise<Metadata> {
+  const { type, id } = await params;
   const post = await getPost(id);
+
+  const postTypeDisplayName = getPostTypeDisplayName(type);
 
   if (!post) {
     return {
-      title: "Productivity 게시물을 찾을 수 없습니다",
-      description: "요청하신 Productivity 게시물을 찾을 수 없습니다.",
+      title: `${postTypeDisplayName} 게시물을 찾을 수 없습니다`,
+      description: `요청하신 ${postTypeDisplayName} 게시물을 찾을 수 없습니다.`,
     };
   }
 
+  const postTypePath = {
+    productivity: COMMUNITY_PRODUCTIVITY_PATHNAME,
+    AI: COMMUNITY_AI_PATHNAME,
+    sideproject: COMMUNITY_SIDEPROJECT_PATHNAME,
+    learning: COMMUNITY_LEARNING_PATHNAME,
+    FSD: COMMUNITY_FSD_PATHNAME,
+    nextjs: COMMUNITY_NEXTJS_PATHNAME,
+    codereview: COMMUNITY_CODEREVIEW_PATHNAME,
+  }[type];
+
   return {
-    title: post.title || "Productivity 게시물",
+    title: post.title || `${postTypeDisplayName} 게시물`,
     description:
-      post.content?.substring(0, 160) || "Productivity 게시물 상세 내용입니다.",
+      post.content?.substring(0, 160) ||
+      `${postTypeDisplayName} 게시물 상세 내용입니다.`,
     openGraph: {
-      title: post.title || "Productivity 게시물",
+      title: post.title || `${postTypeDisplayName} 게시물`,
       description:
         post.content?.substring(0, 160) ||
-        "Productivity 게시물 상세 내용입니다.",
+        `${postTypeDisplayName} 게시물 상세 내용입니다.`,
       type: "article",
-      url: `${process.env.NEXT_PUBLIC_APP_URL}${COMMUNITY_PATHNAME}${COMMUNITY_PRODUCTIVITY_PATHNAME}/${id}`, // Updated path
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${postTypePath}/${id}`,
       images: [post.thumbnail_url || "/logo.webp"],
     },
   };
 }
 
-export default async function ProductivityPostPage({
-  params,
-}: ProductivityPostPageProps) {
-  // Renamed function and used interface
-  const { id } = await params; // params is not a Promise
+export default async function PostPage({ params }: PostPageProps) {
+  const { type: postType, id } = await params;
+
+  // Validate post type
+  const validPostTypes = [
+    "productivity",
+    "AI",
+    "sideproject",
+    "learning",
+    "FSD",
+    "nextjs",
+    "codereview",
+  ];
+
+  if (!validPostTypes.includes(postType)) {
+    notFound();
+  }
 
   const [post, isAuthenticated] = await Promise.all([
-    // Renamed variable
     getPost(id),
     getIsAuthenticated(),
   ]);
 
   if (!post) {
-    // Check if post is null
-    notFound(); // Use notFound if post doesn't exist
+    notFound();
   }
 
   // 조회수 증가
@@ -81,16 +111,9 @@ export default async function ProductivityPostPage({
             <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />
           }
         >
-          <PostDetail // Using generic PostDetail
+          <PostDetail
             id={id}
-            // getPost in PostDetail will fetch the data.
-            // The interactive buttons are passed as children/props
-            deleteButton={
-              <DeletePostButton
-                postType={postTypeSchema.Enum.productivity}
-                postId={id}
-              />
-            }
+            deleteButton={<DeletePostButton postType={postType} postId={id} />}
             postLikeButton={
               <PostLikeButton
                 postId={id}
@@ -106,8 +129,7 @@ export default async function ProductivityPostPage({
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postType={postTypeSchema.Enum.productivity} postId={id} />{" "}
-          {/* Updated postType */}
+          <Comments postType={postType} postId={id} />
         </Suspense>
       </div>
     </div>

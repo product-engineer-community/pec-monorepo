@@ -23,10 +23,10 @@ export default async function FSDPage() {
       <PostHeader
         title="F.S.D"
         description="Full Stack Development topics, from frontend to backend."
-        postTypeForWriteButton={postTypeSchema.Enum.fsd}
+        postTypeForWriteButton={postTypeSchema.Enum.FSD}
       />
       <PostList
-        postTypeToFetch={postTypeSchema.Enum.fsd}
+        postTypeToFetch={postTypeSchema.Enum.FSD}
         basePath={COMMUNITY_FSD_PATHNAME}
       />
     </div>

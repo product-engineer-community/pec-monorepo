@@ -1,18 +1,24 @@
 "use client";
 
 import {
+  COMMUNITY_AI_PATHNAME,
   COMMUNITY_ARTICLES_PATHNAME,
+  COMMUNITY_CODEREVIEW_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_FSD_PATHNAME, // New
   COMMUNITY_LANDING_PATHNAME,
+  COMMUNITY_LEARNING_PATHNAME,
   COMMUNITY_NEXTJS_PATHNAME, // New
-  COMMUNITY_PRODUCTIVITY_PATHNAME, // New
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
+  COMMUNITY_SIDEPROJECT_PATHNAME, // New
+  getPostTypeDisplayName,
 } from "@packages/constants";
 import {
   cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+  postType,
 } from "@packages/ui";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
@@ -36,16 +42,32 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
     label: "Community",
     items: [
       {
-        label: "Productivity",
+        label: getPostTypeDisplayName(postType.Enum.productivity),
         href: COMMUNITY_PRODUCTIVITY_PATHNAME,
       },
       {
-        label: "Next.js",
+        label: getPostTypeDisplayName(postType.Enum.nextjs),
         href: COMMUNITY_NEXTJS_PATHNAME,
       },
       {
-        label: "F.S.D",
+        label: getPostTypeDisplayName(postType.Enum.FSD),
         href: COMMUNITY_FSD_PATHNAME,
+      },
+      {
+        label: getPostTypeDisplayName(postType.Enum.codereview),
+        href: COMMUNITY_CODEREVIEW_PATHNAME,
+      },
+      {
+        label: getPostTypeDisplayName(postType.Enum.AI),
+        href: COMMUNITY_AI_PATHNAME,
+      },
+      {
+        label: getPostTypeDisplayName(postType.Enum.sideproject),
+        href: COMMUNITY_SIDEPROJECT_PATHNAME,
+      },
+      {
+        label: getPostTypeDisplayName(postType.Enum.learning),
+        href: COMMUNITY_LEARNING_PATHNAME,
       },
     ],
   },
