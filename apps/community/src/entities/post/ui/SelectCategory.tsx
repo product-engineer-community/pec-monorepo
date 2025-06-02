@@ -8,21 +8,21 @@ import {
 
 interface SelectCategoryProps {
   value: string;
-  onChange: (value: string) => void;
-  defaultCategory?: string;
+  onValueChange: (value: string) => void;
+  defaultValue?: string;
 }
 
 export function SelectCategory({
   value,
-  onChange,
-  defaultCategory,
+  onValueChange,
+  defaultValue,
 }: SelectCategoryProps) {
   return (
     <>
       <Select
         value={value}
-        onValueChange={onChange}
-        defaultValue={defaultCategory || ""}
+        onValueChange={onValueChange}
+        defaultValue={defaultValue || ""}
         required
       >
         <SelectTrigger className="w-[200px] rounded border px-3 py-2">

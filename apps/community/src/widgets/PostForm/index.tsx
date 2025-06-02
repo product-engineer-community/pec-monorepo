@@ -8,9 +8,9 @@ import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
 import { Editor } from "@/shared/components/editor";
+import { SelectCategory } from "@/src/entities/post/ui/SelectCategory";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
-import { SelectCategory } from "@/src/entities/post/ui/SelectCategory";
 
 // 초기 상태 정의
 type FormState = {
@@ -184,8 +184,8 @@ export default function PostForm({
           <label className="text-sm font-medium">카테고리</label>
           <SelectCategory
             value={category}
-            onChange={setCategory}
-            defaultCategory={defaultValues?.category}
+            onValueChange={setCategory}
+            defaultValue={defaultValues?.category}
           />
         </div>
       )}
