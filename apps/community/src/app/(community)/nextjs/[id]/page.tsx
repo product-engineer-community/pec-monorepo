@@ -1,30 +1,32 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { COMMUNITY_NEXTJS_PATHNAME, COMMUNITY_PATHNAME } from "@packages/constants";
-import { PostType, postType as postTypeSchema } from "@packages/ui";
+import {
+  COMMUNITY_NEXTJS_PATHNAME,
+  COMMUNITY_PATHNAME,
+} from "@packages/constants";
+import { postType as postTypeSchema } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-// import { DiscussionDetail, DiscussionDetailSkeleton } from "@/entities/discussion"; // Old import
 import { getPost, incrementViewCount } from "@/entities/post";
-import { PostDetail } from "@/widgets/post"; // Import generic PostDetail
 import {
   DeletePostButton,
   EditPostButton,
   PostLikeButton,
 } from "@/features/post";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
+import { PostDetail } from "@/widgets/post";
 
 interface NextjsPostPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: NextjsPostPageProps): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const post = await getPost(id);
 
   if (!post) {
@@ -49,10 +51,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function NextjsPostPage({
-  params,
-}: NextjsPostPageProps) {
-  const { id } = params;
+export default async function NextjsPostPage({ params }: NextjsPostPageProps) {
+  const { id } = await params;
   const [post, isAuthenticated] = await Promise.all([
     getPost(id),
     getIsAuthenticated(),
@@ -67,11 +67,18 @@ export default async function NextjsPostPage({
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
-      <Suspense fallback={<div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />}>
+      <Suspense
+        fallback={
+          <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />
+        }
+      >
         <PostDetail // Using generic PostDetail
           id={id}
           deleteButton={
-            <DeletePostButton postType={postTypeSchema.Enum.nextjs} postId={id} />
+            <DeletePostButton
+              postType={postTypeSchema.Enum.nextjs}
+              postId={id}
+            />
           }
           postLikeButton={
             <PostLikeButton

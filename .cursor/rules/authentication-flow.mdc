@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
 # Authentication Flow
@@ -16,7 +16,6 @@ Authentication related routes are defined in [packages/constants/](mdc:packages/
 - `AUTH_PATHNAME`: Base path for auth routes
 - `SIGN_IN_PATHNAME`: Path for sign-in page
 - `SIGN_UP_PATHNAME`: Path for sign-up page
-- `COMMUNITY_QUESTIONS_PATHNAME`: Path for community questions
 
 ## Checking Authentication State
 

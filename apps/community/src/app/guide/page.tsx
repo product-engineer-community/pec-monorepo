@@ -1,7 +1,7 @@
 import {
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_LANDING_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
 } from "@packages/constants";
 import { ArrowLeft, BookOpen, MessageSquare } from "lucide-react";
 import type { Metadata } from "next";
@@ -68,16 +68,16 @@ export default function GuidePage() {
                 <h3 className="mb-2 font-semibold text-blue-900">추천 활동</h3>
                 <ul className="mb-3 space-y-1 text-sm text-blue-700">
                   <li>
-                    • <strong>Questions</strong> 섹션에서 다양한 질문 읽어보기
+                    • <strong>Community</strong> 섹션에서 다양한 질문 읽어보기
                   </li>
                   <li>• 관심 있는 질문에 답변 달아보기</li>
                   <li>• 다른 멤버들의 프로필 둘러보기</li>
                 </ul>
                 <Link
-                  href={COMMUNITY_QUESTIONS_PATHNAME}
+                  href={COMMUNITY_PRODUCTIVITY_PATHNAME}
                   className="inline-flex items-center gap-1 text-sm font-medium text-blue-700 transition-colors hover:text-blue-800"
                 >
-                  Questions 바로가기 →
+                  Community 바로가기 →
                 </Link>
               </div>
             </div>

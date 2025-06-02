@@ -1,11 +1,11 @@
 "use server";
 
-import { grantPointAction } from "@packages/point/src/features";
 import {
   COMMUNITY_FSD_PATHNAME,
   COMMUNITY_NEXTJS_PATHNAME,
   COMMUNITY_PRODUCTIVITY_PATHNAME,
 } from "@packages/constants"; // Added new path constants
+import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,

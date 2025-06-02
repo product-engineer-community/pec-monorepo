@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { postType as postTypeSchema } from "@packages/ui";
 import { COMMUNITY_NEXTJS_PATHNAME } from "@packages/constants";
+import { postType as postTypeSchema } from "@packages/ui";
+import type { Metadata } from "next";
+
 import { PostHeader, PostList } from "@/widgets/post";
 
 export const metadata: Metadata = {

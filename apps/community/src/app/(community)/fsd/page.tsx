@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { postType as postTypeSchema } from "@packages/ui";
 import { COMMUNITY_FSD_PATHNAME } from "@packages/constants";
+import { postType as postTypeSchema } from "@packages/ui";
+import type { Metadata } from "next";
+
 import { PostHeader, PostList } from "@/widgets/post";
 
 export const metadata: Metadata = {
@@ -22,10 +23,10 @@ export default async function FSDPage() {
       <PostHeader
         title="F.S.D"
         description="Full Stack Development topics, from frontend to backend."
-        postTypeForWriteButton={postTypeSchema.Enum.FSD}
+        postTypeForWriteButton={postTypeSchema.Enum.fsd}
       />
       <PostList
-        postTypeToFetch={postTypeSchema.Enum.FSD}
+        postTypeToFetch={postTypeSchema.Enum.fsd}
         basePath={COMMUNITY_FSD_PATHNAME}
       />
     </div>

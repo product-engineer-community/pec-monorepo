@@ -6,16 +6,20 @@ import {
   getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
-import { Button, PostType, postType as postTypeSchema } from "@packages/ui"; // Ensure PostType and postTypeSchema are imported
+import { Button, PostType } from "@packages/ui";
 import Link from "next/link";
 
 interface PostHeaderProps {
   title: string;
   description: string;
-  postTypeForWriteButton: PostType; // Use the imported PostType
+  postTypeForWriteButton: PostType;
 }
 
-export async function PostHeader({ title, description, postTypeForWriteButton }: PostHeaderProps) {
+export async function PostHeader({
+  title,
+  description,
+  postTypeForWriteButton,
+}: PostHeaderProps) {
   const isAuthenticated = await getIsAuthenticated();
 
   return (
@@ -27,12 +31,12 @@ export async function PostHeader({ title, description, postTypeForWriteButton }:
             isAuthenticated
               ? {
                   pathname: COMMUNITY_POST_WRITE_PATHNAME,
-                  query: { type: postTypeForWriteButton }, // Use prop
+                  query: { type: postTypeForWriteButton },
                 }
               : {
                   pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
                   query: {
-                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=${postTypeForWriteButton}`, // Use prop
+                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=${postTypeForWriteButton}`,
                   },
                 }
           }
@@ -41,9 +45,7 @@ export async function PostHeader({ title, description, postTypeForWriteButton }:
         </Link>
       </div>
 
-      <div className="mb-6 text-lg text-muted-foreground">
-        {description}
-      </div>
+      <div className="mb-6 text-lg text-muted-foreground">{description}</div>
     </div>
   );
 }

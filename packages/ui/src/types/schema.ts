@@ -12,7 +12,13 @@ export const userSchema = z.object({
 });
 
 // Post Types
-export const postType = z.enum(["article", "productivity", "next.js", "F.S.D"]);
+export const postType = z.enum([
+  "article",
+  "question",
+  "productivity",
+  "nextjs",
+  "fsd",
+]);
 export type PostType = z.infer<typeof postType>;
 
 // Base Post Schema (공통 필드)

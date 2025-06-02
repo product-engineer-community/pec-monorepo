@@ -14,9 +14,9 @@ export async function getPost(id: string): Promise<Post | null> {
   const supabase = await getSupabaseServerClient();
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const userId = user?.id;
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
 
   const { data: post, error } = await supabase
     .from("posts")
@@ -66,7 +66,9 @@ export async function getPost(id: string): Promise<Post | null> {
  * 타입을 기반으로 게시물 목록을 가져오는 함수
  * 'question', 'discussion', 'article' 타입의 게시물을 구분하여 처리합니다
  */
-export async function getPosts(type: z.infer<typeof postType>) {
+export async function getPosts(
+  type: z.infer<typeof postType>,
+): Promise<Post[]> {
   const supabase = await getSupabaseServerClient();
 
   const query = supabase
@@ -93,7 +95,8 @@ export async function getPosts(type: z.infer<typeof postType>) {
         role
       ),
       comments:comments(count),
-      likes:likes(count)
+      likes:likes(count),
+      user_like:likes(id, user_id)
     `,
     )
     .eq("type", type)
@@ -106,12 +109,20 @@ export async function getPosts(type: z.infer<typeof postType>) {
     throw error;
   }
 
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
+
   return (posts || []).map((post) => ({
     ...post,
     author: Array.isArray(post.author) ? post.author[0] : post.author,
     comments_count: post.comments?.[0]?.count || 0,
     likes_count: post.likes?.[0]?.count || 0,
-    solved: undefined,
+    solved: post.solved || false,
+    is_liked: userId
+      ? post.user_like?.some((like) => like.user_id === userId)
+      : false,
     content:
       post.content.length > 200
         ? post.content.slice(0, 200) + "..."

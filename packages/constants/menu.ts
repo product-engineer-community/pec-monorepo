@@ -1,13 +1,14 @@
 import {
   COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
   COMMUNITY_EVENTS_PATHNAME,
   COMMUNITY_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
   CAMP_LANDING_PATHNAME,
   CAMP_PATHNAME,
   COURSE_PATHNAME,
   COURSE_LANDING_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
+  COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_NEXTJS_PATHNAME,
 } from "./pathname";
 import { getOrigin } from "./url";
 
@@ -17,12 +18,16 @@ export const HEADER_MENU_ITEMS = [
     href: COMMUNITY_PATHNAME,
     items: [
       {
-        label: "Questions",
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_QUESTIONS_PATHNAME}`,
+        label: "Productivity",
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
       },
       {
-        label: "Discussions",
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_DISCUSSIONS_PATHNAME}`,
+        label: "F.S.D",
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_FSD_PATHNAME}`,
+      },
+      {
+        label: "Next.js",
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_NEXTJS_PATHNAME}`,
       },
     ],
   },

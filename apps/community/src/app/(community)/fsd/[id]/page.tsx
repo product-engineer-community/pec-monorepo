@@ -1,23 +1,26 @@
 import { getIsAuthenticated } from "@packages/auth/src/features";
-import { COMMUNITY_FSD_PATHNAME, COMMUNITY_PATHNAME } from "@packages/constants";
-import { PostType, postType as postTypeSchema } from "@packages/ui"; // Use postTypeSchema
+import {
+  COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_PATHNAME,
+} from "@packages/constants";
+import { postType as postTypeSchema } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { getPost, incrementViewCount } from "@/entities/post";
-import { PostDetail } from "@/widgets/post"; // Import generic PostDetail
 import {
   DeletePostButton,
   EditPostButton,
   PostLikeButton,
 } from "@/features/post";
 import { Comments, CommentsSkeleton } from "@/widgets/comments";
+import { PostDetail } from "@/widgets/post"; // Import generic PostDetail
 
 interface FSDPostPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 // Removed local placeholders for FSDDetail and FSDDetailSkeleton
@@ -25,7 +28,7 @@ interface FSDPostPageProps {
 export async function generateMetadata({
   params,
 }: FSDPostPageProps): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const post = await getPost(id);
 
   if (!post) {
@@ -50,10 +53,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function FSDDetailPage({
-  params,
-}: FSDPostPageProps) {
-  const { id } = params;
+export default async function FSDDetailPage({ params }: FSDPostPageProps) {
+  const { id } = await params;
   const [post, isAuthenticated] = await Promise.all([
     getPost(id),
     getIsAuthenticated(),
@@ -68,11 +69,15 @@ export default async function FSDDetailPage({
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
-      <Suspense fallback={<div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />}>
+      <Suspense
+        fallback={
+          <div className="h-[500px] w-full animate-pulse rounded-lg bg-gray-200" />
+        }
+      >
         <PostDetail // Using generic PostDetail
           id={id}
           deleteButton={
-            <DeletePostButton postType={postTypeSchema.Enum.FSD} postId={id} />
+            <DeletePostButton postType={postTypeSchema.Enum.fsd} postId={id} />
           }
           postLikeButton={
             <PostLikeButton
@@ -88,7 +93,7 @@ export default async function FSDDetailPage({
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postType={postTypeSchema.Enum.FSD} postId={id} />
+          <Comments postType={postTypeSchema.Enum.fsd} postId={id} />
         </Suspense>
       </div>
     </div>

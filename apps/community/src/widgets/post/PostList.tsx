@@ -2,6 +2,7 @@ import { PostCardSkeleton, PostType } from "@packages/ui"; // Import PostType
 import { Suspense } from "react";
 
 import { getPosts } from "@/entities/post/action"; // Ensure this path is correct
+
 import { PostListItem } from "./PostListItem"; // Import the new PostListItem
 
 interface PostListContentProps {
@@ -9,11 +10,18 @@ interface PostListContentProps {
   basePath: string;
 }
 
-async function PostListContent({ postTypeToFetch, basePath }: PostListContentProps) {
+async function PostListContent({
+  postTypeToFetch,
+  basePath,
+}: PostListContentProps) {
   const posts = await getPosts(postTypeToFetch);
 
   if (!posts || posts.length === 0) {
-    return <p className="text-center text-muted-foreground">No posts found in this category yet.</p>;
+    return (
+      <p className="text-center text-muted-foreground">
+        No posts found in this category yet.
+      </p>
+    );
   }
 
   return (
@@ -26,7 +34,7 @@ async function PostListContent({ postTypeToFetch, basePath }: PostListContentPro
 }
 
 interface PostListProps {
-  postTypeToFetch: PostType;
+  postTypeToFetch: Exclude<PostType, "article">;
   basePath: string;
 }
 
@@ -39,7 +47,10 @@ export function PostList({ postTypeToFetch, basePath }: PostListProps) {
           <PostCardSkeleton count={3} variant={postTypeToFetch} />
         }
       >
-        <PostListContent postTypeToFetch={postTypeToFetch} basePath={basePath} />
+        <PostListContent
+          postTypeToFetch={postTypeToFetch}
+          basePath={basePath}
+        />
       </Suspense>
     </div>
   );

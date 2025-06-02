@@ -2,7 +2,7 @@
 
 import {
   COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
 } from "@packages/constants";
 import { BookOpen, MessageCircleQuestionIcon, X } from "lucide-react";
 import Link from "next/link";
@@ -64,7 +64,7 @@ export default function GuidePage({ onClose }: GuideModalProps) {
         {/* Content */}
         <div className="space-y-4">
           <div className="rounded-md border bg-blue-50 p-3">
-            <Link href={COMMUNITY_QUESTIONS_PATHNAME}>
+            <Link href={COMMUNITY_PRODUCTIVITY_PATHNAME}>
               <div className="flex items-start gap-2">
                 <MessageCircleQuestionIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-600" />
                 <div>
@@ -72,7 +72,7 @@ export default function GuidePage({ onClose }: GuideModalProps) {
                     처음 방문 하셨다면
                   </h3>
                   <p className="mt-1 text-xs text-blue-700">
-                    <strong>Questions</strong> 에서 질문을 읽어보세요.
+                    <strong>Community</strong> 에서 질문을 읽어보세요.
                   </p>
                 </div>
               </div>
