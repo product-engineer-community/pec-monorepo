@@ -6,12 +6,12 @@ import {
 } from "@packages/constants";
 import {
   BookOpen,
-  MessageCircleQuestionIcon,
-  X,
   Code2,
   Lightbulb,
-  Users,
+  MessageCircleQuestionIcon,
   Rocket,
+  Users,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

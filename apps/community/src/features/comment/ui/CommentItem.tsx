@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { MarkdownViewer } from "@/src/shared/components/editor";
 import { getRelativeTime } from "@/shared/libs/date";
+import { MarkdownViewer } from "@/src/shared/components/editor";
 
 import { CommentWithAuthor } from "../model/types";
 import { CommentDeleteButton } from "./CommentDeleteButton";
