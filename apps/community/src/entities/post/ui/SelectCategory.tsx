@@ -29,15 +29,12 @@ export function SelectCategory({
           <SelectValue placeholder="카테고리를 선택하세요" />
         </SelectTrigger>
         <SelectContent side="bottom" avoidCollisions={false}>
-          <SelectItem value="tech-dev">Tech & Dev</SelectItem>
-          <SelectItem value="ai">AI</SelectItem>
-          <SelectItem value="product">Product</SelectItem>
-          <SelectItem value="growth">Growth</SelectItem>
-          <SelectItem value="side-projects">Side Projects</SelectItem>
-          <SelectItem value="collaboration">Collaboration</SelectItem>
-          <SelectItem value="career">Career</SelectItem>
-          <SelectItem value="culture">Culture</SelectItem>
-          <SelectItem value="etc">Etc</SelectItem>
+          <SelectItem value="question">질문</SelectItem>
+          <SelectItem value="discussion">토론</SelectItem>
+          <SelectItem value="retrospective">회고</SelectItem>
+          <SelectItem value="introduction">소개</SelectItem>
+          <SelectItem value="guide">가이드</SelectItem>
+          <SelectItem value="etc">기타</SelectItem>
         </SelectContent>
       </Select>
       <input type="hidden" name="category" value={value} />
