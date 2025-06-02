@@ -5,6 +5,7 @@ import {
 import { PostType, postType as postTypeSchema } from "@packages/ui";
 import type { Metadata } from "next";
 
+import { getPostTypeDescription } from "@/src/shared/constant/post";
 import { PostHeader, PostList } from "@/widgets/post";
 
 interface PostListPageProps {
@@ -32,10 +33,10 @@ export async function generateMetadata({
 
   return {
     title: `${postTypeDisplayName} 페이지`,
-    description: `${postTypeDisplayName} 목록 페이지입니다.`,
+    description: getPostTypeDescription(type),
     openGraph: {
       title: `${postTypeDisplayName} 페이지`,
-      description: `${postTypeDisplayName} 목록 페이지입니다.`,
+      description: getPostTypeDescription(type),
       type: "article",
       url: `${process.env.NEXT_PUBLIC_APP_URL}/${postTypePath}`,
       images: ["/logo.webp"],
@@ -53,7 +54,7 @@ export default async function PostListPage({ params }: PostListPageProps) {
     <div className="container py-6">
       <PostHeader
         title={postTypeDisplayName}
-        description={`${postTypeDisplayName} 목록 페이지입니다.`}
+        description={getPostTypeDescription(type)}
         postTypeForWriteButton={type}
       />
       <PostList postTypeToFetch={type} basePath={postTypePath} />
