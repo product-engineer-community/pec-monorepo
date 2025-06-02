@@ -14,7 +14,7 @@ export const getPostTypeDescription = (postType: PostType) => {
     AI: "LLM, AI 도구, 프롬프트 엔지니어링, 코드 생성, AI와의 협업 방식 등을 다룹니다. 실험적인 구현이나 AI 기반 자동화도 포함됩니다.",
     sideproject:
       "개인 혹은 소규모 팀이 진행 중인 사이드 프로젝트를 소개하고, 피드백을 받거나 고민을 나누는 공간입니다. 기획, 기술 선택, 런칭까지의 전체 과정을 포함합니다.",
-    learning: "학습 방법, 학습 자료, 학습 팁 등을 공유하는 공간입니다.",
+    learning: "실무에서 부딪히며 얻은 인사이트와 배움을 공유하는 공간입니다.",
   }[postType];
 };
 
