@@ -1,10 +1,11 @@
 "use client";
 
+import { COMMUNITY_NEXTJS_PATHNAME } from "@packages/constants"; // Import the constant
 import { Button } from "@packages/ui";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default function DiscussionDetailError({
+export default function NextjsPostDetailError({ // Rename component for clarity
   error,
   reset,
 }: {
@@ -13,7 +14,7 @@ export default function DiscussionDetailError({
 }) {
   useEffect(() => {
     // 에러 로깅
-    console.error("Discussion 상세 페이지 에러:", error);
+    console.error("Next.js Post Detail Page Error:", error); // Update error message context
   }, [error]);
 
   return (
@@ -26,7 +27,7 @@ export default function DiscussionDetailError({
         <Button onClick={reset} variant="outline">
           다시 시도
         </Button>
-        <Link href="/community/discussions">
+        <Link href={COMMUNITY_NEXTJS_PATHNAME}> {/* Use constant for path */}
           <Button>목록으로</Button>
         </Link>
       </div>

@@ -6,27 +6,37 @@ import {
   getOrigin,
   SIGN_IN_PATHNAME,
 } from "@packages/constants";
-import { Button, postType } from "@packages/ui";
+import { Button, PostType } from "@packages/ui";
 import Link from "next/link";
 
-export async function DiscussionsHeader() {
+interface PostHeaderProps {
+  title: string;
+  description: string;
+  postTypeForWriteButton: PostType;
+}
+
+export async function PostHeader({
+  title,
+  description,
+  postTypeForWriteButton,
+}: PostHeaderProps) {
   const isAuthenticated = await getIsAuthenticated();
 
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Discussions</h1>
+        <h1 className="text-2xl font-bold">{title}</h1>
         <Link
           href={
             isAuthenticated
               ? {
                   pathname: COMMUNITY_POST_WRITE_PATHNAME,
-                  query: { type: postType.Enum.discussion },
+                  query: { type: postTypeForWriteButton },
                 }
               : {
                   pathname: `${getOrigin()}${AUTH_PATHNAME}${SIGN_IN_PATHNAME}`,
                   query: {
-                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=${postType.Enum.discussion}`,
+                    nextPathname: `${COMMUNITY_PATHNAME}${COMMUNITY_POST_WRITE_PATHNAME}?type=${postTypeForWriteButton}`,
                   },
                 }
           }
@@ -34,9 +44,8 @@ export async function DiscussionsHeader() {
           <Button>글쓰기</Button>
         </Link>
       </div>
-      <div className="mb-6 text-lg text-muted-foreground">
-        함께 생각을 확장해 나가는 토론 중심 공간 입니다.
-      </div>
+
+      <div className="mb-6 text-lg text-muted-foreground">{description}</div>
     </div>
   );
 }

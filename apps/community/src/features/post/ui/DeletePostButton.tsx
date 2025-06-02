@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
   PostType,
-  postType as postTypeSchema,
 } from "@packages/ui";
 import { Trash2 } from "lucide-react";
 import { useActionState, useState } from "react";
@@ -34,11 +33,15 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
 
   // 타입에 따른 제목 및 설명 텍스트 설정
   const getTitle = () => {
+    // Removed specific cases for question and discussion, defaulting to generic "게시글 삭제"
+    // Add specific titles for new types if needed in the future
     switch (postType) {
-      case postTypeSchema.Enum.question:
-        return "질문 삭제";
-      case postTypeSchema.Enum.discussion:
-        return "토론 삭제";
+      // case postTypeSchema.Enum.productivity:
+      //   return "생산성 게시글 삭제"; // Example
+      // case postTypeSchema.Enum.nextjs:
+      //   return "Next.js 게시글 삭제"; // Example
+      // case postTypeSchema.Enum.FSD:
+      //   return "F.S.D 게시글 삭제"; // Example
       default:
         return "게시글 삭제";
     }
@@ -46,13 +49,18 @@ export function DeletePostButton({ postType, postId }: DeletePostButtonProps) {
 
   const getDescription = () => {
     let postTypeText = "";
+    // Removed specific cases for question and discussion, defaulting to generic "게시글"
+    // Add specific text for new types if needed in the future
     switch (postType) {
-      case postTypeSchema.Enum.question:
-        postTypeText = "질문";
-        break;
-      case postTypeSchema.Enum.discussion:
-        postTypeText = "토론";
-        break;
+      // case postTypeSchema.Enum.productivity:
+      //   postTypeText = "생산성 게시글"; // Example
+      //   break;
+      // case postTypeSchema.Enum.nextjs:
+      //   postTypeText = "Next.js 게시글"; // Example
+      //   break;
+      // case postTypeSchema.Enum.FSD:
+      //   postTypeText = "F.S.D 게시글"; // Example
+      //   break;
       default:
         postTypeText = "게시글";
     }
