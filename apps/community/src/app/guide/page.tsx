@@ -6,25 +6,26 @@ import {
 import {
   ArrowLeft,
   BookOpen,
-  MessageSquare,
-  Code2,
   Brain,
+  Clock,
+  Code2,
   Eye,
-  Lightbulb,
-  Rocket,
+  FileText,
   GraduationCap,
   HelpCircle,
+  Lightbulb,
   MessageCircle,
-  Clock,
-  Users,
-  FileText,
+  MessageSquare,
   MoreHorizontal,
+  Rocket,
+  Users,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+
 import {
-  getPostTypeDescription,
   getPostCategoryDescription,
+  getPostTypeDescription,
 } from "@/shared/constant/post";
 
 export const metadata: Metadata = {
@@ -207,7 +208,7 @@ export default function GuidePage() {
                     </h3>
                   </div>
                   <p className="text-sm leading-relaxed text-gray-600">
-                    {getPostTypeDescription(type as any)}
+                    {getPostTypeDescription(type)}
                   </p>
                 </div>
               );
@@ -272,8 +273,8 @@ export default function GuidePage() {
                 구체적으로 질문하기
               </h3>
               <p className="text-sm leading-relaxed text-gray-600">
-                "Next.js에서 서버 액션 사용 시 에러 핸들링은 어떻게 하나요?"처럼
-                구체적인 상황과 함께 질문해보세요.
+                &quot;Next.js에서 서버 액션 사용 시 에러 핸들링은 어떻게
+                하나요?&quot;처럼 구체적인 상황과 함께 질문해보세요.
               </p>
             </div>
             <div className="rounded-lg border bg-white p-6 text-center shadow-sm">
@@ -322,8 +323,8 @@ export default function GuidePage() {
                 ❌ 피해야 할 방법
               </h3>
               <ul className="space-y-2 text-sm text-red-800">
-                <li>• "급해요", "도와주세요"만 적기</li>
-                <li>• 에러 메시지 없이 "안 돼요" 표현</li>
+                <li>• &quot;급해요&quot;, &quot;도와주세요&quot;만 적기</li>
+                <li>• 에러 메시지 없이 &quot;안 돼요&quot; 표현</li>
                 <li>• 과도하게 긴 코드 덤핑</li>
                 <li>• 관련 없는 주제에 글 올리기</li>
                 <li>• 답변자에게 추가 설명 요구만 하기</li>
