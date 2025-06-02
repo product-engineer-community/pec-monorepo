@@ -29,8 +29,9 @@ export type postType =
 type communityPostType = Exclude<postType, "article">;
 
 // Helper function to get post type display name
-export function getPostTypeDisplayName(type: communityPostType): string {
+export function getPostTypeDisplayName(type: postType): string {
   return {
+    article: "Article",
     productivity: "생산성",
     AI: "AI",
     sideproject: "사이드 프로젝트",
@@ -47,20 +48,20 @@ export const HEADER_MENU_ITEMS = [
     href: COMMUNITY_PATHNAME,
     items: [
       {
-        label: getPostTypeDisplayName("productivity"),
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
+        label: getPostTypeDisplayName("codereview"),
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_CODEREVIEW_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("FSD"),
         href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_FSD_PATHNAME}`,
       },
       {
-        label: getPostTypeDisplayName("nextjs"),
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_NEXTJS_PATHNAME}`,
+        label: getPostTypeDisplayName("productivity"),
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_PRODUCTIVITY_PATHNAME}`,
       },
       {
-        label: getPostTypeDisplayName("codereview"),
-        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_CODEREVIEW_PATHNAME}`,
+        label: getPostTypeDisplayName("nextjs"),
+        href: `${getOrigin()}${COMMUNITY_PATHNAME}${COMMUNITY_NEXTJS_PATHNAME}`,
       },
       {
         label: getPostTypeDisplayName("AI"),

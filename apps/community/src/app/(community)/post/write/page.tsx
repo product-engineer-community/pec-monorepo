@@ -1,6 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+import { PostWritePageTitle } from "@/entities/post/ui/PostWritePageTitle";
 
 const PostForm = dynamic(() => import("@/src/widgets/PostForm"), {
   ssr: false,
@@ -9,7 +12,9 @@ const PostForm = dynamic(() => import("@/src/widgets/PostForm"), {
 export default function CreatePostPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
-      <h1 className="mb-6 text-2xl font-bold">새 글 작성</h1>
+      <Suspense>
+        <PostWritePageTitle />
+      </Suspense>
       <PostForm />
     </div>
   );

@@ -37,10 +37,17 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
     label: "Home",
     href: COMMUNITY_LANDING_PATHNAME,
   },
-  // New Board Links (Top-level)
   {
     label: "Community",
     items: [
+      {
+        label: getPostTypeDisplayName(postType.Enum.codereview),
+        href: COMMUNITY_CODEREVIEW_PATHNAME,
+      },
+      {
+        label: getPostTypeDisplayName(postType.Enum.FSD),
+        href: COMMUNITY_FSD_PATHNAME,
+      },
       {
         label: getPostTypeDisplayName(postType.Enum.productivity),
         href: COMMUNITY_PRODUCTIVITY_PATHNAME,
@@ -48,14 +55,6 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
       {
         label: getPostTypeDisplayName(postType.Enum.nextjs),
         href: COMMUNITY_NEXTJS_PATHNAME,
-      },
-      {
-        label: getPostTypeDisplayName(postType.Enum.FSD),
-        href: COMMUNITY_FSD_PATHNAME,
-      },
-      {
-        label: getPostTypeDisplayName(postType.Enum.codereview),
-        href: COMMUNITY_CODEREVIEW_PATHNAME,
       },
       {
         label: getPostTypeDisplayName(postType.Enum.AI),

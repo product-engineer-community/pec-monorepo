@@ -17,7 +17,6 @@ import { SelectCategory } from "@/src/entities/post/ui/SelectCategory";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
 
-
 // 초기 상태 정의
 type FormState = {
   error?: string;
@@ -65,9 +64,7 @@ export default function PostForm({
   isEdit = false,
 }: PostFormProps) {
   const router = useRouter();
-  const initialPostType = usePostType();
-  const initialType = defaultValues?.type || initialPostType;
-  const [postType, setPostType] = useState<PostType>(initialType);
+  const postType = usePostType();
 
   // 컨트롤된 상태 (content, tags만)
   const [content, setContent] = useState(defaultValues?.content || "");
@@ -140,23 +137,6 @@ export default function PostForm({
 
   return (
     <form action={formAction} className="space-y-6">
-      {!isEdit && (
-        // responsive layout
-        <div className="flex flex-wrap gap-4">
-          {Object.values(postTypeSchema.Enum).map((type) => (
-            <Button
-              key={type}
-              type="button"
-              variant={postType === type ? "default" : "outline"}
-              onClick={() => setPostType(type)}
-              className="capitalize"
-            >
-              {type}
-            </Button>
-          ))}
-        </div>
-      )}
-
       <div className="space-y-2">
         <label className="text-sm font-medium">글 제목</label>
         <Input
