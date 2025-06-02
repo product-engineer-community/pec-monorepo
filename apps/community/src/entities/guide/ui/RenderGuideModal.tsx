@@ -1,16 +1,12 @@
 "use client";
 
+import { useAuth } from "@packages/auth/src/features";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface RenderGuideModalProps {
-  isAuthenticated: boolean;
-}
-
-export default function RenderGuideModal({
-  isAuthenticated,
-}: RenderGuideModalProps) {
+export default function RenderGuideModal() {
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     // 인증된 사용자만 체크

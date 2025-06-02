@@ -1,7 +1,12 @@
 "use client";
 
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
-import { Button, Input, type PostType } from "@packages/ui";
+import {
+  Button,
+  Input,
+  PostType,
+  postType as postTypeSchema,
+} from "@packages/ui";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -11,6 +16,7 @@ import { Editor } from "@/shared/components/editor";
 import { SelectCategory } from "@/src/entities/post/ui/SelectCategory";
 import { createPost, updatePost } from "@/src/features/post/action";
 import { usePostType } from "@/src/features/post/model/use-post-type";
+
 
 // 초기 상태 정의
 type FormState = {
@@ -135,31 +141,19 @@ export default function PostForm({
   return (
     <form action={formAction} className="space-y-6">
       {!isEdit && (
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            variant={postType === "question" ? "default" : "outline"}
-            onClick={() => setPostType("question")}
-            className="capitalize"
-          >
-            question
-          </Button>
-          <Button
-            type="button"
-            variant={postType === "discussion" ? "default" : "outline"}
-            onClick={() => setPostType("discussion")}
-            className="capitalize"
-          >
-            discussion
-          </Button>
-          <Button
-            type="button"
-            variant={postType === "article" ? "default" : "outline"}
-            onClick={() => setPostType("article")}
-            className="capitalize"
-          >
-            article
-          </Button>
+        // responsive layout
+        <div className="flex flex-wrap gap-4">
+          {Object.values(postTypeSchema.Enum).map((type) => (
+            <Button
+              key={type}
+              type="button"
+              variant={postType === type ? "default" : "outline"}
+              onClick={() => setPostType(type)}
+              className="capitalize"
+            >
+              {type}
+            </Button>
+          ))}
         </div>
       )}
 
@@ -179,7 +173,7 @@ export default function PostForm({
         </div>
       </div>
 
-      {postType !== "article" && (
+      {postType !== postTypeSchema.Enum.article && (
         <div className="space-y-2">
           <label className="text-sm font-medium">카테고리</label>
           <SelectCategory
@@ -190,9 +184,9 @@ export default function PostForm({
         </div>
       )}
 
-      {postType === "discussion" && (
+      {postType !== postTypeSchema.Enum.article && (
         <div className="space-y-2">
-          <label className="text-sm font-medium">태그</label>
+          <label className="text-sm font-medium">태그 (선택 사항)</label>
           <div className="mb-2 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <div
@@ -211,14 +205,14 @@ export default function PostForm({
             ))}
           </div>
           <Input
-            name="tag-input"
+            name="tag-input" // This input doesn't directly set form data, handleAddTag manages 'tags' state
             onKeyDown={handleAddTag}
-            placeholder="작성후 엔터를 입력해 추가하세요"
+            placeholder="태그 작성 후 엔터"
           />
         </div>
       )}
 
-      {postType === "article" && (
+      {postType === postTypeSchema.Enum.article && (
         <div className="space-y-2">
           <label className="text-sm font-medium">썸네일 URL</label>
           <Input

@@ -2,15 +2,16 @@
 
 import {
   COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_DISCUSSIONS_PATHNAME,
-  COMMUNITY_QUESTIONS_PATHNAME,
+  COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_NEXTJS_PATHNAME,
+  COMMUNITY_PRODUCTIVITY_PATHNAME,
 } from "@packages/constants";
 import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@packages/supabase";
-import { noop, PostType } from "@packages/ui";
+import { noop, PostType, postType as postTypeSchema } from "@packages/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { match } from "ts-pattern";
@@ -63,7 +64,28 @@ export async function togglePostLike(postId: string) {
     }
 
     if (post?.type) {
-      revalidatePath(`/${post.type}s/${postId}`);
+      // TODO: Refactor this path construction to be more robust like redirects
+      let basePath = "";
+      switch (post.type) {
+        case postTypeSchema.Enum.article:
+          basePath = COMMUNITY_ARTICLES_PATHNAME;
+          break;
+        case postTypeSchema.Enum.productivity:
+          basePath = COMMUNITY_PRODUCTIVITY_PATHNAME;
+          break;
+        case postTypeSchema.Enum.nextjs:
+          basePath = COMMUNITY_NEXTJS_PATHNAME;
+          break;
+        case postTypeSchema.Enum.FSD:
+          basePath = COMMUNITY_FSD_PATHNAME;
+          break;
+        default:
+          // Fallback or error for unknown types
+          console.warn(`Unknown post type for revalidation: ${post.type}`);
+          basePath = `/community/${post.type}s`; // current potentially problematic fallback
+      }
+      revalidatePath(`${basePath}/${postId}`);
+      revalidatePath(basePath); // also revalidate the listing page
     }
 
     return { isLiked: !existingLike };
@@ -128,23 +150,31 @@ export async function createPost(
 
     // 게시물 유형별 추가 데이터
     let finalPost;
+    // TODO: Adjust fields for new post types once defined. For now, using placeholders.
     switch (postType) {
-      case "discussion":
+      case postTypeSchema.Enum.nextjs:
         finalPost = {
           ...basePost,
-          category: category || "",
-          tags,
+          category: category || "", // Placeholder
+          tags, // Placeholder
         };
         break;
-      case "question":
+      case postTypeSchema.Enum.productivity:
         finalPost = {
           ...basePost,
-          category: category || "",
-          solved: false,
-          answer_id: null,
+          category: category || "", // Placeholder
+          solved: false, // Placeholder
+          answer_id: null, // Placeholder
         };
         break;
-      case "article":
+      case postTypeSchema.Enum.FSD:
+        finalPost = {
+          ...basePost,
+          category: category || "", // Placeholder
+          tags, // Placeholder
+        };
+        break;
+      case postTypeSchema.Enum.article:
         finalPost = {
           ...basePost,
           thumbnail_url: thumbnailUrl || null,
@@ -178,7 +208,18 @@ export async function createPost(
     console.error("Error creating post:", error);
     return { error: "포스트 생성 중 오류가 발생했습니다." };
   }
-  redirect(`/${postType}s/${createdPost.id}`);
+
+  const redirectPath = match(postType)
+    .with(
+      postTypeSchema.Enum.productivity,
+      () => COMMUNITY_PRODUCTIVITY_PATHNAME,
+    )
+    .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
+    .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
+    .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
+    .otherwise(() => "/community"); // Fallback
+
+  redirect(`${redirectPath}/${createdPost.id}`);
 }
 
 export async function getPostType(postId: string) {
@@ -225,10 +266,14 @@ export async function deletePost(postId: string, postType: PostType) {
 
   // 일반적으로 쓰는 스타일
   const newPath = match(postType)
-    .with("question", () => COMMUNITY_QUESTIONS_PATHNAME)
-    .with("discussion", () => COMMUNITY_DISCUSSIONS_PATHNAME)
-    .with("article", () => COMMUNITY_ARTICLES_PATHNAME)
-    .exhaustive();
+    .with(
+      postTypeSchema.Enum.productivity,
+      () => COMMUNITY_PRODUCTIVITY_PATHNAME,
+    )
+    .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
+    .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
+    .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
+    .otherwise(() => "/community"); // Fallback for any unexpected type
 
   revalidatePath(newPath);
   redirect(newPath);
@@ -289,21 +334,29 @@ export async function updatePost(postId: string, formData: FormData) {
 
     // 게시물 유형별 추가 데이터
     let finalUpdate;
+    // TODO: Adjust fields for new post types once defined
     switch (post.type) {
-      case "discussion":
+      case postTypeSchema.Enum.nextjs:
         finalUpdate = {
           ...baseUpdate,
-          category: category || "",
-          tags,
+          category: category || "", // Placeholder
+          tags, // Placeholder
         };
         break;
-      case "question":
+      case postTypeSchema.Enum.productivity:
         finalUpdate = {
           ...baseUpdate,
-          category: category || "",
+          category: category || "", // Placeholder
         };
         break;
-      case "article":
+      case postTypeSchema.Enum.FSD:
+        finalUpdate = {
+          ...baseUpdate,
+          category: category || "", // Placeholder
+          tags, // Placeholder
+        };
+        break;
+      case postTypeSchema.Enum.article:
         finalUpdate = {
           ...baseUpdate,
           thumbnail_url: thumbnailUrl || null,
@@ -321,7 +374,28 @@ export async function updatePost(postId: string, formData: FormData) {
     if (error) throw error;
 
     // 캐시 무효화
-    revalidatePath(`/${post.type}s/${postId}`);
+    // TODO: Refactor this path construction to be more robust like redirects
+    let basePath = "";
+    switch (post.type) {
+      case postTypeSchema.Enum.article:
+        basePath = COMMUNITY_ARTICLES_PATHNAME;
+        break;
+      case postTypeSchema.Enum.productivity:
+        basePath = COMMUNITY_PRODUCTIVITY_PATHNAME;
+        break;
+      case postTypeSchema.Enum.nextjs:
+        basePath = COMMUNITY_NEXTJS_PATHNAME;
+        break;
+      case postTypeSchema.Enum.FSD:
+        basePath = COMMUNITY_FSD_PATHNAME;
+        break;
+      default:
+        // Fallback or error for unknown types
+        console.warn(`Unknown post type for revalidation: ${post.type}`);
+        basePath = `/community/${post.type}s`; // current potentially problematic fallback
+    }
+    revalidatePath(`${basePath}/${postId}`);
+    revalidatePath(basePath); // also revalidate the listing page
 
     return { success: true, postId, type: post.type };
   } catch (error) {

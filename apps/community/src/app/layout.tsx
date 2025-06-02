@@ -1,11 +1,12 @@
 import "@/app/globals.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Header } from "@packages/auth/src/widgets";
+import { Header, TokenHandlerInBrowser } from "@packages/auth/src/widgets";
 import { DropdownMenuWithPoint } from "@packages/point/src/entities";
 import { BaseLayout } from "@packages/ui";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -38,6 +39,9 @@ export default function RootLayout({
       <BaseLayout
         header={<Header DropdownMenuWithPoint={<DropdownMenuWithPoint />} />}
       >
+        <Suspense>
+          <TokenHandlerInBrowser />
+        </Suspense>
         {children}
       </BaseLayout>
       <GoogleAnalytics gaId="G-WGBMGCF9MG" />

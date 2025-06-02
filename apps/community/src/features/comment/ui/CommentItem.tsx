@@ -71,7 +71,11 @@ export function CommentItem({
             isAuthenticated={Boolean(currentUserId)}
           />
           {!isReply && (
-            <CommentReplyButton commentId={comment.id} onReply={handleReply} />
+            <CommentReplyButton
+              commentId={comment.id}
+              onReply={handleReply}
+              disabled={!currentUserId}
+            />
           )}
           <CommentDeleteButton
             commentId={comment.id}

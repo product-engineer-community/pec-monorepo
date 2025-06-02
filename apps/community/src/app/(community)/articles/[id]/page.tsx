@@ -1,5 +1,5 @@
-import { getIsAuthenticated } from "@packages/auth/src/features";
 import { COMMUNITY_PATHNAME } from "@packages/constants";
+import { postType } from "@packages/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -51,17 +51,13 @@ export async function generateMetadata({
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { id } = await params;
 
-  // 조회수 증가
-  await incrementViewCount(id);
-
-  const [article, isAuthenticated] = await Promise.all([
-    getPost(id),
-    getIsAuthenticated(),
-  ]);
-
+  const article = await getPost(id);
   if (!article) {
     return notFound();
   }
+
+  // 조회수 증가
+  await incrementViewCount(id);
 
   return (
     <div className="mx-auto lg:container lg:py-8">
@@ -73,13 +69,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         >
           <ArticleDetail
             id={id}
-            deleteButton={<DeletePostButton postType="article" postId={id} />}
+            deleteButton={
+              <DeletePostButton postType={postType.Enum.article} postId={id} />
+            }
             postLikeButton={
               <PostLikeButton
                 postId={id}
                 initialLikes={article.likes_count}
                 initialIsLiked={article.is_liked}
-                isAuthenticated={isAuthenticated}
               />
             }
             editButton={<EditPostButton postId={id} />}
@@ -89,7 +86,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       <div className="border-t pt-8">
         <Suspense fallback={<CommentsSkeleton />}>
-          <Comments postId={id} />
+          <Comments postType={postType.Enum.article} postId={id} />
         </Suspense>
       </div>
     </div>
