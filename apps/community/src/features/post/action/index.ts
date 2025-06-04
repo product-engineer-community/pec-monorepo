@@ -261,6 +261,7 @@ export async function updatePost(postId: string, formData: FormData) {
 
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
+  const postType = formData.get("postType") as PostType;
   const category = formData.get("category") as string;
   const tagsString = formData.get("tags") as string;
   const thumbnailUrl = formData.get("thumbnail_url") as string;
@@ -332,14 +333,12 @@ export async function updatePost(postId: string, formData: FormData) {
       .eq("id", postId);
 
     if (error) throw error;
-
-    const redirectPath = getPostTypePathname(post.type as PostType);
-    revalidatePath(`${redirectPath}/${postId}`);
-    revalidatePath(redirectPath); // also revalidate the listing page
-
-    return { success: true, postId, type: post.type };
   } catch (error) {
     console.error("Error updating post:", error);
     return { error: "게시물 수정 중 오류가 발생했습니다." };
   }
+
+  const redirectPath = getPostTypePathname(postType);
+  revalidatePath(`${redirectPath}/${postId}`);
+  redirect(`${redirectPath}/${postId}`); // also revalidate the listing page
 }
