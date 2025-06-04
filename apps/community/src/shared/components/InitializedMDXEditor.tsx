@@ -10,6 +10,7 @@ import {
   headingsPlugin,
   imagePlugin,
   InsertCodeBlock,
+  InsertImage,
   linkPlugin,
   listsPlugin,
   ListsToggle,
@@ -23,28 +24,33 @@ import {
 } from "@mdxeditor/editor";
 import type { ForwardedRef } from "react";
 
+export const imageUploadHandler = async (image: File) => {
+  const formData = new FormData();
+  formData.append("image", image);
+  // send the file to your server and return
+  // the URL of the uploaded image in the response
+  const response = await fetch("/community/api/upload/image", {
+    method: "POST",
+    body: formData,
+  });
+  const json = (await response.json()) as { url: string };
+  return json.url;
+};
+
 export default function InitializedMDXEditor({
   editorRef,
   ...props
 }: { editorRef: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
-  const imageUploadHandler = async (image: File) => {
-    const formData = new FormData();
-    formData.append("image", image);
-    // send the file to your server and return
-    // the URL of the uploaded image in the response
-    const response = await fetch("/api/upload/image", {
-      method: "POST",
-      body: formData,
-    });
-    const json = (await response.json()) as { url: string };
-    return json.url;
-  };
-
   return (
     <MDXEditor
       contentEditableClassName="prose prose-sm max-w-none prose-ul:list-disc prose-ol:list-decimal pl-5"
       plugins={[
-        imagePlugin({ imageUploadHandler }),
+        imagePlugin({
+          imageUploadHandler: imageUploadHandler,
+          // () => {
+          //   return Promise.resolve("https://picsum.photos/200/300");
+          // },
+        }),
         headingsPlugin(),
         listsPlugin(),
         quotePlugin(),
@@ -72,6 +78,7 @@ export default function InitializedMDXEditor({
               <BlockTypeSelect />
               <CreateLink />
               <InsertCodeBlock />
+              <InsertImage />
             </>
           ),
         }),

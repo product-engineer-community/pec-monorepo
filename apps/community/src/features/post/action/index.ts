@@ -1,10 +1,15 @@
 "use server";
 
 import {
+  COMMUNITY_AI_PATHNAME,
   COMMUNITY_ARTICLES_PATHNAME,
   COMMUNITY_FSD_PATHNAME,
+  COMMUNITY_LEARNING_PATHNAME,
   COMMUNITY_NEXTJS_PATHNAME,
+  COMMUNITY_POST_PATHNAME,
   COMMUNITY_PRODUCTIVITY_PATHNAME,
+  COMMUNITY_SIDEPROJECT_PATHNAME,
+  getPostTypePathname,
 } from "@packages/constants";
 import { grantPointAction } from "@packages/point/src/features";
 import {
@@ -63,30 +68,10 @@ export async function togglePostLike(postId: string) {
       return { error: `좋아요 ${action} 중 오류가 발생했습니다.` };
     }
 
-    if (post?.type) {
-      // TODO: Refactor this path construction to be more robust like redirects
-      let basePath = "";
-      switch (post.type) {
-        case postTypeSchema.Enum.article:
-          basePath = COMMUNITY_ARTICLES_PATHNAME;
-          break;
-        case postTypeSchema.Enum.productivity:
-          basePath = COMMUNITY_PRODUCTIVITY_PATHNAME;
-          break;
-        case postTypeSchema.Enum.nextjs:
-          basePath = COMMUNITY_NEXTJS_PATHNAME;
-          break;
-        case postTypeSchema.Enum.FSD:
-          basePath = COMMUNITY_FSD_PATHNAME;
-          break;
-        default:
-          // Fallback or error for unknown types
-          console.warn(`Unknown post type for revalidation: ${post.type}`);
-          basePath = `/community/${post.type}s`; // current potentially problematic fallback
-      }
-      revalidatePath(`${basePath}/${postId}`);
-      revalidatePath(basePath); // also revalidate the listing page
-    }
+    const redirectPath = getPostTypePathname(post?.type as PostType);
+
+    revalidatePath(`${redirectPath}/${postId}`);
+    revalidatePath(redirectPath); // also revalidate the listing page
 
     return { isLiked: !existingLike };
   } catch (error) {
@@ -202,23 +187,14 @@ export async function createPost(
     if (data.author_id) {
       await grantPointAction(data.author_id, "post");
     }
-    // 캐시 무효화
-    revalidatePath("/");
   } catch (error) {
     console.error("Error creating post:", error);
     return { error: "포스트 생성 중 오류가 발생했습니다." };
   }
 
-  const redirectPath = match(postType)
-    .with(
-      postTypeSchema.Enum.productivity,
-      () => COMMUNITY_PRODUCTIVITY_PATHNAME,
-    )
-    .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
-    .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
-    .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
-    .otherwise(() => "/community"); // Fallback
+  const redirectPath = getPostTypePathname(postType);
 
+  revalidatePath(`${redirectPath}`);
   redirect(`${redirectPath}/${createdPost.id}`);
 }
 
@@ -264,19 +240,9 @@ export async function deletePost(postId: string, postType: PostType) {
     return { error: "게시물 삭제 중 오류가 발생했습니다." };
   }
 
-  // 일반적으로 쓰는 스타일
-  const newPath = match(postType)
-    .with(
-      postTypeSchema.Enum.productivity,
-      () => COMMUNITY_PRODUCTIVITY_PATHNAME,
-    )
-    .with(postTypeSchema.Enum.nextjs, () => COMMUNITY_NEXTJS_PATHNAME)
-    .with(postTypeSchema.Enum.FSD, () => COMMUNITY_FSD_PATHNAME)
-    .with(postTypeSchema.Enum.article, () => COMMUNITY_ARTICLES_PATHNAME)
-    .otherwise(() => "/community"); // Fallback for any unexpected type
-
-  revalidatePath(newPath);
-  redirect(newPath);
+  const redirectPath = getPostTypePathname(postType);
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
 }
 
 /**
@@ -336,30 +302,24 @@ export async function updatePost(postId: string, formData: FormData) {
     let finalUpdate;
     // TODO: Adjust fields for new post types once defined
     switch (post.type) {
-      case postTypeSchema.Enum.nextjs:
-        finalUpdate = {
-          ...baseUpdate,
-          category: category || "", // Placeholder
-          tags, // Placeholder
-        };
-        break;
       case postTypeSchema.Enum.productivity:
-        finalUpdate = {
-          ...baseUpdate,
-          category: category || "", // Placeholder
-        };
-        break;
+      case postTypeSchema.Enum.sideproject:
+      case postTypeSchema.Enum.learning:
+      case postTypeSchema.Enum.AI:
       case postTypeSchema.Enum.FSD:
+      case postTypeSchema.Enum.nextjs:
+      case postTypeSchema.Enum.codereview:
         finalUpdate = {
           ...baseUpdate,
           category: category || "", // Placeholder
-          tags, // Placeholder
+          tags,
         };
         break;
       case postTypeSchema.Enum.article:
         finalUpdate = {
           ...baseUpdate,
           thumbnail_url: thumbnailUrl || null,
+          tags,
         };
         break;
       default:
@@ -373,29 +333,9 @@ export async function updatePost(postId: string, formData: FormData) {
 
     if (error) throw error;
 
-    // 캐시 무효화
-    // TODO: Refactor this path construction to be more robust like redirects
-    let basePath = "";
-    switch (post.type) {
-      case postTypeSchema.Enum.article:
-        basePath = COMMUNITY_ARTICLES_PATHNAME;
-        break;
-      case postTypeSchema.Enum.productivity:
-        basePath = COMMUNITY_PRODUCTIVITY_PATHNAME;
-        break;
-      case postTypeSchema.Enum.nextjs:
-        basePath = COMMUNITY_NEXTJS_PATHNAME;
-        break;
-      case postTypeSchema.Enum.FSD:
-        basePath = COMMUNITY_FSD_PATHNAME;
-        break;
-      default:
-        // Fallback or error for unknown types
-        console.warn(`Unknown post type for revalidation: ${post.type}`);
-        basePath = `/community/${post.type}s`; // current potentially problematic fallback
-    }
-    revalidatePath(`${basePath}/${postId}`);
-    revalidatePath(basePath); // also revalidate the listing page
+    const redirectPath = getPostTypePathname(post.type as PostType);
+    revalidatePath(`${redirectPath}/${postId}`);
+    revalidatePath(redirectPath); // also revalidate the listing page
 
     return { success: true, postId, type: post.type };
   } catch (error) {
