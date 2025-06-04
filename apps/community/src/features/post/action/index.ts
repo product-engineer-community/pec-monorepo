@@ -1,16 +1,6 @@
 "use server";
 
-import {
-  COMMUNITY_AI_PATHNAME,
-  COMMUNITY_ARTICLES_PATHNAME,
-  COMMUNITY_FSD_PATHNAME,
-  COMMUNITY_LEARNING_PATHNAME,
-  COMMUNITY_NEXTJS_PATHNAME,
-  COMMUNITY_POST_PATHNAME,
-  COMMUNITY_PRODUCTIVITY_PATHNAME,
-  COMMUNITY_SIDEPROJECT_PATHNAME,
-  getPostTypePathname,
-} from "@packages/constants";
+import { getPostTypePathname } from "@packages/constants";
 import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
@@ -19,7 +9,6 @@ import {
 import { noop, PostType, postType as postTypeSchema } from "@packages/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { match } from "ts-pattern";
 
 import { NotifyChannel, notifyPost } from "@/src/shared/api";
 
