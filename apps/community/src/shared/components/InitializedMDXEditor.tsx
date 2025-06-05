@@ -29,7 +29,7 @@ export const imageUploadHandler = async (image: File) => {
   formData.append("image", image);
   // send the file to your server and return
   // the URL of the uploaded image in the response
-  const response = await fetch("/community/api/upload/image", {
+  const response = await fetch("/community/api/image", {
     method: "POST",
     body: formData,
   });
