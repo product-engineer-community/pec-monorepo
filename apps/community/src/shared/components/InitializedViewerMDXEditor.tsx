@@ -31,7 +31,7 @@ export default function InitializedViewerMDXEditor({
         listsPlugin(),
         quotePlugin(),
         codeBlockPlugin(),
-      codeMirrorPlugin({
+        codeMirrorPlugin({
           codeBlockLanguages: {
             js: "JavaScript",
             jsx: "JSX",
