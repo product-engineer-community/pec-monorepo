@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@packages/ui";
+import { Button, PostType } from "@packages/ui";
 import { TrashIcon } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -20,6 +21,8 @@ export function CommentDeleteButton({
   authorId,
   currentUserId,
 }: CommentDeleteButtonProps) {
+  const params = useParams<{ type: PostType; id: string }>();
+  const postType = params.type as PostType;
   const [isLoading, setIsLoading] = useState(false);
   const canDelete = currentUserId && currentUserId === authorId;
 
@@ -32,7 +35,7 @@ export function CommentDeleteButton({
 
     try {
       setIsLoading(true);
-      await deleteComment(commentId, postId);
+      await deleteComment(commentId, postId, postType);
       toast.success("댓글이 삭제되었습니다.");
     } catch (error) {
       toast.error("댓글 삭제 중 오류가 발생했습니다.");
