@@ -66,7 +66,6 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const post = await getPost(id);
-
   if (!post) {
     notFound();
   }
@@ -88,7 +87,7 @@ export default async function PostPage({ params }: PostPageProps) {
             postLikeButton={
               <PostLikeButton
                 postId={id}
-                initialLikes={post.likes_count || 0}
+                initialLikesCount={post.likes_count || 0}
                 initialIsLiked={post.is_liked || false}
               />
             }

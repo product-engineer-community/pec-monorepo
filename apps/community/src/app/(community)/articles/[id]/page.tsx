@@ -75,7 +75,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             postLikeButton={
               <PostLikeButton
                 postId={id}
-                initialLikes={article.likes_count}
+                initialLikesCount={article.likes_count}
                 initialIsLiked={article.is_liked}
               />
             }
