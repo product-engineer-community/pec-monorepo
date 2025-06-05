@@ -22,7 +22,7 @@ export default async function FSDPage() {
     <div className="container py-6">
       <PostHeader
         title="F.S.D"
-        description="Full Stack Development topics, from frontend to backend."
+        description="Full Stack Development topics, from frontend to backend. Join the discussion!"
         postTypeForWriteButton={postTypeSchema.Enum.FSD}
       />
       <PostList

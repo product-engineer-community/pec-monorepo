@@ -8,7 +8,7 @@ import { togglePostLike } from "../action";
 
 interface PostLikeButtonProps {
   postId: string;
-  initialLikes: number;
+  initialLikesCount: number;
   initialIsLiked: boolean;
   isAuthenticated?: boolean;
 }
@@ -44,13 +44,13 @@ function likeReducer(state: LikeState, action: LikeAction) {
 
 export function PostLikeButton({
   postId,
-  initialLikes,
+  initialLikesCount,
   initialIsLiked,
   isAuthenticated = false,
 }: PostLikeButtonProps) {
   const [isPending, startTransition] = useTransition();
   const [state, dispatch] = useReducer(likeReducer, {
-    likes: initialLikes,
+    likes: initialLikesCount,
     isLiked: initialIsLiked,
   });
 

@@ -22,7 +22,7 @@ export default async function NextjsPage() {
     <div className="container py-6">
       <PostHeader
         title="Next.js"
-        description="All about Next.js: questions, discussions, and showcases."
+        description="질문, 토론, 자랑하"
         postTypeForWriteButton={postTypeSchema.Enum.nextjs}
       />
       <PostList

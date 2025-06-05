@@ -65,7 +65,10 @@ export default async function FSDDetailPage({ params }: FSDPostPageProps) {
   }
 
   // 조회수 증가
-  incrementViewCount(id); // No await needed if it's fire-and-forget
+  incrementViewCount(id).catch(error => {
+    console.error(`Failed to increment view count for post ${id}:`, error);
+    // TODO: Consider integrating with a more sophisticated error tracking service here in the future.
+  });
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
@@ -82,7 +85,7 @@ export default async function FSDDetailPage({ params }: FSDPostPageProps) {
           postLikeButton={
             <PostLikeButton
               postId={id}
-              initialLikes={post.likes_count}
+              initialLikesCount={post.likes_count}
               initialIsLiked={post.is_liked}
               isAuthenticated={isAuthenticated}
             />
