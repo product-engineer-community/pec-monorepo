@@ -8,6 +8,10 @@
         "--access-token",
         "sbp_de0328423d794faa9e99898f759a3af3db7f1226"
       ]
+    },
+    "Figma Dev Mode MCP": {
+      "type": "sse",
+      "url": "http://127.0.0.1:3845/sse"
     }
   }
 }
