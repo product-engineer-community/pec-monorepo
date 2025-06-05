@@ -37,11 +37,13 @@ interface EditorProps {
  */
 export function Editor({ content, onChange }: EditorProps) {
   const editorRef = useRef<MDXEditorMethods>(null);
+  const prevContentRef = useRef(content);
 
   useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.setMarkdown(content);
+    if (content === "" && prevContentRef.current !== "") {
+      editorRef.current?.setMarkdown("");
     }
+    prevContentRef.current = content;
   }, [content]);
 
   return (
