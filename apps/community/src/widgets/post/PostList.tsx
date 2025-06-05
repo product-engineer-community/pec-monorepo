@@ -38,12 +38,7 @@ interface PostListProps {
 export function PostList({ postTypeToFetch, basePath }: PostListProps) {
   return (
     <div className="space-y-6">
-      <Suspense
-        fallback={
-          // Pass the postTypeToFetch to the variant prop of PostCardSkeleton
-          <PostCardSkeleton count={3} variant={postTypeToFetch} />
-        }
-      >
+      <Suspense fallback={<PostCardSkeleton count={3} />}>
         <PostListContent
           postTypeToFetch={postTypeToFetch}
           basePath={basePath}
