@@ -65,7 +65,6 @@ export function CommentItem({
         <div className="flex items-center gap-2">
           <CommentLikeButton
             commentId={comment.id}
-            postId={postId}
             initialLikesCount={comment.likes_count}
             initialIsLiked={comment.is_liked}
             isAuthenticated={Boolean(currentUserId)}

@@ -35,12 +35,6 @@ export function PostListItem({ post, basePath }: PostListItemProps) {
               <span>{post.author.username}</span>
               <span className="hidden sm:inline">•</span>
               <span>{getRelativeTime(post.created_at)}</span>
-              {post.type === postTypeSchema.Enum.productivity && (
-                <>
-                  <span className="hidden sm:inline">•</span>
-                  <span>Productivity</span>
-                </>
-              )}
             </div>
           </div>
           <div className="flex flex-shrink-0 gap-4 text-sm text-muted-foreground">
@@ -63,7 +57,7 @@ export function PostListItem({ post, basePath }: PostListItemProps) {
           )}
         {isArticle &&
           post.content && ( // For articles, maybe a shorter snippet or different presentation
-            <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
               {post.content.substring(0, 150) +
                 (post.content.length > 150 ? "..." : "")}
             </p>

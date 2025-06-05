@@ -1,15 +1,12 @@
 "use server";
 
-import {
-  COMMUNITY_FSD_PATHNAME,
-  COMMUNITY_NEXTJS_PATHNAME,
-  COMMUNITY_PRODUCTIVITY_PATHNAME,
-} from "@packages/constants"; // Added new path constants
+import { getPostTypePathname } from "@packages/constants"; // Added new path constants
 import { grantPointAction } from "@packages/point/src/features";
 import {
   getSupabaseServerClient,
   getUserFromSupabase,
 } from "@packages/supabase";
+import { PostType } from "@packages/ui";
 import { revalidatePath } from "next/cache";
 
 import { CommentWithAuthor } from "../model/types";
@@ -70,6 +67,7 @@ export async function createComment(
   postId: string,
   content: string,
   parentId: string | null = null,
+  postType: PostType,
 ) {
   const user = await getUserFromSupabase();
   const userId = user?.id;
@@ -94,20 +92,17 @@ export async function createComment(
 
   await grantPointAction(userId, "comment");
 
-  // Revalidate all relevant board paths
-  revalidatePath(`${COMMUNITY_PRODUCTIVITY_PATHNAME}/${postId}`);
-  revalidatePath(`${COMMUNITY_NEXTJS_PATHNAME}/${postId}`);
-  revalidatePath(`${COMMUNITY_FSD_PATHNAME}/${postId}`);
-  // Also revalidate the specific board listing pages if applicable
-  revalidatePath(COMMUNITY_PRODUCTIVITY_PATHNAME);
-  revalidatePath(COMMUNITY_NEXTJS_PATHNAME);
-  revalidatePath(COMMUNITY_FSD_PATHNAME);
+  revalidatePath(`${getPostTypePathname(postType)}/${postId}`);
 }
 
 /**
  * 댓글 삭제 함수
  */
-export async function deleteComment(commentId: string, postId: string) {
+export async function deleteComment(
+  commentId: string,
+  postId: string,
+  postType: PostType,
+) {
   const user = await getUserFromSupabase();
   const userId = user?.id;
 
@@ -124,20 +119,13 @@ export async function deleteComment(commentId: string, postId: string) {
 
   if (error) throw error;
 
-  // Revalidate all relevant board paths
-  revalidatePath(`${COMMUNITY_PRODUCTIVITY_PATHNAME}/${postId}`);
-  revalidatePath(`${COMMUNITY_NEXTJS_PATHNAME}/${postId}`);
-  revalidatePath(`${COMMUNITY_FSD_PATHNAME}/${postId}`);
-  // Also revalidate the specific board listing pages if applicable
-  revalidatePath(COMMUNITY_PRODUCTIVITY_PATHNAME);
-  revalidatePath(COMMUNITY_NEXTJS_PATHNAME);
-  revalidatePath(COMMUNITY_FSD_PATHNAME);
+  revalidatePath(`${getPostTypePathname(postType)}/${postId}`);
 }
 
 /**
  * 댓글 좋아요 토글 함수
  */
-export async function toggleCommentLike(commentId: string, postId: string) {
+export async function toggleCommentLike(commentId: string) {
   const user = await getUserFromSupabase();
   const userId = user?.id;
 
@@ -161,13 +149,4 @@ export async function toggleCommentLike(commentId: string, postId: string) {
       comment_id: commentId,
     });
   }
-
-  // Revalidate all relevant board paths
-  revalidatePath(`${COMMUNITY_PRODUCTIVITY_PATHNAME}/${postId}`);
-  revalidatePath(`${COMMUNITY_NEXTJS_PATHNAME}/${postId}`);
-  revalidatePath(`${COMMUNITY_FSD_PATHNAME}/${postId}`);
-  // Also revalidate the specific board listing pages if applicable
-  revalidatePath(COMMUNITY_PRODUCTIVITY_PATHNAME);
-  revalidatePath(COMMUNITY_NEXTJS_PATHNAME);
-  revalidatePath(COMMUNITY_FSD_PATHNAME);
 }

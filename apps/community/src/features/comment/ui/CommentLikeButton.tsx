@@ -8,7 +8,6 @@ import { toggleCommentLike } from "../action";
 
 interface CommentLikeButtonProps {
   commentId: string;
-  postId: string;
   initialLikesCount: number;
   initialIsLiked: boolean;
   isAuthenticated?: boolean;
@@ -45,7 +44,6 @@ function likeReducer(state: LikeState, action: LikeAction): LikeState {
 
 export function CommentLikeButton({
   commentId,
-  postId,
   initialLikesCount,
   initialIsLiked,
   isAuthenticated = false,
@@ -65,7 +63,7 @@ export function CommentLikeButton({
       dispatch({ type: "TOGGLE" });
 
       try {
-        await toggleCommentLike(commentId, postId);
+        await toggleCommentLike(commentId);
       } catch (error) {
         dispatch({ type: "REVERT" });
         console.error("댓글 좋아요 처리 중 오류 발생:", error);

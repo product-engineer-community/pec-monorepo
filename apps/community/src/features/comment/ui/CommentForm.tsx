@@ -2,7 +2,8 @@
 
 import { getUserEmail } from "@packages/auth/src/features";
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
-import { Button } from "@packages/ui";
+import { Button, PostType } from "@packages/ui";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -23,6 +24,8 @@ export function CommentForm({
   parentId = null,
   onCancel,
 }: CommentFormProps) {
+  const params = useParams<{ type: PostType; id: string }>();
+  const postType = params.type as PostType;
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,12 +37,15 @@ export function CommentForm({
 
     try {
       setIsLoading(true);
-      await createComment(postId, content, parentId);
+      await createComment(postId, content, parentId, postType);
       setContent("");
 
       const { authorId, type } = await getPostType(postId);
-      const { email } = await getUserEmail(authorId);
-      const { username } = await getUsername(authorId);
+      const [{ email }, { username }] = await Promise.all([
+        getUserEmail(authorId),
+        getUsername(authorId),
+      ]);
+
       if (email) {
         sendEmail({
           title: "작성하신 게시글에 댓글이 달렸어요!",
