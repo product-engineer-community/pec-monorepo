@@ -19,8 +19,8 @@ const MDXViewerComponent = dynamic(
 
 // 다른 컴포넌트에서 사용할 forwardRef 컴포넌트
 const ForwardRefEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
-  (props, ref) => {
-    return <MDXEditorComponent editorRef={ref} {...props} />;
+  (props) => {
+    return <MDXEditorComponent {...props} />;
   },
 );
 
@@ -42,7 +42,6 @@ export function Editor({ content, onChange }: EditorProps) {
         markdown={content}
         onChange={onChange}
         placeholder="내용을 입력하세요"
-        editorRef={null}
       />
     </div>
   );

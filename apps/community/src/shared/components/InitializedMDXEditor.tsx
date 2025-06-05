@@ -21,12 +21,9 @@ import {
   toolbarPlugin,
   UndoRedo,
 } from "@mdxeditor/editor";
-import type { ForwardedRef } from "react";
+import { useEffect, useRef } from "react";
 
-export default function InitializedMDXEditor({
-  editorRef,
-  ...props
-}: { editorRef: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
+export default function InitializedMDXEditor({ ...props }: MDXEditorProps) {
   const imageUploadHandler = async (image: File) => {
     const formData = new FormData();
     formData.append("image", image);
@@ -39,6 +36,13 @@ export default function InitializedMDXEditor({
     const json = (await response.json()) as { url: string };
     return json.url;
   };
+
+  const internalRef = useRef<MDXEditorMethods>(null);
+  useEffect(() => {
+    if (internalRef.current) {
+      internalRef.current.setMarkdown(props.markdown);
+    }
+  }, [props.markdown]);
 
   return (
     <MDXEditor
@@ -77,7 +81,7 @@ export default function InitializedMDXEditor({
         }),
       ]}
       {...props}
-      ref={editorRef}
+      ref={internalRef}
     />
   );
 }
