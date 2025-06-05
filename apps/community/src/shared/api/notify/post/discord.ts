@@ -28,7 +28,7 @@ const toNotifyNewPostDto = (options: NotifyNewPostOptions) => {
         title: title.length > 20 ? title.slice(0, 20) + "..." : title,
         description:
           content.length > 50 ? content.slice(0, 50) + "..." : content,
-        url: `https://www.productengineer.info/community/${getPostTypePathname(type)}/${postId}`,
+        url: `https://www.productengineer.info/community${getPostTypePathname(type)}/${postId}`,
         footer: {
           text: "Product Engineer Community",
         },
