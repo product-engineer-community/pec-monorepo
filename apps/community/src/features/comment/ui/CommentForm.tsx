@@ -1,9 +1,10 @@
 "use client";
 
+import { MDXEditorMethods } from "@mdxeditor/editor";
 import { getUserEmail } from "@packages/auth/src/features";
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
 import { Button } from "@packages/ui";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { createComment } from "@/features/comment";
@@ -23,10 +24,12 @@ export function CommentForm({
   parentId = null,
   onCancel,
 }: CommentFormProps) {
-  const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const editorRef = useRef<MDXEditorMethods | null>(null);
+
   const handleSubmit = async () => {
+    const content = editorRef.current?.getMarkdown() || "";
     if (!content.trim()) {
       toast.error("댓글 내용을 입력해주세요.");
       return;
@@ -35,7 +38,7 @@ export function CommentForm({
     try {
       setIsLoading(true);
       await createComment(postId, content, parentId);
-      setContent("");
+      editorRef.current?.setMarkdown("");
 
       const { authorId, type } = await getPostType(postId);
       const { email } = await getUserEmail(authorId);
@@ -64,7 +67,7 @@ export function CommentForm({
 
   return (
     <div className="space-y-4 rounded-lg border p-4">
-      <Editor content={content} onChange={setContent} />
+      <Editor ref={editorRef} />
       <div className="flex justify-end gap-2">
         {onCancel && (
           <Button variant="outline" onClick={onCancel} disabled={isLoading}>

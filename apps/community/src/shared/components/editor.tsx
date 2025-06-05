@@ -4,7 +4,7 @@ import "@mdxeditor/editor/style.css";
 
 import type { MDXEditorMethods, MDXEditorProps } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef } from "react";
 
 // 에디터 동적 가져오기 (SSR 비활성화)
 const MDXEditorComponent = dynamic(() => import("./InitializedMDXEditor"), {
@@ -28,35 +28,28 @@ ForwardRefEditor.displayName = "ForwardRefEditor";
 
 // 에디터 Props
 interface EditorProps {
-  content: string;
-  onChange: (value: string) => void;
+  defaultValue?: string;
+  placeholder?: string;
 }
 
 /**
  * 마크다운 에디터 컴포넌트
  */
-export function Editor({ content, onChange }: EditorProps) {
-  const editorRef = useRef<MDXEditorMethods>(null);
-  const prevContentRef = useRef(content);
+export const Editor = forwardRef<MDXEditorMethods, EditorProps>(
+  ({ defaultValue = "", placeholder = "내용을 입력하세요" }, ref) => {
+    return (
+      <div className="[&_.MarkdownEditor-content]:prose [&_.MarkdownEditor-content]:prose-sm [&_.MarkdownEditor-content]:max-w-none">
+        <ForwardRefEditor
+          markdown={defaultValue}
+          placeholder={placeholder}
+          ref={ref}
+        />
+      </div>
+    );
+  },
+);
 
-  useEffect(() => {
-    if (content === "" && prevContentRef.current !== "") {
-      editorRef.current?.setMarkdown("");
-    }
-    prevContentRef.current = content;
-  }, [content]);
-
-  return (
-    <div className="[&_.MarkdownEditor-content]:prose [&_.MarkdownEditor-content]:prose-sm [&_.MarkdownEditor-content]:max-w-none">
-      <ForwardRefEditor
-        markdown={content}
-        onChange={onChange}
-        placeholder="내용을 입력하세요"
-        ref={editorRef}
-      />
-    </div>
-  );
-}
+Editor.displayName = "Editor";
 
 // 마크다운 뷰어 Props
 interface MarkdownViewerProps {
