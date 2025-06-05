@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   return (
     <main className="flex h-full flex-col items-center justify-center gap-4 bg-white px-6 text-center">
       <Image
-        src="/not-found.webp"
+        src="/community/not-found.webp"
         alt="404"
         width={300}
         height={300}
