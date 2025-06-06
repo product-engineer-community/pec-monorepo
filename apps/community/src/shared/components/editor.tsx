@@ -20,7 +20,7 @@ const MDXViewerComponent = dynamic(
 // 다른 컴포넌트에서 사용할 forwardRef 컴포넌트
 const ForwardRefEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
   (props, ref) => {
-    return <MDXEditorComponent editorRef={ref} {...props} />;
+    return <MDXEditorComponent {...props} ref={ref} />;
   },
 );
 
@@ -28,25 +28,28 @@ ForwardRefEditor.displayName = "ForwardRefEditor";
 
 // 에디터 Props
 interface EditorProps {
-  content: string;
-  onChange: (value: string) => void;
+  defaultValue?: string;
+  placeholder?: string;
 }
 
 /**
  * 마크다운 에디터 컴포넌트
  */
-export function Editor({ content, onChange }: EditorProps) {
-  return (
-    <div className="[&_.MarkdownEditor-content]:prose [&_.MarkdownEditor-content]:prose-sm [&_.MarkdownEditor-content]:max-w-none">
-      <MDXEditorComponent
-        markdown={content}
-        onChange={onChange}
-        placeholder="내용을 입력하세요"
-        editorRef={null}
-      />
-    </div>
-  );
-}
+export const Editor = forwardRef<MDXEditorMethods, EditorProps>(
+  ({ defaultValue = "", placeholder = "내용을 입력하세요" }, ref) => {
+    return (
+      <div className="[&_.MarkdownEditor-content]:prose [&_.MarkdownEditor-content]:prose-sm [&_.MarkdownEditor-content]:max-w-none">
+        <ForwardRefEditor
+          markdown={defaultValue}
+          placeholder={placeholder}
+          ref={ref}
+        />
+      </div>
+    );
+  },
+);
+
+Editor.displayName = "Editor";
 
 // 마크다운 뷰어 Props
 interface MarkdownViewerProps {

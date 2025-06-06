@@ -1,5 +1,6 @@
 "use client";
 
+import { MDXEditorMethods } from "@mdxeditor/editor";
 import { convertPointTypeToToastMessage } from "@packages/point/src/entities";
 import {
   Button,
@@ -8,7 +9,7 @@ import {
   postType as postTypeSchema,
 } from "@packages/ui";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
@@ -65,12 +66,12 @@ export default function PostForm({
   isEdit = false,
 }: PostFormProps) {
   const router = useRouter();
+  const editorRef = useRef<MDXEditorMethods | null>(null);
   const initialPostType = usePostType();
   const initialType = defaultValues?.type || initialPostType;
   const [postType, setPostType] = useState<PostType>(initialType);
 
-  // 컨트롤된 상태 (content, tags만)
-  const [content, setContent] = useState(defaultValues?.content || "");
+  // 컨트롤된 상태 (tags만)
   const [tags, setTags] = useState<string[]>(defaultValues?.tags || []);
   const [category, setCategory] = useState(
     defaultValues?.category || "question",
@@ -78,6 +79,8 @@ export default function PostForm({
 
   // 서버 액션을 폼에 맞게 수정하는 래퍼 함수
   const handleFormAction = async (prevState: FormState, formData: FormData) => {
+    const content = editorRef.current?.getMarkdown() || "";
+
     formData.set("content", content);
     formData.set("tags", JSON.stringify(tags));
     formData.set("category", category);
@@ -165,7 +168,7 @@ export default function PostForm({
       <div className="space-y-2">
         <label className="text-sm font-medium">내용</label>
         <div className="min-h-[400px] rounded-md border p-4">
-          <Editor content={content} onChange={setContent} />
+          <Editor ref={editorRef} />
         </div>
       </div>
 
