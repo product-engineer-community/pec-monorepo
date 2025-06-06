@@ -5,3 +5,4 @@
  */
 
 export { getPost, getPosts, incrementViewCount } from "./action";
+export type { Post } from "./model";

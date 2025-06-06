@@ -1,3 +1,6 @@
+import { CAMP_DASHBOARD_PATHNAME } from "@packages/constants";
+import { redirect } from "next/navigation";
+
 export default function ProfilePage() {
-  return <div>Camp ProfilePage</div>;
+  redirect(CAMP_DASHBOARD_PATHNAME + "/1");
 }
