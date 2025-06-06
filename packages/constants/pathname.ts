@@ -40,6 +40,7 @@ export const COMMUNITY_EVENTS_PATHNAME = "/events";
 
 export const CAMP_PATHNAME = "/camp";
 export const CAMP_LANDING_PATHNAME = "/landing";
+export const CAMP_DASHBOARD_PATHNAME = "/dashboard";
 export const CAMP_PAYMENT_PATHNAME = "/payment";
 export const CAMP_PAYMENT_COMPLETE_PATHNAME = "/payment/complete";
 export const CAMP_PAYMENT_FAIL_PATHNAME = "/payment/fail";

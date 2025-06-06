@@ -18,11 +18,7 @@ import { HEADER_MENU_ITEMS, getOrigin } from "@packages/constants";
 import LogoSrc from "../../asset/logo.webp";
 import { LoginButton } from "./ui/LoginButton";
 
-interface HeaderProps {
-  DropdownMenuWithPoint: React.ReactNode;
-}
-
-export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
+export async function Header() {
   const user = await getUserFromSupabase();
   const isAuthenticated = !!user;
 
@@ -75,7 +71,12 @@ export async function Header({ DropdownMenuWithPoint }: HeaderProps) {
         <div className="hidden items-center gap-2 md:flex">
           {isAuthenticated ? (
             <>
-              {DropdownMenuWithPoint}
+              <Link
+                href="/profile"
+                className="rounded-md border-border p-3 text-sm font-medium transition-colors hover:text-primary"
+              >
+                {user?.user_metadata.username} 님
+              </Link>
               <SignOutButton />
             </>
           ) : (
