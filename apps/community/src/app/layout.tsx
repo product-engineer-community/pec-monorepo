@@ -2,7 +2,6 @@ import "@/app/globals.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Header, TokenHandlerInBrowser } from "@packages/auth/src/widgets";
-import { DropdownMenuWithPoint } from "@packages/point/src/entities";
 import { BaseLayout } from "@packages/ui";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
@@ -36,9 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={GeistSans.className} suppressHydrationWarning>
-      <BaseLayout
-        header={<Header DropdownMenuWithPoint={<DropdownMenuWithPoint />} />}
-      >
+      <BaseLayout header={<Header />}>
         <Suspense>
           <TokenHandlerInBrowser />
         </Suspense>

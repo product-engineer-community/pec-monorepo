@@ -4,4 +4,3 @@ export {
   convertPointToEmoji,
   convertPointToPercent,
 } from "./point/model";
-export { DropdownMenuWithPoint } from "./point/ui/DropdownMenuWithPoint";

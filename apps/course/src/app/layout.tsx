@@ -2,7 +2,6 @@ import "@/app/globals.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Header } from "@packages/auth/src/widgets";
-import { DropdownMenuWithPoint } from "@packages/point/src/entities";
 import { BaseLayout } from "@packages/ui";
 import { GeistSans } from "geist/font/sans";
 
@@ -23,11 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={GeistSans.className} suppressHydrationWarning>
-      <BaseLayout
-        header={<Header DropdownMenuWithPoint={<DropdownMenuWithPoint />} />}
-      >
-        {children}
-      </BaseLayout>
+      <BaseLayout header={<Header />}>{children}</BaseLayout>
       <GoogleAnalytics gaId="G-WGBMGCF9MG" />
     </html>
   );
