@@ -17,7 +17,7 @@ import {
 import { getOrigin } from "./url";
 
 // To avoid dependency(packages/ui)
-export type postType =
+export type PostType =
   | "productivity"
   | "AI"
   | "sideproject"
@@ -28,7 +28,7 @@ export type postType =
   | "article";
 
 // Helper function to get post type display name
-export function getPostTypeDisplayName(type: postType): string {
+export function getPostTypeDisplayName(type: PostType): string {
   return {
     article: "Article",
     productivity: "생산성",

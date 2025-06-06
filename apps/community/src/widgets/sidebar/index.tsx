@@ -90,7 +90,8 @@ function SidebarLink({
   icon?: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive =
+    label === "Home" ? pathname === href : pathname.includes(href);
 
   return (
     <Link

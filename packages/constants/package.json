@@ -5,6 +5,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
+  "dependencies": {
+    "ts-pattern": "^5.7.0"
+  },
   "author": "",
   "license": "ISC"
 }

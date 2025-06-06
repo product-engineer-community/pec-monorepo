@@ -5,6 +5,7 @@ import {
   codeMirrorPlugin,
   diffSourcePlugin,
   headingsPlugin,
+  imagePlugin,
   linkPlugin,
   listsPlugin,
   MDXEditor,
@@ -13,6 +14,8 @@ import {
   quotePlugin,
 } from "@mdxeditor/editor";
 import type { ForwardedRef } from "react";
+
+import { imageUploadHandler } from "./InitializedMDXEditor";
 
 export default function InitializedViewerMDXEditor({
   editorRef,
@@ -23,6 +26,7 @@ export default function InitializedViewerMDXEditor({
       readOnly
       contentEditableClassName="prose prose-sm max-w-none prose-ul:list-disc prose-ol:list-decimal pl-5"
       plugins={[
+        imagePlugin({ imageUploadHandler }),
         headingsPlugin(),
         listsPlugin(),
         quotePlugin(),

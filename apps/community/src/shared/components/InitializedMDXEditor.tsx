@@ -10,6 +10,7 @@ import {
   headingsPlugin,
   imagePlugin,
   InsertCodeBlock,
+  InsertImage,
   linkPlugin,
   listsPlugin,
   ListsToggle,
@@ -22,6 +23,19 @@ import {
   UndoRedo,
 } from "@mdxeditor/editor";
 import { forwardRef } from "react";
+
+export const imageUploadHandler = async (image: File) => {
+  const formData = new FormData();
+  formData.append("image", image);
+  // send the file to your server and return
+  // the URL of the uploaded image in the response
+  const response = await fetch("/community/api/image", {
+    method: "POST",
+    body: formData,
+  });
+  const json = (await response.json()) as { url: string };
+  return json.url;
+};
 
 const InitializedMDXEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
   ({ ...props }, ref) => {
@@ -70,6 +84,7 @@ const InitializedMDXEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
                 <BlockTypeSelect />
                 <CreateLink />
                 <InsertCodeBlock />
+                <InsertImage />
               </>
             ),
           }),

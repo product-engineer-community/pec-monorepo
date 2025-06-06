@@ -48,7 +48,7 @@ export async function AssignmentTasks({ title, week }: AssignmentTasksProps) {
             이번 주에는 과제가 없습니다.
           </p>
         </div>
-      ) : assignments.length <= 2 ? (
+      ) : assignments.length < 2 ? (
         <div className="space-y-6">
           {assignments.map((assignment) => (
             <AssignmentItem

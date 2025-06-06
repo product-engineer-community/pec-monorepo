@@ -84,14 +84,13 @@ export default function PostForm({
     formData.set("content", content);
     formData.set("tags", JSON.stringify(tags));
     formData.set("category", category);
+    formData.set("postType", postType);
 
     // 수정 모드일 경우 updatePost 호출
     if (isEdit && defaultValues?.id) {
       return updatePost(defaultValues.id, formData);
     }
 
-    // 생성 모드일 경우 createPost 호출
-    formData.set("postType", postType);
     return createPost(formData, { notifyChannels: ["discord"] });
   };
 
@@ -109,11 +108,6 @@ export default function PostForm({
       toast.success(
         isEdit ? "게시물이 수정되었습니다." : "게시물이 생성되었습니다.",
       );
-      // 수정 완료 후 상세 페이지로 이동
-      if (isEdit) {
-        router.push(`/community/${state.type}s/${state.postId}`);
-        router.refresh();
-      }
     }
     if (state.success) {
       toast.success(convertPointTypeToToastMessage("post"));
