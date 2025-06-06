@@ -41,7 +41,7 @@ export function SelectType({
             ))}
         </SelectContent>
       </Select>
-      <input type="hidden" name="category" value={value} />
+      <input type="hidden" name="postType" value={value} />
     </>
   );
 }
