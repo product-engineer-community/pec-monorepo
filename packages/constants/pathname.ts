@@ -1,4 +1,5 @@
-import { postType } from "./menu";
+import { PostType } from "./menu";
+import { match } from "ts-pattern";
 
 export const MAIN_PATHNAME = "/";
 
@@ -22,17 +23,17 @@ export const COMMUNITY_LEARNING_PATHNAME = "/post/learning";
 export const COMMUNITY_AI_PATHNAME = "/post/AI";
 export const COMMUNITY_CODEREVIEW_PATHNAME = "/post/codereview";
 export const COMMUNITY_ARTICLES_PATHNAME = "/articles";
-export const getPostTypePathname = (type: postType) => {
-  return {
-    article: COMMUNITY_ARTICLES_PATHNAME,
-    productivity: COMMUNITY_PRODUCTIVITY_PATHNAME,
-    AI: COMMUNITY_AI_PATHNAME,
-    sideproject: COMMUNITY_SIDEPROJECT_PATHNAME,
-    learning: COMMUNITY_LEARNING_PATHNAME,
-    FSD: COMMUNITY_FSD_PATHNAME,
-    nextjs: COMMUNITY_NEXTJS_PATHNAME,
-    codereview: COMMUNITY_CODEREVIEW_PATHNAME,
-  }[type];
+export const getPostTypePathname = (type: PostType) => {
+  return match(type)
+    .with("article", () => COMMUNITY_ARTICLES_PATHNAME)
+    .with("nextjs", () => COMMUNITY_NEXTJS_PATHNAME)
+    .with("FSD", () => COMMUNITY_FSD_PATHNAME)
+    .with("productivity", () => COMMUNITY_PRODUCTIVITY_PATHNAME)
+    .with("AI", () => COMMUNITY_AI_PATHNAME)
+    .with("sideproject", () => COMMUNITY_SIDEPROJECT_PATHNAME)
+    .with("learning", () => COMMUNITY_LEARNING_PATHNAME)
+    .with("codereview", () => COMMUNITY_CODEREVIEW_PATHNAME)
+    .otherwise(() => COMMUNITY_POST_PATHNAME); // Fallback for any unexpected type
 };
 
 export const COMMUNITY_EVENTS_PATHNAME = "/events";
